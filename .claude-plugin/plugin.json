@@ -2,8 +2,10 @@
   "name": "lilmgenius-skills",
   "description": "The agent skills I actually use, shared so you can too.",
   "skills": [
-    "./skills/productivity/re0",
-    "./skills/productivity/ssotchk",
-    "./skills/productivity/ssotize"
+    "./skills/single/re0",
+    "./skills/single/shower",
+    "./skills/single/tasting",
+    "./skills/cross/ssotchk",
+    "./skills/cross/ssotize"
   ]
 }
