@@ -1,0 +1,11 @@
+{
+  "name": "lilmgenius-skills",
+  "version": "0.1.0",
+  "private": true,
+  "description": "LilMGenius agent skills for repeatable work with agents",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LilMGenius/skills"
+  },
+  "license": "MIT"
+}
