@@ -2,11 +2,14 @@
   "name": "paperthin",
   "description": "Plain-Markdown skills that turn old engineering wisdom into reflexes your agent reaches for on its own — on any agent.",
   "skills": [
-    "./skills/single/re0",
-    "./skills/single/re0-git",
-    "./skills/single/shower",
-    "./skills/single/tasting",
-    "./skills/cross/ssotchk",
-    "./skills/cross/ssotize"
+    "./skills/depth/factchk",
+    "./skills/depth/mandela",
+    "./skills/depth/re0",
+    "./skills/depth/re0-git",
+    "./skills/depth/redteam",
+    "./skills/depth/shower",
+    "./skills/depth/sip",
+    "./skills/breadth/ssotchk",
+    "./skills/breadth/ssotize"
   ]
 }

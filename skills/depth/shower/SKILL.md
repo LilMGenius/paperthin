@@ -16,22 +16,21 @@ A long session quietly accumulates context you can't un-see, so you lose the abi
 3. Have it cold-read blind and report, from the artifact alone:
    - what it takes the artifact to be, do, and expect;
    - what is unclear, ambiguous, or assumed-but-unstated;
-   - what it would need to act confidently, and what it had to guess (the unknown-unknowns).
+   - what it would need to act confidently, and what it had to guess.
 4. Compare its blind understanding against the intent you noted in step 1 (which it never saw). Every mismatch is a defect in the artifact, not a reader error.
 5. Report the defects and concrete fixes, ordered by how badly each blocks a fresh reader.
 
 ## Rules
 
 - The read MUST come from a separate, context-free sub-session — never self-assess in this session, because you can't un-see the context (that is the whole point).
-- Hand over material, withhold meaning: pass the artifact's contents, never your intent; pass contents, not a path; keep it from reading explainer or neighboring files that leak intent.
+- Pass the artifact's contents, never your intent.
 - A forced "I had to assume…" is a finding, not a reader failure.
 - Medium-agnostic: adapt the cold-read questions to what the artifact is.
-- Diagnose only — fix back in the main session.
+- **Read, don't sweep.** The cold-read is an end-to-end read, not a pattern-grep — a sweep catches only known patterns and misses stale refs, dead links, fact drift, and silent edit-damage. Track how much was actually read; never report "clean" from a grep alone.
 
 ## Verification
 
 Before finishing:
 
 1. The read came from a fresh sub-session blind to your intent.
-2. Findings are concrete — what a fresh reader misunderstood, couldn't do, or had to guess — each with a fix.
-3. Report the verdict (stands on its own / needs work) and hand the fixes to the main session.
+2. Report the verdict (stands on its own / minor gaps / needs work) and hand the fixes to the main session.

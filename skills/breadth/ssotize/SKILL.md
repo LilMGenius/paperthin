@@ -9,26 +9,21 @@ Collapse a scattered truth into one canonical home; make every other place point
 
 Enforce Single Source of Truth (SSOT): one fact = one home, and every other place that needs it references that home instead of copying it. References don't drift; copies do. This mutates artifacts, so it is deliberate and loss-averse.
 
-Use this to **establish or repair** SSOT — messy, legacy, or freshly-scaffolded states. Audit first with `/ssotchk`. Once SSOT holds, don't overuse `/ssotize`: maintain artifacts with `re0` instead. (See `/ssotchk` for how the SSOT vector differs from `re0`.)
+Use this to **establish or repair** SSOT — messy, legacy, or freshly-scaffolded states. Once SSOT holds, don't overuse `ssotize`: maintain artifacts with `re0` instead. (See `ssotchk` for how the SSOT vector differs from `re0`.)
 
 ## Workflow
 
-1. Audit first — run the `/ssotchk` workflow (or reuse its result) for the canonical home and the per-occurrence action plan. Don't consolidate blind.
+1. Audit first — run the `ssotchk` workflow (or reuse its result) for the canonical home and the per-occurrence action plan. Don't consolidate blind.
 2. Make the canonical home complete and current — fold in any unique detail that lived only in a copy. Never lose information to consolidation.
 3. Reconcile contradictions in the canonical home FIRST (confirm the correct value with the human when ambiguous); only then point others at it.
 4. Replace each duplicate with a reference to the canonical home — a link, a "see <home>", a quote-with-link, or a transclude where the platform supports it.
 5. Remove the now-redundant copies. Where removal would orphan a reader, leave a one-line pointer instead of deleting outright.
-6. Re-read the canonical home: it must now carry the whole truth on its own.
 
 ## Rules
 
 - A pass that finds no scatter to consolidate changes nothing.
-- Fold before you cut — never delete the only place a detail exists.
-- One canonical home per fact; prefer a reference over a copy everywhere else.
-- Reconcile, don't duplicate, contradictions — resolve the conflicting value in one place, never preserve it in two.
 - Don't consolidate across a trust/permission boundary (private → public, customer-facing → internal) without explicit confirmation.
-- Be platform-aware: transclude where possible, else link to a stable anchor; never replace a copy with a link the reader can't follow.
-- Keep it reversible: prefer a reference over a hard deletion when a platform can't link back.
+- Be platform-aware: transclude where possible, else link to a stable anchor the reader can follow; prefer a reference over a hard deletion when a platform can't link back.
 
 ## Verification
 

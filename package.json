@@ -1,6 +1,6 @@
 {
   "name": "paperthin",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Plain-Markdown skills that turn old engineering wisdom into reflexes your agent reaches for on its own — on any agent.",
   "keywords": [
     "agent-skills",
@@ -14,6 +14,10 @@
     "dedupe",
     "clean-code",
     "verification",
+    "fact-check",
+    "leakage",
+    "red-team",
+    "reasoning-hygiene",
     "documentation",
     "knowledge-base",
     "git"

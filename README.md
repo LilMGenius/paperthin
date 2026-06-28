@@ -6,7 +6,7 @@
 
 Plain-Markdown skills that turn old engineering wisdom into reflexes your agent reaches for on its own — on any agent: Claude Code, Codex, Cursor, Antigravity, Grok-Build, Hermes, OpenClaw, Pi, etc.
 
-[Quickstart](#quickstart-15-seconds) · [Reference](#reference) · [The Problem](#the-problem) · [The Fixes](#the-fixes) · [Credits](#credits)
+[Quickstart](#quickstart-15-seconds) · [Index](#index) · [The Map](#the-map) · [The Problem](#the-problem) · [The Fixes](#the-fixes) · [Credits](#credits)
 
 </div>
 
@@ -23,21 +23,34 @@ Plain-Markdown skills that turn old engineering wisdom into reflexes your agent 
 
 **Not sure?** Paste that command into whatever agent you're using and just say "set this up for me" — it'll do the rest.
 
-## Reference
+## Index
 
 ### Model-invoked — your agent reaches for these on its own
 | Skill | Scope | What it does |
 |---|---|---|
-| ♻️ **[re0](./skills/single/re0/SKILL.md)** | one artifact | Rewrite a drifted artifact into a clean v0 — not another patch |
-| 🚿 **[shower](./skills/single/shower/SKILL.md)** | one artifact | Cold-read it with fresh, zero-context eyes — does it stand on its own? *(read-only)* |
-| 🔎 **[ssotchk](./skills/cross/ssotchk/SKILL.md)** | many artifacts | Find where one fact is scattered or duplicated; name the canonical source *(read-only)* |
-| 🧲 **[ssotize](./skills/cross/ssotize/SKILL.md)** | many artifacts | Consolidate it into one home and point the rest at it |
-| 🍴 **[tasting](./skills/single/tasting/SKILL.md)** | your output | After any change, auto-runs `shower` + `ssotchk` + `re0` on it |
+| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | one artifact | Rewrite a drifted artifact into a clean v0 — not another patch |
+| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | one artifact | Cold-read it with fresh, zero-context eyes — does it stand on its own? *(read-only)* |
+| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | one claim | Verify a reality-grounded claim against sources, both directions — could the absurd be real, the obvious false? *(read-only → fix)* |
+| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | one eval | Audit a validation for leakage — does outside ground-truth actually enter? Walks 8 patterns *(read-only)* |
+| 🔎 **[ssotchk](./skills/breadth/ssotchk/SKILL.md)** | many artifacts | Find where one fact is scattered or duplicated; name the canonical source *(read-only)* |
+| 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | many artifacts | Consolidate it into one home and point the rest at it |
+| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | your output | After any change, auto-runs `shower` + `ssotchk` + `re0` on it |
 
 ### User-invoked — you run these yourself
 | Skill | Scope | What it does |
 |---|---|---|
-| 🧾 **[re0-git](./skills/single/re0-git/SKILL.md)** | one commit | Rewrite a finished commit's message into a clean v0 so `git log` alone hands off |
+| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | one commit | Rewrite a finished commit's message into a clean v0 so `git log` alone hands off |
+| ⚔️ **[redteam](./skills/depth/redteam/SKILL.md)** | one plan | Try to kill it before reality does — the one root flaw + the cheapest experiment that falsifies it |
+
+## The Map
+
+**How many artifacts, and across how much time?**
+
+Two axes — **cardinality × time** — carve four regions.
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/map.svg" alt="The PaperThin map: a two-by-two matrix. Horizontal axis cardinality (one, then many); vertical axis time (now, then across iterations); four regions. Top-left, depth: one artifact, now; is this one thing clean and true? Top-right, breadth: many artifacts, now; is one truth consistent everywhere? Bottom-left, coil: one project, across iterations; did each pass teach the next? Bottom-right, mesh: many minds, across rounds; does the crowd converge on truth?" width="820">
+</div>
 
 ## The Problem
 
@@ -53,12 +66,14 @@ These skills bet the other way — **every one of them removes:**
 - `re0` rewrites a draft into a clean v0 instead of patching it,
 - `ssotchk` / `ssotize` collapse the same fact scattered across files,
 - `shower` cuts whatever a stranger can't follow,
-- `tasting` runs all of it on your own output, automatically.
+- `sip` runs all of it on your own output, automatically.
 
 > [!TIP]
 > The hard part isn't adding features — it's restraint. A pass that finds nothing to improve changes nothing. **That restraint is the product.**
 
 ## The Fixes
+
+<!-- Fixes follow the lifecycle of a piece of work, not the skill list: first keep it clean (draft → read fresh → reconcile across files → automate → ship), then keep it true (a single claim → a validation → the whole plan). Slot any new fix in by where it acts in that arc. -->
 
 **Each is a well-worn principle, made automatic.**
 
@@ -105,7 +120,7 @@ A timeout value, a decision, a status — copied into a README, a doc, a ticket,
 ### #4 — "Remember to verify" never fires
 A guideline buried in docs won't trigger in a brand-new session — exactly when author bias is highest.
 
-**The fix → `tasting`:** the moment you finish something, it runs `shower`, `ssotchk`, and `re0` on your output, automatically.
+**The fix → `sip`:** the moment you finish something, it runs `shower`, `ssotchk`, and `re0` on your output, automatically.
 
 > *Prior art: [dogfooding](https://en.wikipedia.org/wiki/Eating_your_own_dog_food) — eat your own dog food (Microsoft, 1988). Taste your own cooking before you serve it.*
 
@@ -123,6 +138,38 @@ Your session is stuck where it ran — this agent, this account, this machine. A
   - a spec that preached "no redundancy" while repeating itself.
 - **So** — its first cleanup was after itself.
 </details>
+
+> [!NOTE]
+> The five fixes above keep an artifact **clean**. The next three keep it **true** — the same distrust of the author, turned on the reasoning instead of the prose.
+
+### #6 — Your gut isn't a source
+"Plausible," "absurd," "novel" — the least reliable line in any artifact. Human priors fail **both ways**: they exclude the real (desert frogs exist) and normalize the impossible (weightless crates).
+
+**The fix → `factchk`:** verify any reality-grounded claim against external sources, in both directions, before it ships — and flag, don't guess, when you can't reach one.
+
+> *Prior art: [WEIRD bias](https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/abs/weirdest-people-in-the-world/BF84F7517D56AFF7B7EB58411A554C17) (Henrich, Heine & Norenzayan, 2010) and the [naive-physics / impetus error](https://www.science.org/doi/10.1126/science.210.4474.1139) (McCloskey, Caramazza & Green, 1980) — intuition misjudges reality in both directions.*
+
+<details>
+<summary><b>[PROOF]</b></summary>
+
+- **Setup** — we ran `factchk` on its own shipped citations, in both directions.
+- **Result** — all held, and it still caught two attribution slips to fix: the famous "what's measured becomes the target" wording is Strathern (1997), not Goodhart; and "McCloskey 1980" is the co-authored *Science* paper, not the 1983 *Scientific American* piece.
+- **So** — a fact-checker that audits its own footnotes will audit yours.
+</details>
+
+### #7 — The eval confirms itself
+A model, a scorer, and a designer can all agree a result is real while no outside ground-truth ever entered the loop — a whole room confidently remembering something that never independently happened.
+
+**The fix → `mandela`:** audit any eval, metric, or experiment against an 8-pattern leakage taxonomy — does external ground-truth enter independently, or is the verifier the designer?
+
+> *Prior art: [Goodhart's law](https://en.wikipedia.org/wiki/Goodhart%27s_law), [data leakage](https://dl.acm.org/doi/10.1145/2382577.2382579) (Kaufman et al., 2012), and [circular analysis](https://www.nature.com/articles/nn.2303) — "double dipping" (Kriegeskorte et al., 2009).*
+
+### #8 — You can't kill your own plan
+You built it, so you defend it. The questions that would break it are exactly the ones you won't ask.
+
+**The fix → `redteam`:** try to kill the plan before reality does — return the single load-bearing flaw and the cheapest experiment that would falsify it (the "first nail"), not a checklist. User-invoked: you point it at a plan deliberately.
+
+> *Prior art: [egoless programming](https://en.wikipedia.org/wiki/Egoless_programming) (Weinberg, 1971 — the same root `shower` cites), red-teaming, and fail-fast.*
 
 ## Credits
 

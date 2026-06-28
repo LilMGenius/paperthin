@@ -7,9 +7,6 @@ Refresh the target artifact as if it were the first clean version.
 
 ## Goal
 
-Use this when the user asks to clean up, sync up, dedupe, or rewrite an existing
-artifact into the current best v0.
-
 The result must be lighter, more current, and more accurate than the input. It
 should not read like a changelog, cleanup note, or patch over an older draft.
 
@@ -32,13 +29,12 @@ should not read like a changelog, cleanup note, or patch over an older draft.
 - Convert "what changed" into "what is true now".
 - Keep only details that improve future execution, accuracy, or recall.
 - Do not leave old/new traces unless the artifact is explicitly a changelog.
+- Fix machine-clear residue; surface judgment calls — never auto-resolve an ambiguity or "fix" a deliberate look-alike.
+- Repair from the source of truth — the canonical or sibling artifact, not the damaged surface — and mutate per the edit-safety convention (CLAUDE.md): never a blanket positional sweep.
 - Do not create extra files unless the user asks.
 
 ## Verification
 
-Before finishing:
-
-1. Re-read the changed sections.
-2. Confirm related artifacts still point in the same direction.
-3. Confirm the output is smaller or cleaner unless the user explicitly wanted expansion.
-4. Report what noise was removed and what durable truth was kept.
+The result reads as a clean v0 to fresh eyes — no trace of the older draft, no
+sign it was patched rather than rewritten (defer to `shower` if unsure). Report
+what noise was removed and what durable truth was kept.
