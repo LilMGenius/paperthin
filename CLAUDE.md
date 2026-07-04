@@ -1,6 +1,6 @@
-# PaperThin
+# Paperthin
 
-PaperThin is an agent-agnostic suite of plain-Markdown skills that keep an artifact **clean and true** — hygiene reflexes an agent reaches for on its own. This is the guide for authoring them — and itself a skill artifact, so `re0` it when it drifts. Every skill it names below — `re0`, `factchk`, `hate`, … — is defined in the shipped catalog, the [README](./README.md).
+Paperthin is an agent-agnostic suite of plain-Markdown skills that keep an artifact **clean and true** — hygiene reflexes an agent reaches for on its own. This is the guide for authoring them — and itself a skill artifact, so `re0` it when it drifts. Every skill it names below — `re0`, `factchk`, `hate`, … — is defined in the shipped catalog, the [README](./README.md).
 
 ## Philosophy
 

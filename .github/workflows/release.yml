@@ -49,7 +49,7 @@ jobs:
           gh api "repos/${GITHUB_REPOSITORY}/git/tags/${SHA}" --jq '.message' \
             | sed '/-----BEGIN PGP SIGNATURE-----/,/-----END PGP SIGNATURE-----/d' > "$RUNNER_TEMP/notes.md"
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
-            gh release edit "$GITHUB_REF_NAME" --title "PaperThin ${GITHUB_REF_NAME#v}" --notes-file "$RUNNER_TEMP/notes.md"
+            gh release edit "$GITHUB_REF_NAME" --title "Paperthin ${GITHUB_REF_NAME#v}" --notes-file "$RUNNER_TEMP/notes.md"
           else
-            gh release create "$GITHUB_REF_NAME" --title "PaperThin ${GITHUB_REF_NAME#v}" --notes-file "$RUNNER_TEMP/notes.md"
+            gh release create "$GITHUB_REF_NAME" --title "Paperthin ${GITHUB_REF_NAME#v}" --notes-file "$RUNNER_TEMP/notes.md"
           fi

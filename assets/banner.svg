@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="PaperThin — Trust the artifact, not the author.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Paperthin — Trust the artifact, not the author.">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="400" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#0B0D11"/>
@@ -50,11 +50,11 @@
           stroke="url(#edge)" stroke-width="3.5" stroke-linecap="round" filter="url(#glow)"/>
   </g>
 
-  <!-- wordmark: "Thin" drawn as hairline outline — thinness made literal, font-weight independent -->
+  <!-- wordmark: "thin" drawn as hairline outline — thinness made literal, font-weight independent -->
   <text x="568" y="206" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
         font-size="94" letter-spacing="0.5">
-    <tspan font-weight="500" fill="#EEF3F8">Paper</tspan><tspan
-        font-weight="400" fill="none" stroke="#D4E3EF" stroke-width="1.4">Thin</tspan>
+    <tspan font-weight="500" fill="#EEF3F8">Paper</tspan><tspan dx="3"
+        font-weight="400" fill="none" stroke="#D4E3EF" stroke-width="1.4">thin</tspan>
   </text>
 
   <!-- tagline -->

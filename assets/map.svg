@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 740" width="1080" height="740" role="img" aria-label="The PaperThin map: an old-paper four-quadrant graph. Horizontal axis cardinality moves from one to many; vertical axis time moves from now to across iterations. Depth is one artifact now, breadth is many artifacts now, coil is one project across iterations, and mesh is many minds across rounds.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 740" width="1080" height="740" role="img" aria-label="The Paperthin map by LilMGenius/paperthin: an old-paper four-quadrant graph. Horizontal axis cardinality moves from one to many; vertical axis time moves from now to across iterations. Depth is one artifact now, breadth is many artifacts now, coil is one project across iterations, and mesh is many minds across rounds.">
   <defs>
     <filter id="paper-grain" x="-10%" y="-10%" width="120%" height="120%">
       <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="4" seed="23" result="noise"/>
@@ -57,8 +57,9 @@
   <text x="64" y="510" font-family="'Courier New',Courier,monospace" font-size="13" fill="#5C5448">iterations</text>
 
   <!-- title note -->
-  <text x="151" y="66" font-family="'Courier New',Courier,monospace" font-size="13" letter-spacing="1.6" fill="#6A5B42">CARDINALITY x TIME</text>
-  <text x="362" y="66" font-family="Georgia,'Times New Roman',serif" font-size="15" font-style="italic" fill="#6A5B42">four regions on one thin sheet</text>
+  <text x="151" y="66" font-family="Georgia,'Times New Roman',serif" font-size="15" font-style="italic" fill="#6A5B42">four regions on one thin sheet</text>
+  <text x="992" y="66" text-anchor="end" font-family="'Courier New',Courier,monospace"
+        font-size="13" letter-spacing="0.8" fill="#5C4E39" opacity="0.95">LilMGenius/paperthin</text>
 
   <!-- depth -->
   <g transform="translate(184 143)">

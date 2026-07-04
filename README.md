@@ -1,8 +1,8 @@
 <div align="center">
 
-# PaperThin
+# Paperthin
 
-<img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/banner.svg" alt="PaperThin — Trust the artifact, not the author." width="820">
+<img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/banner.svg" alt="Paperthin — Trust the artifact, not the author." width="820">
 
 Plain-Markdown skills that turn old engineering wisdom into reflexes your agent reaches for on its own — on any agent: Claude Code, Codex, Cursor, Antigravity, Grok-Build, Hermes, OpenClaw, Pi, etc.
 
@@ -53,7 +53,7 @@ Plain-Markdown skills that turn old engineering wisdom into reflexes your agent 
 Two axes — **cardinality × time** — carve four regions.
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/map.svg" alt="The PaperThin map: a two-by-two matrix. Horizontal axis cardinality (one, then many); vertical axis time (now, then across iterations); four regions. Top-left, depth: one artifact, now; is this one thing clean and true? Top-right, breadth: many artifacts, now; is one truth consistent everywhere? Bottom-left, coil: one project, across iterations; did each pass teach the next? Bottom-right, mesh: many minds, across rounds; does the crowd converge on truth?" width="820">
+<img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/map.svg" alt="The Paperthin map by LilMGenius/paperthin: a two-by-two matrix. Horizontal axis cardinality (one, then many); vertical axis time (now, then across iterations); four regions. Top-left, depth: one artifact, now; is this one thing clean and true? Top-right, breadth: many artifacts, now; is one truth consistent everywhere? Bottom-left, coil: one project, across iterations; did each pass teach the next? Bottom-right, mesh: many minds, across rounds; does the crowd converge on truth?" width="820">
 </div>
 
 ## The Problem
