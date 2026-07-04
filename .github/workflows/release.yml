@@ -29,11 +29,27 @@ jobs:
           test "$PKG" = "$TAG" || { echo "tag $TAG != package.json $PKG"; exit 1; }
 
       - name: Publish to npm (public, with provenance)
-        run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view "paperthin@${VERSION}" version >/dev/null 2>&1; then
+            echo "paperthin@${VERSION} is already published; skipping"
+          else
+            npm publish --provenance --access public
+          fi
 
       - name: Create the GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" --title "PaperThin ${GITHUB_REF_NAME#v}" --notes-from-tag
+        run: |
+          # Read the annotated tag's message from the API: a CI checkout does not carry the
+          # tag object, so local git falls back to the commit message.
+          SHA=$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/tags/${GITHUB_REF_NAME}" --jq '.object.sha')
+          gh api "repos/${GITHUB_REPOSITORY}/git/tags/${SHA}" --jq '.message' \
+            | sed '/-----BEGIN PGP SIGNATURE-----/,/-----END PGP SIGNATURE-----/d' > "$RUNNER_TEMP/notes.md"
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release edit "$GITHUB_REF_NAME" --title "PaperThin ${GITHUB_REF_NAME#v}" --notes-file "$RUNNER_TEMP/notes.md"
+          else
+            gh release create "$GITHUB_REF_NAME" --title "PaperThin ${GITHUB_REF_NAME#v}" --notes-file "$RUNNER_TEMP/notes.md"
+          fi
