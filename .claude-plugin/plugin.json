@@ -6,10 +6,14 @@
     "./skills/depth/mandela",
     "./skills/depth/re0",
     "./skills/depth/re0-git",
-    "./skills/depth/redteam",
+    "./skills/depth/hate",
     "./skills/depth/shower",
     "./skills/depth/sip",
     "./skills/breadth/ssotchk",
-    "./skills/breadth/ssotize"
+    "./skills/breadth/ssotize",
+    "./skills/coil/retro",
+    "./skills/coil/scratch",
+    "./skills/coil/flywheel",
+    "./skills/coil/nba"
   ]
 }

@@ -34,13 +34,17 @@ Plain-Markdown skills that turn old engineering wisdom into reflexes your agent 
 | 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | one eval | Audit a validation for leakage — does outside ground-truth actually enter? Walks 8 patterns *(read-only)* |
 | 🔎 **[ssotchk](./skills/breadth/ssotchk/SKILL.md)** | many artifacts | Find where one fact is scattered or duplicated; name the canonical source *(read-only)* |
 | 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | many artifacts | Consolidate it into one home and point the rest at it |
+| 🧭 **[retro](./skills/coil/retro/SKILL.md)** | one project, across iterations | Extract lessons, anti-patterns, gates, and vocabulary from a finished or failed cycle |
+| 🧱 **[scratch](./skills/coil/scratch/SKILL.md)** | one project, across iterations | Restart from v0 while preserving only proven lessons, contracts, gates, and negative corpus |
+| 🌀 **[flywheel](./skills/coil/flywheel/SKILL.md)** | one project, across iterations | Run build → QA → retro → scratch cycles without mistaking code accumulation for learning |
+| 🎯 **[nba](./skills/coil/nba/SKILL.md)** | one project, across iterations | Read the live cycle state and return the single next best action, not a menu *(read-only)* |
 | 🥄 **[sip](./skills/depth/sip/SKILL.md)** | your output | After any change, auto-runs `shower` + `ssotchk` + `re0` on it |
 
 ### User-invoked — you run these yourself
 | Skill | Scope | What it does |
 |---|---|---|
 | 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | one commit | Rewrite a finished commit's message into a clean v0 so `git log` alone hands off |
-| ⚔️ **[redteam](./skills/depth/redteam/SKILL.md)** | one plan | Try to kill it before reality does — the one root flaw + the cheapest experiment that falsifies it |
+| 😈 **[hate](./skills/depth/hate/SKILL.md)** | one plan | Refuse to be nice to it — the one objection that could kill it + the cheapest test |
 
 ## The Map
 
@@ -66,6 +70,7 @@ These skills bet the other way — **every one of them removes:**
 - `re0` rewrites a draft into a clean v0 instead of patching it,
 - `ssotchk` / `ssotize` collapse the same fact scattered across files,
 - `shower` cuts whatever a stranger can't follow,
+- `retro` / `scratch` preserve the lesson and let the wrong build die,
 - `sip` runs all of it on your own output, automatically.
 
 > [!TIP]
@@ -167,9 +172,19 @@ A model, a scorer, and a designer can all agree a result is real while no outsid
 ### #8 — You can't kill your own plan
 You built it, so you defend it. The questions that would break it are exactly the ones you won't ask.
 
-**The fix → `redteam`:** try to kill the plan before reality does — return the single load-bearing flaw and the cheapest experiment that would falsify it (the "first nail"), not a checklist. User-invoked: you point it at a plan deliberately.
+**The fix → `hate`:** refuse to be nice to the plan — return the one load-bearing objection that could kill it and the cheapest experiment that would prove it matters. User-invoked: you point it at a plan deliberately.
 
-> *Prior art: [egoless programming](https://en.wikipedia.org/wiki/Egoless_programming) (Weinberg, 1971 — the same root `shower` cites), red-teaming, and fail-fast.*
+> *Prior art: [egoless programming](https://en.wikipedia.org/wiki/Egoless_programming) (Weinberg, 1971 — the same root `shower` cites), hostile review, and fail-fast.*
+
+### #9 — A build can run and still be wrong
+Long agentic builds can produce many working parts while missing the product: panels, routes, screenshots, and tests that prove activity more than value. The mistake is carrying that architecture forward because it cost effort.
+
+**The fix → `retro` + `scratch`:** extract the lesson, anti-pattern, vocabulary, and next gate, then restart from a clean v0 when the foundation is wrong. Keep only what earned reuse.
+
+### #10 — Iterations can spin without learning
+After a disappointing pass, the next move can blur into a dozen plausible threads: patch, rebuild, test more, write docs, add features. That is how projects accumulate surfaces instead of compounding.
+
+**The fix → `flywheel` + `nba`:** run the build → QA → retro → scratch loop, and when the thread is lost, read the state and return one next best action with a clear done-when.
 
 ## Credits
 

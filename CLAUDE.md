@@ -1,6 +1,6 @@
 # PaperThin
 
-PaperThin is an agent-agnostic suite of plain-Markdown skills that keep an artifact **clean and true** — hygiene reflexes an agent reaches for on its own. This is the guide for authoring them — and itself a skill artifact, so `re0` it when it drifts. Every skill it names below — `re0`, `factchk`, `redteam`, … — is defined in the shipped catalog, the [README](./README.md).
+PaperThin is an agent-agnostic suite of plain-Markdown skills that keep an artifact **clean and true** — hygiene reflexes an agent reaches for on its own. This is the guide for authoring them — and itself a skill artifact, so `re0` it when it drifts. Every skill it names below — `re0`, `factchk`, `hate`, … — is defined in the shipped catalog, the [README](./README.md).
 
 ## Philosophy
 
@@ -19,10 +19,24 @@ Topic domains belong in separate plugins, so within a plugin the only durable cu
 
 That cut is two orthogonal axes, **cardinality × time**:
 
-- `depth/` — **one artifact, now**: refine or verify the thing in hand (`re0`, `re0-git`, `shower`, `sip`, `factchk`, `mandela`, `redteam`).
-- `breadth/` — **many artifacts, now**: reconcile one truth across files and platforms (`ssotchk`, `ssotize`).
-- `coil/` — **one project, across iterations**: carry learning between build cycles *(reserved, v0.7)*.
-- `mesh/` — **many minds, across rounds**: converge many independent views into consensus *(reserved, v0.8)*.
+```text
+skills/
+├── depth/     one artifact · now
+│              refine or verify the thing in hand
+│              re0 · re0-git · shower · sip · factchk · mandela · hate
+│
+├── breadth/   many artifacts · now
+│              reconcile one truth across files and platforms
+│              ssotchk · ssotize
+│
+├── coil/      one project · across iterations
+│              carry learning between build cycles
+│              retro · scratch · flywheel · nba
+│
+└── mesh/      many minds · across rounds
+               converge independent views into consensus
+               (reserved · v0.8)
+```
 
 **File by trigger-scope, not by what a skill invokes.** A skill lives where the work it *triggers or emits* ranges, even when it orchestrates skills from other folders — `sip` gates one finished deliverable, so it's `depth/`, though its check runs a cross-file `ssotchk`.
 
@@ -51,13 +65,13 @@ description: "<trigger-rich one-liner>"
 
 Every `SKILL.md` is either user-invoked (`disable-model-invocation: true`, reachable only by the human) or model-invoked (model- or user-reachable). For the full definitions, description conventions, and why a user-invoked skill can invoke model-invoked skills but never another user-invoked one, see [docs/invocation.md](./docs/invocation.md).
 
-Default to model-invoked. Make a skill user-invoked only when the model should never reach it on its own — its trigger is a deliberate, human-decided action (commit, push, publish, deploy), or its mere presence in reach would bias the agent toward one. A user-invoked skill can't be composed, so it also stays out of `sip`. Two qualify today: `re0-git` (it cleans a commit's message — committing is human-decided) and `redteam` (a kill-it reflex always in the agent's reach would bias it toward demolition).
+Default to model-invoked. Make a skill user-invoked only when the model should never reach it on its own — its trigger is a deliberate, human-decided action (commit, push, publish, deploy), or its mere presence in reach would bias the agent toward one. A user-invoked skill can't be composed, so it also stays out of `sip`. Two qualify today: `re0-git` (it cleans a commit's message — committing is human-decided) and `hate` (a hate-it reflex always in the agent's reach would bias it toward demolition).
 
 ## Conventions
 
 Shared rules a skill references rather than restates:
 
-- **edit-safety** (any mutating skill — `re0`, `ssotize`): a find-replace that could match nothing must **assert its target exists** (report a MISS, never silently no-op); byte-level tools corrupt multibyte text, so mutate with a **unicode-safe** pass (`PYTHONUTF8=1`, stdout reconfigured to UTF-8); never **blanket-replace a single target whose right replacement is positional** (the same token mapping to different replacements per location) — decide per occurrence, never a blind sweep; and make large *structural* moves with a script, not by retyping.
+- **edit-safety** (any mutating skill — `re0`, `ssotize`, `scratch`): a find-replace that could match nothing must **assert its target exists** (report a MISS, never silently no-op); byte-level tools corrupt multibyte text, so mutate with a **unicode-safe** pass (`PYTHONUTF8=1`, stdout reconfigured to UTF-8); never **blanket-replace a single target whose right replacement is positional** (the same token mapping to different replacements per location) — decide per occurrence, never a blind sweep; and make large *structural* moves with a script, not by retyping.
 - **negatives-as-corpus**: "cut" means **move-to-archive, never delete** — pruned and failed branches are assets, not waste.
 
 ## Shipping
