@@ -56,14 +56,15 @@ description: "<trigger-rich one-liner>"
 
 Every `SKILL.md` is either user-invoked (`disable-model-invocation: true`, reachable only by the human) or model-invoked (model- or user-reachable). For the full definitions, description conventions, and why a user-invoked skill can invoke model-invoked skills but never another user-invoked one, see [docs/invocation.md](./docs/invocation.md).
 
-Default to model-invoked. Make a skill user-invoked only when the model should never reach it on its own — its trigger is a deliberate, human-decided action (commit, push, publish, deploy), or its mere presence in reach would bias the agent toward one. A user-invoked skill can't be composed, so it also stays out of `sip`. Three qualify today: `re0-git`, because it cleans a commit's message and committing is human-decided; `hate`, because a hate-it reflex always in the agent's reach would bias it toward demolition; and `dedash`, because the user owns the exact prose scope. `autobahn` remains model-invoked because the model should autonomously carve risk-adjacent scope before execution.
+Default to model-invoked. Make a skill user-invoked only when the model should never reach it on its own — its trigger is a deliberate, human-decided action (commit, push, publish, deploy), or its mere presence in reach would bias the agent toward one. Three qualify today: `re0-git`, because it cleans a commit's message and committing is human-decided; `hate`, because a hate-it reflex always in the agent's reach would bias it toward demolition; and `dedash`, because the user owns the exact prose scope. `autobahn` remains model-invoked because the model should autonomously carve risk-adjacent scope before execution.
 
 ## Conventions
 
 Shared rules a skill references rather than restates:
 
 - **edit-safety** (any mutating skill — `re0`, `ssotize`, `scratch`): a find-replace that could match nothing must **assert its target exists** (report a MISS, never silently no-op); byte-level tools corrupt multibyte text, so mutate with a **unicode-safe** pass (`PYTHONUTF8=1`, stdout reconfigured to UTF-8); never **blanket-replace a single target whose right replacement is positional** — when the same token maps to different replacements per location, decide per occurrence; and make large *structural* moves with a script, not by retyping.
-- **negatives-as-corpus**: "cut" means **move-to-archive, never delete** — pruned and failed branches are assets, not waste.
+- **negatives-as-corpus** (any skill that cuts work — `retro`, `scratch`, `autobahn`): "cut" means **move-to-archive, never delete** — pruned and failed branches are assets, not waste.
+- **commit-economy** (write-time, and `re0-git` on cleanup): Conventional Commits in the local log's economy. Sample the recent log for its shape; one bullet per real change with supporting edits folded into the change they serve; cut anything the diff or version already proves (file lists, package bumps, presentation churn, validation plumbing); match the repo's convention before your own voice; no co-author tags.
 
 ## Shipping
 
@@ -73,12 +74,12 @@ Before committing:
 2. **README** lists it — grouped by perspective, invocation marked in the `Invoker` column, each linked to its `SKILL.md`.
 3. **plugin.json** registers its path.
 4. **package.json** bumps version (new skill = minor; fix/docs = patch); `keywords` stay grouped logically.
-5. **Refresh the skills it couples to.** Skills relate by naming each other, and those names form a graph with several edge kinds: an orchestrator that runs it (`sip`), a check that points to its remedy (`ssotchk` → `ssotize`), a skill that names it as adjacent scope (`factchk` → `mandela`/`hate`), a producer whose output feeds a consumer (`autobahn`'s ledger → `retro`). Walk the edges both into and out of the changed skill and ask two questions, not one: which existing reference drifted, and which coupling *should* exist but never got wired. Missing edges are as real as stale ones and hide better. One discriminator keeps the hunt honest: an absent edge to a user-invoked skill (`hate`, `dedash`, `re0-git`) is correct, not a gap — they can't be composed, so name their role, not the skill (`flywheel` names its adversarial phase, never `hate`). A name-coupling is a standing relationship, not one-time registration; left frozen, it silently goes out of date.
+5. **Refresh the skills it couples to.** Skills relate by naming each other, and those names form a graph with several edge kinds: an orchestrator that runs it (`sip`), a check that points to its remedy (`ssotchk` → `ssotize`), a skill that names it as adjacent scope (`factchk` → `mandela`/`hate`), a producer whose output feeds a consumer (`autobahn`'s ledger → `retro`), a skill that reuses another's mechanism (`autobahn` borrows `shower`'s context-free subagent). Walk the edges both into and out of the changed skill and ask two questions, not one: which existing reference drifted, and which coupling *should* exist but never got wired. Missing edges are as real as stale ones and hide better. One discriminator keeps the hunt honest: an absent edge to a user-invoked skill (`hate`, `dedash`, `re0-git`) is correct, not a gap — they can't be composed, so name their role, not the skill (`flywheel` names its adversarial phase, never `hate`). A name-coupling is a standing relationship, not one-time registration; left frozen, it silently goes out of date.
 6. Run **`sip`** — it tastes the change with the repo's own clean-and-true checks before you ship.
 
 A new skill earns a full-catalog sweep, not just its own edges: its inbound couplings (which existing skills should now name it) live in the *other* files and are invisible from the new one, so read the catalog end to end when you add a node — a patch only needs the touched skill's edges.
 
-Commit messages: Conventional Commits, one bullet per real change — no padding, no mechanical trivia, no co-author tags. `re0-git` cleans a drifted message back to its essence, in the author's own style.
+Commit per the **commit-economy** convention.
 
 ## Vendoring
 

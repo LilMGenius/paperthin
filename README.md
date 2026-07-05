@@ -39,12 +39,12 @@ Plain-Markdown skills that turn old engineering wisdom into reflexes your agent 
 |---|---|---|---|
 | ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Rewrite a drifted artifact into a clean v0 — not another patch | one artifact | model |
 | 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read it with fresh, zero-context eyes — does it stand on its own? *(read-only)* | one artifact | model |
-| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify a reality-grounded claim against sources, both directions — could the absurd be real, the obvious false? *(read-only → fix)* | one claim | model |
-| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit a validation for leakage — does outside ground-truth actually enter? Walks 8 patterns *(read-only)* | one eval | model |
-| 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Carve unsafe scope before execution, preserve the safe work's ambition, and make the descope ledger visible | one task | model |
+| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify a claim against sources, both directions — could the absurd be real, the obvious false? *(read-only → fix)* | one claim | model |
+| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit a validation for leakage — does outside ground-truth actually enter? *(read-only)* | one eval | model |
+| 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Carve unsafe scope out up front, run the safe rest at full strength, ship a descope ledger | one task | model |
 | 🥄 **[sip](./skills/depth/sip/SKILL.md)** | After any change, tastes it with the repo's own clean-and-true checks | your output | model |
 | 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse to be nice to it — the one objection that could kill it + the cheapest test | one plan | user |
-| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and the dashes standing in for them, one occurrence at a time, choosing the punctuation or wording each context needs | your prose | user |
+| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and their look-alikes, choosing the punctuation each spot needs | your prose | user |
 | 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrite a finished commit's message into a clean v0 so `git log` alone hands off | one commit | user |
 
 ### `breadth/`
@@ -58,9 +58,9 @@ Plain-Markdown skills that turn old engineering wisdom into reflexes your agent 
 
 | Skill | What it does | Scope | Invoker |
 |---|---|---|---|
-| 🧭 **[retro](./skills/coil/retro/SKILL.md)** | Extract lessons, anti-patterns, gates, and vocabulary from a finished or failed cycle | one finished cycle | model |
-| 🧱 **[scratch](./skills/coil/scratch/SKILL.md)** | Restart from v0 while preserving only proven lessons, contracts, gates, and negative corpus | one restart | model |
-| 🌀 **[flywheel](./skills/coil/flywheel/SKILL.md)** | Run build → QA → retro → scratch cycles without mistaking code accumulation for learning | the whole loop | model |
+| 🧭 **[retro](./skills/coil/retro/SKILL.md)** | Extract the lessons and anti-patterns from a finished or failed cycle | one finished cycle | model |
+| 🧱 **[scratch](./skills/coil/scratch/SKILL.md)** | Restart from v0, keeping only the lessons that earned reuse | one restart | model |
+| 🌀 **[flywheel](./skills/coil/flywheel/SKILL.md)** | Run the build → QA → retro → scratch loop so learning compounds, not code | the whole loop | model |
 | 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Read the live cycle state and return the single next best action, not a menu *(read-only)* | the live cycle | model |
 
 ### `mesh/`
@@ -223,7 +223,7 @@ Long agentic cycles produce many working parts — panels, routes, tests, screen
 ### #10 — Risk-adjacent work comes back hedged
 Point an agent at a task that brushes guardrails — scraping, licensing, privacy, security — and you get the worst of both worlds: the risky sliver triggers refusals and retries, while the safe 90% comes back hedged, diluted, or quietly missing.
 
-**The fix → `autobahn`:** carve guardrail-adjacent items out of scope before execution, each with a safe alternative and an archive entry; run the remaining scope at full strength; ship a descope ledger so every exclusion is a visible decision, not a silent gap. The autobahn has no speed limit *because* entry discipline is strict.
+**The fix → `autobahn`:** carve guardrail-adjacent items out of scope before execution, each with a safe alternative and an archive entry; run the remaining scope at full strength in a fresh subagent that only ever sees the carved prompt, not the risky input; ship a descope ledger so every exclusion is a visible decision, not a silent gap. It removes the ask rather than slipping it past. The autobahn has no speed limit *because* entry discipline is strict.
 
 > *Prior art, from this very summer: the US [suspended Fable 5 and Mythos 5](https://www.anthropic.com/news/fable-mythos-access) over one jailbryoken safeguard (Anthropic, 2026), and OpenAI shipped [GPT-5.6](https://openai.com/index/previewing-gpt-5-6-sol/) safety-stack-first to trusted partners (OpenAI, 2026) — at the frontier, the fast lane stays open only as far as entry discipline holds.*
 
@@ -232,7 +232,7 @@ Point an agent at a task that brushes guardrails — scraping, licensing, privac
 
 - **Setup** — the method was lifted from a live rewrite of a confidential strategy doc that was risk-adjacent on four axes at once: stealth tooling, trademarked names, privacy-adjacent profiling, scraping gray zones.
 - **Result** — a main loop plus ten subagents ran the frontier model end to end with zero flags, zero refusals, zero fallbacks — and every descoped item's safe alternative turned out to be the better product anyway.
-- **So** — carving the risky sliver didn't tax the work; it's why the rest could floor it.
+- **So** — the main loop carved, clean subagents ran the safe scope, and the carve is why they could floor it.
 </details>
 
 ## Credits
