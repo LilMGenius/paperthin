@@ -6,7 +6,7 @@
 
 Plain-Markdown skills that turn old engineering wisdom into reflexes your agent reaches for on its own — on any agent: Claude Code, Codex, Cursor, Antigravity, Grok-Build, Hermes, OpenClaw, Pi, etc.
 
-[Quickstart](#quickstart-15-seconds) · [Index](#index) · [The Map](#the-map) · [The Problem](#the-problem) · [The Fixes](#the-fixes) · [Credits](#credits)
+[Quickstart](#quickstart-15-seconds) · [The Map](#the-map) · [The Index](#the-index) · [The Problem](#the-problem) · [The Fixes](#the-fixes) · [Credits](#credits)
 
 </div>
 
@@ -23,38 +23,51 @@ Plain-Markdown skills that turn old engineering wisdom into reflexes your agent 
 
 **Not sure?** Paste that command into whatever agent you're using and just say "set this up for me" — it'll do the rest.
 
-## Index
-
-### Model-invoked — your agent reaches for these on its own
-| Skill | Scope | What it does |
-|---|---|---|
-| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | one artifact | Rewrite a drifted artifact into a clean v0 — not another patch |
-| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | one artifact | Cold-read it with fresh, zero-context eyes — does it stand on its own? *(read-only)* |
-| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | one claim | Verify a reality-grounded claim against sources, both directions — could the absurd be real, the obvious false? *(read-only → fix)* |
-| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | one eval | Audit a validation for leakage — does outside ground-truth actually enter? Walks 8 patterns *(read-only)* |
-| 🔎 **[ssotchk](./skills/breadth/ssotchk/SKILL.md)** | many artifacts | Find where one fact is scattered or duplicated; name the canonical source *(read-only)* |
-| 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | many artifacts | Consolidate it into one home and point the rest at it |
-| 🧭 **[retro](./skills/coil/retro/SKILL.md)** | one project, across iterations | Extract lessons, anti-patterns, gates, and vocabulary from a finished or failed cycle |
-| 🧱 **[scratch](./skills/coil/scratch/SKILL.md)** | one project, across iterations | Restart from v0 while preserving only proven lessons, contracts, gates, and negative corpus |
-| 🌀 **[flywheel](./skills/coil/flywheel/SKILL.md)** | one project, across iterations | Run build → QA → retro → scratch cycles without mistaking code accumulation for learning |
-| 🎯 **[nba](./skills/coil/nba/SKILL.md)** | one project, across iterations | Read the live cycle state and return the single next best action, not a menu *(read-only)* |
-| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | your output | After any change, auto-runs `shower` + `ssotchk` + `re0` on it |
-
-### User-invoked — you run these yourself
-| Skill | Scope | What it does |
-|---|---|---|
-| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | one commit | Rewrite a finished commit's message into a clean v0 so `git log` alone hands off |
-| 😈 **[hate](./skills/depth/hate/SKILL.md)** | one plan | Refuse to be nice to it — the one objection that could kill it + the cheapest test |
-
 ## The Map
 
 **How many artifacts, and across how much time?**
 
-Two axes — **cardinality × time** — carve four regions.
-
 <div align="center">
 <img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/map.svg" alt="The Paperthin map by LilMGenius/paperthin: a two-by-two matrix. Horizontal axis cardinality (one, then many); vertical axis time (now, then across iterations); four regions. Top-left, depth: one artifact, now; is this one thing clean and true? Top-right, breadth: many artifacts, now; is one truth consistent everywhere? Bottom-left, coil: one project, across iterations; did each pass teach the next? Bottom-right, mesh: many minds, across rounds; does the crowd converge on truth?" width="820">
 </div>
+
+## The Index
+
+### `depth/`
+
+| Skill | What it does | Scope | Invoker |
+|---|---|---|---|
+| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Rewrite a drifted artifact into a clean v0 — not another patch | one artifact | model |
+| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read it with fresh, zero-context eyes — does it stand on its own? *(read-only)* | one artifact | model |
+| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify a reality-grounded claim against sources, both directions — could the absurd be real, the obvious false? *(read-only → fix)* | one claim | model |
+| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit a validation for leakage — does outside ground-truth actually enter? Walks 8 patterns *(read-only)* | one eval | model |
+| 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Carve unsafe scope before execution, preserve the safe work's ambition, and make the descope ledger visible | one task | model |
+| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | After any change, tastes it with the repo's own clean-and-true checks | your output | model |
+| 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse to be nice to it — the one objection that could kill it + the cheapest test | one plan | user |
+| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and the dashes standing in for them, one occurrence at a time, choosing the punctuation or wording each context needs | your prose | user |
+| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrite a finished commit's message into a clean v0 so `git log` alone hands off | one commit | user |
+
+### `breadth/`
+
+| Skill | What it does | Scope | Invoker |
+|---|---|---|---|
+| 🔎 **[ssotchk](./skills/breadth/ssotchk/SKILL.md)** | Find where one fact is scattered or duplicated; name the canonical source *(read-only)* | one fact, many places | model |
+| 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | Consolidate it into one home and point the rest at it | one fact, many places | model |
+
+### `coil/`
+
+| Skill | What it does | Scope | Invoker |
+|---|---|---|---|
+| 🧭 **[retro](./skills/coil/retro/SKILL.md)** | Extract lessons, anti-patterns, gates, and vocabulary from a finished or failed cycle | one finished cycle | model |
+| 🧱 **[scratch](./skills/coil/scratch/SKILL.md)** | Restart from v0 while preserving only proven lessons, contracts, gates, and negative corpus | one restart | model |
+| 🌀 **[flywheel](./skills/coil/flywheel/SKILL.md)** | Run build → QA → retro → scratch cycles without mistaking code accumulation for learning | the whole loop | model |
+| 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Read the live cycle state and return the single next best action, not a menu *(read-only)* | the live cycle | model |
+
+### `mesh/`
+
+*In development — converge independent views into consensus.*
+
+*More on invocation: [docs/invocation.md](./docs/invocation.md)*
 
 ## The Problem
 
@@ -71,6 +84,8 @@ These skills bet the other way — **every one of them removes:**
 - `ssotchk` / `ssotize` collapse the same fact scattered across files,
 - `shower` cuts whatever a stranger can't follow,
 - `retro` / `scratch` preserve the lesson and let the wrong build die,
+- `autobahn` carves unsafe scope out up front, so the safe remainder runs at full speed,
+- `dedash` removes even the em-dash tell and its look-alikes, one judged occurrence at a time,
 - `sip` runs all of it on your own output, automatically.
 
 > [!TIP]
@@ -78,7 +93,7 @@ These skills bet the other way — **every one of them removes:**
 
 ## The Fixes
 
-<!-- Fixes follow the lifecycle of a piece of work, not the skill list: first keep it clean (draft → read fresh → reconcile across files → automate → ship), then keep it true (a single claim → a validation → the whole plan). Slot any new fix in by where it acts in that arc. -->
+<!-- Fixes follow the lifecycle of a piece of work, not the skill list: keep it clean (draft → read fresh → reconcile across files → automate → ship), keep it true (a single claim → a validation → the whole plan), then keep the loop learning and the run unblocked. Slot any new fix in by where it acts in that arc. -->
 
 **Each is a well-worn principle, made automatic.**
 
@@ -125,7 +140,7 @@ A timeout value, a decision, a status — copied into a README, a doc, a ticket,
 ### #4 — "Remember to verify" never fires
 A guideline buried in docs won't trigger in a brand-new session — exactly when author bias is highest.
 
-**The fix → `sip`:** the moment you finish something, it runs `shower`, `ssotchk`, and `re0` on your output, automatically.
+**The fix → `sip`:** the moment you finish something, it runs the clean checks (`shower`, `ssotchk`, `re0`) and, when there's a claim or an eval, the true ones (`factchk`, `mandela`) on your output, automatically.
 
 > *Prior art: [dogfooding](https://en.wikipedia.org/wiki/Eating_your_own_dog_food) — eat your own dog food (Microsoft, 1988). Taste your own cooking before you serve it.*
 
@@ -169,6 +184,14 @@ A model, a scorer, and a designer can all agree a result is real while no outsid
 
 > *Prior art: [Goodhart's law](https://en.wikipedia.org/wiki/Goodhart%27s_law), [data leakage](https://dl.acm.org/doi/10.1145/2382577.2382579) (Kaufman et al., 2012), and [circular analysis](https://www.nature.com/articles/nn.2303) — "double dipping" (Kriegeskorte et al., 2009).*
 
+<details>
+<summary><b>[PROOF]</b></summary>
+
+- **Setup** — the audit was distilled from one research design that kept dying to a single failure mode: a scorer, a model, and a designer agreeing on a result no outside truth ever produced.
+- **Result** — leakage surfaced in eight distinct shapes in that one project — a scorer grading buckets it had drawn, two components "verifying" each other in a shared space, a private recipe that made the verifier the designer — and that catalog became the skill's 8-pattern taxonomy.
+- **So** — the checklist isn't theoretical: every pattern in it already drew blood once.
+</details>
+
 ### #8 — You can't kill your own plan
 You built it, so you defend it. The questions that would break it are exactly the ones you won't ask.
 
@@ -176,15 +199,41 @@ You built it, so you defend it. The questions that would break it are exactly th
 
 > *Prior art: [egoless programming](https://en.wikipedia.org/wiki/Egoless_programming) (Weinberg, 1971 — the same root `shower` cites), hostile review, and fail-fast.*
 
-### #9 — A build can run and still be wrong
-Long agentic builds can produce many working parts while missing the product: panels, routes, screenshots, and tests that prove activity more than value. The mistake is carrying that architecture forward because it cost effort.
+<details>
+<summary><b>[PROOF]</b></summary>
 
-**The fix → `retro` + `scratch`:** extract the lesson, anti-pattern, vocabulary, and next gate, then restart from a clean v0 when the foundation is wrong. Keep only what earned reuse.
+- **Setup** — every research pass closed with an adversarial critic, and its verdict was always one root cause plus the cheapest test that would settle it, never a checklist.
+- **Result** — it killed a recombination engine with "one more box drawn, not a sharper tip", and a human-holdout protocol on the numbers alone: n≈24 where 36 was needed, a family-wise error rate near 34%, and a design that cited a principle while implementing its opposite.
+- **So** — the objection that mattered was always singular and cheap to test — exactly the `{root, first nail}` that `hate` is locked to return.
+</details>
 
-### #10 — Iterations can spin without learning
-After a disappointing pass, the next move can blur into a dozen plausible threads: patch, rebuild, test more, write docs, add features. That is how projects accumulate surfaces instead of compounding.
+### #9 — A running build can still be the wrong product
+Long agentic cycles produce many working parts — panels, routes, tests, screenshots — that prove activity more than value, and the sunk cost tempts you to carry the architecture forward. Then between passes the next move blurs into a dozen live threads at once, and too many options is its own paralysis.
 
-**The fix → `flywheel` + `nba`:** run the build → QA → retro → scratch loop, and when the thread is lost, read the state and return one next best action with a clear done-when.
+**The fix → `retro` + `scratch` + `flywheel` + `nba`:** extract the lesson, anti-pattern, and next gate; restart from a clean v0 when the foundation is wrong; run the build → QA → retro → scratch loop; and when the thread is lost, read the state and return the single next best action. Keep only what earned reuse.
+
+<details>
+<summary><b>[PROOF]</b></summary>
+
+- **Setup** — a game-engine demo reached a full-stack, runnable state: API routes, a canvas runtime, a leaderboard, arcade pages, remix and telemetry panels, tests, screenshots.
+- **Result** — and it was still the wrong product — the generated games were mock, one-screen, with no durable replay layer — while every pass ended in "what now?" against a pile of unmet gates and parked threads.
+- **So** — running and shipping-shaped is not done; the cycle needs a skill to name the missing gate and one to return the single next move.
+</details>
+
+### #10 — Risk-adjacent work comes back hedged
+Point an agent at a task that brushes guardrails — scraping, licensing, privacy, security — and you get the worst of both worlds: the risky sliver triggers refusals and retries, while the safe 90% comes back hedged, diluted, or quietly missing.
+
+**The fix → `autobahn`:** carve guardrail-adjacent items out of scope before execution, each with a safe alternative and an archive entry; run the remaining scope at full strength; ship a descope ledger so every exclusion is a visible decision, not a silent gap. The autobahn has no speed limit *because* entry discipline is strict.
+
+> *Prior art, from this very summer: the US [suspended Fable 5 and Mythos 5](https://www.anthropic.com/news/fable-mythos-access) over one jailbryoken safeguard (Anthropic, 2026), and OpenAI shipped [GPT-5.6](https://openai.com/index/previewing-gpt-5-6-sol/) safety-stack-first to trusted partners (OpenAI, 2026) — at the frontier, the fast lane stays open only as far as entry discipline holds.*
+
+<details>
+<summary><b>[PROOF]</b></summary>
+
+- **Setup** — the method was lifted from a live rewrite of a confidential strategy doc that was risk-adjacent on four axes at once: stealth tooling, trademarked names, privacy-adjacent profiling, scraping gray zones.
+- **Result** — a main loop plus ten subagents ran the frontier model end to end with zero flags, zero refusals, zero fallbacks — and every descoped item's safe alternative turned out to be the better product anyway.
+- **So** — carving the risky sliver didn't tax the work; it's why the rest could floor it.
+</details>
 
 ## Credits
 
