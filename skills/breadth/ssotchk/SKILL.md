@@ -9,7 +9,7 @@ Find every place a single truth lives, name its rightful home, and report the dr
 
 Locate Single-Source-of-Truth (SSOT) violations: one fact duplicated, paraphrased, or contradicted across artifacts or platforms. A fact with N copies carries N-1 liabilities, because copies drift out of sync. The output is a map — where it lives, which copy should be canonical, and what to do with the rest — that `ssotize` or a human can act on. This is read-only.
 
-A different vector from `re0` (depth, one artifact); once a fact is cleanly SSOT'd, keep it tidy with `re0`. Reach for SSOT when establishing order.
+Reach for this when establishing order across many artifacts, especially messy or legacy states; once a fact is cleanly SSOT'd, it needs upkeep, not another consolidation.
 
 ## Workflow
 

@@ -1,10 +1,12 @@
 {
   "name": "paperthin",
-  "version": "0.8.1",
-  "description": "Plain-Markdown skills that turn old engineering wisdom into reflexes your agent reaches for on its own — on any agent.",
+  "version": "0.8.2",
+  "description": "Paperthin: Low-level agentic design patterns. Turning old engineering wisdom into reflexes your agent reaches for on its own.",
   "keywords": [
+    "agent",
     "agent-skills",
-    "ai-agents",
+    "design-patterns",
+    "coding-agents",
     "claude-code",
     "codex",
     "anti-slop",
@@ -16,6 +18,7 @@
     "ssot",
     "knowledge-base",
     "documentation",
+    "docs",
     "review",
     "fact-check",
     "hallucination",

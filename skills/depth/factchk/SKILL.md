@@ -7,7 +7,7 @@ Check what's asserted as real against reality — in both directions — before 
 
 ## Goal
 
-The author's "plausible / absurd / novel" is the least reliable line in any artifact. Human priors fail **both ways** — they exclude the real (desert frogs exist) and normalize the impossible (weightless crates). `factchk` scans claims presented as reality-grounded, verifies each against external sources in both directions, and fixes or flags. A claim about *the world* is `factchk`; for a validation's soundness see `mandela`, for the whole plan see `hate`.
+The author's "plausible / absurd / novel" is the least reliable line in any artifact. Human priors fail **both ways** — they exclude the real (desert frogs exist) and normalize the impossible (weightless crates). `factchk` scans claims presented as reality-grounded, verifies each against external sources in both directions, and fixes or flags. Its scope is a claim about *the world* — whether what's asserted as real is real — not the soundness of a validation or the survival of a whole plan.
 
 ## Workflow
 

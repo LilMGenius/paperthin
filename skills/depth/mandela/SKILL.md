@@ -7,7 +7,7 @@ Audit a validation for leakage: does outside ground-truth actually enter, or is 
 
 ## Goal
 
-The name is the **Mandela Effect** — a whole population *confidently remembers* something that never independently happened; a leaky validation is the same shape. Walk the 8 patterns below. `mandela` checks whether a *validation* is independent; `factchk` checks a claim against the world, and `hate` calls `mandela` for the leakage axis of a design.
+The name is the **Mandela Effect** — a whole population *confidently remembers* something that never independently happened; a leaky validation is the same shape. Walk the 8 patterns below. `mandela` checks one thing: whether a *validation* is independent, or whether the designer, model, and scorer are only confirming each other.
 
 ## Workflow
 

@@ -7,7 +7,7 @@ Step out of the session and let a clean mind read it: does the artifact stand on
 
 ## Goal
 
-A long session quietly accumulates context you can't un-see, so you lose the ability to judge whether your work reads clearly to a first-timer — you no longer know what you left unsaid (the unknown-unknowns). The fix is a literally fresh brain: a separate sub-session that never saw this conversation cold-reads the artifact in focus and reports where a clean reader would stall. A smoke test for comprehension and handoff. This skill diagnoses; fixing happens back here (often with `re0`).
+A long session quietly accumulates context you can't un-see, so you lose the ability to judge whether your work reads clearly to a first-timer — you no longer know what you left unsaid (the unknown-unknowns). The fix is a literally fresh brain: a separate sub-session that never saw this conversation cold-reads the artifact in focus and reports where a clean reader would stall. A smoke test for comprehension and handoff. This skill diagnoses; the fixing happens back in the main session.
 
 ## Workflow
 

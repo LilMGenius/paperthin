@@ -5,7 +5,7 @@ Paperthin is an agent-agnostic suite of plain-Markdown skills that keep an artif
 ## Philosophy
 
 - **Trust the artifact, not the author.** A skill exists to make work read true to someone who wasn't there — *clear* (does it read?) and *correct* (is what it claims real?). The maker's in-session mind is the worst judge of either — so a skill either re-derives the work from what's true now, or imports outside eyes to test it.
-- **Single source of truth.** One fact lives in one place; everything else references it by name. Skills compose by naming each other in prose — never by copying content or reaching into another skill's files. Shared material lives in its owning skill; others point to it.
+- **Single source of truth, and self-contained skills.** One fact lives in one place; everything else references it by name. But a skill ships and runs installed alone (`npx skills add` can pull one without its siblings or this guide), so it states the runtime rules it needs inline rather than pointing at CLAUDE.md or another skill. The two live at different layers: SSOT keeps a *fact* from drifting; self-containment lets a *skill* travel. Cross-skill naming is the exception, for declared pairs and orchestrators (see [Conventions](#conventions)).
 - **Restraint.** Change only what genuinely improves — a pass that finds nothing to improve changes nothing. The enemy is slop (noise, duplication, padding), not addition.
 - **Recursive.** Every skill is general enough to use *while building the skills*, so we maintain the skills with the skills, and each pass is audited and refined by the tools it ships. Treat that loop as the point.
 
@@ -27,7 +27,7 @@ skills/
 └── mesh/      converge independent views into consensus (reserved)
 ```
 
-The axes' quadrants and each skill's home are the README's facts — its map and index; this file defines only the cut.
+The axes' quadrants and each skill's home are the README's facts — its [map](./README.md#the-map) and [index](./README.md#the-index); this file defines only the cut.
 
 **File by trigger-scope, not by what a skill invokes.** A skill lives where the work it *triggers or emits* ranges, even when it orchestrates skills from other folders — `sip` gates one finished deliverable, so it's `depth/`, though its check runs a cross-file `ssotchk`.
 
@@ -60,26 +60,29 @@ Default to model-invoked. Make a skill user-invoked only when the model should n
 
 ## Conventions
 
-Shared rules a skill references rather than restates:
+Every skill must work installed on its own, so it names no other skill and states the rules it needs inline. Two couplings are allowed, because there the relationship *is* the skill:
 
-- **edit-safety** (any mutating skill — `re0`, `ssotize`, `scratch`): a find-replace that could match nothing must **assert its target exists** (report a MISS, never silently no-op); byte-level tools corrupt multibyte text, so mutate with a **unicode-safe** pass (`PYTHONUTF8=1`, stdout reconfigured to UTF-8); never **blanket-replace a single target whose right replacement is positional** — when the same token maps to different replacements per location, decide per occurrence; and make large *structural* moves with a script, not by retyping.
-- **negatives-as-corpus** (any skill that cuts work — `retro`, `scratch`, `autobahn`): "cut" means **move-to-archive, never delete** — pruned and failed branches are assets, not waste.
-- **commit-economy** (write-time, and `re0-git` on cleanup): Conventional Commits in the local log's economy. Sample the recent log for its shape; one bullet per real change with supporting edits folded into the change they serve; cut anything the diff or version already proves (file lists, package bumps, presentation churn, validation plumbing); match the repo's convention before your own voice; no co-author tags.
+- **pair** — `ssotchk` → `ssotize`: the second acts on the first's output (audit, then consolidate).
+- **orchestrator** — `sip` runs the suite's clean-and-true checks; `flywheel` and `nba` run and navigate the coil cycle. An orchestrator degrades gracefully: it uses the skills present and skips the rest.
+
+Because independence means the same rule recurs inline across skills, this section maps those copies so they stay coherent when you touch one. CLAUDE.md ships with the repo, not the plugin, so it is the contributor's map, never a runtime dependency:
+
+- **edit-safety** — safe mutation (assert the target exists and report a MISS, edit unicode-safe, replace positional targets per occurrence not by blanket sweep, script large structural moves): in `re0`, `dedash`, `ssotize`.
+- **negatives-as-corpus** — "cut" means move-to-archive, never delete; pruned and failed branches are assets: in `retro`, `re0-work`, `flywheel`, `autobahn`.
+- **commit-economy** — the commit-message standard, stated in full by its home `re0-git`.
 
 ## Shipping
 
 Before committing:
 
-1. **SKILL.md** follows the anatomy above.
-2. **README** lists it — grouped by perspective, invocation marked in the `Invoker` column, each linked to its `SKILL.md`.
-3. **plugin.json** registers its path.
-4. **package.json** bumps version (new skill = minor; fix/docs = patch); `keywords` stay grouped logically.
-5. **Refresh the skills it couples to.** Skills relate by naming each other, and those names form a graph with several edge kinds: an orchestrator that runs it (`sip`), a check that points to its remedy (`ssotchk` → `ssotize`), a skill that names it as adjacent scope (`factchk` → `mandela`/`hate`), a producer whose output feeds a consumer (`autobahn`'s ledger → `retro`), a skill that reuses another's mechanism (`autobahn` borrows `shower`'s context-free subagent). Walk the edges both into and out of the changed skill and ask two questions, not one: which existing reference drifted, and which coupling *should* exist but never got wired. Missing edges are as real as stale ones and hide better. One discriminator keeps the hunt honest: an absent edge to a user-invoked skill (`hate`, `dedash`, `re0-git`) is correct, not a gap — they can't be composed, so name their role, not the skill (`flywheel` names its adversarial phase, never `hate`). A name-coupling is a standing relationship, not one-time registration; left frozen, it silently goes out of date.
+1. **SKILL.md** follows the [anatomy above](#skillmd-format).
+2. **[README](./README.md)** lists it — grouped by perspective, invocation marked in the `Invoker` column, each linked to its `SKILL.md`.
+3. **[plugin.json](./.claude-plugin/plugin.json)** registers its path.
+4. **[package.json](./package.json)** bumps version (new skill = minor; fix/docs = patch); `keywords` stay grouped logically.
+5. **Keep the convention-copies coherent, and wire any pair or orchestrator.** Skills are independent and name no other skill, so there is barely a cross-skill graph to maintain. What recurs is inline: a skill that mutates, cuts, or writes a commit carries `edit-safety` / `negatives-as-corpus` / `commit-economy` inline, so every copy of a rule must stay coherent with the others the [Conventions](#conventions) map lists. The only couplings are the pair (`ssotchk` → `ssotize`) and the orchestrators (`sip`, `flywheel`, `nba`); when a new skill joins one — an orchestrator should now run it, or it forms a new pair — wire that edge, and only that.
 6. Run **`sip`** — it tastes the change with the repo's own clean-and-true checks before you ship.
 
-A new skill earns a full-catalog sweep, not just its own edges: its inbound couplings (which existing skills should now name it) live in the *other* files and are invisible from the new one, so read the catalog end to end when you add a node — a patch only needs the touched skill's edges.
-
-Commit per the **commit-economy** convention.
+Write commit messages to `re0-git`'s **commit-economy** from the first draft, not only on its cleanup pass.
 
 ## Vendoring
 

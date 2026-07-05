@@ -1,10 +1,12 @@
 <div align="center">
 
-# Paperthin
+# Paperthin: Low-level agentic design patterns
 
 <img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/banner.svg" alt="Paperthin — Trust the artifact, not the author." width="820">
 
-Plain-Markdown skills that turn old engineering wisdom into reflexes your agent reaches for on its own — on any agent: Claude Code, Codex, Cursor, Antigravity, Grok-Build, Hermes, OpenClaw, Pi, etc.
+**Turning old engineering wisdom into reflexes your agent reaches for on its own.**
+
+On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, Grok-Build, Pi, Hermes, OpenClaw, etc.
 
 [Quickstart](#quickstart-15-seconds) · [The Map](#the-map) · [The Index](#the-index) · [The Problem](#the-problem) · [The Fixes](#the-fixes) · [Credits](#credits)
 
@@ -21,7 +23,7 @@ Plain-Markdown skills that turn old engineering wisdom into reflexes your agent 
 2. **Run it elevated** so the skills are symlinked (they auto-update), not copied.
 3. **Use them** — model-invoked, so your agent reaches for them on its own; or call one by name, like `/re0`.
 
-**Not sure?** Paste that command into whatever agent you're using and just say "set this up for me" — it'll do the rest.
+**Not sure?** Paste that command into whatever agent you're using and just say `set this up for me` — it'll do the rest.
 
 ## The Map
 
@@ -59,8 +61,8 @@ Plain-Markdown skills that turn old engineering wisdom into reflexes your agent 
 | Skill | What it does | Scope | Invoker |
 |---|---|---|---|
 | 🧭 **[retro](./skills/coil/retro/SKILL.md)** | Extract the lessons and anti-patterns from a finished or failed cycle | one finished cycle | model |
-| 🧱 **[scratch](./skills/coil/scratch/SKILL.md)** | Restart from v0, keeping only the lessons that earned reuse | one restart | model |
-| 🌀 **[flywheel](./skills/coil/flywheel/SKILL.md)** | Run the build → QA → retro → scratch loop so learning compounds, not code | the whole loop | model |
+| 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Restart from v0, keeping only the lessons that earned reuse | one restart | model |
+| 🌀 **[flywheel](./skills/coil/flywheel/SKILL.md)** | Run the build → QA → retro → re0-work loop so learning compounds, not code | the whole loop | model |
 | 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Read the live cycle state and return the single next best action, not a menu *(read-only)* | the live cycle | model |
 
 ### `mesh/`
@@ -83,7 +85,7 @@ These skills bet the other way — **every one of them removes:**
 - `re0` rewrites a draft into a clean v0 instead of patching it,
 - `ssotchk` / `ssotize` collapse the same fact scattered across files,
 - `shower` cuts whatever a stranger can't follow,
-- `retro` / `scratch` preserve the lesson and let the wrong build die,
+- `retro` / `re0-work` preserve the lesson and let the wrong build die,
 - `autobahn` carves unsafe scope out up front, so the safe remainder runs at full speed,
 - `dedash` removes even the em-dash tell and its look-alikes, one judged occurrence at a time,
 - `sip` runs all of it on your own output, automatically.
@@ -143,6 +145,14 @@ A guideline buried in docs won't trigger in a brand-new session — exactly when
 **The fix → `sip`:** the moment you finish something, it runs the clean checks (`shower`, `ssotchk`, `re0`) and, when there's a claim or an eval, the true ones (`factchk`, `mandela`) on your output, automatically.
 
 > *Prior art: [dogfooding](https://en.wikipedia.org/wiki/Eating_your_own_dog_food) — eat your own dog food (Microsoft, 1988). Taste your own cooking before you serve it.*
+
+<details>
+<summary><b>[PROOF]</b></summary>
+
+- **Setup** — right after a large refactor that made every skill self-contained, `sip` auto-fired on the result.
+- **Result** — its fresh-eyes pass caught two things the author could no longer see: a maintenance rule still pointing at skill-to-skill links that the same refactor had just deleted, and a file-editing safety rule present in two skills but missing from a third that also edits files.
+- **So** — the check bites where bias is highest: not on a fresh artifact, but on the drift a big change leaves behind — exactly what the author's own eyes skate over.
+</details>
 
 ### #5 — Your session doesn't travel; the git log does
 Your session is stuck where it ran — this agent, this account, this machine. A teammate or another agent can't load the context your work happened in.
@@ -210,7 +220,7 @@ You built it, so you defend it. The questions that would break it are exactly th
 ### #9 — A running build can still be the wrong product
 Long agentic cycles produce many working parts — panels, routes, tests, screenshots — that prove activity more than value, and the sunk cost tempts you to carry the architecture forward. Then between passes the next move blurs into a dozen live threads at once, and too many options is its own paralysis.
 
-**The fix → `retro` + `scratch` + `flywheel` + `nba`:** extract the lesson, anti-pattern, and next gate; restart from a clean v0 when the foundation is wrong; run the build → QA → retro → scratch loop; and when the thread is lost, read the state and return the single next best action. Keep only what earned reuse.
+**The fix → `retro` + `re0-work` + `flywheel` + `nba`:** extract the lesson, anti-pattern, and next gate; restart from a clean v0 when the foundation is wrong; run the build → QA → retro → re0-work loop; and when the thread is lost, read the state and return the single next best action. Keep only what earned reuse.
 
 <details>
 <summary><b>[PROOF]</b></summary>

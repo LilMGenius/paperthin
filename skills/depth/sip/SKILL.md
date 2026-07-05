@@ -22,9 +22,9 @@ A reminder buried in docs ("remember to verify") won't reliably fire in a fresh 
 
 - Trigger on your OWN output, right after making it — that's when bias is highest and a check is cheapest.
 - Use the skills; don't re-implement them — `shower` for clarity, `factchk`/`mandela` for truth, `ssotchk`/`ssotize` for SSOT, `re0` for cleanup. `sip` orchestrates and routes findings back to the author session to fix; the skills do the work.
-- Skip what plainly doesn't apply — a one-line prose tweak may need only `ssotchk`, and `factchk`/`mandela` fire only when there is a claim or an eval to check. Say what you skipped and why.
+- Skip what plainly doesn't apply, or any check whose skill isn't installed — run only what's present. `factchk`/`mandela` fire only when there is a claim or an eval; a one-line prose tweak may need only a consistency check. Say what you skipped and why.
 - Stop at the artifact — `sip` never touches git or makes commits.
-- Chain only model-invoked skills. The user-invoked ones — `re0-git`, `hate`, `dedash` — are a human's to fire deliberately, which is why they are user-invoked, so `sip` must not call them.
+- Chain only model-invoked skills; a user-invoked skill (marked `disable-model-invocation`) is a human's to fire deliberately, so `sip` must not call one.
 
 ## Verification
 

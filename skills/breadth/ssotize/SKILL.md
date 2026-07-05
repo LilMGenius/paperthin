@@ -9,7 +9,7 @@ Collapse a scattered truth into one canonical home; make every other place point
 
 Enforce Single Source of Truth (SSOT): one fact = one home, and every other place that needs it references that home instead of copying it. References don't drift; copies do. This mutates artifacts, so it is deliberate and loss-averse.
 
-Use this to **establish or repair** SSOT — messy, legacy, or freshly-scaffolded states. Once SSOT holds, don't overuse `ssotize`: maintain artifacts with `re0` instead. (See `ssotchk` for how the SSOT vector differs from `re0`.)
+Use this to **establish or repair** SSOT — messy, legacy, or freshly-scaffolded states. Once SSOT holds, don't overuse it: consolidation is a one-time repair, not ongoing upkeep.
 
 ## Workflow
 
@@ -23,6 +23,7 @@ Use this to **establish or repair** SSOT — messy, legacy, or freshly-scaffolde
 
 - A pass that finds no scatter to consolidate changes nothing.
 - Don't consolidate across a trust/permission boundary (private → public, customer-facing → internal) without explicit confirmation.
+- Mutate with edit-safety: assert each replace target exists before touching it (report a MISS, never a silent no-op), edit unicode-safe (`PYTHONUTF8=1`), and act per occurrence, never a blanket sweep.
 - Be platform-aware: transclude where possible, else link to a stable anchor the reader can follow; prefer a reference over a hard deletion when a platform can't link back.
 
 ## Verification

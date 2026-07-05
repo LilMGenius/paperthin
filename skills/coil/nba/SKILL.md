@@ -1,6 +1,6 @@
 ---
 name: nba
-description: "Read the live cycle state and return the single highest-leverage next best action, not a menu. Use when a project is between phases, the author asks what to do next, too many valid threads are open, or the work needs re-entry into frame, build, drive, retro, hate, scratch, or ship."
+description: "Read the live cycle state and return the single highest-leverage next best action, not a menu. Use when a project is between phases, the author asks what to do next, too many valid threads are open, or the work needs re-entry into frame, build, drive, retro, hate, re0-work, or ship."
 ---
 
 Find the next best action from state, not from vibes.
@@ -12,7 +12,7 @@ Find the next best action from state, not from vibes.
 ## Workflow
 
 1. Read the live cycle state: plan gates, retro anti-patterns, priority notes, recent git/file changes, QA evidence, and the current workflow phase.
-2. Locate the project in the cycle: FRAME, BUILD, DRIVE, RETRO, HATE, SCRATCH, BUILD AGAIN, or SHIP.
+2. Locate the project in the cycle: FRAME, BUILD, DRIVE, RETRO, HATE, RE0-WORK, BUILD AGAIN, or SHIP.
 3. Diagnose the blank-out cause: too many open threads, lost thread, unnamed blocker, closed-loop fatigue, avoidance of the hard step, or a phase that is already done.
 4. Return one action: the cheapest move that clears the most. It may name the right skill for the human to fire, the external input needed, the first nail to test, or the phase transition that is already due.
 5. Frame it as: where you are, next best action, why now, and done when.

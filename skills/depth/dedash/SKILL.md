@@ -30,7 +30,7 @@ Replace each em-dash that should not remain with the mark or wording its clause 
 
 - Never do blanket replacement. The same glyph can require different punctuation in different clauses.
 - Never replace an em-dash with a hyphen as the cleanup.
-- Mutate per the edit-safety convention in `CLAUDE.md`; if the scope contains no such dash, report a MISS rather than changing nearby punctuation.
+- Mutate with edit-safety: edit unicode-safe (`PYTHONUTF8=1`) and replace each dash per occurrence, never a blanket sweep; if the scope contains no such dash, report a MISS rather than changing nearby punctuation.
 - Preserve the user's voice. This skill removes a mark where requested; it does not flatten style outside the user-owned scope.
 
 ## Verification
