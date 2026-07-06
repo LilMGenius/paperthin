@@ -1,6 +1,6 @@
 <div align="center">
 
-# Paperthin : modèles de conception agentique de bas niveau
+# Paperthin : modèles de conception agentic de bas niveau
 
 <img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/banner.svg" alt="Paperthin - Faites confiance à l'artifact, pas à l'auteur." width="820">
 
@@ -45,22 +45,22 @@ Langues : [English](./README.md) · Français
 | Skill | Ce qu'il fait | Portée | Invocation |
 |---|---|---|---|
 | ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Réécrit un artifact qui a dérivé en v0 propre, plutôt qu'un patch de plus | un artifact | modèle |
-| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Le relit à froid, avec des yeux neufs et zéro contexte : tient-il debout seul ? *(lecture seule)* | un artifact | modèle |
-| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Vérifie une affirmation contre les sources, dans les deux sens : l'absurde pourrait-il être vrai, l'évident faux ? *(lecture seule → correction)* | une affirmation | modèle |
-| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audite une validation pour détecter les fuites : une ground truth externe entre-t-elle vraiment ? *(lecture seule)* | un eval | modèle |
+| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Relit à froid, avec des yeux neufs et zéro contexte : tient-il debout seul ? *(lecture seule)* | un artifact | modèle |
+| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Vérifie une claim contre les sources, dans les deux sens : l'absurde pourrait-il être vrai, l'évident faux ? *(lecture seule → correction)* | une claim | modèle |
+| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audite une validation pour détecter les leakage : une ground truth externe entre-t-elle vraiment ? *(lecture seule)* | un eval | modèle |
 | 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Découpe le périmètre dangereux en amont, exécute le reste sûr à pleine puissance, livre un descope ledger | une tâche | modèle |
-| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | Après chaque changement, goûte votre sortie avec les propres checks clean-and-true du dépôt | votre sortie | modèle |
-| 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse d'être gentil : l'objection unique qui peut tuer le plan + le test le moins cher | un plan | utilisateur |
-| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Retire les em dashes et leurs sosies, en choisissant la ponctuation juste à chaque endroit | votre prose | utilisateur |
-| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Réécrit le message d'un commit terminé en v0 propre, afin que `git log` fasse l'handoff à lui seul | un commit | utilisateur |
+| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | Après chaque changement, goûte votre output avec les propres checks clean-and-true du dépôt | votre output | modèle |
+| 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse d'être gentil : l'objection unique qui peut tuer le plan + le test le moins cher | un plan | user |
+| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Retire les em dashes et leurs sosies, en choisissant la ponctuation juste à chaque endroit | votre prose | user |
+| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Réécrit le message d'un commit terminé en v0 propre, afin que `git log` fasse l'handoff à lui seul | un commit | user |
 
 ### `breadth/`
 
 | Skill | Ce qu'il fait | Portée | Invocation |
 |---|---|---|---|
-| 🔎 **[ssotchk](./skills/breadth/ssotchk/SKILL.md)** | Trouve où un fait est dispersé ou dupliqué ; nomme la source canonique *(lecture seule)* | un fait, plusieurs endroits | modèle |
+| 🔎 **[ssotchk](./skills/breadth/ssotchk/SKILL.md)** | Trouve où un fait est dispersé ou dupliqué ; nomme la canonical source *(lecture seule)* | un fait, plusieurs endroits | modèle |
 | 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | Le consolide dans un seul foyer et fait pointer le reste vers lui | un fait, plusieurs endroits | modèle |
-| 🧰 **[ppt-upgrade](./skills/breadth/ppt-upgrade/SKILL.md)** | Réconcilie les anciens noms de skills Paperthin installés après les releases | noms de skills installés | utilisateur |
+| 🧰 **[ppt-upgrade](./skills/breadth/ppt-upgrade/SKILL.md)** | Réconcilie les anciens noms de skills Paperthin installés après les releases | noms de skills installés | user |
 
 ### `coil/`
 
@@ -95,7 +95,7 @@ Ces skills parient dans l'autre sens. **Chacun enlève quelque chose :**
 - `retro` / `re0-work` préservent la leçon et laissent mourir la mauvaise construction.
 - `autobahn` découpe le périmètre dangereux en amont, pour que le reste sûr tourne à pleine vitesse.
 - `dedash` retire même le tic de l'em dash et ses sosies, occurrence par occurrence.
-- `sip` exécute tout cela automatiquement sur votre propre sortie.
+- `sip` exécute tout cela automatiquement sur votre propre output.
 
 > [!TIP]
 > Le plus dur n'est pas d'ajouter des fonctionnalités : c'est la retenue. Une passe qui ne trouve rien à améliorer ne change rien. **Cette retenue est le produit.**
@@ -127,12 +127,12 @@ Après une longue session, vous êtes la personne qui peut le moins lire votre p
 
 **Le correctif → `shower` :** donner uniquement l'artifact à un inconnu qui n'a jamais vu votre session, et demander : "est-ce que cela a vraiment du sens ?"
 
-> *Antécédent : [egoless programming](https://en.wikipedia.org/wiki/Egoless_programming) - vous ne pouvez pas relire objectivement votre propre travail ; quelqu'un d'autre doit le faire (Gerald Weinberg, 1971). Ici, ce quelqu'un est une sous-session sans contexte.*
+> *Antécédent : [egoless programming](https://en.wikipedia.org/wiki/Egoless_programming) - vous ne pouvez pas relire objectivement votre propre travail ; quelqu'un d'autre doit le faire (Gerald Weinberg, 1971). Ici, ce quelqu'un est une sub-session sans contexte.*
 
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Mise en place** - nous avons remis la propre spec de `shower` à une sous-session zéro contexte, avec seulement le fichier.
+- **Mise en place** - nous avons remis la propre spec de `shower` à une sub-session zéro contexte, avec seulement le fichier.
 - **Résultat** - en quelques minutes, elle a trouvé trois bugs manqués par l'auteur :
   - une étape qui suggérait la réponse qu'elle devait cacher,
   - un chemin qui fuyait des fichiers spoiler,
@@ -143,14 +143,14 @@ Après une longue session, vous êtes la personne qui peut le moins lire votre p
 ### #3 - Le même fait finit partout
 Une valeur de timeout, une décision, un statut : copiés dans un README, une doc, un ticket et un fil Slack. Les copies dérivent, et plus personne ne sait laquelle est vraie.
 
-**Le correctif → `ssotchk` + `ssotize` :** trouver la dispersion, nommer la source canonique, puis consolider et faire pointer le reste vers elle.
+**Le correctif → `ssotchk` + `ssotize` :** trouver la dispersion, nommer la canonical source, puis consolider et faire pointer le reste vers elle.
 
 > *Antécédent : [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) - un fait, un foyer autoritaire (Hunt & Thomas, The Pragmatic Programmer, 1999).*
 
 ### #4 - "N'oublie pas de vérifier" ne se déclenche jamais
 Une règle enfouie dans la doc ne se déclenchera pas dans une toute nouvelle session, exactement quand le biais de l'auteur est maximal.
 
-**Le correctif → `sip` :** dès que vous terminez quelque chose, il lance les checks propres (`shower`, `ssotchk`, `re0`) et, s'il y a une affirmation ou un eval, les vrais checks (`factchk`, `mandela`) sur votre sortie, automatiquement.
+**Le correctif → `sip` :** dès que vous terminez quelque chose, il lance les checks propres (`shower`, `ssotchk`, `re0`) et, s'il y a une claim ou un eval, les vrais checks (`factchk`, `mandela`) sur votre output, automatiquement.
 
 > *Antécédent : [dogfooding](https://en.wikipedia.org/wiki/Eating_your_own_dog_food) - eat your own dog food (Microsoft, 1988). Goûtez votre propre cuisine avant de la servir.*
 
@@ -183,7 +183,7 @@ Votre session reste coincée là où elle a tourné : cet agent, ce compte, cett
 ### #6 - Votre intuition n'est pas une source
 "Plausible", "absurde", "nouveau" : la ligne la moins fiable de n'importe quel artifact. Les priors humains échouent **dans les deux sens** : ils excluent le réel (les grenouilles du désert existent) et normalisent l'impossible (des caisses sans poids).
 
-**Le correctif → `factchk` :** vérifier toute affirmation ancrée dans le réel contre des sources externes, dans les deux sens, avant publication ; et signaler, plutôt que deviner, lorsqu'aucune source n'est atteignable.
+**Le correctif → `factchk` :** vérifier toute claim ancrée dans le réel contre des sources externes, dans les deux sens, avant publication ; et signaler, plutôt que deviner, lorsqu'aucune source n'est atteignable.
 
 > *Antécédents : [WEIRD bias](https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/abs/weirdest-people-in-the-world/BF84F7517D56AFF7B7EB58411A554C17) (Henrich, Heine & Norenzayan, 2010) et [naive-physics / impetus error](https://www.science.org/doi/10.1126/science.210.4474.1139) (McCloskey, Caramazza & Green, 1980) - l'intuition juge mal la réalité dans les deux sens.*
 
@@ -198,7 +198,7 @@ Votre session reste coincée là où elle a tourné : cet agent, ce compte, cett
 ### #7 - L'eval se confirme elle-même
 Un modèle, un scorer et un designer peuvent tous être d'accord qu'un résultat est réel alors qu'aucune ground truth externe n'est jamais entrée dans la boucle. Toute une salle se souvient avec assurance de quelque chose qui n'a jamais été produit indépendamment.
 
-**Le correctif → `mandela` :** auditer tout eval, metric ou experiment avec une taxonomie de 8 fuites : une ground truth externe entre-t-elle indépendamment, ou le vérificateur est-il le designer ?
+**Le correctif → `mandela` :** auditer tout eval, metric ou experiment avec une taxonomie de 8 leakage : une ground truth externe entre-t-elle indépendamment, ou le vérificateur est-il le designer ?
 
 > *Antécédents : [Goodhart's law](https://en.wikipedia.org/wiki/Goodhart%27s_law), [data leakage](https://dl.acm.org/doi/10.1145/2382577.2382579) (Kaufman et al., 2012) et [circular analysis](https://www.nature.com/articles/nn.2303), le "double dipping" (Kriegeskorte et al., 2009).*
 
@@ -206,14 +206,14 @@ Un modèle, un scorer et un designer peuvent tous être d'accord qu'un résultat
 <summary><b>[PROOF]</b></summary>
 
 - **Mise en place** - l'audit a été distillé d'un design de recherche qui mourait toujours sur un seul mode d'échec : scorer, modèle et designer s'accordant sur un résultat qu'aucune vérité externe n'avait produit.
-- **Résultat** - la fuite est apparue sous huit formes dans ce seul projet : un scorer notant des buckets qu'il avait dessinés, deux composants se "vérifiant" dans un espace partagé, une recette privée qui faisait du vérificateur le designer. Ce catalogue est devenu la taxonomie 8-pattern du skill.
+- **Résultat** - la leakage est apparue sous huit formes dans ce seul projet : un scorer notant des buckets qu'il avait dessinés, deux composants se "vérifiant" dans un espace partagé, une recette privée qui faisait du vérificateur le designer. Ce catalogue est devenu la taxonomie 8-pattern du skill.
 - **Donc** - la checklist n'est pas théorique : chaque pattern a déjà fait saigner un projet.
 </details>
 
 ### #8 - Vous ne pouvez pas tuer votre propre plan
 Vous l'avez construit, donc vous le défendez. Les questions qui le briseraient sont exactement celles que vous ne poserez pas.
 
-**Le correctif → `hate` :** refuser d'être gentil avec le plan ; renvoyer l'objection porteuse qui pourrait le tuer et l'expérience la moins chère qui prouverait qu'elle compte. Invoqué par l'utilisateur : vous le pointez volontairement vers un plan.
+**Le correctif → `hate` :** refuser d'être gentil avec le plan ; renvoyer l'objection porteuse qui pourrait le tuer et l'expérience la moins chère qui prouverait qu'elle compte. Invoqué par l'user : vous le pointez volontairement vers un plan.
 
 > *Antécédents : [egoless programming](https://en.wikipedia.org/wiki/Egoless_programming) (Weinberg, 1971, la même racine que cite `shower`), hostile review et fail-fast.*
 
@@ -226,7 +226,7 @@ Vous l'avez construit, donc vous le défendez. Les questions qui le briseraient 
 </details>
 
 ### #9 - Un build qui tourne peut encore être le mauvais produit
-Les longs cycles agentiques produisent beaucoup de pièces qui fonctionnent : panels, routes, tests, screenshots. Elles prouvent l'activité plus que la valeur, et le sunk cost pousse à garder l'architecture. Puis, entre les passes, le prochain mouvement se floute en une douzaine de fils vivants, et trop d'options devient sa propre paralysie.
+Les longs cycles agentics produisent beaucoup de pièces qui fonctionnent : panels, routes, tests, screenshots. Elles prouvent l'activité plus que la valeur, et le sunk cost pousse à garder l'architecture. Puis, entre les passes, le prochain mouvement se floute en une douzaine de fils vivants, et trop d'options devient sa propre paralysie.
 
 **Le correctif → `retro` + `re0-work` + `flywheel` + `nba` :** extraire la leçon, l'anti-pattern et le prochain gate ; redémarrer depuis une v0 propre quand la fondation est fausse ; lancer la boucle build → QA → retro → re0-work ; et, quand le fil est perdu, lire l'état et renvoyer la seule meilleure prochaine action. Ne garder que ce qui a mérité d'être réutilisé.
 
