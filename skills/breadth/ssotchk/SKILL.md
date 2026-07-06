@@ -17,7 +17,7 @@ Reach for this when establishing order across many artifacts, especially messy o
 2. Enumerate every occurrence across the given artifacts and platforms.
 3. Classify each occurrence: exact copy, paraphrase, partial, stale, or contradictory.
 4. Pick the canonical home — the most authoritative and most-maintained location, closest to where the fact actually changes (the code/config for a value, the spec for a decision, the ticket for status); never arbitrarily.
-5. Decide the action per non-canonical occurrence: **dedupe** (redundant copy), **reference** (should link to canonical), or **reconcile** (it disagrees — needs a human call on which is right).
+5. Decide the action per non-canonical occurrence: **dedupe** (redundant copy), **reference** (docs should link to canonical, code should import/source/include it, config should use a shared read), or **reconcile** (it disagrees — needs a human call on which is right).
 6. Report: a table of occurrences (location · kind · action), the proposed canonical home with a one-line justification, and a separate list of contradictions/drift that need a decision.
 
 ## Rules

@@ -30,7 +30,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 **How many artifacts, and across how much time?**
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/map.svg" alt="The Paperthin map by LilMGenius/paperthin: a two-by-two matrix. Horizontal axis cardinality (one, then many); vertical axis time (now, then across iterations); four regions. Top-left, depth: one artifact, now; is this one thing clean and true? Top-right, breadth: many artifacts, now; is one truth consistent everywhere? Bottom-left, coil: one project, across iterations; did each pass teach the next? Bottom-right, mesh: many minds, across rounds; does the crowd converge on truth?" width="820">
+<img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/map.svg" alt="The Paperthin map by LilMGenius/paperthin, a two-by-two matrix. Horizontal axis cardinality (one, then many); vertical axis time (now, then across iterations); four regions. Top-left, depth: one artifact, now; is this one thing clean and true? Top-right, breadth: many artifacts, now; is one truth consistent everywhere? Bottom-left, coil: one project, across iterations; did each pass teach the next? Bottom-right, mesh: many minds, across rounds; does the crowd converge on truth?" width="820">
 </div>
 
 ## The Index
@@ -55,6 +55,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 |---|---|---|---|
 | 🔎 **[ssotchk](./skills/breadth/ssotchk/SKILL.md)** | Find where one fact is scattered or duplicated; name the canonical source *(read-only)* | one fact, many places | model |
 | 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | Consolidate it into one home and point the rest at it | one fact, many places | model |
+| 🧰 **[ppt-upgrade](./skills/breadth/ppt-upgrade/SKILL.md)** | Reconcile old installed Paperthin skill names after releases | installed skill names | user |
 
 ### `coil/`
 

@@ -14,16 +14,16 @@ Use this to **establish or repair** SSOT — messy, legacy, or freshly-scaffolde
 ## Workflow
 
 1. Audit first — run the `ssotchk` workflow (or reuse its result) for the canonical home and the per-occurrence action plan. Don't consolidate blind.
-2. Make the canonical home complete and current — fold in any unique detail that lived only in a copy. Never lose information to consolidation.
+2. Make or extract the canonical home complete and current — fold in any unique detail that lived only in a copy. When no existing copy is canonical, extract a new canonical home instead of promoting a weak copy. Never lose information to consolidation.
 3. Reconcile contradictions in the canonical home FIRST (confirm the correct value with the human when ambiguous); only then point others at it.
-4. Replace each duplicate with a reference to the canonical home — a link, a "see <home>", a quote-with-link, or a transclude where the platform supports it.
+4. Replace each duplicate with a live reference to the canonical home — for docs, use a link, a "see <home>", a quote-with-link, or a transclude where the platform supports it; for code, use an import/source/include of the shared home; for config, use a shared read from the one maintained file.
 5. Remove the now-redundant copies. Where removal would orphan a reader, leave a one-line pointer instead of deleting outright.
 
 ## Rules
 
 - A pass that finds no scatter to consolidate changes nothing.
 - Don't consolidate across a trust/permission boundary (private → public, customer-facing → internal) without explicit confirmation.
-- Mutate with edit-safety: assert each replace target exists before touching it (report a MISS, never a silent no-op), edit unicode-safe (`PYTHONUTF8=1`), and act per occurrence, never a blanket sweep.
+- Mutate with edit-safety: assert each replace target exists before touching it (report a MISS, never a silent no-op), edit unicode-safe (`PYTHONUTF8=1`), and act per occurrence, never a blanket sweep; make structural code moves with language-aware tools or scripted AST/parser edits, never scripted text rewrites.
 - Be platform-aware: transclude where possible, else link to a stable anchor the reader can follow; prefer a reference over a hard deletion when a platform can't link back.
 
 ## Verification
