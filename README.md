@@ -10,6 +10,8 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 
 [Quickstart](#quickstart-15-seconds) · [The Map](#the-map) · [The Index](#the-index) · [The Problem](#the-problem) · [The Fixes](#the-fixes) · [Credits](#credits)
 
+<sub>Read in: English · [中文](./docs/readme/README.zh-CN.md) · [हिन्दी](./docs/readme/README.hi.md) · [Español](./docs/readme/README.es.md) · [العربية](./docs/readme/README.ar.md) · [Português](./docs/readme/README.pt.md) · [Русский](./docs/readme/README.ru.md) · [日本語](./docs/readme/README.ja.md) · [Français](./docs/readme/README.fr.md) · [Deutsch](./docs/readme/README.de.md) · [한국어](./docs/readme/README.ko.md)</sub>
+
 </div>
 
 ---

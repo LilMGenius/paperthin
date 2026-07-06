@@ -10,7 +10,7 @@
 
 [البدء السريع](#quickstart-15-seconds) · [الخريطة](#the-map) · [الفهرس](#the-index) · [المشكلة](#the-problem) · [fixes](#the-fixes) · [الشكر](#credits)
 
-اللغات: [English](./README.md) · العربية
+<sub>Read in: [English](../../README.md) · [中文](./README.zh-CN.md) · [हिन्दी](./README.hi.md) · [Español](./README.es.md) · العربية · [Português](./README.pt.md) · [Русский](./README.ru.md) · [日本語](./README.ja.md) · [Français](./README.fr.md) · [Deutsch](./README.de.md) · [한국어](./README.ko.md)</sub>
 
 </div>
 
@@ -44,38 +44,38 @@
 
 | Skill | ماذا يفعل | scope | Invoker |
 |---|---|---|---|
-| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | يعيد كتابة artifact انحرف إلى v0 نظيفة، لا إلى رقعة أخرى | artifact واحد | model |
-| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | يقرأه قراءة باردة بعين جديدة وبدون سياق: هل يقف وحده؟ *(قراءة فقط)* | artifact واحد | model |
-| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | يتحقق من claim مقابل sources في الاتجاهين: هل يمكن أن يكون العبث صحيحا، والواضح خاطئا؟ *(قراءة فقط → إصلاح)* | claim واحد | model |
-| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | يدقق validation بحثا عن leakage: هل تدخل ground truth خارجية فعلا؟ *(قراءة فقط)* | eval واحد | model |
-| 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | يقطع scope غير الآمن مسبقا، يشغل الباقي الآمن بكامل القوة، ويخرج descope ledger | task واحد | model |
-| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | بعد أي تغيير، يتذوق output الخاص بك بفحوص clean-and-true الخاصة بالـ repo | output الخاص بك | model |
-| 😈 **[hate](./skills/depth/hate/SKILL.md)** | يرفض المجاملة: الاعتراض الوحيد الذي قد يقتل الخطة + أرخص test | plan واحد | user |
-| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | يزيل em dashes وما يشبهها، ويختار علامة الترقيم التي يحتاجها كل موضع | نثرك | user |
-| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | يعيد كتابة رسالة commit مكتمل إلى v0 نظيفة حتى يحمل `git log` وحده التسليم | commit واحد | user |
+| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | يعيد كتابة artifact انحرف إلى v0 نظيفة، لا إلى رقعة أخرى | artifact واحد | model |
+| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | يقرأه قراءة باردة بعين جديدة وبدون سياق: هل يقف وحده؟ *(قراءة فقط)* | artifact واحد | model |
+| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | يتحقق من claim مقابل sources في الاتجاهين: هل يمكن أن يكون العبث صحيحا، والواضح خاطئا؟ *(قراءة فقط → إصلاح)* | claim واحد | model |
+| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | يدقق validation بحثا عن leakage: هل تدخل ground truth خارجية فعلا؟ *(قراءة فقط)* | eval واحد | model |
+| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | يقطع scope غير الآمن مسبقا، يشغل الباقي الآمن بكامل القوة، ويخرج descope ledger | task واحد | model |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | بعد أي تغيير، يتذوق output الخاص بك بفحوص clean-and-true الخاصة بالـ repo | output الخاص بك | model |
+| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | يرفض المجاملة: الاعتراض الوحيد الذي قد يقتل الخطة + أرخص test | plan واحد | user |
+| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | يزيل em dashes وما يشبهها، ويختار علامة الترقيم التي يحتاجها كل موضع | نثرك | user |
+| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | يعيد كتابة رسالة commit مكتمل إلى v0 نظيفة حتى يحمل `git log` وحده التسليم | commit واحد | user |
 
 ### `breadth/`
 
 | Skill | ماذا يفعل | scope | Invoker |
 |---|---|---|---|
-| 🔎 **[ssotchk](./skills/breadth/ssotchk/SKILL.md)** | يجد أين تشتتت fact واحدة أو تكررت؛ ويسمي canonical source *(قراءة فقط)* | fact واحدة، أماكن كثيرة | model |
-| 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | يوحدها في بيت واحد ويجعل الباقي يشير إليه | fact واحدة، أماكن كثيرة | model |
-| 🧰 **[ppt-upgrade](./skills/breadth/ppt-upgrade/SKILL.md)** | يوفق أسماء Paperthin skill القديمة المثبتة بعد الإصدارات | أسماء skills مثبتة | user |
+| 🔎 **[ssotchk](../../skills/breadth/ssotchk/SKILL.md)** | يجد أين تشتتت fact واحدة أو تكررت؛ ويسمي canonical source *(قراءة فقط)* | fact واحدة، أماكن كثيرة | model |
+| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | يوحدها في بيت واحد ويجعل الباقي يشير إليه | fact واحدة، أماكن كثيرة | model |
+| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | يوفق أسماء Paperthin skill القديمة المثبتة بعد الإصدارات | أسماء skills مثبتة | user |
 
 ### `coil/`
 
 | Skill | ماذا يفعل | scope | Invoker |
 |---|---|---|---|
-| 🧭 **[retro](./skills/coil/retro/SKILL.md)** | يستخرج الدروس والـ anti-patterns من cycle انتهت أو فشلت | cycle مكتملة | model |
-| 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | يبدأ من v0 من جديد، محتفظا فقط بالدروس التي استحقت إعادة الاستخدام | restart واحد | model |
-| 🌀 **[flywheel](./skills/coil/flywheel/SKILL.md)** | يشغل حلقة build → QA → retro → re0-work حتى يتراكم التعلم، لا الكود | الحلقة كلها | model |
-| 🎯 **[nba](./skills/coil/nba/SKILL.md)** | يقرأ حالة cycle الحية ويعيد next best action واحدا، لا قائمة *(قراءة فقط)* | cycle الحية | model |
+| 🧭 **[retro](../../skills/coil/retro/SKILL.md)** | يستخرج الدروس والـ anti-patterns من cycle انتهت أو فشلت | cycle مكتملة | model |
+| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | يبدأ من v0 من جديد، محتفظا فقط بالدروس التي استحقت إعادة الاستخدام | restart واحد | model |
+| 🌀 **[flywheel](../../skills/coil/flywheel/SKILL.md)** | يشغل حلقة build → QA → retro → re0-work حتى يتراكم التعلم، لا الكود | الحلقة كلها | model |
+| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | يقرأ حالة cycle الحية ويعيد next best action واحدا، لا قائمة *(قراءة فقط)* | cycle الحية | model |
 
 ### `mesh/`
 
 *قيد التطوير - تقريب الرؤى المستقلة إلى consensus.*
 
-*المزيد عن الاستدعاء: [docs/invocation.md](./docs/invocation.md).*
+*المزيد عن الاستدعاء: [docs/invocation.md](../invocation.md).*
 
 <a id="the-problem"></a>
 ## المشكلة
@@ -258,5 +258,5 @@
 
 - **مبني على** [mattpocock/skills](https://github.com/mattpocock/skills) (MIT) - معماره وفلسفته.
 - **ليس fork** - هذه workflows خاصة بـ [LilMGenius](https://github.com/LilMGenius)، وغير متداخلة.
-- **Vendored verbatim** - بعض building blocks المشتركة، محفوظة كما هي مع attribution لكل مصدر في [NOTICE](./NOTICE).
-- **دليل التأليف** - conventions والفلسفة في [CLAUDE.md](./CLAUDE.md).
+- **Vendored verbatim** - بعض building blocks المشتركة، محفوظة كما هي مع attribution لكل مصدر في [NOTICE](../../NOTICE).
+- **دليل التأليف** - conventions والفلسفة في [CLAUDE.md](../../CLAUDE.md).

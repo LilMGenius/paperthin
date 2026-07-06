@@ -10,7 +10,7 @@
 
 [Быстрый старт](#quickstart-15-seconds) · [Карта](#the-map) · [Индекс](#the-index) · [Проблема](#the-problem) · [Фиксы](#the-fixes) · [Credits](#credits)
 
-Языки: [English](./README.md) · Русский
+<sub>Read in: [English](../../README.md) · [中文](./README.zh-CN.md) · [हिन्दी](./README.hi.md) · [Español](./README.es.md) · [العربية](./README.ar.md) · [Português](./README.pt.md) · Русский · [日本語](./README.ja.md) · [Français](./README.fr.md) · [Deutsch](./README.de.md) · [한국어](./README.ko.md)</sub>
 
 </div>
 
@@ -44,38 +44,38 @@
 
 | Skill | Что делает | Scope | Invoker |
 |---|---|---|---|
-| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Переписывает поплывший артефакт в чистую v0, а не накладывает еще один patch | один артефакт | model |
-| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read свежими глазами без контекста: держится ли артефакт сам по себе? *(read-only)* | один артефакт | model |
-| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Проверяет claim по sources в обе стороны: может ли абсурд быть реальным, а очевидное ложным? *(read-only → fix)* | один claim | model |
-| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Аудитит validation на leakage: действительно ли внутрь входит внешняя ground truth? *(read-only)* | один eval | model |
-| 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Заранее вырезает unsafe scope, запускает безопасный остаток на полной мощности и отдает descope ledger | одна task | model |
-| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | После любого изменения пробует output через собственные clean-and-true checks репозитория | ваш output | model |
-| 😈 **[hate](./skills/depth/hate/SKILL.md)** | Отказывается быть добрым: одно objection, которое может убить plan, плюс самый дешевый test | один plan | user |
-| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Убирает em dashes и их look-alikes, выбирая пунктуацию, которая реально нужна в каждом месте | ваша prose | user |
-| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Переписывает message готового commit в чистую v0, чтобы один `git log` нес handoff | один commit | user |
+| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | Переписывает поплывший артефакт в чистую v0, а не накладывает еще один patch | один артефакт | model |
+| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Cold-read свежими глазами без контекста: держится ли артефакт сам по себе? *(read-only)* | один артефакт | model |
+| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Проверяет claim по sources в обе стороны: может ли абсурд быть реальным, а очевидное ложным? *(read-only → fix)* | один claim | model |
+| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Аудитит validation на leakage: действительно ли внутрь входит внешняя ground truth? *(read-only)* | один eval | model |
+| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Заранее вырезает unsafe scope, запускает безопасный остаток на полной мощности и отдает descope ledger | одна task | model |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | После любого изменения пробует output через собственные clean-and-true checks репозитория | ваш output | model |
+| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Отказывается быть добрым: одно objection, которое может убить plan, плюс самый дешевый test | один plan | user |
+| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Убирает em dashes и их look-alikes, выбирая пунктуацию, которая реально нужна в каждом месте | ваша prose | user |
+| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Переписывает message готового commit в чистую v0, чтобы один `git log` нес handoff | один commit | user |
 
 ### `breadth/`
 
 | Skill | Что делает | Scope | Invoker |
 |---|---|---|---|
-| 🔎 **[ssotchk](./skills/breadth/ssotchk/SKILL.md)** | Находит, где один fact разбросан или продублирован; называет canonical source *(read-only)* | один fact, много мест | model |
-| 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | Consolidate этот fact в одном доме и направляет остальные места туда | один fact, много мест | model |
-| 🧰 **[ppt-upgrade](./skills/breadth/ppt-upgrade/SKILL.md)** | Согласует старые установленные имена Paperthin skills после релизов | установленные skill names | user |
+| 🔎 **[ssotchk](../../skills/breadth/ssotchk/SKILL.md)** | Находит, где один fact разбросан или продублирован; называет canonical source *(read-only)* | один fact, много мест | model |
+| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Consolidate этот fact в одном доме и направляет остальные места туда | один fact, много мест | model |
+| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | Согласует старые установленные имена Paperthin skills после релизов | установленные skill names | user |
 
 ### `coil/`
 
 | Skill | Что делает | Scope | Invoker |
 |---|---|---|---|
-| 🧭 **[retro](./skills/coil/retro/SKILL.md)** | Извлекает lessons и anti-patterns из завершенного или проваленного cycle | один завершенный cycle | model |
-| 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Начинает заново с v0, оставляя только lessons, заслужившие reuse | один restart | model |
-| 🌀 **[flywheel](./skills/coil/flywheel/SKILL.md)** | Запускает loop build → QA → retro → re0-work, чтобы накапливалось learning, а не code | весь loop | model |
-| 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Читает live cycle state и возвращает один next best action, а не меню *(read-only)* | текущий cycle | model |
+| 🧭 **[retro](../../skills/coil/retro/SKILL.md)** | Извлекает lessons и anti-patterns из завершенного или проваленного cycle | один завершенный cycle | model |
+| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Начинает заново с v0, оставляя только lessons, заслужившие reuse | один restart | model |
+| 🌀 **[flywheel](../../skills/coil/flywheel/SKILL.md)** | Запускает loop build → QA → retro → re0-work, чтобы накапливалось learning, а не code | весь loop | model |
+| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Читает live cycle state и возвращает один next best action, а не меню *(read-only)* | текущий cycle | model |
 
 ### `mesh/`
 
 *В разработке - сводить независимые взгляды к consensus.*
 
-*Подробнее о вызове: [docs/invocation.md](./docs/invocation.md).*
+*Подробнее о вызове: [docs/invocation.md](../invocation.md).*
 
 <a id="the-problem"></a>
 ## Проблема
@@ -258,5 +258,5 @@ Model, scorer и designer могут все согласиться, что resul
 
 - **Built on** [mattpocock/skills](https://github.com/mattpocock/skills) (MIT) - его architecture и philosophy.
 - **Not a fork** - это собственные, non-overlapping workflows [LilMGenius](https://github.com/LilMGenius).
-- **Vendored verbatim** - несколько shared building blocks оставлены as-is с per-source attribution в [NOTICE](./NOTICE).
-- **Authoring guide** - conventions и philosophy живут в [CLAUDE.md](./CLAUDE.md).
+- **Vendored verbatim** - несколько shared building blocks оставлены as-is с per-source attribution в [NOTICE](../../NOTICE).
+- **Authoring guide** - conventions и philosophy живут в [CLAUDE.md](../../CLAUDE.md).

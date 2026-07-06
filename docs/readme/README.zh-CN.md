@@ -10,7 +10,7 @@
 
 [快速开始](#quickstart-15-seconds) · [地图](#the-map) · [索引](#the-index) · [问题](#the-problem) · [修复](#the-fixes) · [致谢](#credits)
 
-语言：[English](./README.md) · 简体中文
+<sub>Read in: [English](../../README.md) · 中文 · [हिन्दी](./README.hi.md) · [Español](./README.es.md) · [العربية](./README.ar.md) · [Português](./README.pt.md) · [Русский](./README.ru.md) · [日本語](./README.ja.md) · [Français](./README.fr.md) · [Deutsch](./README.de.md) · [한국어](./README.ko.md)</sub>
 
 </div>
 
@@ -44,38 +44,38 @@
 
 | skill | 作用 | scope | Invoker |
 |---|---|---|---|
-| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | 把漂移的 artifact 重写成干净的 v0，而不是再打一层 patch | 一个 artifact | model |
-| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | 用全新、零上下文的眼睛冷读它，判断它能不能独自站住 *(只读)* | 一个 artifact | model |
-| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | 双向对照 source 核验一个 claim：荒谬的可能真实吗，显然的可能是假的吗？ *(只读 → 修复)* | 一个 claim | model |
-| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | 审计 validation 是否 leakage：外部 ground truth 真的进入了吗？ *(只读)* | 一个 eval | model |
-| 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | 先切掉不安全 scope，让安全部分全速运行，并交付 descope ledger | 一个任务 | model |
-| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | 每次变更后，用 repo 自己的 clean-and-true 检查品尝你的 output | 你的 output | model |
-| 😈 **[hate](./skills/depth/hate/SKILL.md)** | 拒绝客气，给出一个足以杀死计划的反对意见和最便宜的测试 | 一个计划 | 用户 |
-| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | 移除 em dash 及其相似痕迹，并为每处选择真正需要的标点 | 你的文字 | 用户 |
-| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | 把已完成 commit 的信息重写成干净的 v0，让 `git log` 本身就能完成交接 | 一个 commit | 用户 |
+| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | 把漂移的 artifact 重写成干净的 v0，而不是再打一层 patch | 一个 artifact | model |
+| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 用全新、零上下文的眼睛冷读它，判断它能不能独自站住 *(只读)* | 一个 artifact | model |
+| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 双向对照 source 核验一个 claim：荒谬的可能真实吗，显然的可能是假的吗？ *(只读 → 修复)* | 一个 claim | model |
+| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | 审计 validation 是否 leakage：外部 ground truth 真的进入了吗？ *(只读)* | 一个 eval | model |
+| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 先切掉不安全 scope，让安全部分全速运行，并交付 descope ledger | 一个任务 | model |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 每次变更后，用 repo 自己的 clean-and-true 检查品尝你的 output | 你的 output | model |
+| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 拒绝客气，给出一个足以杀死计划的反对意见和最便宜的测试 | 一个计划 | 用户 |
+| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | 移除 em dash 及其相似痕迹，并为每处选择真正需要的标点 | 你的文字 | 用户 |
+| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 把已完成 commit 的信息重写成干净的 v0，让 `git log` 本身就能完成交接 | 一个 commit | 用户 |
 
 ### `breadth/`
 
 | skill | 作用 | scope | Invoker |
 |---|---|---|---|
-| 🔎 **[ssotchk](./skills/breadth/ssotchk/SKILL.md)** | 找出一个 fact 散落或重复的位置，并指出 canonical source *(只读)* | 一个 fact，多个位置 | model |
-| 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | 把 fact 合并到一个归宿，并让其他位置指向它 | 一个 fact，多个位置 | model |
-| 🧰 **[ppt-upgrade](./skills/breadth/ppt-upgrade/SKILL.md)** | 发布后协调已安装的旧 Paperthin skill 名称 | 已安装 skill 名称 | 用户 |
+| 🔎 **[ssotchk](../../skills/breadth/ssotchk/SKILL.md)** | 找出一个 fact 散落或重复的位置，并指出 canonical source *(只读)* | 一个 fact，多个位置 | model |
+| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | 把 fact 合并到一个归宿，并让其他位置指向它 | 一个 fact，多个位置 | model |
+| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | 发布后协调已安装的旧 Paperthin skill 名称 | 已安装 skill 名称 | 用户 |
 
 ### `coil/`
 
 | skill | 作用 | scope | Invoker |
 |---|---|---|---|
-| 🧭 **[retro](./skills/coil/retro/SKILL.md)** | 从一次完成或失败的 cycle 中抽取教训和反模式 | 一个结束的 cycle | model |
-| 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | 只保留赢得复用资格的教训，从 v0 重新开始 | 一次重启 | model |
-| 🌀 **[flywheel](./skills/coil/flywheel/SKILL.md)** | 跑 build → QA → retro → re0-work cycle，让学习复利，而不是代码膨胀 | 整个 cycle | model |
-| 🎯 **[nba](./skills/coil/nba/SKILL.md)** | 读取实时 cycle state，返回一个下一步最佳行动，而不是菜单 *(只读)* | 当前 cycle | model |
+| 🧭 **[retro](../../skills/coil/retro/SKILL.md)** | 从一次完成或失败的 cycle 中抽取教训和反模式 | 一个结束的 cycle | model |
+| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 只保留赢得复用资格的教训，从 v0 重新开始 | 一次重启 | model |
+| 🌀 **[flywheel](../../skills/coil/flywheel/SKILL.md)** | 跑 build → QA → retro → re0-work cycle，让学习复利，而不是代码膨胀 | 整个 cycle | model |
+| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 读取实时 cycle state，返回一个下一步最佳行动，而不是菜单 *(只读)* | 当前 cycle | model |
 
 ### `mesh/`
 
 *开发中 - 将独立视角收敛为共识。*
 
-*更多调用方式见 [docs/invocation.md](./docs/invocation.md)。*
+*更多调用方式见 [docs/invocation.md](../invocation.md)。*
 
 <a id="the-problem"></a>
 ## 问题
@@ -258,5 +258,5 @@ model、 scorer 和 designer 可能一致认为结果是真的，而外部 groun
 
 - **build 于** [mattpocock/skills](https://github.com/mattpocock/skills)（MIT）的架构和哲学之上。
 - **不是 fork** - 这些是 [LilMGenius](https://github.com/LilMGenius) 自己的、互不重叠的 workflow。
-- **按原样 vendored** - 少数共享 building blocks 保持原样，并在 [NOTICE](./NOTICE) 中按 source 归属。
-- **作者指南** - 约定和哲学见 [CLAUDE.md](./CLAUDE.md)。
+- **按原样 vendored** - 少数共享 building blocks 保持原样，并在 [NOTICE](../../NOTICE) 中按 source 归属。
+- **作者指南** - 约定和哲学见 [CLAUDE.md](../../CLAUDE.md)。

@@ -77,11 +77,12 @@ Before committing:
 
 1. **SKILL.md** follows the [anatomy above](#skillmd-format).
 2. **[README](./README.md)** lists it — grouped by perspective, invocation marked in the `Invoker` column, each linked to its `SKILL.md`.
-3. **[plugin.json](./.claude-plugin/plugin.json)** registers its path.
-4. **[package.json](./package.json)** bumps version (new skill = minor; fix/docs = patch); `keywords` stay grouped logically.
-5. **Rename maintenance:** every future skill rename appends its old → new entry to `ppt-upgrade`'s deprecations checklist in release order.
-6. **Keep the convention-copies coherent, and wire any pair or orchestrator.** Skills are independent and name no other skill, so there is barely a cross-skill graph to maintain. What recurs is inline: a skill that mutates, cuts, or writes a commit carries `edit-safety` / `negatives-as-corpus` / `commit-economy` inline, so every copy of a rule must stay coherent with the others the [Conventions](#conventions) map lists. The only couplings are the pair (`ssotchk` → `ssotize`) and the orchestrators (`sip`, `flywheel`, `nba`); when a new skill joins one — an orchestrator should now run it, or it forms a new pair — wire that edge, and only that.
-7. Run **`sip`** — it tastes the change with the repo's own clean-and-true checks before you ship.
+3. **Localized READMEs** keep root `README.md` as the English source; translations live under [`docs/readme/`](./docs/readme/), never the repo root. Every README keeps the same `<sub>Read in: ...</sub>` switcher after its section nav, with the current language as plain text, and every copied repo link rebased and verified from that file's directory.
+4. **[plugin.json](./.claude-plugin/plugin.json)** registers its path.
+5. **[package.json](./package.json)** bumps version (new skill = minor; fix/docs = patch); `keywords` stay grouped logically.
+6. **Rename maintenance:** every future skill rename appends its old → new entry to `ppt-upgrade`'s deprecations checklist in release order.
+7. **Keep the convention-copies coherent, and wire any pair or orchestrator.** Skills are independent and name no other skill, so there is barely a cross-skill graph to maintain. What recurs is inline: a skill that mutates, cuts, or writes a commit carries `edit-safety` / `negatives-as-corpus` / `commit-economy` inline, so every copy of a rule must stay coherent with the others the [Conventions](#conventions) map lists. The only couplings are the pair (`ssotchk` → `ssotize`) and the orchestrators (`sip`, `flywheel`, `nba`); when a new skill joins one — an orchestrator should now run it, or it forms a new pair — wire that edge, and only that.
+8. Run **`sip`** — it tastes the change with the repo's own clean-and-true checks before you ship.
 
 Write commit messages to `re0-git`'s **commit-economy** from the first draft, not only on its cleanup pass.
 

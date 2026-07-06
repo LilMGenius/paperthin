@@ -10,7 +10,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 
 [Démarrage rapide](#quickstart-15-seconds) · [La carte](#the-map) · [L'index](#the-index) · [Le problème](#the-problem) · [Les correctifs](#the-fixes) · [Crédits](#credits)
 
-Langues : [English](./README.md) · Français
+<sub>Read in: [English](../../README.md) · [中文](./README.zh-CN.md) · [हिन्दी](./README.hi.md) · [Español](./README.es.md) · [العربية](./README.ar.md) · [Português](./README.pt.md) · [Русский](./README.ru.md) · [日本語](./README.ja.md) · Français · [Deutsch](./README.de.md) · [한국어](./README.ko.md)</sub>
 
 </div>
 
@@ -44,38 +44,38 @@ Langues : [English](./README.md) · Français
 
 | Skill | Ce qu'il fait | Portée | Invocation |
 |---|---|---|---|
-| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Réécrit un artifact qui a dérivé en v0 propre, plutôt qu'un patch de plus | un artifact | modèle |
-| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Relit à froid, avec des yeux neufs et zéro contexte : tient-il debout seul ? *(lecture seule)* | un artifact | modèle |
-| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Vérifie une claim contre les sources, dans les deux sens : l'absurde pourrait-il être vrai, l'évident faux ? *(lecture seule → correction)* | une claim | modèle |
-| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audite une validation pour détecter les leakage : une ground truth externe entre-t-elle vraiment ? *(lecture seule)* | un eval | modèle |
-| 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Découpe le périmètre dangereux en amont, exécute le reste sûr à pleine puissance, livre un descope ledger | une tâche | modèle |
-| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | Après chaque changement, goûte votre output avec les propres checks clean-and-true du dépôt | votre output | modèle |
-| 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse d'être gentil : l'objection unique qui peut tuer le plan + le test le moins cher | un plan | user |
-| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Retire les em dashes et leurs sosies, en choisissant la ponctuation juste à chaque endroit | votre prose | user |
-| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Réécrit le message d'un commit terminé en v0 propre, afin que `git log` fasse l'handoff à lui seul | un commit | user |
+| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | Réécrit un artifact qui a dérivé en v0 propre, plutôt qu'un patch de plus | un artifact | modèle |
+| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Relit à froid, avec des yeux neufs et zéro contexte : tient-il debout seul ? *(lecture seule)* | un artifact | modèle |
+| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Vérifie une claim contre les sources, dans les deux sens : l'absurde pourrait-il être vrai, l'évident faux ? *(lecture seule → correction)* | une claim | modèle |
+| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Audite une validation pour détecter les leakage : une ground truth externe entre-t-elle vraiment ? *(lecture seule)* | un eval | modèle |
+| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Découpe le périmètre dangereux en amont, exécute le reste sûr à pleine puissance, livre un descope ledger | une tâche | modèle |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Après chaque changement, goûte votre output avec les propres checks clean-and-true du dépôt | votre output | modèle |
+| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Refuse d'être gentil : l'objection unique qui peut tuer le plan + le test le moins cher | un plan | user |
+| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Retire les em dashes et leurs sosies, en choisissant la ponctuation juste à chaque endroit | votre prose | user |
+| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Réécrit le message d'un commit terminé en v0 propre, afin que `git log` fasse l'handoff à lui seul | un commit | user |
 
 ### `breadth/`
 
 | Skill | Ce qu'il fait | Portée | Invocation |
 |---|---|---|---|
-| 🔎 **[ssotchk](./skills/breadth/ssotchk/SKILL.md)** | Trouve où un fait est dispersé ou dupliqué ; nomme la canonical source *(lecture seule)* | un fait, plusieurs endroits | modèle |
-| 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | Le consolide dans un seul foyer et fait pointer le reste vers lui | un fait, plusieurs endroits | modèle |
-| 🧰 **[ppt-upgrade](./skills/breadth/ppt-upgrade/SKILL.md)** | Réconcilie les anciens noms de skills Paperthin installés après les releases | noms de skills installés | user |
+| 🔎 **[ssotchk](../../skills/breadth/ssotchk/SKILL.md)** | Trouve où un fait est dispersé ou dupliqué ; nomme la canonical source *(lecture seule)* | un fait, plusieurs endroits | modèle |
+| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Le consolide dans un seul foyer et fait pointer le reste vers lui | un fait, plusieurs endroits | modèle |
+| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | Réconcilie les anciens noms de skills Paperthin installés après les releases | noms de skills installés | user |
 
 ### `coil/`
 
 | Skill | Ce qu'il fait | Portée | Invocation |
 |---|---|---|---|
-| 🧭 **[retro](./skills/coil/retro/SKILL.md)** | Extrait les leçons et anti-patterns d'un cycle terminé ou raté | un cycle terminé | modèle |
-| 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Redémarre depuis v0 en gardant seulement les leçons qui ont mérité d'être réutilisées | un redémarrage | modèle |
-| 🌀 **[flywheel](./skills/coil/flywheel/SKILL.md)** | Lance la boucle build → QA → retro → re0-work pour que l'apprentissage compose, pas le code | toute la boucle | modèle |
-| 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Lit l'état vivant du cycle et renvoie la seule meilleure prochaine action, pas un menu *(lecture seule)* | le cycle en cours | modèle |
+| 🧭 **[retro](../../skills/coil/retro/SKILL.md)** | Extrait les leçons et anti-patterns d'un cycle terminé ou raté | un cycle terminé | modèle |
+| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Redémarre depuis v0 en gardant seulement les leçons qui ont mérité d'être réutilisées | un redémarrage | modèle |
+| 🌀 **[flywheel](../../skills/coil/flywheel/SKILL.md)** | Lance la boucle build → QA → retro → re0-work pour que l'apprentissage compose, pas le code | toute la boucle | modèle |
+| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lit l'état vivant du cycle et renvoie la seule meilleure prochaine action, pas un menu *(lecture seule)* | le cycle en cours | modèle |
 
 ### `mesh/`
 
 *En développement - faire converger des vues indépendantes vers un consensus.*
 
-*Plus d'informations sur l'invocation : [docs/invocation.md](./docs/invocation.md).*
+*Plus d'informations sur l'invocation : [docs/invocation.md](../invocation.md).*
 
 <a id="the-problem"></a>
 ## Le problème
@@ -258,5 +258,5 @@ Pointez un agent vers une tâche qui frôle les guardrails - scraping, licensing
 
 - **Construit sur** [mattpocock/skills](https://github.com/mattpocock/skills) (MIT), son architecture et sa philosophie.
 - **Pas un fork** : ce sont les workflows propres, non chevauchants, de [LilMGenius](https://github.com/LilMGenius).
-- **Vendored verbatim** : quelques briques partagées, conservées telles quelles avec attribution par source dans [NOTICE](./NOTICE).
-- **Guide d'authoring** : conventions et philosophie vivent dans [CLAUDE.md](./CLAUDE.md).
+- **Vendored verbatim** : quelques briques partagées, conservées telles quelles avec attribution par source dans [NOTICE](../../NOTICE).
+- **Guide d'authoring** : conventions et philosophie vivent dans [CLAUDE.md](../../CLAUDE.md).
