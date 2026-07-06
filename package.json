@@ -1,7 +1,7 @@
 {
   "name": "paperthin",
-  "version": "0.9.0",
-  "description": "Paperthin: Low-level agentic design patterns. Turning old engineering wisdom into reflexes your agent reaches for on its own.",
+  "version": "0.9.1",
+  "description": "Low-level agentic design patterns. Turning old engineering wisdom into reflexes your agent reaches for on its own—on any agent.",
   "keywords": [
     "agent",
     "agent-skills",

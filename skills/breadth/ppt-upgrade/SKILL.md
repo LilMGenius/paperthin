@@ -25,13 +25,22 @@ The `ssot-check` row is user-confirmed from pre-v0.2.0 history that current git 
 | `redteam` | `hate` | 0.7.0 |
 | `scratch` | `re0-work` | 0.8.2 |
 
+## Current catalog
+
+Use this list to separate current paperthin skills from unknown installed names when parsing `npx skills list` and installed skill directories.
+
+`autobahn`, `dedash`, `factchk`, `flywheel`, `hate`, `mandela`, `nba`, `ppt-upgrade`, `re0`, `re0-git`, `re0-work`, `retro`, `shower`, `sip`, `ssotchk`, `ssotize`
+
 ## Workflow
 
-1. Read the installed skill names for the user-selected scope with `npx skills list`.
-2. Cross-reference the installed names against the deprecations checklist:
-   - stale names are installed entries in the `Deprecated` column;
+1. Pick one install scope and keep it for the whole run:
+   - global install: read with `npx skills list --global`, inspect `~/.agents/skills/<skill>/SKILL.md`, and use `--global` on every `remove`, `add`, and `update` command;
+   - project install: read with `npx skills list` from that project, inspect that project's installed skill directory if present, and omit `--global`;
+   - exact-agent install: use only explicit agent slugs such as `--agent claude-code`, never `--agent '*'`.
+2. Cross-reference both installed names and installed directory slugs against the deprecations checklist:
+   - stale names are installed entries or installed directory slugs in the `Deprecated` column;
    - replacement names are their `Renamed to` values;
-   - current names are installed paperthin skills that are not deprecated;
+   - current names are installed entries in the current catalog that are not deprecated;
    - unknown installed names stay untouched.
 3. Report the full install reconciliation plan before changing anything:
    - retire: `<stale names>`;
@@ -39,10 +48,10 @@ The `ssot-check` row is user-confirmed from pre-v0.2.0 history that current git 
    - update: `<current installed paperthin names>`;
    - untouched: unknown names and paperthin skills the user never installed.
 4. Ask for explicit confirmation before any removal or install reconciliation command.
-5. After confirmation, run only the selective commands needed for the reported plan:
-   - `npx skills remove <stale...>` for deprecated names the user confirmed retiring;
-   - `npx skills add LilMGenius/paperthin -s <renamed-to...>` for replacement names derived from installed deprecated names;
-   - `npx skills update <current-installed-paperthin...> <renamed-to...>` to refresh only already-installed current skills and replacements in the reported plan.
+5. After confirmation, run only the selective commands needed for the reported plan, with the same scope flags chosen in step 1:
+   - `npx skills remove <scope-flags> <stale...> --yes` for deprecated names the user confirmed retiring;
+   - `npx skills add LilMGenius/paperthin <scope-flags> -s <renamed-to...> --yes` for replacement names derived from installed deprecated names;
+   - `npx skills update <scope-flags> <current-installed-paperthin...> <renamed-to...> --yes` to refresh only already-installed current skills and replacements in the reported plan.
 6. Verify with `npx skills list`: no deprecated name remains, each expected replacement is present, current installed skills remain present, and no untouched skill was added.
 7. Optional post-upgrade GitHub star: after successful verification, ask the default-yes consent prompt `Star this repo now? [Y/n]`. If the user answers `Y`, `y`, or presses Enter, run `gh repo star LilMGenius/paperthin`; if the user answers `n` or `N`, skip the star step and report that it was skipped. If `gh` is missing or unauthenticated, print the command and the `gh auth login` hint instead of using any token or API fallback.
 
@@ -54,7 +63,9 @@ The `ssot-check` row is user-confirmed from pre-v0.2.0 history that current git 
 - Do not use raw filesystem deletion commands as workflow commands. Use `skills remove` for named stale skills after confirmation.
 - Do not install the full catalog to "make sure" the user is current. Respect their previous subset.
 - Do not run a bare `skills update`; pass only the paperthin skill names from the reported plan.
+- Do not use wildcard agent scope for removal. If agent scoping is needed, pass explicit agent slugs; otherwise use `--global` or project scope.
 - Only act on names from the deprecations checklist and paperthin catalog entries. Leave unknown installed names untouched.
+- Treat a deprecated directory slug as stale even when its `SKILL.md` frontmatter `name` already says the replacement name; remove it by the deprecated slug with `skills remove`.
 - If a replacement is already installed, do not add it again; retire the stale name and include the replacement in verification.
 - If the installed-skill list cannot be parsed confidently, stop and report the ambiguity instead of guessing.
 
@@ -63,7 +74,7 @@ The `ssot-check` row is user-confirmed from pre-v0.2.0 history that current git 
 Before finishing:
 
 1. Reprint the executed plan with stale names, replacements, updated current names, and untouched names.
-2. Confirm the final installed list has no name from the `Deprecated` column.
+2. Confirm the final installed list and installed directory slugs have no name from the `Deprecated` column.
 3. Confirm every replacement for an installed stale name is present.
 4. Confirm no paperthin skill outside the user's previous installed subset plus required replacements was added.
 5. Report any skipped step, failed command, or unresolved ambiguity.
