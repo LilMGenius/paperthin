@@ -1,6 +1,6 @@
 <div align="center">
 
-# Paperthin: लो-लेवल एजेंटिक डिजाइन पैटर्न
+# Paperthin: लो-लेवल agentिक डिजाइन पैटर्न
 
 <img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/banner.svg" alt="Paperthin - लेखक पर नहीं, artifact पर भरोसा करें." width="820">
 
