@@ -2,11 +2,11 @@
 
 # Paperthin: padroes agenticos de baixo nivel
 
-<img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/banner.svg" alt="Paperthin - Confie no artefato, nao no autor." width="820">
+<img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/banner.svg" alt="Paperthin - Confie no artifact, nao no autor." width="820">
 
-**Transformar sabedoria antiga de engenharia em reflexos que o seu agente alcanca sozinho.**
+**Transformar sabedoria antiga de engenharia em reflexos que o seu agent alcanca sozinho.**
 
-Em **qualquer** agente | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, Grok-Build, Pi, Hermes, OpenClaw, etc.
+Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, Grok-Build, Pi, Hermes, OpenClaw, etc.
 
 [Inicio rapido](#quickstart-15-seconds) · [O mapa](#the-map) · [O indice](#the-index) · [O problema](#the-problem) · [As correcoes](#the-fixes) · [Creditos](#credits)
 
@@ -19,22 +19,22 @@ Idiomas: [English](./README.md) · Portugues
 <a id="quickstart-15-seconds"></a>
 ## Inicio rapido (15 segundos)
 
-1. **Instale** para todos os agentes que voce usa:
+1. **Instale** para todos os agents que voce usa:
    ```bash
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
    ```
 2. **Execute com privilegios elevados** para que as skills sejam ligadas por symlink e atualizem automaticamente, em vez de serem copiadas.
-3. **Use-as**. Elas sao invocadas pelo modelo, entao o agente recorre a elas por conta propria; voce tambem pode chamar uma pelo nome, como `/re0`.
+3. **Use-as**. Elas sao invocadas pelo modelo, entao o agent recorre a elas por conta propria; voce tambem pode chamar uma pelo nome, como `/re0`.
 
-**Nao tem certeza?** Cole esse comando no agente que estiver usando e diga `set this up for me`. Ele faz o resto.
+**Nao tem certeza?** Cole esse comando no agent que estiver usando e diga `set this up for me`. Ele faz o resto.
 
 <a id="the-map"></a>
 ## O mapa
 
-**Quantos artefatos, e ao longo de quanto tempo?**
+**Quantos artifacts, e ao longo de quanto tempo?**
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/map.svg" alt="O mapa Paperthin de LilMGenius/paperthin, uma matriz dois por dois. Eixo horizontal: cardinalidade (um, depois muitos); eixo vertical: tempo (agora, depois ao longo de iteracoes); quatro regioes. Superior esquerda, depth: um artefato, agora; esta uma coisa e limpa e verdadeira? Superior direita, breadth: muitos artefatos, agora; uma verdade e consistente em todos os lugares? Inferior esquerda, coil: um projeto, ao longo de iteracoes; cada passagem ensinou a seguinte? Inferior direita, mesh: muitas mentes, ao longo de rodadas; a multidao converge para a verdade?" width="820">
+<img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/map.svg" alt="O mapa Paperthin de LilMGenius/paperthin, uma matriz dois por dois. Eixo horizontal: cardinalidade (um, depois muitos); eixo vertical: tempo (agora, depois ao longo de iteracoes); quatro regioes. Superior esquerda, depth: um artifact, agora; esta uma coisa e limpa e verdadeira? Superior direita, breadth: muitos artifacts, agora; uma verdade e consistente em todos os lugares? Inferior esquerda, coil: um projeto, ao longo de iteracoes; cada pass ensinou a seguinte? Inferior direita, mesh: muitas mentes, ao longo de rodadas; a multidao converge para a verdade?" width="820">
 </div>
 
 <a id="the-index"></a>
@@ -44,32 +44,32 @@ Idiomas: [English](./README.md) · Portugues
 
 | Skill | O que faz | Escopo | Invocador |
 |---|---|---|---|
-| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Reescreve um artefato que derivou como uma v0 limpa, nao como mais um patch | um artefato | modelo |
-| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Faz uma leitura fria, com olhos novos e zero contexto: isso se sustenta sozinho? *(somente leitura)* | um artefato | modelo |
-| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verifica uma alegacao contra fontes, nas duas direcoes: o absurdo poderia ser real, o obvio falso? *(somente leitura → correcao)* | uma alegacao | modelo |
-| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audita uma validacao em busca de vazamento: a ground truth externa realmente entra? *(somente leitura)* | um eval | modelo |
-| 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Recorta o escopo inseguro de antemao, executa o restante seguro com forca total e entrega um descope ledger | uma tarefa | modelo |
-| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | Depois de qualquer mudanca, prova sua saida com os checks clean-and-true do proprio repo | sua saida | modelo |
-| 😈 **[hate](./skills/depth/hate/SKILL.md)** | Recusa ser gentil: a unica objecao que poderia matar o plano + o teste mais barato | um plano | usuario |
-| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em dashes e semelhantes, escolhendo a pontuacao que cada ponto precisa | sua prosa | usuario |
-| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Reescreve a mensagem de um commit finalizado como uma v0 limpa para que `git log` faca o handoff sozinho | um commit | usuario |
+| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Reescreve um artifact que derivou como uma v0 limpa, nao como mais um patch | um artifact | model |
+| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Faz uma leitura fria, com olhos novos e zero contexto: isso se sustenta sozinho? *(somente leitura)* | um artifact | model |
+| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verifica uma claim contra sources, nas duas direcoes: o absurdo poderia ser real, o obvio falso? *(somente leitura → correcao)* | uma claim | model |
+| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audita uma validation em busca de leakage: a ground truth externa realmente entra? *(somente leitura)* | um eval | model |
+| 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Recorta o scope inseguro de antemao, executa o restante seguro com forca total e entrega um descope ledger | uma tarefa | model |
+| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | Depois de qualquer mudanca, prova seu output com os checks clean-and-true do proprio repo | seu output | model |
+| 😈 **[hate](./skills/depth/hate/SKILL.md)** | Recusa ser gentil: a unica objecao que poderia matar o plano + o teste mais barato | um plano | user |
+| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em dashes e semelhantes, escolhendo a pontuacao que cada ponto precisa | sua prosa | user |
+| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Reescreve a mensagem de um commit finalizado como uma v0 limpa para que `git log` faca o handoff sozinho | um commit | user |
 
 ### `breadth/`
 
 | Skill | O que faz | Escopo | Invocador |
 |---|---|---|---|
-| 🔎 **[ssotchk](./skills/breadth/ssotchk/SKILL.md)** | Encontra onde um fato esta espalhado ou duplicado; nomeia a fonte canonica *(somente leitura)* | um fato, muitos lugares | modelo |
-| 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | Consolida esse fato em um unico lar e faz o restante apontar para ele | um fato, muitos lugares | modelo |
-| 🧰 **[ppt-upgrade](./skills/breadth/ppt-upgrade/SKILL.md)** | Reconcilia nomes antigos de skills Paperthin instaladas depois de releases | nomes de skills instaladas | usuario |
+| 🔎 **[ssotchk](./skills/breadth/ssotchk/SKILL.md)** | Encontra onde um fact esta espalhado ou duplicado; nomeia a canonical source *(somente leitura)* | um fact, muitos lugares | model |
+| 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | Consolida esse fact em um unico lar e faz o restante apontar para ele | um fact, muitos lugares | model |
+| 🧰 **[ppt-upgrade](./skills/breadth/ppt-upgrade/SKILL.md)** | Reconcilia nomes antigos de skills Paperthin instaladas depois de releases | nomes de skills instaladas | user |
 
 ### `coil/`
 
 | Skill | O que faz | Escopo | Invocador |
 |---|---|---|---|
-| 🧭 **[retro](./skills/coil/retro/SKILL.md)** | Extrai licoes e anti-padroes de um ciclo concluido ou falho | um ciclo concluido | modelo |
-| 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Recomeça da v0, mantendo apenas as licoes que mereceram reuso | um reinicio | modelo |
-| 🌀 **[flywheel](./skills/coil/flywheel/SKILL.md)** | Executa o loop build → QA → retro → re0-work para que o aprendizado componha, nao o codigo | o loop inteiro | modelo |
-| 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Le o estado vivo do ciclo e retorna uma unica proxima melhor acao, nao um menu *(somente leitura)* | o ciclo vivo | modelo |
+| 🧭 **[retro](./skills/coil/retro/SKILL.md)** | Extrai licoes e anti-padroes de um cycle concluido ou falho | um cycle concluido | model |
+| 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Recomeça da v0, mantendo apenas as licoes que mereceram reuso | um reinicio | model |
+| 🌀 **[flywheel](./skills/coil/flywheel/SKILL.md)** | Executa o loop build → QA → retro → re0-work para que o aprendizado componha, nao o codigo | o loop inteiro | model |
+| 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Le o estado vivo do cycle e retorna uma unica proxima melhor acao, nao um menu *(somente leitura)* | o cycle vivo | model |
 
 ### `mesh/`
 
@@ -80,9 +80,9 @@ Idiomas: [English](./README.md) · Portugues
 <a id="the-problem"></a>
 ## O problema
 
-**A maioria das skills de agentes e slop.**
+**A maioria das skills de agents e slop.**
 
-Aponte um agente para um objetivo e ele **adiciona**: mais arquivos, mais opcoes, mais boilerplate "util". Adicionar parece progresso, e nada o faz voltar para apagar.
+Aponte um agent para um objetivo e ele **adiciona**: mais arquivos, mais opcoes, mais boilerplate "util". Adicionar parece progresso, e nada o faz voltar para apagar.
 
 > [!WARNING]
 > Repita isso em um projeto e voce ganha o toolkit gerado por IA familiar: skills quase duplicadas, configuracoes mortas, um README que diz a mesma coisa tres vezes. Plausivel, ocupado e silenciosamente impossivel de manter.
@@ -90,15 +90,15 @@ Aponte um agente para um objetivo e ele **adiciona**: mais arquivos, mais opcoes
 Essas skills apostam no outro lado. **Cada uma remove algo:**
 
 - `re0` reescreve um rascunho como uma v0 limpa em vez de remenda-lo.
-- `ssotchk` / `ssotize` colapsam o mesmo fato espalhado por arquivos.
+- `ssotchk` / `ssotize` colapsam o mesmo fact espalhado por arquivos.
 - `shower` corta o que um estranho nao consegue acompanhar.
 - `retro` / `re0-work` preservam a licao e deixam o build errado morrer.
-- `autobahn` recorta o escopo inseguro de antemao, para que o restante seguro rode em velocidade total.
+- `autobahn` recorta o scope inseguro de antemao, para que o restante seguro rode em velocidade total.
 - `dedash` remove ate o sinal do em dash e seus parecidos, uma ocorrencia julgada de cada vez.
-- `sip` executa tudo isso automaticamente sobre a sua propria saida.
+- `sip` executa tudo isso automaticamente sobre a seu proprio output.
 
 > [!TIP]
-> A parte dificil nao e adicionar recursos; e contencao. Uma passagem que nao encontra nada a melhorar nao muda nada. **Essa contencao e o produto.**
+> A parte dificil nao e adicionar recursos; e contencao. Uma pass que nao encontra nada a melhorar nao muda nada. **Essa contencao e o produto.**
 
 <a id="the-fixes"></a>
 ## As correcoes
@@ -107,10 +107,10 @@ Essas skills apostam no outro lado. **Cada uma remove algo:**
 
 **Cada uma e um principio gasto pelo uso, tornado automatico.**
 
-### #1 - Artefatos apodrecem
-Edite um doc pedaco por pedaco durante uma sessao e ele incha: deltas vencidos, ruido duplicado, cicatrizes de changelog. Remendar por cima so preserva o apodrecimento.
+### #1 - Artifacts apodrecem
+Edite um doc pedaco por pedaco durante uma session e ele incha: deltas vencidos, ruido duplicado, cicatrizes de changelog. Remendar por cima so preserva o apodrecimento.
 
-**A correcao → `re0`:** reescrever o artefato como uma v0 limpa, como se fosse a primeira versao.
+**A correcao → `re0`:** reescrever o artifact como uma v0 limpa, como se fosse a primeira versao.
 
 > *Antecedente: a Boy Scout Rule - "leave it cleaner than you found it" (Robert C. Martin, [Clean Code](https://www.informit.com/articles/article.aspx?p=1235624&seqNum=6), 2008). `re0` vai alem: reescreva, nao apenas arrume.*
 
@@ -123,34 +123,34 @@ Edite um doc pedaco por pedaco durante uma sessao e ele incha: deltas vencidos, 
 </details>
 
 ### #2 - Voce fica cego para o proprio trabalho
-Depois de uma sessao longa, voce e a unica pessoa que nao consegue ler o proprio trabalho direito. Voce sabe demais, entao o cerebro preenche cada lacuna em silencio e os buracos desaparecem.
+Depois de uma session longa, voce e a unica pessoa que nao consegue ler o proprio trabalho direito. Voce sabe demais, entao o cerebro preenche cada lacuna em silencio e os buracos desaparecem.
 
-**A correcao → `shower`:** entregue apenas o artefato a um estranho que nunca viu sua sessao e pergunte: "isso realmente faz sentido?"
+**A correcao → `shower`:** entregue apenas o artifact a um estranho que nunca viu sua session e pergunte: "isso realmente faz sentido?"
 
-> *Antecedente: [egoless programming](https://en.wikipedia.org/wiki/Egoless_programming) - voce nao consegue revisar seu proprio trabalho objetivamente; outra pessoa precisa fazer isso (Gerald Weinberg, 1971). Aqui, essa pessoa e uma sub-sessao sem contexto.*
+> *Antecedente: [egoless programming](https://en.wikipedia.org/wiki/Egoless_programming) - voce nao consegue revisar seu proprio trabalho objetivamente; outra pessoa precisa fazer isso (Gerald Weinberg, 1971). Aqui, essa pessoa e uma sub-session sem contexto.*
 
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Setup** - entregamos a propria spec do `shower` a uma sub-sessao com zero contexto, segurando apenas o arquivo.
+- **Setup** - entregamos a propria spec do `shower` a uma sub-session com zero contexto, segurando apenas o arquivo.
 - **Resultado** - em minutos ela encontrou tres bugs que o autor perdeu:
   - um passo que insinuava a resposta que deveria esconder,
   - um caminho que vazava arquivos spoiler,
-  - um escopo vago demais para agir.
+  - um scope vago demais para agir.
 - **Entao** - uma skill que pega os proprios bugs pode pegar os seus.
 </details>
 
-### #3 - O mesmo fato acaba em todos os lugares
+### #3 - O mesmo fact acaba em todos os lugares
 Um valor de timeout, uma decisao, um status: copiados para um README, um doc, um ticket e uma thread do Slack. As copias derivam, e agora ninguem sabe qual e verdadeira.
 
-**A correcao → `ssotchk` + `ssotize`:** encontrar a dispersao, nomear a fonte canonica, depois consolidar e fazer o restante apontar para ela.
+**A correcao → `ssotchk` + `ssotize`:** encontrar a dispersao, nomear a canonical source, depois consolidar e fazer o restante apontar para ela.
 
-> *Antecedente: [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) - um fato, um lar autoritativo (Hunt & Thomas, The Pragmatic Programmer, 1999).*
+> *Antecedente: [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) - um fact, um lar autoritativo (Hunt & Thomas, The Pragmatic Programmer, 1999).*
 
 ### #4 - "Lembre de verificar" nunca dispara
-Uma diretriz enterrada em docs nao sera acionada em uma sessao nova, exatamente quando o viés do autor e maior.
+Uma diretriz enterrada em docs nao sera acionada em uma session nova, exatamente quando o viés do autor e maior.
 
-**A correcao → `sip`:** no momento em que voce termina algo, ele roda os checks clean (`shower`, `ssotchk`, `re0`) e, quando ha uma alegacao ou um eval, os checks true (`factchk`, `mandela`) sobre sua saida, automaticamente.
+**A correcao → `sip`:** no momento em que voce termina algo, ele roda os checks clean (`shower`, `ssotchk`, `re0`) e, quando ha uma claim ou um eval, os checks true (`factchk`, `mandela`) sobre seu output, automaticamente.
 
 > *Antecedente: [dogfooding](https://en.wikipedia.org/wiki/Eating_your_own_dog_food) - eat your own dog food (Microsoft, 1988). Prove sua propria comida antes de servir.*
 
@@ -158,12 +158,12 @@ Uma diretriz enterrada em docs nao sera acionada em uma sessao nova, exatamente 
 <summary><b>[PROOF]</b></summary>
 
 - **Setup** - logo depois de um grande refactor que tornou cada skill self-contained, `sip` disparou automaticamente.
-- **Resultado** - sua passagem de olhos frescos pegou duas coisas que o autor ja nao via: uma regra de manutencao ainda apontando para links skill-to-skill que o mesmo refactor tinha acabado de apagar, e uma regra de seguranca de edicao de arquivos presente em duas skills mas ausente de uma terceira que tambem edita arquivos.
-- **Entao** - o check morde onde o vies e maior: nao em um artefato fresco, mas na deriva que uma grande mudanca deixa para tras, exatamente onde os olhos do autor escorregam.
+- **Resultado** - sua pass de olhos frescos pegou duas coisas que o autor ja nao via: uma regra de manutencao ainda apontando para links skill-to-skill que o mesmo refactor tinha acabado de apagar, e uma regra de seguranca de edicao de arquivos presente em duas skills mas ausente de uma terceira que tambem edita arquivos.
+- **Entao** - o check morde onde o vies e maior: nao em um artifact fresco, mas na deriva que uma grande mudanca deixa para tras, exatamente onde os olhos do autor escorregam.
 </details>
 
-### #5 - Sua sessao nao viaja; o git log viaja
-Sua sessao fica presa onde rodou: este agente, esta conta, esta maquina. Um colega ou outro agente nao consegue carregar o contexto em que seu trabalho aconteceu.
+### #5 - Sua session nao viaja; o git log viaja
+Sua session fica presa onde rodou: este agent, esta conta, esta maquina. Um colega ou outro agent nao consegue carregar o contexto em que seu trabalho aconteceu.
 
 **A correcao → `re0-git`:** limpar a mensagem de um commit finalizado para que `git log`, a unica coisa que todo ambiente compartilha, carregue o handoff, e qualquer pessoa continue a partir apenas do log.
 
@@ -178,12 +178,12 @@ Sua sessao fica presa onde rodou: este agente, esta conta, esta maquina. Um cole
 </details>
 
 > [!NOTE]
-> As cinco correcoes acima mantem um artefato **limpo**. As proximas tres o mantem **verdadeiro**: a mesma desconfianca do autor, aplicada ao raciocinio em vez da prosa.
+> As cinco correcoes acima mantem um artifact **limpo**. As proximas tres o mantem **verdadeiro**: a mesma desconfianca do autor, aplicada ao raciocinio em vez da prosa.
 
-### #6 - Seu instinto nao e uma fonte
-"Plausivel", "absurdo", "novo": a linha menos confiavel de qualquer artefato. Priors humanos falham **nos dois sentidos**: excluem o real (existem sapos do deserto) e normalizam o impossivel (caixas sem peso).
+### #6 - Seu instinto nao e uma source
+"Plausivel", "absurdo", "novo": a linha menos confiavel de qualquer artifact. Priors humanos falham **nos dois sentidos**: excluem o real (existem sapos do deserto) e normalizam o impossivel (caixas sem peso).
 
-**A correcao → `factchk`:** verificar qualquer alegacao ligada a realidade contra fontes externas, nos dois sentidos, antes de enviar; e sinalizar, nao adivinhar, quando nao se consegue alcancar uma fonte.
+**A correcao → `factchk`:** verificar qualquer claim ligada a realidade contra sources externas, nos dois sentidos, antes de enviar; e sinalizar, nao adivinhar, quando nao se consegue alcancar uma source.
 
 > *Antecedentes: [WEIRD bias](https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/abs/weirdest-people-in-the-world/BF84F7517D56AFF7B7EB58411A554C17) (Henrich, Heine & Norenzayan, 2010) e [naive-physics / impetus error](https://www.science.org/doi/10.1126/science.210.4474.1139) (McCloskey, Caramazza & Green, 1980) - a intuicao julga mal a realidade nos dois sentidos.*
 
@@ -196,37 +196,37 @@ Sua sessao fica presa onde rodou: este agente, esta conta, esta maquina. Um cole
 </details>
 
 ### #7 - O eval confirma a si mesmo
-Um modelo, um scorer e um designer podem concordar que um resultado e real enquanto nenhuma ground truth externa jamais entrou no loop. Uma sala inteira lembra com confianca algo que nunca aconteceu de forma independente.
+Um model, um scorer e um designer podem concordar que um resultado e real enquanto nenhuma ground truth externa jamais entrou no loop. Uma sala inteira lembra com confianca algo que nunca aconteceu de forma independente.
 
-**A correcao → `mandela`:** auditar qualquer eval, metrica ou experimento contra uma taxonomia de 8 padroes de leakage: a ground truth externa entra de forma independente, ou o verificador e o designer?
+**A correcao → `mandela`:** auditar qualquer eval, metric ou experiment contra uma taxonomia de 8 padroes de leakage: a ground truth externa entra de forma independente, ou o verifier e o designer?
 
 > *Antecedentes: [Goodhart's law](https://en.wikipedia.org/wiki/Goodhart%27s_law), [data leakage](https://dl.acm.org/doi/10.1145/2382577.2382579) (Kaufman et al., 2012), e [circular analysis](https://www.nature.com/articles/nn.2303), "double dipping" (Kriegeskorte et al., 2009).*
 
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Setup** - a auditoria foi destilada de um design de pesquisa que continuava morrendo por um unico modo de falha: um scorer, um modelo e um designer concordando sobre um resultado que nenhuma verdade externa tinha produzido.
-- **Resultado** - leakage apareceu em oito formas nesse unico projeto: um scorer avaliando buckets que ele mesmo desenhou, dois componentes "verificando" um ao outro em um espaco compartilhado, uma receita privada que tornava o verificador o designer. Esse catalogo virou a taxonomia de 8 padroes da skill.
+- **Setup** - a auditoria foi destilada de um design de pesquisa que continuava morrendo por um unico modo de falha: um scorer, um model e um designer concordando sobre um resultado que nenhuma verdade externa tinha produzido.
+- **Resultado** - leakage apareceu em oito formas nesse unico projeto: um scorer avaliando buckets que ele mesmo desenhou, dois componentes "verificando" um ao outro em um espaco compartilhado, uma receita privada que tornava o verifier o designer. Esse catalogo virou a taxonomia de 8 padroes da skill.
 - **Entao** - a checklist nao e teorica: cada padrao nela ja tirou sangue uma vez.
 </details>
 
 ### #8 - Voce nao consegue matar seu proprio plano
 Voce o construiu, entao o defende. As perguntas que o quebrariam sao exatamente as que voce nao fara.
 
-**A correcao → `hate`:** recusar ser gentil com o plano; devolver a objecao estrutural que poderia mata-lo e o experimento mais barato que provaria que ela importa. Invocada pelo usuario: voce aponta deliberadamente para um plano.
+**A correcao → `hate`:** recusar ser gentil com o plano; devolver a objecao estrutural que poderia mata-lo e o experiment mais barato que provaria que ela importa. Invocada pelo user: voce aponta deliberadamente para um plano.
 
 > *Antecedentes: [egoless programming](https://en.wikipedia.org/wiki/Egoless_programming) (Weinberg, 1971, a mesma raiz citada por `shower`), hostile review e fail-fast.*
 
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Setup** - cada passagem de pesquisa fechava com um critico adversarial, e seu veredito era sempre uma root cause mais o teste mais barato para resolve-la, nunca uma checklist.
+- **Setup** - cada pass de pesquisa fechava com um critico adversarial, e seu veredito era sempre uma root cause mais o teste mais barato para resolve-la, nunca uma checklist.
 - **Resultado** - matou um motor de recombinacao com "one more box drawn, not a sharper tip", e um protocolo human-holdout apenas pelos numeros: n≈24 quando 36 eram necessarios, family-wise error rate perto de 34 %, e um design que citava um principio enquanto implementava seu oposto.
 - **Entao** - a objecao que importava sempre era singular e barata de testar, exatamente o `{root, first nail}` que `hate` e travado para retornar.
 </details>
 
 ### #9 - Um build rodando ainda pode ser o produto errado
-Ciclos agenticos longos produzem muitas partes funcionais: panels, routes, tests, screenshots. Elas provam atividade mais do que valor, e sunk cost tenta carregar a arquitetura adiante. Entao, entre passagens, o proximo movimento se desfoca em uma duzia de threads vivos, e opcoes demais viram sua propria paralisia.
+Ciclos agenticos longos produzem muitas partes funcionais: panels, routes, tests, screenshots. Elas provam atividade mais do que valor, e sunk cost tenta carregar a arquitetura adiante. Entao, entre passes, o proximo movimento se desfoca em uma duzia de threads vivos, e opcoes demais viram sua propria paralisia.
 
 **A correcao → `retro` + `re0-work` + `flywheel` + `nba`:** extrair a licao, o anti-padrao e o proximo gate; recomecar de uma v0 limpa quando a fundacao esta errada; executar o loop build → QA → retro → re0-work; e, quando o fio se perde, ler o estado e devolver a unica proxima melhor acao. Guarde apenas o que ganhou o direito de ser reutilizado.
 
@@ -234,14 +234,14 @@ Ciclos agenticos longos produzem muitas partes funcionais: panels, routes, tests
 <summary><b>[PROOF]</b></summary>
 
 - **Setup** - uma demo de game engine chegou a um estado full-stack e runnable: API routes, canvas runtime, leaderboard, arcade pages, panels de remix e telemetry, tests, screenshots.
-- **Resultado** - e ainda era o produto errado: os jogos gerados eram mock, de uma tela, sem durable replay layer, enquanto cada passagem terminava em "what now?" diante de uma pilha de unmet gates e parked threads.
-- **Entao** - rodar e parecer pronto para envio nao e done; o ciclo precisa de uma skill para nomear o gate faltante e outra para devolver o unico proximo movimento.
+- **Resultado** - e ainda era o produto errado: os jogos gerados eram mock, de uma tela, sem durable replay layer, enquanto cada pass terminava em "what now?" diante de uma pilha de unmet gates e parked threads.
+- **Entao** - rodar e parecer pronto para envio nao e done; o cycle precisa de uma skill para nomear o gate faltante e outra para devolver o unico proximo movimento.
 </details>
 
 ### #10 - Trabalho perto de risco volta diluido
-Aponte um agente para uma tarefa que encosta em guardrails, como scraping, licenciamento, privacidade ou seguranca, e voce recebe o pior dos dois mundos: o pedaco arriscado dispara refusals e retries, enquanto os 90 % seguros voltam com hedging, diluidos ou silenciosamente ausentes.
+Aponte um agent para uma tarefa que encosta em guardrails, como scraping, licenciamento, privacidade ou seguranca, e voce recebe o pior dos dois mundos: o pedaco arriscado dispara refusals e retries, enquanto os 90 % seguros voltam com hedging, diluidos ou silenciosamente ausentes.
 
-**A correcao → `autobahn`:** recortar itens guardrail-adjacent fora do escopo antes da execucao, cada um com uma alternativa segura e uma entrada de arquivo; executar o escopo restante com forca total em um subagente novo que ve apenas o carved prompt, nunca o input arriscado; entregar um descope ledger para que toda exclusao seja uma decisao visivel, nao uma lacuna silenciosa. Ele remove o pedido em vez de passa-lo por baixo. A autobahn nao tem limite de velocidade **porque** a disciplina de entrada e estrita.
+**A correcao → `autobahn`:** recortar itens guardrail-adjacent fora do scope antes da execucao, cada um com uma alternativa segura e uma entrada de arquivo; executar o scope restante com forca total em um subagent novo que ve apenas o carved prompt, nunca o input arriscado; entregar um descope ledger para que toda exclusao seja uma decisao visivel, nao uma lacuna silenciosa. Ele remove o pedido em vez de passa-lo por baixo. A autobahn nao tem limite de velocidade **porque** a disciplina de entrada e estrita.
 
 > *Antecedentes deste mesmo verao: os EUA [suspended Fable 5 and Mythos 5](https://www.anthropic.com/news/fable-mythos-access) por causa de um safeguard com jailbreak (Anthropic, 2026), e a OpenAI enviou [GPT-5.6](https://openai.com/index/previewing-gpt-5-6-sol/) safety-stack-first para parceiros confiaveis (OpenAI, 2026). Na fronteira, a via rapida fica aberta apenas ate onde a disciplina de entrada se sustenta.*
 
@@ -249,8 +249,8 @@ Aponte um agente para uma tarefa que encosta em guardrails, como scraping, licen
 <summary><b>[PROOF]</b></summary>
 
 - **Setup** - o metodo veio de uma reescrita real de um documento estrategico confidencial que era risk-adjacent em quatro eixos ao mesmo tempo: stealth tooling, nomes trademarked, privacy-adjacent profiling, zonas cinzentas de scraping.
-- **Resultado** - um main loop mais dez subagentes rodaram o frontier model de ponta a ponta com zero flags, zero refusals, zero fallbacks; e a alternativa segura de cada item descoped acabou sendo o melhor produto de qualquer forma.
-- **Entao** - o main loop recortou, subagentes limpos rodaram o escopo seguro, e esse recorte foi o motivo pelo qual puderam acelerar.
+- **Resultado** - um main loop mais dez subagents rodaram o frontier model de ponta a ponta com zero flags, zero refusals, zero fallbacks; e a alternativa segura de cada item descoped acabou sendo o melhor produto de qualquer forma.
+- **Entao** - o main loop recortou, subagents limpos rodaram o scope seguro, e esse recorte foi o motivo pelo qual puderam acelerar.
 </details>
 
 <a id="credits"></a>
@@ -258,5 +258,5 @@ Aponte um agente para uma tarefa que encosta em guardrails, como scraping, licen
 
 - **Construido sobre** [mattpocock/skills](https://github.com/mattpocock/skills) (MIT), sua arquitetura e filosofia.
 - **Nao e um fork**: estes sao workflows proprios e sem sobreposicao de [LilMGenius](https://github.com/LilMGenius).
-- **Vendored verbatim**: alguns building blocks compartilhados, mantidos como estao com atribuicao por fonte em [NOTICE](./NOTICE).
+- **Vendored verbatim**: alguns building blocks compartilhados, mantidos como estao com atribuicao por source em [NOTICE](./NOTICE).
 - **Guia de autoria**: convencoes e filosofia vivem em [CLAUDE.md](./CLAUDE.md).
