@@ -1,16 +1,14 @@
 ---
 name: ppt-upgrade
-description: "Upgrade a paperthin install after renames by retiring deprecated skills, adding their replacements selectively, and refreshing already-installed skills."
+description: "Safely upgrade your installed paperthin skills to the latest release in one step, including anything that's been renamed, without installing anything you didn't already have."
 disable-model-invocation: true
 ---
 
-Reconcile an installed paperthin skill set with the current catalog without adding skills the user never chose.
+Bring an installed paperthin skill set current in one step: retire what's been renamed, add only its replacement, refresh the rest, and leave anything else alone.
 
 ## Goal
 
 Keep a returning user's installed paperthin skills current after release renames. The upgrade retires stale local names, adds only the matching replacement for each stale name the user already had, and refreshes the installed current skills.
-
-The flat `npx skills add` path installs this command as `/ppt-upgrade`; do not describe a paperthin `ppt` namespace as part of the primary install path.
 
 ## Deprecations
 
@@ -53,13 +51,14 @@ Use this list to separate current paperthin skills from unknown installed names 
    - `npx skills add LilMGenius/paperthin <scope-flags> -s <renamed-to...> --yes` for replacement names derived from installed deprecated names;
    - `npx skills update <scope-flags> <current-installed-paperthin...> <renamed-to...> --yes` to refresh only already-installed current skills and replacements in the reported plan.
 6. Verify with `npx skills list`: no deprecated name remains, each expected replacement is present, current installed skills remain present, and no untouched skill was added.
-7. Optional post-upgrade GitHub star: after successful verification, ask the default-yes consent prompt `Star this repo now? [Y/n]`. If the user answers `Y`, `y`, or presses Enter, run `gh repo star LilMGenius/paperthin`; if the user answers `n` or `N`, skip the star step and report that it was skipped. If `gh` is missing or unauthenticated, print the command and the `gh auth login` hint instead of using any token or API fallback.
+7. Tell the user how their current session picks up the change: Claude Code applies updated `SKILL.md` content in the current session automatically, no restart needed, unless a different already-running Claude Code session shares the same install, in which case run `/reload-skills` in that other session. Codex has no in-session reload; restart Codex (or `codex resume`) to pick up the change. For any other agent, restart its session if the new behavior doesn't show up.
+8. Optional post-upgrade GitHub star: after successful verification, ask the default-yes consent prompt `Star this repo now? [Y/n]`. If the user answers `Y`, `y`, or presses Enter, run `gh api -X PUT user/starred/LilMGenius/paperthin --silent`; if the user answers `n` or `N`, skip the star step and report that it was skipped. If `gh` is missing or unauthenticated, print the command and the `gh auth login` hint instead of using any token or API fallback.
 
 ## Rules
 
+- The flat `npx skills add` path installs this command as `/ppt-upgrade`; never describe a paperthin `ppt` namespace as part of the primary install path.
 - Never use `skills add --all`.
-- Never use a bare add LilMGenius/paperthin command; always include `-s <skill>` for replacement installs.
-- Never run a bare `skills add LilMGenius/paperthin` as part of this workflow.
+- Never run a bare `skills add LilMGenius/paperthin`; always include `-s <skill>` for replacement installs.
 - Do not use raw filesystem deletion commands as workflow commands. Use `skills remove` for named stale skills after confirmation.
 - Do not install the full catalog to "make sure" the user is current. Respect their previous subset.
 - Do not run a bare `skills update`; pass only the paperthin skill names from the reported plan.
@@ -67,6 +66,7 @@ Use this list to separate current paperthin skills from unknown installed names 
 - Only act on names from the deprecations checklist and paperthin catalog entries. Leave unknown installed names untouched.
 - Treat a deprecated directory slug as stale even when its `SKILL.md` frontmatter `name` already says the replacement name; remove it by the deprecated slug with `skills remove`.
 - If a replacement is already installed, do not add it again; retire the stale name and include the replacement in verification.
+- `gh repo star` is not a real `gh` subcommand; the star step must use the REST endpoint directly: `gh api -X PUT user/starred/<owner>/<repo> --silent`.
 - If the installed-skill list cannot be parsed confidently, stop and report the ambiguity instead of guessing.
 
 ## Verification

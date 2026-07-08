@@ -60,7 +60,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 |---|---|---|---|
 | 🔎 **[ssotchk](../../skills/breadth/ssotchk/SKILL.md)** | Encuentra donde un fact esta disperso o duplicado; nombra la canonical source *(solo lectura)* | un fact, muchos lugares | model |
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Lo consolida en un solo hogar y hace que el resto apunte alli | un fact, muchos lugares | model |
-| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | Reconcilia nombres antiguos de skills Paperthin instaladas despues de releases | nombres de skills instaladas | user |
+| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | Actualiza tus skills instaladas de forma segura con un solo comando, sin dejar nada obsoleto ni instalar nada de más | tu instalación de skills | user |
 
 ### `coil/`
 

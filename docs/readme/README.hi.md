@@ -60,7 +60,7 @@
 |---|---|---|---|
 | 🔎 **[ssotchk](../../skills/breadth/ssotchk/SKILL.md)** | देखता है कि एक fact कहाँ scattered या duplicated है; canonical source नामित करता है *(read-only)* | एक fact, कई जगह | model |
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | उसे एक home में consolidate करता है और बाकी को उसी की तरफ point कराता है | एक fact, कई जगह | model |
-| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | releases के बाद old installed Paperthin skill names reconcile करता है | installed skill names | user |
+| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | एक कमांड में आपकी installed skills को सुरक्षित रूप से अपडेट करता है, न कुछ पुराना बचा रहता है न कुछ अतिरिक्त जुड़ता है | आपकी skill install | user |
 
 ### `coil/`
 

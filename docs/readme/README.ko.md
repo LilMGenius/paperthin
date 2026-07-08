@@ -60,7 +60,7 @@
 |---|---|---|---|
 | 🔎 **[ssotchk](../../skills/breadth/ssotchk/SKILL.md)** | 하나의 팩트가 흩어지거나 중복된 곳을 찾고, canonical source를 지목합니다 *(읽기 전용)* | 팩트 하나, 여러 위치 | 모델 |
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | 그 팩트를 한 집으로 모으고, 나머지는 그곳을 가리키게 합니다 | 팩트 하나, 여러 위치 | 모델 |
-| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | 릴리스 뒤 설치된 예전 Paperthin 스킬 이름을 맞춰 줍니다 | 설치된 스킬 이름 | 사용자 |
+| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | 설치된 스킬을 한 번에 안전하게 최신으로 올립니다. 남는 것도, 늘어나는 것도 없습니다 | 내 스킬 설치 | 사용자 |
 
 ### `coil/`
 

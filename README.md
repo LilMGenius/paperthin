@@ -57,7 +57,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 |---|---|---|---|
 | 🔎 **[ssotchk](./skills/breadth/ssotchk/SKILL.md)** | Find where one fact is scattered or duplicated; name the canonical source *(read-only)* | one fact, many places | model |
 | 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | Consolidate it into one home and point the rest at it | one fact, many places | model |
-| 🧰 **[ppt-upgrade](./skills/breadth/ppt-upgrade/SKILL.md)** | Reconcile old installed Paperthin skill names after releases | installed skill names | user |
+| 🧰 **[ppt-upgrade](./skills/breadth/ppt-upgrade/SKILL.md)** | Safely upgrade your installed skills in one command, leaving nothing stale and adding nothing extra | your skill install | user |
 
 ### `coil/`
 
@@ -141,6 +141,14 @@ A timeout value, a decision, a status — copied into a README, a doc, a ticket,
 **The fix → `ssotchk` + `ssotize`:** find the scatter, name the canonical source, then consolidate and point the rest at it.
 
 > *Prior art: [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) — one fact, one authoritative home (Hunt & Thomas, The Pragmatic Programmer, 1999).*
+
+<details>
+<summary><b>[PROOF]</b></summary>
+
+- **Setup** — a pilot milestone landed in a strategy repo, and its status lived in six files at once: the plan that gated on it, the retro, an eval-corpus inventory, two frontier docs, and the build's own metadata.
+- **Result** — one pass made the retro's new cycle section the single home for what the milestone proved, rewrote the other five to point at it, and converted every plan line the milestone had answered from future-tense intent to present-tense fact.
+- **So** — the copies never got the chance to drift: one home, five pointers, and the stale "next step" wording died the same day it became false.
+</details>
 
 ### #4 — "Remember to verify" never fires
 A guideline buried in docs won't trigger in a brand-new session — exactly when author bias is highest.

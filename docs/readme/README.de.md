@@ -60,7 +60,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 |---|---|---|---|
 | 🔎 **[ssotchk](../../skills/breadth/ssotchk/SKILL.md)** | Findet, wo ein Fact verstreut oder doppelt liegt, und benennt die canonical source *(nur Lesen)* | ein Fact, viele Orte | Model |
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Konsolidiert sie an einem Ort und lässt den Rest dorthin zeigen | ein Fact, viele Orte | Model |
-| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | Gleicht alte installierte Paperthin-Skillnamen nach Releases ab | installierte Skillnamen | user |
+| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | Bringt installierte Skills sicher mit einem Befehl auf den neuesten Stand, ohne Altlasten oder unnötige Zusätze | deine Skill-Installation | user |
 
 ### `coil/`
 

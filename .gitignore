@@ -1,6 +1,6 @@
 *.local*
 .omo/
-assets/*.png
+.ppt/
 node_modules/
 *.log
 .DS_Store

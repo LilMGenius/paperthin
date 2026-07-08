@@ -60,7 +60,7 @@
 |---|---|---|---|
 | 🔎 **[ssotchk](../../skills/breadth/ssotchk/SKILL.md)** | Находит, где один fact разбросан или продублирован; называет canonical source *(read-only)* | один fact, много мест | model |
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Consolidate этот fact в одном доме и направляет остальные места туда | один fact, много мест | model |
-| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | Согласует старые установленные имена Paperthin skills после релизов | установленные skill names | user |
+| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | Безопасно обновляет установленные skills одной командой, не оставляя ничего устаревшего и не устанавливая ничего лишнего | ваша установка skills | user |
 
 ### `coil/`
 

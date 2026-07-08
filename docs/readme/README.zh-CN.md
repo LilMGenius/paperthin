@@ -60,7 +60,7 @@
 |---|---|---|---|
 | 🔎 **[ssotchk](../../skills/breadth/ssotchk/SKILL.md)** | 找出一个 fact 散落或重复的位置，并指出 canonical source *(只读)* | 一个 fact，多个位置 | model |
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | 把 fact 合并到一个归宿，并让其他位置指向它 | 一个 fact，多个位置 | model |
-| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | 发布后协调已安装的旧 Paperthin skill 名称 | 已安装 skill 名称 | 用户 |
+| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | 用一条命令安全地把已安装的 skill 升级到最新版，不留旧的，也不多装 | 你的 skill 安装 | 用户 |
 
 ### `coil/`
 

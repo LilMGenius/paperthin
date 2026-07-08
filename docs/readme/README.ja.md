@@ -60,7 +60,7 @@
 |---|---|---|---|
 | 🔎 **[ssotchk](../../skills/breadth/ssotchk/SKILL.md)** | 一つの fact が散らばったり重複したりしている場所を見つけ、canonical source を名指しする *(読み取り専用)* | fact 一つ、多数の場所 | model |
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | それを一つの家にconsolidate し、残りをそこへ向ける | fact 一つ、多数の場所 | model |
-| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | リリース後、インストール済みの古い Paperthin skill 名を整合させる | インストール済み skill 名 | ユーザー |
+| 🧰 **[ppt-upgrade](../../skills/breadth/ppt-upgrade/SKILL.md)** | インストール済みの skill を一つのコマンドで安全に最新化する。古いものは残らず、余計なものも増えない | 自分の skill インストール | ユーザー |
 
 ### `coil/`
 
