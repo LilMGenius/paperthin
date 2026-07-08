@@ -50,9 +50,10 @@ Use this list to separate current paperthin skills from unknown installed names 
    - `npx skills remove <scope-flags> <stale...> --yes` for deprecated names the user confirmed retiring;
    - `npx skills add LilMGenius/paperthin <scope-flags> -s <renamed-to...> --yes` for replacement names derived from installed deprecated names;
    - `npx skills update <scope-flags> <current-installed-paperthin...> <renamed-to...> --yes` to refresh only already-installed current skills and replacements in the reported plan.
-6. Verify with `npx skills list`: no deprecated name remains, each expected replacement is present, current installed skills remain present, and no untouched skill was added.
-7. Tell the user how their current session picks up the change: Claude Code applies updated `SKILL.md` content in the current session automatically, no restart needed, unless a different already-running Claude Code session shares the same install, in which case run `/reload-skills` in that other session. Codex has no in-session reload; restart Codex (or `codex resume`) to pick up the change. For any other agent, restart its session if the new behavior doesn't show up.
-8. Optional post-upgrade GitHub star: after successful verification, ask the default-yes consent prompt `Star this repo now? [Y/n]`. If the user answers `Y`, `y`, or presses Enter, run `gh api -X PUT user/starred/LilMGenius/paperthin --silent`; if the user answers `n` or `N`, skip the star step and report that it was skipped. If `gh` is missing or unauthenticated, print the command and the `gh auth login` hint instead of using any token or API fallback.
+6. If `npx skills update` reports that a specific skill failed, retry that skill alone with the same scope flags; if it still fails, confirm with the user by name, then remove and reinstall it using the same `skills remove`/`skills add -s` forms as step 5, rather than leaving it stale.
+7. Verify with `npx skills list`: no deprecated name remains, each expected replacement is present, current installed skills remain present, and no untouched skill was added.
+8. Tell the user how their current session picks up the change: Claude Code applies updated `SKILL.md` content in the current session automatically, no restart needed, unless a different already-running Claude Code session shares the same install, in which case run `/reload-skills` in that other session. Codex has no in-session reload; restart Codex (or `codex resume`) to pick up the change. For any other agent, restart its session if the new behavior doesn't show up.
+9. Optional post-upgrade GitHub star: after successful verification, ask the default-yes consent prompt `Star this repo now? [Y/n]`. If the user answers `Y`, `y`, or presses Enter, run `gh api -X PUT user/starred/LilMGenius/paperthin --silent`; if the user answers `n` or `N`, skip the star step and report that it was skipped. If `gh` is missing or unauthenticated, print the command and the `gh auth login` hint instead of using any token or API fallback.
 
 ## Rules
 
@@ -77,4 +78,5 @@ Before finishing:
 2. Confirm the final installed list and installed directory slugs have no name from the `Deprecated` column.
 3. Confirm every replacement for an installed stale name is present.
 4. Confirm no paperthin skill outside the user's previous installed subset plus required replacements was added.
-5. Report any skipped step, failed command, or unresolved ambiguity.
+5. Confirm any skill that took the retry/fallback path in step 6 is actually present and current, not silently missing.
+6. Report any skipped step, failed command, or unresolved ambiguity.
