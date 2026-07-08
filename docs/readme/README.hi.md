@@ -53,6 +53,7 @@
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | nice होने से इनकार करता है: plan को मार सकने वाली एक objection + सबसे सस्ता test | एक plan | user |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash और उसके look-alikes हटाता है, हर जगह सही punctuation चुनता है | आपकी prose | user |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | finished commit message को clean v0 में rewrite करता है ताकि `git log` अकेले handoff दे सके | एक commit | user |
+| 🚀 **[ppt-release](../../skills/depth/ppt-release/SKILL.md)** | shipping aur releasing checklist चलाता है, फिर confirm होने पर tag करके publish करता है | एक release | user |
 
 ### `breadth/`
 

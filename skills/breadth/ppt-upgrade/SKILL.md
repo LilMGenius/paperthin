@@ -27,7 +27,7 @@ The `ssot-check` row is user-confirmed from pre-v0.2.0 history that current git 
 
 Use this list to separate current paperthin skills from unknown installed names when parsing `npx skills list` and installed skill directories.
 
-`autobahn`, `dedash`, `factchk`, `flywheel`, `hate`, `mandela`, `nba`, `ppt-upgrade`, `re0`, `re0-git`, `re0-work`, `retro`, `shower`, `sip`, `ssotchk`, `ssotize`
+`autobahn`, `dedash`, `factchk`, `flywheel`, `hate`, `mandela`, `nba`, `ppt-release`, `ppt-upgrade`, `re0`, `re0-git`, `re0-work`, `retro`, `shower`, `sip`, `ssotchk`, `ssotize`
 
 ## Workflow
 

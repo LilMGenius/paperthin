@@ -56,14 +56,14 @@ description: "<trigger-rich one-liner>"
 
 Every `SKILL.md` is either user-invoked (`disable-model-invocation: true`, reachable only by the human) or model-invoked (model- or user-reachable). For the full definitions, description conventions, and why a user-invoked skill can invoke model-invoked skills but never another user-invoked one, see [docs/invocation.md](./docs/invocation.md).
 
-Default to model-invoked. Make a skill user-invoked only when the model should never reach it on its own — its trigger is a deliberate, human-decided action (commit, push, publish, deploy), or its mere presence in reach would bias the agent toward one. Four qualify today: `re0-git`, because it cleans a commit's message and committing is human-decided; `hate`, because a hate-it reflex always in the agent's reach would bias it toward demolition; `dedash`, because the user owns the exact prose scope; and `ppt-upgrade`, because install reconciliation can remove and reinstall local skill entries. `autobahn` remains model-invoked because the model should autonomously carve risk-adjacent scope before execution.
+Default to model-invoked. Make a skill user-invoked only when the model should never reach it on its own — its trigger is a deliberate, human-decided action (commit, push, publish, deploy), or its mere presence in reach would bias the agent toward one. Five qualify today: `re0-git`, because it cleans a commit's message and committing is human-decided; `hate`, because a hate-it reflex always in the agent's reach would bias it toward demolition; `dedash`, because the user owns the exact prose scope; `ppt-upgrade`, because install reconciliation can remove and reinstall local skill entries; and `ppt-release`, because publishing a release is a deliberate, human-decided action. `autobahn` remains model-invoked because the model should autonomously carve risk-adjacent scope before execution.
 
 ## Conventions
 
 Every skill must work installed on its own, so it names no other skill and states the rules it needs inline. Two couplings are allowed, because there the relationship *is* the skill:
 
 - **pair** — `ssotchk` → `ssotize`: the second acts on the first's output (audit, then consolidate).
-- **orchestrator** — `sip` runs the suite's clean-and-true checks; `flywheel` and `nba` run and navigate the coil cycle. An orchestrator degrades gracefully: it uses the skills present and skips the rest.
+- **orchestrator** — `sip` runs the suite's clean-and-true checks; `flywheel` and `nba` run and navigate the coil cycle; `ppt-release` runs the shipping and releasing checklist, invoking `sip` and `re0-git` when they're installed. An orchestrator degrades gracefully: it uses the skills present and skips the rest.
 
 Because independence means the same rule recurs inline across skills, this section maps those copies so they stay coherent when you touch one. CLAUDE.md ships with the repo, not the plugin, so it is the contributor's map, never a runtime dependency:
 
@@ -83,9 +83,9 @@ Before committing:
 2. **[README](./README.md)** lists it — grouped by perspective, invocation marked in the `Invoker` column, each linked to its `SKILL.md`.
 3. **Localized READMEs** keep root `README.md` as the English source; translations live under [`docs/readme/`](./docs/readme/), never the repo root. Every README keeps the same `<sub>Read in: ...</sub>` switcher after its section nav, with the current language as plain text, and every copied repo link rebased and verified from that file's directory.
 4. **[plugin.json](./.claude-plugin/plugin.json)** registers its path.
-5. **[package.json](./package.json)** bumps version (new skill = minor; fix/docs = patch); `keywords` stay grouped logically.
+5. **[package.json](./package.json)** bumps version (new skill = minor; fix/docs = patch; a skill removed with no replacement path = major); `keywords` stay grouped logically.
 6. **Rename maintenance:** every future skill rename appends its old → new entry to `ppt-upgrade`'s deprecations checklist in release order.
-7. **Keep the convention-copies coherent, and wire any pair or orchestrator.** Skills are independent and name no other skill, so there is barely a cross-skill graph to maintain. What recurs is inline: a skill that mutates, cuts, or writes a commit carries `edit-safety` / `negatives-as-corpus` / `commit-economy` inline, so every copy of a rule must stay coherent with the others the [Conventions](#conventions) map lists. The only couplings are the pair (`ssotchk` → `ssotize`) and the orchestrators (`sip`, `flywheel`, `nba`); when a new skill joins one — an orchestrator should now run it, or it forms a new pair — wire that edge, and only that.
+7. **Keep the convention-copies coherent, and wire any pair or orchestrator.** Skills are independent and name no other skill, so there is barely a cross-skill graph to maintain. What recurs is inline: a skill that mutates, cuts, or writes a commit carries `edit-safety` / `negatives-as-corpus` / `commit-economy` inline, so every copy of a rule must stay coherent with the others the [Conventions](#conventions) map lists. The only couplings are the pair (`ssotchk` → `ssotize`) and the orchestrators (`sip`, `flywheel`, `nba`, `ppt-release`); when a new skill joins one — an orchestrator should now run it, or it forms a new pair — wire that edge, and only that.
 8. Run **`sip`** — it tastes the change with the repo's own clean-and-true checks before you ship.
 
 Write commit messages to `re0-git`'s **commit-economy** from the first draft, not only on its cleanup pass.

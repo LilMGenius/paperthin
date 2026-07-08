@@ -50,6 +50,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse to be nice to it — the one objection that could kill it + the cheapest test | one plan | user |
 | ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and their look-alikes, choosing the punctuation each spot needs | your prose | user |
 | 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrite a finished commit's message into a clean v0 so `git log` alone hands off | one commit | user |
+| 🚀 **[ppt-release](./skills/depth/ppt-release/SKILL.md)** | Run the shipping and releasing checklist, then tag and publish once confirmed | one release | user |
 
 ### `breadth/`
 

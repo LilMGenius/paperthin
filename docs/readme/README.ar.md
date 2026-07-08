@@ -53,6 +53,7 @@
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | يرفض المجاملة: الاعتراض الوحيد الذي قد يقتل الخطة + أرخص test | plan واحد | user |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | يزيل em dashes وما يشبهها، ويختار علامة الترقيم التي يحتاجها كل موضع | نثرك | user |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | يعيد كتابة رسالة commit مكتمل إلى v0 نظيفة حتى يحمل `git log` وحده التسليم | commit واحد | user |
+| 🚀 **[ppt-release](../../skills/depth/ppt-release/SKILL.md)** | يشغّل قائمة فحص shipping و releasing، ثم ينشئ tag وينشر بعد التأكيد | إصدار واحد | user |
 
 ### `breadth/`
 

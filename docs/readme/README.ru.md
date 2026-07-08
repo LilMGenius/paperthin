@@ -53,6 +53,7 @@
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Отказывается быть добрым: одно objection, которое может убить plan, плюс самый дешевый test | один plan | user |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Убирает em dashes и их look-alikes, выбирая пунктуацию, которая реально нужна в каждом месте | ваша prose | user |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Переписывает message готового commit в чистую v0, чтобы один `git log` нес handoff | один commit | user |
+| 🚀 **[ppt-release](../../skills/depth/ppt-release/SKILL.md)** | Проходит чек-лист shipping и releasing, затем создаёт tag и публикует после подтверждения | один release | user |
 
 ### `breadth/`
 
