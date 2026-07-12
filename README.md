@@ -76,7 +76,9 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 
 ### `mesh/`
 
-*In development — converge independent views into consensus.*
+| Skill | What it does | Scope | Invoker |
+|---|---|---|---|
+| 🪞 **[panel](./skills/mesh/panel/SKILL.md)** | Convene 2–4 independent perspectives on one artifact and return the single question that resolves their disagreement | one artifact | model |
 
 *More on invocation: [docs/invocation.md](./docs/invocation.md)*
 
