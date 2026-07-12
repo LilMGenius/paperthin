@@ -41,6 +41,11 @@ if [ -n "$node_bin" ] && [ "$fail" -eq 0 ]; then
   [ "$pkg_desc" = "$plg_desc" ] || err "package.json and plugin.json 'description' differ — keep the brand one-liner in sync"
 fi
 
+# structural section names required in every SKILL.md (empirically shared across the catalog)
+required_sections=("Goal" "Workflow" "Rules" "Verification")
+# soft cap on the frontmatter description; a longer one signals a paragraph, not a description
+desc_max=800
+
 while IFS= read -r f; do
   d=$(dirname "$f"); name=$(awk -F': *' '/^name:/{gsub(/\r$/, "", $2); print $2; exit}' "$f")
   grep -q '^description:' "$f"                       || err "$f: missing 'description'"
@@ -49,6 +54,22 @@ while IFS= read -r f; do
   grep -qF "\"./$d\"" .claude-plugin/plugin.json     || err "$d: not registered in plugin.json"
   grep -qF "$d/SKILL.md" README.md                   || err "$d: not listed in README.md"
   grep -q '\.\./' "$f"                               && err "$f: deep cross-file ref ('../') — compose by naming, not relative links"
+
+  # frontmatter is parseable YAML (extract lines between the two --- delimiters)
+  awk '/^---$/{c++; next} c==1' "$f" \
+    | node -e "const y=require('fs').readFileSync(0,'utf8'); if(!/^[a-z_-]+:\s/mi.test(y)) process.exit(1)" 2>/dev/null \
+    || err "$f: frontmatter block missing or malformed (expected 'key: value' lines between '---' delimiters)"
+
+  # frontmatter description length cap — keeps it a description, not a paragraph
+  desc_len=$(awk '/^description:/{sub(/^description: */,""); gsub(/^"|"$/,""); print length; exit}' "$f")
+  [ -n "$desc_len" ] && [ "$desc_len" -le "$desc_max" ] \
+    || err "$f: description length ${desc_len:-0} > $desc_max chars (tighten to a description, not a paragraph)"
+
+  # required structural sections — verify every SKILL.md carries the shared skeleton
+  for sec in "${required_sections[@]}"; do
+    grep -qE "^## +${sec}\$" "$f" \
+      || err "$f: missing required section '## ${sec}'"
+  done
 done < <(find skills -name SKILL.md)
 
 # every plugin.json skill path resolves to a SKILL.md
