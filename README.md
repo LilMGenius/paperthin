@@ -53,6 +53,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify a claim against sources, both directions — could the absurd be real, the obvious false? *(read-only → fix)* | one claim | model |
 | 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit a validation for leakage — does outside ground-truth actually enter? *(read-only)* | one eval | model |
 | 🥄 **[sip](./skills/depth/sip/SKILL.md)** | After any change, tastes it with the repo's own clean-and-true checks | your output | model |
+| 🎯 **[ii](./skills/depth/ii/SKILL.md)** | When data is handed over, read it and propose what the user is trying to do with it — as a proposal to confirm, not a question to answer | one data drop | model |
 | 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrite a finished commit's message into a clean v0 so `git log` alone hands off | one commit | user |
 | 🚀 **[re0-release](./skills/depth/re0-release/SKILL.md)** | Run the shipping and releasing checklist, then tag and publish once confirmed | one release | user |
 
