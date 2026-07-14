@@ -1,6 +1,6 @@
 *.local*
 .omo/
-.ppt/
+.re0/
 .codegraph/
 node_modules/
 *.log

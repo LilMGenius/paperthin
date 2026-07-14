@@ -75,6 +75,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Führt die build → QA → re0-memo → re0-work Schleife aus, damit Lernen komponiert, nicht Code | die ganze Schleife | Modell |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Baut den verlorenen Kontext des Menschen aus dem Live-Zustand wieder auf: was ihn braucht, was sich geändert hat, was neue Begriffe bedeuten *(nur Lesen)* | ein Wiedereinstieg | Modell |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Liest den Live-cyclezustand und gibt die eine nächste beste Aktion zurück, kein Menü *(nur Lesen)* | der laufende cycle | Modell |
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | Öffnet einen neuen Iterationsordner und schreibt sein DESIGN/WORKFLOW/EVIDENCE hinein, noch vor re0-loops erster Runde | ein neuer cycle | Nutzer |
 
 ### `mesh/`
 
@@ -95,11 +96,16 @@ Gib einem Agent ein Ziel und er **fügt hinzu**: mehr Dateien, mehr Optionen, me
 Diese Skills wetten in die andere Richtung. **Jeder einzelne entfernt etwas:**
 
 - `re0` schreibt einen Entwurf als saubere v0 neu, statt ihn weiter zu flicken.
-- `ssotize` prüft verstreute Facts, fragt nach Freigabe und faltet sie dann an einem Ort zusammen.
-- `shower` schneidet weg, was ein Fremder nicht verfolgen kann.
-- `re0-memo` / `re0-work` bewahren die Lektion und lassen den falschen Build sterben.
+- `readchk` formuliert die Anfrage neu und fragt nur, wenn eine echte Weiche übrig bleibt.
+- `modelchk` bestimmt die billigste ausreichende Tier, bevor die Arbeit beginnt.
+- `macrothink` fächert frische Lesarten auf und meldet Divergenz, bevor Konvergenz wie ein Beweis aussieht.
 - `autobahn` schneidet unsicheren Scope vorab heraus, damit der sichere Rest mit voller Geschwindigkeit läuft.
+- `detool` ersetzt beiläufige Werkzeugnamen in portablen Inhalten durch den gemeinten Mechanismus.
 - `dedash` entfernt sogar den Gedankenstrich-Tell und seine Doppelgänger, Stelle für Stelle beurteilt.
+- `shower` schneidet weg, was ein Fremder nicht verfolgen kann.
+- `ssotize` prüft verstreute Facts, fragt nach Freigabe und faltet sie dann an einem Ort zusammen.
+- `re0-memo` / `re0-work` / `re0-loop` bewahren die Lektion, lassen den falschen Build sterben und halten die Schleife am Laufen.
+- `catchup` / `nba` bauen die Landkarte des Menschen aus dem Live-Zustand neu auf und geben dann den einen nächsten Zug zurück.
 - `sip` führt all das automatisch auf deinem eigenen Output aus.
 
 > [!TIP]

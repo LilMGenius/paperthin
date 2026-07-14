@@ -75,6 +75,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Ejecuta el cycle build → QA → re0-memo → re0-work para que el aprendizaje componga, no el codigo | todo el cycle | model |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Reconstruye el contexto perdido del humano a partir del estado en vivo: que necesita, que cambio, que significan las palabras nuevas *(solo lectura)* | una reentrada | model |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lee el estado vivo del cycle y devuelve una sola siguiente mejor accion, no un menu *(solo lectura)* | el cycle vivo | model |
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | Abre una nueva carpeta de iteración y escribe su DESIGN/WORKFLOW/EVIDENCE antes del primer turno de re0-loop | un cycle nuevo | user |
 
 ### `mesh/`
 
@@ -95,11 +96,16 @@ Apunta un agent a un objetivo y **agrega**: mas archivos, mas opciones, mas boil
 Estas skills apuestan en la direccion contraria. **Cada una elimina algo:**
 
 - `re0` reescribe un borrador como una v0 limpia en vez de patcharlo.
-- `ssotize` audita facts dispersos, pide aprobacion y luego los colapsa en un solo hogar.
-- `shower` corta lo que un desconocido no puede seguir.
-- `re0-memo` / `re0-work` preservan la leccion y dejan morir el build equivocado.
+- `readchk` reformula la solicitud y solo pregunta cuando sobrevive una bifurcacion real.
+- `modelchk` calcula el tier mas barato suficiente antes de que empiece el trabajo.
+- `macrothink` despliega lecturas frescas e informa la divergencia antes de que la convergencia parezca prueba.
 - `autobahn` recorta el scope inseguro desde el principio para que el resto seguro corra a toda velocidad.
+- `detool` reemplaza sustantivos de herramientas incidentales en contenido portable por el mecanismo que significan.
 - `dedash` elimina incluso el tic del em dash y sus parecidos, una ocurrencia juzgada a la vez.
+- `shower` corta lo que un desconocido no puede seguir.
+- `ssotize` audita facts dispersos, pide aprobacion y luego los colapsa en un solo hogar.
+- `re0-memo` / `re0-work` / `re0-loop` preservan la leccion, dejan morir el build equivocado y mantienen el ciclo corriendo.
+- `catchup` / `nba` reconstruyen el mapa del humano desde el estado en vivo y devuelven el unico siguiente movimiento.
 - `sip` ejecuta todo eso automaticamente sobre tu propio output.
 
 > [!TIP]

@@ -75,6 +75,7 @@
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | build → QA → re0-memo → re0-work loop चलाता है ताकि learning compound करे, code नहीं | पूरा loop | model |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | live state से इंसान का खोया हुआ context फिर से बनाता है: उसे क्या चाहिए, क्या बदला, नए शब्दों का मतलब क्या है *(read-only)* | एक re-entry | model |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | live cycle state पढ़कर menu नहीं, single next best action देता है *(read-only)* | live cycle | model |
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | re0-loop की पहली turn से पहले नया iteration folder खोलता है और उसी में DESIGN/WORKFLOW/EVIDENCE लिखता है | एक नया cycle | user |
 
 ### `mesh/`
 
@@ -95,11 +96,16 @@ Agent को goal दें और वह **add** करता है: और fi
 ये skills उलटी दिशा में bet करते हैं। **इनमें से हर एक remove करता है:**
 
 - `re0` draft को patch करने के बजाय clean v0 में rewrite करता है।
-- `ssotize` files में फैले facts को audit करता है, approval मांगता है, फिर उन्हें एक home में collapse करता है।
-- `shower` वह काटता है जिसे कोई stranger follow नहीं कर सकता।
-- `re0-memo` / `re0-work` lesson बचाते हैं और गलत build को मरने देते हैं।
+- `readchk` request को दोबारा restate करता है और तभी पूछता है जब असली fork बचता है।
+- `modelchk` काम शुरू होने से पहले सबसे सस्ता पर्याप्त tier तय करता है।
+- `macrothink` fresh reads फैलाता है और convergence को proof मानने से पहले divergence report करता है।
 - `autobahn` unsafe scope upfront carve करता है, ताकि safe remainder पूरी speed से चले।
+- `detool` portable content के incidental tool नामों को उनके असल mechanism से बदलता है।
 - `dedash` em-dash tell और उसके look-alikes तक हटाता है, एक-एक occurrence judge करके।
+- `shower` वह काटता है जिसे कोई stranger follow नहीं कर सकता।
+- `ssotize` files में फैले facts को audit करता है, approval मांगता है, फिर उन्हें एक home में collapse करता है।
+- `re0-memo` / `re0-work` / `re0-loop` lesson बचाते हैं, गलत build को मरने देते हैं, और loop चलाए रखते हैं।
+- `catchup` / `nba` live state से इंसान का map फिर बनाते हैं, फिर एक ही अगला move लौटाते हैं।
 - `sip` यह सब अपने output पर automatically चलाता है।
 
 > [!TIP]

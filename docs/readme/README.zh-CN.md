@@ -75,6 +75,7 @@
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | 跑 build → QA → re0-memo → re0-work cycle，让学习复利，而不是代码膨胀 | 整个 cycle | 模型 |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 从实时 state 重建人类丢失的 context：谁需要它、发生了什么变化、新词是什么意思 *(只读)* | 一次回归 | 模型 |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 读取实时 cycle state，返回一个下一步最佳行动，而不是菜单 *(只读)* | 当前 cycle | 模型 |
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | 在 re0-loop 第一轮之前打开新的 iteration 文件夹，并当场写入它的 DESIGN/WORKFLOW/EVIDENCE | 一个新 cycle | 用户 |
 
 ### `mesh/`
 
@@ -95,11 +96,16 @@
 这些 skill 押注相反方向。**每一个都在移除：**
 
 - `re0` 把草稿重写成干净的 v0，而不是继续打 patch。
-- `ssotize` 审计散落在文件里的 facts，取得批准，然后把它们折叠到一个归宿。
-- `shower` 删掉陌生人看不懂的部分。
-- `re0-memo` / `re0-work` 保留教训，让错误的 build 死掉。
+- `readchk` 在内部复述请求，只有真正存活的分歧才会提问。
+- `modelchk` 在工作开始前选出足够用的最便宜 tier。
+- `macrothink` 展开新的解读，先报告分歧，再让收敛看起来像证据。
 - `autobahn` 先切掉不安全 scope，让安全剩余部分全速运行。
+- `detool` 把可移植内容里偶然带上的工具名换成它们真正指代的机制。
 - `dedash` 连 em dash 痕迹和相似符号也逐处判断并移除。
+- `shower` 删掉陌生人看不懂的部分。
+- `ssotize` 审计散落在文件里的 facts，取得批准，然后把它们折叠到一个归宿。
+- `re0-memo` / `re0-work` / `re0-loop` 保留教训，让错误的 build 死掉，并让 loop 持续运转。
+- `catchup` / `nba` 从实时 state 重建人类的地图，然后只返回下一步该做什么。
 - `sip` 自动把这一切跑在你自己的 output 上。
 
 > [!TIP]

@@ -75,6 +75,7 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Executa o loop build → QA → re0-memo → re0-work para que o aprendizado componha, nao o codigo | o loop inteiro | model |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Reconstroi o contexto perdido do humano a partir do estado ao vivo: o que precisa dele, o que mudou, o que as novas palavras significam *(somente leitura)* | uma reentrada | model |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Le o estado vivo do cycle e retorna uma unica proxima melhor acao, nao um menu *(somente leitura)* | o cycle vivo | model |
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | Abre uma nova pasta de iteração e escreve nela o DESIGN/WORKFLOW/EVIDENCE antes do primeiro turno do re0-loop | um cycle novo | user |
 
 ### `mesh/`
 
@@ -95,12 +96,17 @@ Aponte um agent para um objetivo e ele **adiciona**: mais arquivos, mais opcoes,
 Essas skills apostam no outro lado. **Cada uma remove algo:**
 
 - `re0` reescreve um rascunho como uma v0 limpa em vez de remenda-lo.
-- `ssotize` audita facts espalhados, pede aprovacao e entao os colapsa em um unico lar.
-- `shower` corta o que um estranho nao consegue acompanhar.
-- `re0-memo` / `re0-work` preservam a licao e deixam o build errado morrer.
+- `readchk` reformula o pedido e so pergunta quando sobrevive uma bifurcacao real.
+- `modelchk` escolhe o tier mais barato suficiente antes de o trabalho comecar.
+- `macrothink` espalha leituras novas e reporta a divergencia antes que a convergencia pareca prova.
 - `autobahn` recorta o scope inseguro de antemao, para que o restante seguro rode em velocidade total.
+- `detool` troca nomes de ferramentas incidentais em conteudo portavel pelo mecanismo que eles significam.
 - `dedash` remove ate o sinal do em dash e seus parecidos, uma ocorrencia julgada de cada vez.
-- `sip` executa tudo isso automaticamente sobre a seu proprio output.
+- `shower` corta o que um estranho nao consegue acompanhar.
+- `ssotize` audita facts espalhados, pede aprovacao e entao os colapsa em um unico lar.
+- `re0-memo` / `re0-work` / `re0-loop` preservam a licao, deixam o build errado morrer e mantem o loop rodando.
+- `catchup` / `nba` reconstroem o mapa do humano a partir do estado ao vivo, e devolvem o unico proximo passo.
+- `sip` executa tudo isso automaticamente sobre o seu proprio output.
 
 > [!TIP]
 > A parte dificil nao e adicionar recursos; e contencao. Uma pass que nao encontra nada a melhorar nao muda nada. **Essa contencao e o produto.**

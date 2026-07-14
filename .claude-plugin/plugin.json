@@ -22,6 +22,7 @@
     "./skills/coil/re0-work",
     "./skills/coil/re0-loop",
     "./skills/coil/catchup",
-    "./skills/coil/nba"
+    "./skills/coil/nba",
+    "./skills/coil/re0-plan"
   ]
 }

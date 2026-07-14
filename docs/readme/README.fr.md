@@ -75,6 +75,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Lance la boucle build → QA → re0-memo → re0-work pour que l'apprentissage compose, pas le code | toute la boucle | modèle |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Reconstruit le contexte perdu de l'humain à partir de l'état en direct : ce dont il a besoin, ce qui a changé, ce que signifient les nouveaux mots *(lecture seule)* | une réentrée | modèle |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lit l'état vivant du cycle et renvoie la seule meilleure prochaine action, pas un menu *(lecture seule)* | le cycle en cours | modèle |
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | Ouvre un nouveau dossier d'itération et y écrit son DESIGN/WORKFLOW/EVIDENCE avant le premier tour de re0-loop | un nouveau cycle | utilisateur |
 
 ### `mesh/`
 
@@ -95,11 +96,16 @@ Donnez un objectif à un agent et il **ajoute** : plus de fichiers, plus d'optio
 Ces skills parient dans l'autre sens. **Chacun enlève quelque chose :**
 
 - `re0` réécrit un brouillon en v0 propre au lieu de le patcher.
-- `ssotize` audite les faits dispersés, demande l'approbation, puis les replie dans un seul foyer.
-- `shower` coupe ce qu'un inconnu ne peut pas suivre.
-- `re0-memo` / `re0-work` préservent la leçon et laissent mourir la mauvaise construction.
+- `readchk` reformule la demande et ne pose une question que si une vraie bifurcation survit.
+- `modelchk` choisit le palier le moins cher suffisant avant que le travail commence.
+- `macrothink` déploie des lectures fraîches et rapporte la divergence avant que la convergence ne passe pour une preuve.
 - `autobahn` découpe le périmètre dangereux en amont, pour que le reste sûr tourne à pleine vitesse.
+- `detool` remplace les noms d'outils incidents dans un contenu portable par le mécanisme qu'ils désignent.
 - `dedash` retire même le tic de l'em dash et ses sosies, occurrence par occurrence.
+- `shower` coupe ce qu'un inconnu ne peut pas suivre.
+- `ssotize` audite les faits dispersés, demande l'approbation, puis les replie dans un seul foyer.
+- `re0-memo` / `re0-work` / `re0-loop` préservent la leçon, laissent mourir la mauvaise construction et gardent la boucle en marche.
+- `catchup` / `nba` reconstruisent la carte de l'humain à partir de l'état en direct, puis renvoient le seul prochain coup.
 - `sip` exécute tout cela automatiquement sur votre propre output.
 
 > [!TIP]

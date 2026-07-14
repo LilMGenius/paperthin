@@ -41,18 +41,18 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 
 | Skill | What it does | Scope | Invoker |
 |---|---|---|---|
+| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Rewrite a drifted artifact into a clean v0 — not another patch | one artifact | model |
 | 🧭 **[readchk](./skills/depth/readchk/SKILL.md)** | Check the model's read of the request before non-trivial work; surface only a real surviving fork *(read-only)* | one instruction | model |
 | 📏 **[modelchk](./skills/depth/modelchk/SKILL.md)** | Size the cheapest sufficient capability tier — fast, standard, or frontier *(read-only)* | one task | model |
-| 🧠 **[macrothink](./skills/depth/macrothink/SKILL.md)** | Strip the session's bait, fan out fresh reads, and report divergence first *(read-only)* | one direction | user |
 | 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse to be nice to it — the one objection that could kill it + the cheapest test | one plan | user |
+| 🧠 **[macrothink](./skills/depth/macrothink/SKILL.md)** | Strip the session's bait, fan out fresh reads, and report divergence first *(read-only)* | one direction | user |
 | 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Carve unsafe scope out up front, run the safe rest at full strength, ship a descope ledger | one task | model |
-| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Rewrite a drifted artifact into a clean v0 — not another patch | one artifact | model |
 | 🧰 **[detool](./skills/depth/detool/SKILL.md)** | Replace incidental stack nouns in portable content with the mechanism they mean | one durable artifact | model |
+| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and their look-alikes, choosing the punctuation each spot needs | your prose | user |
 | 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read it with fresh, zero-context eyes — does it stand on its own? *(read-only)* | one artifact | model |
 | 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify a claim against sources, both directions — could the absurd be real, the obvious false? *(read-only → fix)* | one claim | model |
 | 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit a validation for leakage — does outside ground-truth actually enter? *(read-only)* | one eval | model |
 | 🥄 **[sip](./skills/depth/sip/SKILL.md)** | After any change, tastes it with the repo's own clean-and-true checks | your output | model |
-| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and their look-alikes, choosing the punctuation each spot needs | your prose | user |
 | 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrite a finished commit's message into a clean v0 so `git log` alone hands off | one commit | user |
 | 🚀 **[re0-release](./skills/depth/re0-release/SKILL.md)** | Run the shipping and releasing checklist, then tag and publish once confirmed | one release | user |
 
@@ -72,6 +72,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🌀 **[re0-loop](./skills/coil/re0-loop/SKILL.md)** | Run the build → QA → re0-memo → re0-work loop so learning compounds, not code | the whole loop | model |
 | 🗺️ **[catchup](./skills/coil/catchup/SKILL.md)** | Rebuild the human's lost context from live state — what needs them, what changed, what new words mean *(read-only)* | one re-entry | model |
 | 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Read the live cycle state and return the single next best action, not a menu *(read-only)* | the live cycle | model |
+| 🗂️ **[re0-plan](./skills/coil/re0-plan/SKILL.md)** | Open a new iteration folder and write its DESIGN/WORKFLOW/EVIDENCE before re0-loop's first turn | one new cycle | user |
 
 ### `mesh/`
 
@@ -91,11 +92,16 @@ Point an agent at a goal and it **adds** — more files, more options, more "hel
 These skills bet the other way — **every one of them removes:**
 
 - `re0` rewrites a draft into a clean v0 instead of patching it,
-- `ssotize` audits scattered facts, asks approval, then folds them into one home,
-- `shower` cuts whatever a stranger can't follow,
-- `re0-memo` / `re0-work` preserve the lesson and let the wrong build die,
+- `readchk` restates the request and asks only when a real fork survives,
+- `modelchk` sizes the cheapest sufficient capability tier before the work starts,
+- `macrothink` fans out fresh reads and reports divergence before convergence reads as proof,
 - `autobahn` carves unsafe scope out up front, so the safe remainder runs at full speed,
+- `detool` strips incidental stack nouns from portable content, leaving the mechanism they meant,
 - `dedash` removes even the em-dash tell and its look-alikes, one judged occurrence at a time,
+- `shower` cuts whatever a stranger can't follow,
+- `ssotize` audits scattered facts, asks approval, then folds them into one home,
+- `re0-memo` / `re0-work` / `re0-loop` preserve the lesson, let the wrong build die, and keep the cycle running,
+- `catchup` / `nba` reload the human's map from live state, then return the one next move,
 - `sip` runs all of it on your own output, automatically.
 
 > [!TIP]
@@ -103,11 +109,26 @@ These skills bet the other way — **every one of them removes:**
 
 ## The Fixes
 
-<!-- Fixes follow the lifecycle of a piece of work: understand the ask, size and challenge the approach, carve unsafe scope, clean the artifact, check truth, then keep the loop learning. Slot any new fix by where it acts in that arc. -->
+<!-- Fixes lead with re0 — the founding thesis every other fix serves — then follow the lifecycle of a piece of work: understand the ask, challenge the approach, carve unsafe scope, clean the artifact, check truth, then keep the loop learning. Slot any new fix by where it acts in that arc. -->
 
 **Each is a well-worn principle, made automatic.**
 
-### #1 — You can build the wrong request perfectly
+### #1 — Artifacts rot
+Edit a doc one piece at a time across a session and it bloats: stale deltas, duplicated noise, changelog scars. Patching on top just preserves the rot.
+
+**The fix → `re0`:** rewrite the artifact as a clean v0, as if it were the first version.
+
+> *Prior art: the Boy Scout Rule — "leave it cleaner than you found it" (Robert C. Martin, [Clean Code](https://www.informit.com/articles/article.aspx?p=1235624&seqNum=6), 2008). `re0` goes further: rewrite, don't just tidy.*
+
+<details>
+<summary><b>[PROOF]</b></summary>
+
+- **Setup** — we asked `re0` to refresh these docs once more, but they were already at v0.
+- **Result** — it found nothing to improve and left every line of prose untouched.
+- **So** — a tool that does nothing when nothing is wrong never bloats your repo: these skills remove noise, they never add it.
+</details>
+
+### #2 — You can build the wrong request perfectly
 A long or bundled instruction has enough surface area for a subtle misread: the agent starts work, stays coherent, and only later proves it optimized the wrong target.
 
 **The fix → `readchk`:** restate the instruction internally, cross-check it against available context, proceed silently when the read is resolved, and ask only when one real fork survives.
@@ -120,7 +141,7 @@ A long or bundled instruction has enough surface area for a subtle misread: the 
 - **So** — the check catches expensive misreads without turning clear instructions into confirmation theater.
 </details>
 
-### #2 — Capability becomes guesswork
+### #3 — Capability becomes guesswork
 Some work is run with too much horsepower because "stronger" feels safer; some is run too cheaply until the failure costs more than the saved tokens. Both are guesses wearing operational clothing.
 
 **The fix → `modelchk`:** classify the task by risk, ambiguity, reversibility, blast radius, and proof surface, then recommend the cheapest sufficient tier: `fast`, `standard`, or `frontier`. It advises; it never routes, pins, or names a concrete model.
@@ -131,19 +152,6 @@ Some work is run with too much horsepower because "stronger" feels safer; some i
 - **Setup** — its first task cards included overpowered review, cheap mechanical work, model-branded input, and release-risk work.
 - **Result** — it kept only fast/standard/frontier tier language, named the proof surface separately, and rejected routing authority.
 - **So** — capability sizing becomes a bounded recommendation instead of a vendor claim or a reflexive escalation.
-</details>
-
-### #3 — One framing becomes the whole world
-Examples, names, and first plausible answers can trap a session before the plan even looks risky. A single agent may keep improving the inherited frame instead of noticing a different read.
-
-**The fix → `macrothink`:** user-invoke a read-only fan-out: strip the session's bait, ask 2 to 5 fresh reads for the underlying problem, and report divergence first. Same-model convergence is reassurance only, never proof.
-
-<details>
-<summary><b>[PROOF]</b></summary>
-
-- **Setup** — its founding cases tested bait stripping, convergence-as-reassurance, and constraint completeness.
-- **Result** — it stayed user-invoked, read-only, capped at 2 to 5 reads, with divergence first and explicit bans on majority vote, averaging, and "verified" wording from same-model convergence.
-- **So** — plurality is used to expose blind spots, not to manufacture consensus.
 </details>
 
 ### #4 — You can't kill your own plan
@@ -161,7 +169,20 @@ You built it, so you defend it. The questions that would break it are exactly th
 - **So** — the objection that mattered was always singular and cheap to test — exactly the `{root, first nail}` that `hate` is locked to return.
 </details>
 
-### #5 — Risk-adjacent work comes back hedged
+### #5 — One framing becomes the whole world
+Examples, names, and first plausible answers can trap a session before the plan even looks risky. A single agent may keep improving the inherited frame instead of noticing a different read.
+
+**The fix → `macrothink`:** user-invoke a read-only fan-out: strip the session's bait, ask 2 to 5 fresh reads for the underlying problem, and report divergence first. Same-model convergence is reassurance only, never proof.
+
+<details>
+<summary><b>[PROOF]</b></summary>
+
+- **Setup** — its founding cases tested bait stripping, convergence-as-reassurance, and constraint completeness.
+- **Result** — it stayed user-invoked, read-only, capped at 2 to 5 reads, with divergence first and explicit bans on majority vote, averaging, and "verified" wording from same-model convergence.
+- **So** — plurality is used to expose blind spots, not to manufacture consensus.
+</details>
+
+### #6 — Risk-adjacent work comes back hedged
 Point an agent at a task that brushes guardrails — scraping, licensing, privacy, security — and you get the worst of both worlds: the risky sliver triggers refusals and retries, while the safe 90% comes back hedged, diluted, or quietly missing.
 
 **The fix → `autobahn`:** carve guardrail-adjacent items out of scope before execution, each with a safe alternative and an archive entry; run the remaining scope at full strength in a fresh subagent that only ever sees the carved prompt, not the risky input; ship a descope ledger so every exclusion is a visible decision, not a silent gap. It removes the ask rather than slipping it past. The autobahn has no speed limit *because* entry discipline is strict.
@@ -174,21 +195,6 @@ Point an agent at a task that brushes guardrails — scraping, licensing, privac
 - **Setup** — the method was lifted from a live rewrite of a confidential strategy doc that was risk-adjacent on four axes at once: stealth tooling, trademarked names, privacy-adjacent profiling, scraping gray zones.
 - **Result** — a main loop plus ten subagents ran the frontier model end to end with zero flags, zero refusals, zero fallbacks — and every descoped item's safe alternative turned out to be the better product anyway.
 - **So** — the main loop carved, clean subagents ran the safe scope, and the carve is why they could floor it.
-</details>
-
-### #6 — Artifacts rot
-Edit a doc one piece at a time across a session and it bloats: stale deltas, duplicated noise, changelog scars. Patching on top just preserves the rot.
-
-**The fix → `re0`:** rewrite the artifact as a clean v0, as if it were the first version.
-
-> *Prior art: the Boy Scout Rule — "leave it cleaner than you found it" (Robert C. Martin, [Clean Code](https://www.informit.com/articles/article.aspx?p=1235624&seqNum=6), 2008). `re0` goes further: rewrite, don't just tidy.*
-
-<details>
-<summary><b>[PROOF]</b></summary>
-
-- **Setup** — we asked `re0` to refresh these docs once more, but they were already at v0.
-- **Result** — it found nothing to improve and left every line of prose untouched.
-- **So** — a tool that does nothing when nothing is wrong never bloats your repo: these skills remove noise, they never add it.
 </details>
 
 ### #7 — Portable docs smuggle their toolchain
@@ -237,37 +243,7 @@ A timeout value, a decision, a status — copied into a README, a doc, a ticket,
 - **So** — the copies never got the chance to drift: one home, five pointers, and the stale "next step" wording died the same day it became false.
 </details>
 
-### #10 — "Remember to verify" never fires
-A guideline buried in docs won't trigger in a brand-new session — exactly when author bias is highest.
-
-**The fix → `sip`:** the moment you finish something, it runs the clean checks (`shower`, `ssotize`, `re0`) and, when there's a claim or an eval, the true ones (`factchk`, `mandela`) on your output, automatically.
-
-> *Prior art: [dogfooding](https://en.wikipedia.org/wiki/Eating_your_own_dog_food) — eat your own dog food (Microsoft, 1988). Taste your own cooking before you serve it.*
-
-<details>
-<summary><b>[PROOF]</b></summary>
-
-- **Setup** — right after a large refactor that made every skill self-contained, `sip` auto-fired on the result.
-- **Result** — its fresh-eyes pass caught two things the author could no longer see: a maintenance rule still pointing at skill-to-skill links that the same refactor had just deleted, and a file-editing safety rule present in two skills but missing from a third that also edits files.
-- **So** — the check bites where bias is highest: not on a fresh artifact, but on the drift a big change leaves behind — exactly what the author's own eyes skate over.
-</details>
-
-### #11 — Your session doesn't travel; the git log does
-Your session is stuck where it ran — this agent, this account, this machine. A teammate or another agent can't load the context your work happened in.
-
-**The fix → `re0-git`:** clean a finished commit's message so `git log` — the one thing every environment shares — carries the handoff, and anyone picks up from the log alone.
-
-<details>
-<summary><b>[PROOF]</b></summary>
-
-- **Setup** — `re0-git`'s very first target was its own release commit.
-- **Result** — dogfooding it surfaced two faults, both fixed:
-  - a message padded with trivia,
-  - a spec that preached "no redundancy" while repeating itself.
-- **So** — its first cleanup was after itself.
-</details>
-
-### #12 — Your gut isn't a source
+### #10 — Your gut isn't a source
 "Plausible," "absurd," "novel" — the least reliable line in any artifact. Human priors fail **both ways**: they exclude the real (desert frogs exist) and normalize the impossible (weightless crates).
 
 **The fix → `factchk`:** verify any reality-grounded claim against external sources, in both directions, before it ships — and flag, don't guess, when you can't reach one.
@@ -282,7 +258,7 @@ Your session is stuck where it ran — this agent, this account, this machine. A
 - **So** — a fact-checker that audits its own footnotes will audit yours.
 </details>
 
-### #13 — The eval confirms itself
+### #11 — The eval confirms itself
 A model, a scorer, and a designer can all agree a result is real while no outside ground-truth ever entered the loop — a whole room confidently remembering something that never independently happened.
 
 **The fix → `mandela`:** audit any eval, metric, or experiment against an 8-pattern leakage taxonomy — does external ground-truth enter independently, or is the verifier the designer?
@@ -295,6 +271,36 @@ A model, a scorer, and a designer can all agree a result is real while no outsid
 - **Setup** — the audit was distilled from one research design that kept dying to a single failure mode: a scorer, a model, and a designer agreeing on a result no outside truth ever produced.
 - **Result** — leakage surfaced in eight distinct shapes in that one project — a scorer grading buckets it had drawn, two components "verifying" each other in a shared space, a private recipe that made the verifier the designer — and that catalog became the skill's 8-pattern taxonomy.
 - **So** — the checklist isn't theoretical: every pattern in it already drew blood once.
+</details>
+
+### #12 — "Remember to verify" never fires
+A guideline buried in docs won't trigger in a brand-new session — exactly when author bias is highest.
+
+**The fix → `sip`:** the moment you finish something, it runs the clean checks (`shower`, `ssotize`, `re0`) and, when there's a claim or an eval, the true ones (`factchk`, `mandela`) on your output, automatically.
+
+> *Prior art: [dogfooding](https://en.wikipedia.org/wiki/Eating_your_own_dog_food) — eat your own dog food (Microsoft, 1988). Taste your own cooking before you serve it.*
+
+<details>
+<summary><b>[PROOF]</b></summary>
+
+- **Setup** — right after a large refactor that made every skill self-contained, `sip` auto-fired on the result.
+- **Result** — its fresh-eyes pass caught two things the author could no longer see: a maintenance rule still pointing at skill-to-skill links that the same refactor had just deleted, and a file-editing safety rule present in two skills but missing from a third that also edits files.
+- **So** — the check bites where bias is highest: not on a fresh artifact, but on the drift a big change leaves behind — exactly what the author's own eyes skate over.
+</details>
+
+### #13 — Your session doesn't travel; the git log does
+Your session is stuck where it ran — this agent, this account, this machine. A teammate or another agent can't load the context your work happened in.
+
+**The fix → `re0-git`:** clean a finished commit's message so `git log` — the one thing every environment shares — carries the handoff, and anyone picks up from the log alone.
+
+<details>
+<summary><b>[PROOF]</b></summary>
+
+- **Setup** — `re0-git`'s very first target was its own release commit.
+- **Result** — dogfooding it surfaced two faults, both fixed:
+  - a message padded with trivia,
+  - a spec that preached "no redundancy" while repeating itself.
+- **So** — its first cleanup was after itself.
 </details>
 
 ### #14 — Long cycles lose the build, and the builder

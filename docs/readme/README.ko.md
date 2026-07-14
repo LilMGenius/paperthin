@@ -75,6 +75,7 @@
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | build → QA → re0-memo → re0-work 루프를 돌려 배움이 코드가 아니라 축적되게 합니다 | 전체 루프 | 모델 |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 실시간 state에서 인간이 잃어버린 context를 재구성합니다. 누구에게 필요한지, 무엇이 바뀌었는지, 새 단어가 무엇을 뜻하는지 보여줍니다 *(읽기 전용)* | 재진입 하나 | 모델 |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 살아 있는 사이클 state를 읽고 메뉴가 아니라 단 하나의 다음 최선 행동을 돌려줍니다 *(읽기 전용)* | 현재 사이클 | 모델 |
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | re0-loop의 첫 turn 전에 새 iteration 폴더를 열고, 그 자리에서 DESIGN/WORKFLOW/EVIDENCE를 씁니다 | 새 사이클 하나 | 사용자 |
 
 ### `mesh/`
 
@@ -95,11 +96,16 @@
 이 스킬들은 반대로 겁니다. **모든 스킬이 무언가를 제거합니다.**
 
 - `re0`는 draft를 패치하지 않고 깨끗한 v0로 다시 씁니다.
-- `ssotize`는 파일 곳곳에 흩어진 팩트를 감사하고, 승인받은 뒤 한 집으로 접습니다.
-- `shower`는 낯선 사람이 따라가지 못하는 부분을 잘라냅니다.
-- `re0-memo` / `re0-work`는 교훈만 보존하고 잘못된 빌드는 죽게 둡니다.
+- `readchk`는 요청을 다시 진술하고, 실제로 갈림길이 남을 때만 묻습니다.
+- `modelchk`는 작업이 시작되기 전에 충분한 가장 싼 tier를 정합니다.
+- `macrothink`는 새로운 읽기를 펼치고, 수렴이 증거처럼 보이기 전에 divergence를 먼저 보고합니다.
 - `autobahn`은 안전하지 않은 스코프를 앞에서 도려내 안전한 나머지가 전속력으로 달리게 합니다.
+- `detool`은 이식 가능한 콘텐츠에 우연히 섞인 도구 이름을 그것이 뜻하는 mechanism으로 바꿉니다.
 - `dedash`는 em dash tell과 닮은꼴까지 하나씩 판단해 제거합니다.
+- `shower`는 낯선 사람이 따라가지 못하는 부분을 잘라냅니다.
+- `ssotize`는 파일 곳곳에 흩어진 팩트를 감사하고, 승인받은 뒤 한 집으로 접습니다.
+- `re0-memo` / `re0-work` / `re0-loop`는 교훈을 보존하고, 잘못된 빌드는 죽게 두고, loop는 계속 돌립니다.
+- `catchup` / `nba`는 실시간 state에서 인간의 지도를 재구성한 뒤, 단 하나의 다음 수만 돌려줍니다.
 - `sip`은 이 모든 것을 내 아웃풋에 자동으로 실행합니다.
 
 > [!TIP]
