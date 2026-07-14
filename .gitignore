@@ -1,6 +1,12 @@
 *.local*
 .omo/
 .ppt/
+.codegraph/
 node_modules/
 *.log
 .DS_Store
+
+assets/banner.png
+assets/beta/
+assets/carousel/
+assets/logo-ghost-transparent.svg

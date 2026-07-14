@@ -1,5 +1,5 @@
 ---
-name: ppt-release
+name: re0-release
 description: "Walk a pending change through this repo's shipping and releasing checklist end to end, then tag and publish once confirmed. User-invoked: run it when you've decided to ship."
 disable-model-invocation: true
 ---
@@ -8,21 +8,21 @@ Run this repo's shipping and releasing checklist on a pending change, then tag a
 
 ## Goal
 
-Make "prepare and ship a release" a single deliberate command instead of re-deriving the shipping and releasing checklist by hand every time. It runs the existing quality gates (`sip`, `re0-git`) when they're installed, and applies their checks directly when they aren't. It treats "commit" and "tag + push" as two separately-staked moments: a commit stays local and reversible, tag + push is the one step that goes public.
+Make "prepare and ship a release" a single deliberate command instead of re-deriving the shipping and releasing checklist by hand every time. It runs `sip` when installed, applies commit-economy directly, and never auto-fires another user-invoked skill. It treats "commit" and "tag + push" as two separately-staked moments: a commit stays local and reversible, tag + push is the one step that goes public.
 
 ## Workflow
 
 1. Confirm shipping readiness against the pending diff — every applicable item from CLAUDE.md's Shipping checklist except the version bump and the `sip` run, which are steps 2 and 3 here:
    - any new or changed `SKILL.md` has the right shape (frontmatter `name`+`description`, `disable-model-invocation` only if user-invoked, body sections Goal/Workflow/Rules/Verification);
-   - the README, and every localized copy under `docs/readme/`, lists or describes it accurately, with the right `Invoker` column;
+   - the README, and every localized copy under `docs/readme/`, lists or describes it accurately, with the right invocation column;
    - `plugin.json` registers its path;
-   - any rename appends an old -> new row to `ppt-upgrade`'s deprecations checklist, in release order;
+   - any rename appends an old -> new row to `re0-upgrade`'s deprecations checklist, in release order;
    - shared cross-skill rules (edit-safety, negatives-as-corpus, commit-economy) stay coherent across every copy that carries them.
    Report any gap and stop rather than guessing past it.
 2. Classify the version bump: a new skill is minor; a fix or docs-only change is patch; a skill removed with no replacement path is major. State the classification and why.
-3. Run `sip` if it is installed, and apply its findings. If it is not installed, run its checks directly in order — cold-read (`shower`), truth checks only when there is a claim or an eval (`factchk`/`mandela`), consistency (`ssotchk`/`ssotize`), then tidy (`re0`) — and apply what they find.
+3. Run `sip` if it is installed, and apply its findings. If it is not installed, run its checks directly in order — cold-read (`shower`), truth checks only when there is a claim or an eval (`factchk`/`mandela`), consistency (`ssotize` audit first, consolidation only after approval), then tidy (`re0`) — and apply what they find.
 4. Bump `package.json`'s version to the classification from step 2.
-5. Draft the commit message to commit-economy from the first draft: one bullet per real, durable fact; nothing the diff or version already proves; no co-author tag; matched to the local log's own shape, not appended to across edits. If a commit already exists and needs cleanup, `re0-git` (if installed) rewrites it the same way.
+5. Draft the commit message to commit-economy — one bullet per real, durable change with supporting edits folded in, nothing the diff or version already proves, no co-author tags, matched to the local log's own shape — from the first draft, not appended to across edits. If a commit already exists and needs cleanup, ask the human to run `re0-git`; do not invoke it automatically.
 6. Ask for explicit confirmation, then commit.
 7. Write `.ppt/release/RELEASE_NOTES.local.md` — a gitignored, never-shipped local scratch file that rides the signed tag as its message — to this house style: one `##` heading naming the release's durable idea, not the version; one short present-tense paragraph of what is true now; only the sections the release earns (`### New`, `### Also`, `### The catalog (N skills)` only when the roster needs re-mapping, `### Install` always last as an indented block); skill names and paths in backticks; nothing the tag or version already proves.
 8. Ask for a second, separate confirmation before tagging and pushing — this is the one step that goes public. Then: `git tag -s vX.Y.Z -F .ppt/release/RELEASE_NOTES.local.md --cleanup=verbatim`, push `main`, push the tag.

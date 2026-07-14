@@ -26,6 +26,7 @@ A long session quietly accumulates context you can't un-see, so you lose the abi
 - Pass the artifact's contents, never your intent.
 - A forced "I had to assume…" is a finding, not a reader failure.
 - Medium-agnostic: adapt the cold-read questions to what the artifact is.
+- A single cold read is a single draw and can still be confidently wrong at high stakes; it is the default, not the ceiling of diligence, so escalate to multiple independent reads when the stakes justify the cost.
 - **Read, don't sweep.** The cold-read is an end-to-end read, not a pattern-grep — a sweep catches only known patterns and misses stale refs, dead links, fact drift, and silent edit-damage. Track how much was actually read; never report "clean" from a grep alone.
 
 ## Verification

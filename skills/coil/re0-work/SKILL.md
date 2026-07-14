@@ -11,7 +11,7 @@ Start over from what the previous cycle proved, not from what it happened to bui
 
 ## Workflow
 
-1. Read the current plan, any lessons or retro notes, local domain notes, QA evidence, and any user complaint that triggered the restart.
+1. Read the current plan, any lessons or re0-memo notes, local domain notes, QA evidence, and any user complaint that triggered the restart.
 2. Identify what to preserve: contracts, schemas that survived QA, quality gates, vocabulary, reusable services, real-surface tests, and negative corpus.
 3. Identify what to discard: explanatory UI, debug panels, scaffold, shallow generated content, accidental abstractions, and code whose only value was learning what not to do.
 4. Name the first quality gate before planning code.

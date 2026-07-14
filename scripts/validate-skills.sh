@@ -8,17 +8,41 @@ cd "$(dirname "$0")/.."
 fail=0
 err() { echo "::error::$*"; fail=1; }   # GitHub annotation on CI; prints plainly off-CI
 
+node_bin=${NODE:-}
+if [ -n "$node_bin" ]; then
+  case "$node_bin" in
+    */*|*\\*) [ -x "$node_bin" ] || err "node runtime not found at NODE=$node_bin" ;;
+    *) command -v "$node_bin" >/dev/null 2>&1 || err "node runtime not found at NODE=$node_bin" ;;
+  esac
+elif [ -z "$node_bin" ]; then
+  if command -v node >/dev/null 2>&1; then
+    node_bin=$(command -v node)
+  elif command -v node.exe >/dev/null 2>&1; then
+    node_bin=$(command -v node.exe)
+  elif [ -x "/c/Program Files/nodejs/node.exe" ]; then
+    node_bin="/c/Program Files/nodejs/node.exe"
+  elif [ -x "/mnt/c/Program Files/nodejs/node.exe" ]; then
+    node_bin="/mnt/c/Program Files/nodejs/node.exe"
+  else
+    err "node runtime not found — install Node.js or set NODE=/path/to/node"
+  fi
+fi
+
 # plugin.json must be valid JSON
-node -e "JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json','utf8'))" 2>/dev/null \
-  || err "plugin.json is not valid JSON"
+if [ -n "$node_bin" ] && [ "$fail" -eq 0 ]; then
+  "$node_bin" -e "JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json','utf8'))" 2>/dev/null \
+    || err "plugin.json is not valid JSON"
+fi
 
 # the brand one-liner is single-sourced: package.json and plugin.json must agree
-pkg_desc=$(node -p "require('./package.json').description" 2>/dev/null)
-plg_desc=$(node -p "require('./.claude-plugin/plugin.json').description" 2>/dev/null)
-[ "$pkg_desc" = "$plg_desc" ] || err "package.json and plugin.json 'description' differ — keep the brand one-liner in sync"
+if [ -n "$node_bin" ] && [ "$fail" -eq 0 ]; then
+  pkg_desc=$("$node_bin" -p "require('./package.json').description" 2>/dev/null)
+  plg_desc=$("$node_bin" -p "require('./.claude-plugin/plugin.json').description" 2>/dev/null)
+  [ "$pkg_desc" = "$plg_desc" ] || err "package.json and plugin.json 'description' differ — keep the brand one-liner in sync"
+fi
 
 while IFS= read -r f; do
-  d=$(dirname "$f"); name=$(awk -F': *' '/^name:/{print $2; exit}' "$f")
+  d=$(dirname "$f"); name=$(awk -F': *' '/^name:/{gsub(/\r$/, "", $2); print $2; exit}' "$f")
   grep -q '^description:' "$f"                       || err "$f: missing 'description'"
   [ -n "$name" ]                                     || err "$f: missing 'name'"
   [ "$name" = "$(basename "$d")" ]                   || err "$f: name '$name' != directory '$(basename "$d")'"
