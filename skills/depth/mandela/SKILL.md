@@ -31,6 +31,7 @@ The name is the **Mandela Effect** — a whole population *confidently remembers
 
 - Subtlety that bites twice: you can blind the **output value** and still leak the **collection recipe**.
 - Read-only — name the leak and the independence fix; don't rewrite the experiment.
+- For a high-stakes validation, you may add one independent fresh-context auditor (`N=1`) handed only the validation design, not this session's reasoning, to re-run the 8-pattern taxonomy blind; the default remains same-session and read-only.
 
 ## Verification
 

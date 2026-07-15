@@ -1,5 +1,5 @@
 ---
-name: ppt-upgrade
+name: re0-upgrade
 description: "Safely upgrade your installed paperthin skills to the latest release in one step, including anything that's been renamed, without installing anything you didn't already have."
 disable-model-invocation: true
 ---
@@ -14,7 +14,7 @@ Keep a returning user's installed paperthin skills current after release renames
 
 This ordered checklist is the rename SSOT. Append future renames here in release order.
 
-The `ssot-check` row is user-confirmed from pre-v0.2.0 history that current git history cannot verify after a force-push; do not invent a date or tag for it.
+The `ssot-check` row is user-confirmed from pre-v0.2.0 history that current git history cannot verify after a force-push; do not invent a date or tag for it. Resolve deprecation chains to the final current skill before installing replacements.
 
 | Deprecated | Renamed to | Since |
 | --- | --- | --- |
@@ -22,12 +22,17 @@ The `ssot-check` row is user-confirmed from pre-v0.2.0 history that current git 
 | `tasting` | `sip` | 0.6.0 |
 | `redteam` | `hate` | 0.7.0 |
 | `scratch` | `re0-work` | 0.8.2 |
+| `retro` | `re0-memo` | 0.11.0 |
+| `flywheel` | `re0-loop` | 0.11.0 |
+| `ssotchk` | `ssotize` | 0.11.0 |
+| `ppt-upgrade` | `re0-upgrade` | 0.11.0 |
+| `ppt-release` | `re0-release` | 0.11.0 |
 
 ## Current catalog
 
 Use this list to separate current paperthin skills from unknown installed names when parsing `npx skills list` and installed skill directories.
 
-`autobahn`, `dedash`, `factchk`, `flywheel`, `hate`, `mandela`, `nba`, `ppt-release`, `ppt-upgrade`, `re0`, `re0-git`, `re0-work`, `retro`, `shower`, `sip`, `ssotchk`, `ssotize`
+`readchk`, `modelchk`, `macrothink`, `hate`, `autobahn`, `re0`, `detool`, `shower`, `factchk`, `mandela`, `sip`, `dedash`, `re0-git`, `re0-release`, `ssotize`, `re0-upgrade`, `re0-memo`, `re0-work`, `re0-loop`, `catchup`, `nba`
 
 ## Workflow
 
@@ -37,7 +42,7 @@ Use this list to separate current paperthin skills from unknown installed names 
    - exact-agent install: use only explicit agent slugs such as `--agent claude-code`, never `--agent '*'`.
 2. Cross-reference both installed names and installed directory slugs against the deprecations checklist:
    - stale names are installed entries or installed directory slugs in the `Deprecated` column;
-   - replacement names are their `Renamed to` values;
+   - replacement names are their final current `Renamed to` values after following any deprecation chain;
    - current names are installed entries in the current catalog that are not deprecated;
    - unknown installed names stay untouched.
 3. Report the full install reconciliation plan before changing anything:
@@ -57,7 +62,7 @@ Use this list to separate current paperthin skills from unknown installed names 
 
 ## Rules
 
-- The flat `npx skills add` path installs this command as `/ppt-upgrade`; never describe a paperthin `ppt` namespace as part of the primary install path.
+- The flat `npx skills add` path installs this command as `/re0-upgrade`; never describe a paperthin `ppt` namespace as part of the primary install path.
 - Never use `skills add --all`.
 - Never run a bare `skills add LilMGenius/paperthin`; always include `-s <skill>` for replacement installs.
 - Do not use raw filesystem deletion commands as workflow commands. Use `skills remove` for named stale skills after confirmation.

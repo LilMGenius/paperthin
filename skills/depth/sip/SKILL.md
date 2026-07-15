@@ -14,15 +14,16 @@ A reminder buried in docs ("remember to verify") won't reliably fire in a fresh 
 1. Spot the trigger: you just created or changed an artifact or skill and are about to call it done, commit, or hand it off.
 2. **Cold-read it** — run `shower` on the artifact (fresh-eyes comprehension / handoff check).
 3. **Verify it's true** — if the artifact asserts a reality-grounded claim, run `factchk`; if it defines an eval, metric, or experiment, run `mandela`. Skip when it has neither.
-4. **Check consistency** — run `ssotchk` across the repo for anything the change duplicated or contradicted; `ssotize` if it found scatter.
-5. **Tidy** — `re0` the changed docs so the result reads as a clean v0, not a patch over a draft.
-6. Apply the findings here, then serve it.
+4. **Check consistency** — run `ssotize` in audit mode across the repo for anything the change duplicated or contradicted; execute its consolidation plan only after approval.
+5. **Detool portability claims** — run `detool` only when the artifact claims portability, tool-neutrality, stack-agnostic durability, or cross-agent reuse. Skip when it is provenance, operational notes, a tool-targeted runbook, or does not claim portability.
+6. **Tidy** — `re0` the changed docs so the result reads as a clean v0, not a patch over a draft.
+7. Apply the findings here, then serve it.
 
 ## Rules
 
 - Trigger on your OWN output, right after making it — that's when bias is highest and a check is cheapest.
-- Use the skills; don't re-implement them — `shower` for clarity, `factchk`/`mandela` for truth, `ssotchk`/`ssotize` for SSOT, `re0` for cleanup. `sip` orchestrates and routes findings back to the author session to fix; the skills do the work.
-- Skip what plainly doesn't apply, or any check whose skill isn't installed — run only what's present. `factchk`/`mandela` fire only when there is a claim or an eval; a one-line prose tweak may need only a consistency check. Say what you skipped and why.
+- Use the skills; don't re-implement them — `shower` for clarity, `factchk`/`mandela` for truth, `ssotize` for SSOT, `detool` for portability claims, `re0` for cleanup. `sip` orchestrates and routes findings back to the author session to fix; the skills do the work.
+- Skip what plainly doesn't apply, or any check whose skill isn't installed — run only what's present. `factchk`/`mandela` fire only when there is a claim or an eval; `detool` fires only when the artifact claims portability, tool-neutrality, stack-agnostic durability, or cross-agent reuse; a one-line prose tweak may need only a consistency check. Say what you skipped and why.
 - Stop at the artifact — `sip` never touches git or makes commits.
 - Chain only model-invoked skills; a user-invoked skill (marked `disable-model-invocation`) is a human's to fire deliberately, so `sip` must not call one.
 
