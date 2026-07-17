@@ -62,6 +62,7 @@
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 변경 뒤마다 레포 자체의 clean-and-true 체크로 아웃풋을 맛봅니다 | 내 아웃풋 | 모델 | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 완료된 커밋 메시지를 다시 써서 `git log`만으로 handoff가 되게 합니다 | 커밋 하나 | 사용자 | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | shipping·releasing 체크리스트를 실행하고, 확인 후 태그·퍼블리시합니다 | 릴리스 하나 | 사용자 | |
+| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | 기여를 리뷰하고 반영합니다: gate를 통과시키고, 작성자 크레딧을 유지하고, 닫기 전에 승인하고, 변경 사항을 설명합니다 | 기여 하나 | 사용자 | |
 
 ### `breadth/`
 

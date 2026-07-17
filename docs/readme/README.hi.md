@@ -62,6 +62,7 @@
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | हर change के बाद repo के अपने clean-and-true checks से आपके output को taste करता है | आपका output | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | finished commit message को rewrite करता है ताकि `git log` अकेले handoff दे सके | एक commit | user | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | shipping aur releasing checklist चलाता है, फिर confirm होने पर tag करके publish करता है | एक release | user | |
+| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | किसी contribution को review करके land करता है: उसे gate करता है, author का credit बनाए रखता है, close करने से पहले approve करता है, और किसी भी change को explain करता है | एक contribution | user | |
 
 ### `breadth/`
 

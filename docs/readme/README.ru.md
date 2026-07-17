@@ -62,6 +62,7 @@
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | После любого изменения пробует output через собственные clean-and-true checks репозитория | ваш output | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Переписывает message готового commit, чтобы один `git log` нес handoff | один commit | user | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | Проходит чек-лист shipping и releasing, затем создаёт tag и публикует после подтверждения | один release | user | |
+| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | Ревьюит и принимает contribution: проводит через gate, сохраняет авторский credit, апрувит перед закрытием и объясняет любое изменение | одна contribution | user | |
 
 ### `breadth/`
 

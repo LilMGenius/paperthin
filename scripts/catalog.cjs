@@ -19,8 +19,8 @@ const os = require('os');
 const CATALOG = [
   're0', 'readchk', 'aim', 'modelchk', 'hate', 'macrothink', 'feynman', 'autobahn',
   'detool', 'dedash', 'reorder', 'shower', 'factchk', 'mandela', 'sip', 're0-git',
-  're0-release', 'ssotize', 're0-upgrade', 're0-plan', 're0-loop', 're0-memo',
-  're0-work', 'catchup', 'nba', 'prism',
+  're0-release', 're0-merge', 'ssotize', 're0-upgrade', 're0-plan', 're0-loop',
+  're0-memo', 're0-work', 'catchup', 'nba', 'prism',
 ];
 
 const HOME = os.homedir();

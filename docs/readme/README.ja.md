@@ -62,6 +62,7 @@
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 変更後、自分の output を repo 自身の clean-and-true checks で味見する | 自分の output | モデル | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 完了した commit message を書き直し、`git log` だけで引き継げるようにする | commit 一つ | ユーザー | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | shipping と releasing のチェックリストを実行し、確認後に tag して publish する | release 一つ | ユーザー | |
+| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | 貢献を review し land する：gate をかけ、著者の credit を残し、閉じる前に approve し、あらゆる変更を説明する | 貢献 一つ | ユーザー | |
 
 ### `breadth/`
 

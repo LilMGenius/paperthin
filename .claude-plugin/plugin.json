@@ -19,6 +19,7 @@
     "./skills/depth/sip",
     "./skills/depth/re0-git",
     "./skills/depth/re0-release",
+    "./skills/depth/re0-merge",
     "./skills/breadth/ssotize",
     "./skills/breadth/re0-upgrade",
     "./skills/coil/re0-plan",

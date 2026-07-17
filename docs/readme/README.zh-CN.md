@@ -62,6 +62,7 @@
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 每次变更后，用 repo 自己的 clean-and-true 检查品尝你的 output | 你的 output | 模型 | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 把已完成 commit 的信息重写，让 `git log` 本身就能完成交接 | 一个 commit | 用户 | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | 跑一遍 shipping 和 releasing 检查清单，确认后打 tag 并发布 | 一次 release | 用户 | |
+| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | 审查并合入一份贡献：先把关，保留作者署名，关闭前先批准，并说明任何改动 | 一份贡献 | 用户 | |
 
 ### `breadth/`
 

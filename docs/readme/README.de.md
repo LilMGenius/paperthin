@@ -62,6 +62,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Kostet nach jeder Änderung dein Ergebnis mit den repo-eigenen clean-and-true Checks | dein Output | Modell | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Schreibt die Nachricht eines fertigen Commits neu, damit `git log` allein die Übergabe trägt | ein Commit | Nutzer | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | Durchläuft die Shipping- und Releasing-Checkliste, taggt und veröffentlicht nach Bestätigung | ein Release | Nutzer | |
+| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | Prüft einen Beitrag und bringt ihn ins Ziel: kontrolliert den Eingang, behält den Credit des Autors, genehmigt ihn vor dem Schließen, erklärt jede Änderung | einen Beitrag | Nutzer | |
 
 ### `breadth/`
 
