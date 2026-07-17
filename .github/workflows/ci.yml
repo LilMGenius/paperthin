@@ -15,5 +15,9 @@ jobs:
           node-version: 24
       - name: Validate the skill catalog
         run: bash scripts/validate-skills.sh
+      - name: Verify skill references resolve
+        run: bash scripts/check-skill-refs.sh
+      - name: Verify relative links resolve
+        run: bash scripts/check-links.sh
       - name: Catalog SSOT drift-guard
         run: node scripts/check-catalog-sync.cjs
