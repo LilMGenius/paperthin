@@ -27,7 +27,8 @@ Make "prepare and ship a release" a single deliberate command instead of re-deri
 7. Write `.re0/release/RELEASE_NOTES.local.md` — a gitignored, never-shipped local scratch file that rides the signed tag as its message — to this house style: one `##` heading naming the release's durable idea, not the version; one short present-tense paragraph of what is true now; only the sections the release earns (`### New`, `### Also`, `### The catalog (N skills)` only when the roster needs re-mapping, `### Install` always last as an indented block); each externally-contributed change credited inline with its PR number and author handle (`(#123, @handle)`); skill names and paths in backticks; nothing the tag or version already proves.
 8. Ask for a second, separate confirmation before tagging and pushing — this is the one step that goes public. Then: `git tag -s vX.Y.Z -F .re0/release/RELEASE_NOTES.local.md --cleanup=verbatim`, push `main`, push the tag.
 9. Watch the triggered release workflow to completion; report success or the actual failure, never assume it landed.
-10. Once that success is confirmed, retire the shipped cycle: move its `.re0/iteration/<version>-<workname>/` folder into `.re0/iteration/completed/<version>-<workname>/`, unrenamed. `.re0/` is gitignored and never tracked, so use a plain filesystem move (`mv`), never `git mv` — the latter fails outright on an untracked path. Skip this step only when the cycle was never planned with `re0-plan` and has no matching iteration folder.
+10. Once success is confirmed, close out each external contribution the release landed: whoever reviewed it approves the PR before closing it — a contribution squashed or rebuilt into the release is closed, not merged, so the approval is what records it as accepted rather than rejected — and the closing comment carries the credit the release notes gave it. Any collaborator or maintainer with review access can do this; it is not tied to one reviewer.
+11. Then retire the shipped cycle: move its `.re0/iteration/<version>-<workname>/` folder into `.re0/iteration/completed/<version>-<workname>/`, unrenamed. `.re0/` is gitignored and never tracked, so use a plain filesystem move (`mv`), never `git mv` — the latter fails outright on an untracked path. Skip this step only when the cycle was never planned with `re0-plan` and has no matching iteration folder.
 
 ## Rules
 
@@ -44,5 +45,6 @@ Before finishing:
 2. The commit message reads as a clean handoff on its own, without the diff.
 3. Release notes follow the house style and mention only what this release earns.
 4. The pushed tag's triggered workflow run completed successfully — confirmed, not assumed.
-5. The shipped cycle's iteration folder was retired into `.re0/iteration/completed/`, or correctly skipped because none existed.
-6. Report any skipped step or unresolved gap.
+5. Each external contribution the release landed had its PR approved before it was closed, with the credit comment attached.
+6. The shipped cycle's iteration folder was retired into `.re0/iteration/completed/`, or correctly skipped because none existed.
+7. Report any skipped step or unresolved gap.

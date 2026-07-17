@@ -104,7 +104,8 @@ Signed tags and `re0-git`'d messages are the human's trust boundary; CI only run
    - Skill names and paths in backticks. No tagline, validation receipts, file lists, tag names, facts the tag or version already proves, or narration of anything meant to be silent — a note that something "runs silently" breaks the silence, so it stays in the code alone.
 3. Tag with those notes as the message: `git tag -s vX.Y.Z -F .re0/release/RELEASE_NOTES.local.md --cleanup=verbatim`.
 4. Push `main` and the tag — the only manual remote step, and what triggers `.github/workflows/release.yml`: validate the catalog, verify `package.json` matches the tag, `npm publish --provenance`, and create the GitHub Release from the signed tag's own message.
-5. Once that workflow confirms success, retire the shipped cycle's iteration folder into `.re0/iteration/completed/` (see [Local provenance](#local-provenance)) — `re0-release` does this automatically; do it by hand only if running the checklist manually.
+5. Once that workflow confirms success, close out each external contribution the release landed: whoever reviewed it approves the PR before closing it. A squash-or-rebuild landing closes the PR rather than merging it, so a bare close reads as a rejection; the approving review is what records it as accepted, and the closing comment carries the credit the release notes gave it. Any collaborator or maintainer with review access does this, not one fixed reviewer.
+6. Then retire the shipped cycle's iteration folder into `.re0/iteration/completed/` (see [Local provenance](#local-provenance)) — `re0-release` does this automatically; do it by hand only if running the checklist manually.
 
 No build step: the package ships the repo as-is via `.gitignore` from the clean CI checkout. Never run local `npm publish` from a dirty worktree, and never add an `.npmignore` — it disables the gitignore fallback and would publish the `*.local` docs.
 
