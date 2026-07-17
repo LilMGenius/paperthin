@@ -100,6 +100,7 @@ Signed tags and `re0-git`'d messages are the human's trust boundary; CI only run
    - One `##` heading naming the release's durable idea, not the version.
    - One short paragraph of what is true now, not a changelog of what changed.
    - Only the sections a release earns — never force every release into the same shape: `### New` (a shipped capability, one line or short paragraph each), `### Also` (secondary changes), `### The catalog (N skills)` (only when a reader must re-map the roster: a new perspective lands, or a skill is renamed or removed), `### Install` (always, last, as an indented block, never a fenced one).
+   - Credit each externally-contributed change inline with its PR number and author handle (`(#123, @handle)`); contributions get named, not silently absorbed.
    - Skill names and paths in backticks. No tagline, validation receipts, file lists, tag names, facts the tag or version already proves, or narration of anything meant to be silent — a note that something "runs silently" breaks the silence, so it stays in the code alone.
 3. Tag with those notes as the message: `git tag -s vX.Y.Z -F .re0/release/RELEASE_NOTES.local.md --cleanup=verbatim`.
 4. Push `main` and the tag — the only manual remote step, and what triggers `.github/workflows/release.yml`: validate the catalog, verify `package.json` matches the tag, `npm publish --provenance`, and create the GitHub Release from the signed tag's own message.
