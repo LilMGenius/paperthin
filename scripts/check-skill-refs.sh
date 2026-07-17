@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
-# Verify that every skill referenced by name in Markdown resolves to a shipped skill,
-# and every shipped skill is reachable from README.md. Catches typos and dangling
-# names left behind after a rename or removal — the same drift `ssotchk` looks for,
-# applied to the catalog's own cross-skill vocabulary.
+# Two catalog-vocabulary guards over the docs, in the spirit of the drift `ssotize`
+# looks for — applied to cross-skill names rather than a full resolver:
+#   1. Typo heuristic — a backticked, hyphenated, skill-shaped token sitting one
+#      affix away from a shipped name (e.g. `re0-git-log` near `re0-git`) but not
+#      resolving is flagged as a likely typo. Deliberately narrow: it ignores
+#      non-hyphenated tokens and any token whose segments don't touch a real skill
+#      name, so it does NOT catch every stale reference — that would mean flagging
+#      the many backticked non-skill identifiers the docs legitimately carry.
+#   2. Orphan guard — every shipped skill must be reachable from README.md, by a
+#      backticked mention or a link to its SKILL.md, or it is orphaned on disk.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
@@ -42,7 +48,7 @@ for f in "${files[@]}"; do
     if [[ ${known[$tok]-} != 1 ]]; then
       if [[ $tok == *-* ]]; then
         for s in "${shipped[@]}"; do
-          if [[ $tok == "$s"-* || $tok == *-"$s" ]]; then
+          if [[ $tok == "$s"-?* || $tok == ?*-"$s" ]]; then
             err "$f: backticked '\`$tok\`' looks skill-shaped and near a shipped skill '$s' but does not resolve — rename or remove"
             break
           fi
