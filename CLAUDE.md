@@ -24,10 +24,10 @@ skills/
 ├── breadth/   reconcile one truth across files and platforms
 ├── coil/      carry learning between build cycles
 ├── depth/     refine or verify the thing in hand
-└── mesh/      converge independent views into consensus (reserved)
+└── mesh/      converge independent views into consensus
 ```
 
-The axes' quadrants and each skill's home are the README's facts — its [map](./README.md#the-map) and [index](./README.md#the-index); this file defines only the cut.
+The axes' quadrants and each skill's home are the README's facts — its [map](./README.md#the-map) and [index](./README.md#the-index); this file defines only the cut. Within a perspective the listing runs in a logical order (a `depth/` skill's work-lifecycle, say), with one deliberate pin: `re0` leads `depth/` as the founding skill of v0.1.0 that opened the suite, so `reorder` holds it first rather than sorting it into the cleanup group its function belongs to.
 
 **File by trigger-scope, not by what a skill invokes.** A skill lives where the work it *triggers or emits* ranges, even when it orchestrates skills from other folders — `sip` gates one finished deliverable, so it's `depth/`, though its check may run cross-file `ssotize`.
 
@@ -63,10 +63,11 @@ Default to model-invoked. Make a skill user-invoked only when the model should n
 Every skill must work installed on its own, so it names no other skill and states the rules it needs inline. Orchestrator couplings are allowed, because there the relationship *is* the skill:
 
 - **orchestrator** — `sip` runs the suite's clean-and-true checks; `re0-loop` and `nba` run and navigate the coil cycle; `re0-release` runs the shipping and releasing checklist, runs `sip` when installed, and applies commit-economy directly. It does not auto-fire user-invoked `re0-git`; if an existing commit needs cleanup, it asks the human to run `re0-git`. `re0-plan` opens the iteration folder `re0-release` later retires — the one pairing between two user-invoked skills, and the one skill exempted from self-containment because it assumes the full package installed. An orchestrator degrades gracefully: it uses the model-invoked skills present and skips the rest.
+- **paired skills** — a few skills read as deliberate mirrors or complements, a catalog fact for the reader rather than a runtime dependency (neither names the other, and each ships alone): `aim`↔`nba` run the same shape from opposite ends (intent from a handover vs next action from live state); `macrothink`↔`prism` both draw on many viewpoints but oppositely (`macrothink` repeats one read for robustness, `prism` splits into distinct lenses for coverage); `catchup`↔`nba` are the coil re-entry pair (orient vs act).
 
 Because independence means the same rule recurs inline across skills, this section maps those copies so they stay coherent when you touch one. CLAUDE.md ships with the repo, not the plugin, so it is the contributor's map, never a runtime dependency:
 
-- **edit-safety** — safe mutation (assert the target exists and report a MISS, edit unicode-safe, replace positional targets per occurrence not by blanket sweep, script large structural moves): in `re0`, `dedash`, `ssotize`, `detool`.
+- **edit-safety** — safe mutation (assert the target exists and report a MISS, edit unicode-safe, replace positional targets per occurrence not by blanket sweep, script large structural moves): in `re0`, `dedash`, `ssotize`, `detool`, `reorder`.
 - **negatives-as-corpus** — "cut" means move-to-archive, never delete; pruned and failed branches are assets: in `re0-memo`, `re0-work`, `re0-loop`, `autobahn`, `re0-plan`.
 - **commit-economy** — the commit-message standard, stated in full by its home `re0-git` and carried inline in `re0-release`.
 
@@ -94,6 +95,8 @@ Write commit messages to `re0-git`'s **commit-economy** from the first draft, no
 ## Releasing
 
 Signed tags and `re0-git`'d messages are the human's trust boundary; CI only runs the mechanical, repeatable distribution once a tag is pushed — it never signs a commit or a tag, and never creates one.
+
+An external contribution lands on a `land/pr-<range>` branch, not a merge straight from its fork: accept each contributor commit there with its authorship preserved (you become the committer; `re0-git` cleans the message), add any maintainer enhancement as its own separate commit so the credit split stays legible, then fast-forward that branch into `main`. That is the squash-or-rebuild landing step 5 approves and closes.
 
 1. `re0-git` the commit message; bump `package.json` if the change warrants it (see [Shipping](#shipping)).
 2. Write the release notes as `.re0/release/RELEASE_NOTES.local.md` (see [Local provenance](#local-provenance)) in this house style:

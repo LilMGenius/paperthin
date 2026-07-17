@@ -6,7 +6,7 @@
  *   - scripts/session-check.cjs      (command-hook hosts: Claude Code, Codex)
  *   - scripts/opencode-discovery.js  (OpenCode plugin)
  *
- * The 21-name roster mirrors re0-upgrade's "Current catalog" (the human/doc SSOT). Physical single
+ * The roster mirrors re0-upgrade's "Current catalog" (the human/doc SSOT). Physical single
  * sourcing across the SKILL.md and this module is blocked by paperthin's self-containment + no-build-step
  * invariants, so scripts/check-catalog-sync.cjs asserting this array equals re0-upgrade's Current
  * catalog is the enforcement of record. See .re0/iteration/v0.13.0-session-notice/.
@@ -17,9 +17,10 @@ const path = require('path');
 const os = require('os');
 
 const CATALOG = [
-  'readchk', 'modelchk', 'macrothink', 'hate', 'autobahn', 're0', 'detool', 'shower',
-  'factchk', 'mandela', 'sip', 'dedash', 're0-git', 're0-release', 'ssotize',
-  're0-upgrade', 're0-memo', 're0-work', 're0-loop', 'catchup', 'nba',
+  're0', 'readchk', 'aim', 'modelchk', 'hate', 'macrothink', 'feynman', 'autobahn',
+  'detool', 'dedash', 'reorder', 'shower', 'factchk', 'mandela', 'sip', 're0-git',
+  're0-release', 'ssotize', 're0-upgrade', 're0-plan', 're0-loop', 're0-memo',
+  're0-work', 'catchup', 'nba', 'prism',
 ];
 
 const HOME = os.homedir();
