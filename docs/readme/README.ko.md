@@ -24,7 +24,8 @@
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
    ```
 2. OS가 요구하면 상승 권한/admin 셸에서 실행해 스킬들이 복사되지 않고 심볼릭 링크로 연결되게 합니다. 그러면 자동으로 업데이트됩니다.
-3. **사용하세요.** model invocation을 지원하는 에이전트는 model-invoked 스킬을 자동으로 꺼내 쓰고, 어떤 스킬이든 `/re0`처럼 이름으로 호출할 수 있습니다. user-invoked 스킬은 그 방식으로만 실행됩니다.
+3. **최신 유지.** 업데이트하고 싶을 때 `/re0-upgrade`를 실행하세요. 새 스킬이 나오면 알려주는 가벼운 session-start 알림도 함께 켜집니다.
+4. **사용하세요.** 어떤 스킬이든 `/re0`처럼 이름으로 부르면 되고, model-invoked는 알아서도 실행됩니다.
 
 **잘 모르겠다면?** 쓰는 에이전트에 위 명령을 붙여 넣고 `set this up for me`라고 말하세요. 나머지는 에이전트가 처리합니다.
 
@@ -42,40 +43,40 @@
 
 ### `depth/`
 
-| 스킬 | 하는 일 | 스코프 | 호출자 |
-|---|---|---|---|
-| 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | 사소하지 않은 작업 전에 요청을 어떻게 읽었는지 확인하고, 실제로 남은 갈림길만 드러냅니다 *(읽기 전용)* | 지시 하나 | 모델 |
-| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 충분한 가장 싼 tier를 고릅니다: fast, standard, frontier *(읽기 전용)* | 작업 하나 | 모델 |
-| 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | 세션의 bait를 걷어내고 새 읽기를 펼친 뒤 divergence를 먼저 보고합니다 *(읽기 전용)* | 방향 하나 | 사용자 |
-| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 친절하기를 거부합니다. 계획을 죽일 수 있는 반론 하나와 가장 싼 테스트를 냅니다 | 계획 하나 | 사용자 |
-| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 안전하지 않은 스코프를 앞에서 도려내고, 안전한 나머지는 전력으로 실행한 뒤 descope ledger를 냅니다 | 작업 하나 | 모델 |
-| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | drift된 아티팩트를 또 다른 패치가 아니라 깨끗한 v0로 다시 씁니다 | 아티팩트 하나 | 모델 |
-| 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | portable 콘텐츠에 우연히 섞인 도구 이름을 그것이 뜻한 메커니즘으로 바꿉니다 | durable 아티팩트 하나 | 모델 |
-| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 맥락 없는 새 눈으로 차갑게 읽습니다. 이것이 혼자서도 서는가? *(읽기 전용)* | 아티팩트 하나 | 모델 |
-| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 클레임을 양방향으로 소스에 대조합니다. 말도 안 되는 것이 팩트일 수 있고, 당연한 것이 거짓일 수 있는가? *(읽기 전용 → 수정)* | 클레임 하나 | 모델 |
-| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | validation에 leakage가 있는지 audit을 수행합니다. 외부 ground truth가 실제로 들어오는가? *(읽기 전용)* | eval 하나 | 모델 |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 변경 뒤마다 레포 자체의 clean-and-true 체크로 아웃풋을 맛봅니다 | 내 아웃풋 | 모델 |
-| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash와 비슷한 tell을 지우고, 각 위치에 맞는 문장부호를 고릅니다 | 내 문장 | 사용자 |
-| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 완료된 커밋 메시지를 깨끗한 v0로 다시 써서 `git log`만으로 handoff가 되게 합니다 | 커밋 하나 | 사용자 |
-| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | shipping·releasing 체크리스트를 실행하고, 확인 후 태그·퍼블리시합니다 | 릴리스 하나 | 사용자 |
+| 스킬 | 하는 일 | 스코프 | 호출자 | 읽기 전용 |
+|---|---|---|---|---|
+| 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | 요청을 어떻게 읽었는지 확인하고, 실제로 남은 갈림길만 드러냅니다 | 지시 하나 | 모델 | ✔ |
+| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 충분한 가장 싼 tier를 고릅니다: fast, standard, frontier | 작업 하나 | 모델 | ✔ |
+| 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait를 걷어내고 새 읽기를 펼친 뒤 divergence를 먼저 보고합니다 | 방향 하나 | 사용자 | ✔ |
+| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 친절하기를 거부합니다. 계획을 죽일 수 있는 반론 하나와 가장 싼 테스트를 냅니다 | 계획 하나 | 사용자 | |
+| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 안전하지 않은 스코프를 앞에서 도려내고, 안전한 나머지는 전력으로 실행한 뒤 descope를 기록합니다 | 작업 하나 | 모델 | |
+| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | drift된 아티팩트를 또 다른 패치가 아니라 깨끗한 v0로 다시 씁니다 | 아티팩트 하나 | 모델 | |
+| 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 우연히 섞인 도구 이름을 그것이 뜻한 메커니즘으로 바꿉니다 | durable 아티팩트 하나 | 모델 | |
+| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 맥락 없는 새 눈으로 차갑게 읽습니다. 이것이 혼자서도 서는가? | 아티팩트 하나 | 모델 | ✔ |
+| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 주장된 것을 양방향으로 소스에 대조합니다. 말도 안 되는 것이 팩트일 수 있고, 당연한 것이 거짓일 수 있는가? | 클레임 하나 | 모델 | |
+| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | leakage가 있는지 audit합니다. 외부 ground truth가 실제로 들어오는가? | eval 하나 | 모델 | ✔ |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 변경 뒤마다 레포 자체의 clean-and-true 체크로 아웃풋을 맛봅니다 | 내 아웃풋 | 모델 | |
+| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash와 비슷한 tell을 지우고, 각 위치에 맞는 문장부호를 고릅니다 | 내 문장 | 사용자 | |
+| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 완료된 커밋 메시지를 다시 써서 `git log`만으로 handoff가 되게 합니다 | 커밋 하나 | 사용자 | |
+| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | shipping·releasing 체크리스트를 실행하고, 확인 후 태그·퍼블리시합니다 | 릴리스 하나 | 사용자 | |
 
 ### `breadth/`
 
-| 스킬 | 하는 일 | 스코프 | 호출자 |
-|---|---|---|---|
-| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | 흩어진 곳을 감사하고 승인받은 뒤, 팩트를 한 집으로 모아 나머지가 그곳을 가리키게 합니다 | 팩트 하나, 여러 위치 | 모델 |
-| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 설치된 스킬을 한 번에 안전하게 최신으로 올립니다. 남는 것도, 늘어나는 것도 없습니다 | 내 스킬 설치 | 사용자 |
+| 스킬 | 하는 일 | 스코프 | 호출자 | 읽기 전용 |
+|---|---|---|---|---|
+| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | 흩어진 곳을 감사한 뒤 한 집으로 모아 나머지가 그곳을 가리키게 합니다 | 팩트 하나, 여러 위치 | 모델 | |
+| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 한 번에 현재 전체 카탈로그로 올립니다: 이름 바뀐 건 정리, 새 건 추가, 전부 먼저 확인 | 내 스킬 설치 | 사용자 | |
 
 ### `coil/`
 
-| 스킬 | 하는 일 | 스코프 | 호출자 |
-|---|---|---|---|
-| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 끝났거나 실패한 사이클에서 교훈과 anti-pattern을 뽑아냅니다 | 완료된 사이클 하나 | 모델 |
-| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 재사용할 자격을 얻은 교훈만 남기고 v0에서 다시 시작합니다 | 재시작 하나 | 모델 |
-| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | build → QA → re0-memo → re0-work 루프를 돌려 배움이 코드가 아니라 축적되게 합니다 | 전체 루프 | 모델 |
-| 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 실시간 state에서 인간이 잃어버린 context를 재구성합니다. 누구에게 필요한지, 무엇이 바뀌었는지, 새 단어가 무엇을 뜻하는지 보여줍니다 *(읽기 전용)* | 재진입 하나 | 모델 |
-| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 살아 있는 사이클 state를 읽고 메뉴가 아니라 단 하나의 다음 최선 행동을 돌려줍니다 *(읽기 전용)* | 현재 사이클 | 모델 |
-| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | re0-loop의 첫 turn 전에 새 iteration 폴더를 열고, 그 자리에서 DESIGN/WORKFLOW/EVIDENCE를 씁니다 | 새 사이클 하나 | 사용자 |
+| 스킬 | 하는 일 | 스코프 | 호출자 | 읽기 전용 |
+|---|---|---|---|---|
+| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 끝났거나 실패한 사이클에서 교훈과 anti-pattern을 뽑아냅니다 | 완료된 사이클 하나 | 모델 | |
+| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 재사용할 자격을 얻은 교훈만 남기고 v0에서 다시 시작합니다 | 재시작 하나 | 모델 | |
+| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | build → QA → re0-memo → re0-work 루프를 돌려 배움이 코드가 아니라 축적되게 합니다 | 전체 루프 | 모델 | |
+| 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 실시간 state에서 잃어버린 context를 재구성합니다: 누구에게 필요한지, 무엇이 바뀌었는지, 새 단어가 무엇을 뜻하는지 | 재진입 하나 | 모델 | ✔ |
+| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 살아 있는 사이클 state를 읽고 메뉴가 아니라 단 하나의 다음 최선 행동을 돌려줍니다 | 현재 사이클 | 모델 | ✔ |
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | re0-loop의 첫 turn 전에 새 iteration 폴더를 열고 DESIGN/WORKFLOW/EVIDENCE를 씁니다 | 새 사이클 하나 | 사용자 | |
 
 ### `mesh/`
 

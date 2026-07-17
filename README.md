@@ -23,9 +23,10 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
    ```
 2. **Run it from an elevated/admin shell if your OS asks** so the skills are symlinked (they auto-update), not copied.
-3. **Use them** — agents that support model invocation reach model-invoked skills automatically; you can call any skill by name, like `/re0`, and user-invoked skills only run that way.
+3. **Stay current** — run `/re0-upgrade` whenever you want to update; it also wires a quiet session-start notice for when new skills ship.
+4. **Use them** — call any skill by name, like `/re0`; model-invoked ones also fire on their own.
 
-**Not sure?** Paste that command into whatever agent you're using and just say `set this up for me` — it'll do the rest.
+**Not sure?** Paste that command into whatever agent you're using and just say `set this up for me`, it'll do the rest.
 
 ## The Map
 
@@ -39,44 +40,44 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 
 ### `depth/`
 
-| Skill | What it does | Scope | Invoker |
-|---|---|---|---|
-| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Rewrite a drifted artifact into a clean v0 — not another patch | one artifact | model |
-| 🧭 **[readchk](./skills/depth/readchk/SKILL.md)** | Check the model's read of the request before non-trivial work; surface only a real surviving fork *(read-only)* | one instruction | model |
-| 📏 **[modelchk](./skills/depth/modelchk/SKILL.md)** | Size the cheapest sufficient capability tier — fast, standard, or frontier *(read-only)* | one task | model |
-| 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse to be nice to it — the one objection that could kill it + the cheapest test | one plan | user |
-| 🧠 **[macrothink](./skills/depth/macrothink/SKILL.md)** | Strip the session's bait, fan out fresh reads, and report divergence first *(read-only)* | one direction | user |
-| 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Carve unsafe scope out up front, run the safe rest at full strength, ship a descope ledger | one task | model |
-| 🧰 **[detool](./skills/depth/detool/SKILL.md)** | Replace incidental stack nouns in portable content with the mechanism they mean | one durable artifact | model |
-| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and their look-alikes, choosing the punctuation each spot needs | your prose | user |
-| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read it with fresh, zero-context eyes — does it stand on its own? *(read-only)* | one artifact | model |
-| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify a claim against sources, both directions — could the absurd be real, the obvious false? *(read-only → fix)* | one claim | model |
-| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit a validation for leakage — does outside ground-truth actually enter? *(read-only)* | one eval | model |
-| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | After any change, tastes it with the repo's own clean-and-true checks | your output | model |
-| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrite a finished commit's message into a clean v0 so `git log` alone hands off | one commit | user |
-| 🚀 **[re0-release](./skills/depth/re0-release/SKILL.md)** | Run the shipping and releasing checklist, then tag and publish once confirmed | one release | user |
+| Skill | What it does | Scope | Invoker | Read-only |
+|---|---|---|---|---|
+| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Rewrite a drifted artifact into a clean v0, not another patch | one artifact | model | |
+| 🧭 **[readchk](./skills/depth/readchk/SKILL.md)** | Check the model's read of the request; surface only a real surviving fork | one instruction | model | ✔ |
+| 📏 **[modelchk](./skills/depth/modelchk/SKILL.md)** | Size the cheapest sufficient tier: fast, standard, or frontier | one task | model | ✔ |
+| 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse to be nice: the one objection that could kill it, plus the cheapest test | one plan | user | |
+| 🧠 **[macrothink](./skills/depth/macrothink/SKILL.md)** | Strip the bait, fan out fresh reads, report divergence first | one direction | user | ✔ |
+| 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Carve unsafe scope out up front, run the safe rest at full strength, log the descope | one task | model | |
+| 🧰 **[detool](./skills/depth/detool/SKILL.md)** | Replace incidental stack nouns with the mechanism they mean | one durable artifact | model | |
+| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and look-alikes, picking the punctuation each spot needs | your prose | user | |
+| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read it with fresh, zero-context eyes: does it stand alone? | one artifact | model | ✔ |
+| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify what's asserted against sources both ways: could the absurd be real, the obvious false? | one claim | model | |
+| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit for leakage: does outside ground-truth actually enter? | one eval | model | ✔ |
+| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | After any change, taste it with the repo's own clean-and-true checks | your output | model | |
+| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrite a finished commit's message so `git log` alone hands off | one commit | user | |
+| 🚀 **[re0-release](./skills/depth/re0-release/SKILL.md)** | Run the shipping and releasing checklist, then tag and publish once confirmed | one release | user | |
 
 ### `breadth/`
 
-| Skill | What it does | Scope | Invoker |
-|---|---|---|---|
-| 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | Audit scatter, ask approval, then consolidate it into one home and point the rest at it | one fact, many places | model |
-| 🧰 **[re0-upgrade](./skills/breadth/re0-upgrade/SKILL.md)** | Safely upgrade your installed skills in one command, leaving nothing stale and adding nothing extra | your skill install | user |
+| Skill | What it does | Scope | Invoker | Read-only |
+|---|---|---|---|---|
+| 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | Audit scatter, then consolidate to one home and point the rest at it | one fact, many places | model | |
+| 🧰 **[re0-upgrade](./skills/breadth/re0-upgrade/SKILL.md)** | Upgrade to the full current catalog in one command: retire renamed, add new, all confirmed first | your skill install | user | |
 
 ### `coil/`
 
-| Skill | What it does | Scope | Invoker |
-|---|---|---|---|
-| 🧭 **[re0-memo](./skills/coil/re0-memo/SKILL.md)** | Extract the lessons and anti-patterns from a finished or failed cycle | one finished cycle | model |
-| 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Restart from v0, keeping only the lessons that earned reuse | one restart | model |
-| 🌀 **[re0-loop](./skills/coil/re0-loop/SKILL.md)** | Run the build → QA → re0-memo → re0-work loop so learning compounds, not code | the whole loop | model |
-| 🗺️ **[catchup](./skills/coil/catchup/SKILL.md)** | Rebuild the human's lost context from live state — what needs them, what changed, what new words mean *(read-only)* | one re-entry | model |
-| 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Read the live cycle state and return the single next best action, not a menu *(read-only)* | the live cycle | model |
-| 🗂️ **[re0-plan](./skills/coil/re0-plan/SKILL.md)** | Open a new iteration folder and write its DESIGN/WORKFLOW/EVIDENCE before re0-loop's first turn | one new cycle | user |
+| Skill | What it does | Scope | Invoker | Read-only |
+|---|---|---|---|---|
+| 🧭 **[re0-memo](./skills/coil/re0-memo/SKILL.md)** | Pull the lessons and anti-patterns from a finished or failed cycle | one finished cycle | model | |
+| 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Start over from v0, keeping only the lessons that earned reuse | one restart | model | |
+| 🌀 **[re0-loop](./skills/coil/re0-loop/SKILL.md)** | Run the build → QA → re0-memo → re0-work loop so learning compounds, not code | the whole loop | model | |
+| 🗺️ **[catchup](./skills/coil/catchup/SKILL.md)** | Rebuild lost context from live state: what needs them, what changed, what new words mean | one re-entry | model | ✔ |
+| 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Read the live cycle state and return the single next best action, not a menu | the live cycle | model | ✔ |
+| 🗂️ **[re0-plan](./skills/coil/re0-plan/SKILL.md)** | Open a new iteration folder with DESIGN/WORKFLOW/EVIDENCE before re0-loop's first turn | one new cycle | user | |
 
 ### `mesh/`
 
-*In development — converge independent views into consensus.*
+*In development: converge independent views into consensus.*
 
 *More on invocation: [docs/invocation.md](./docs/invocation.md)*
 

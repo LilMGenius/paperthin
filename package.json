@@ -1,6 +1,6 @@
 {
   "name": "paperthin",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "description": "Low-level agentic design patterns. Turning old engineering wisdom into reflexes your agent reaches for on its own—on any agent.",
   "keywords": [
     "agent",

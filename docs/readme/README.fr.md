@@ -24,7 +24,8 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
    ```
 2. **Lancez depuis un shell élevé/admin si votre OS le demande** afin que les skills soient liés par symlink et mis à jour automatiquement, au lieu d'être copiés.
-3. **Utilisez-les** : les agents qui prennent en charge model invocation atteignent automatiquement les skills model-invoked ; vous pouvez appeler n'importe quel skill par son nom, comme `/re0`, et les user-invoked ne s'exécutent que ainsi.
+3. **Restez à jour** : lancez `/re0-upgrade` quand vous voulez mettre à jour ; il active aussi un avis discret de démarrage de session pour les nouvelles skills.
+4. **Utilisez-les** : appelez n'importe quel skill par son nom, comme `/re0` ; les model-invoked se déclenchent aussi seules.
 
 **Pas sûr ?** Collez cette commande dans l'agent que vous utilisez et dites simplement `set this up for me`. Il fera le reste.
 
@@ -42,40 +43,40 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 
 ### `depth/`
 
-| Skill | Ce qu'il fait | Portée | Invocation |
-|---|---|---|---|
-| 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | Vérifie la lecture de la demande avant un travail non trivial ; ne remonte qu'une vraie bifurcation restante *(lecture seule)* | une instruction | modèle |
-| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Calibre le niveau suffisant le moins coûteux : fast, standard ou frontier *(lecture seule)* | une tâche | modèle |
-| 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Retire le bait de la session, lance des lectures fraîches et signale d'abord la divergence *(lecture seule)* | une direction | utilisateur |
-| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Refuse d'être gentil : l'objection unique qui peut tuer le plan + le test le moins cher | un plan | utilisateur |
-| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Découpe le périmètre dangereux en amont, exécute le reste sûr à pleine puissance, livre un descope ledger | une tâche | modèle |
-| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | Réécrit un artifact qui a dérivé en v0 propre, plutôt qu'un patch de plus | un artifact | modèle |
-| 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Remplace les noms d'outils accidentels dans le contenu portable par le mécanisme visé | un artifact durable | modèle |
-| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Relit à froid, avec des yeux neufs et zéro contexte : tient-il debout seul ? *(lecture seule)* | un artifact | modèle |
-| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Vérifie une claim contre les sources, dans les deux sens : l'absurde pourrait-il être vrai, l'évident faux ? *(lecture seule → correction)* | une claim | modèle |
-| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Audite une validation pour détecter les leakage : une ground truth externe entre-t-elle vraiment ? *(lecture seule)* | un eval | modèle |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Après chaque changement, goûte votre output avec les propres checks clean-and-true du dépôt | votre output | modèle |
-| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Retire les em dashes et leurs sosies, en choisissant la ponctuation juste à chaque endroit | votre prose | utilisateur |
-| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Réécrit le message d'un commit terminé en v0 propre, afin que `git log` fasse l'handoff à lui seul | un commit | utilisateur |
-| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | Parcourt la checklist de shipping et releasing, puis tag et publie une fois confirmé | une release | utilisateur |
+| Skill | Ce qu'il fait | Portée | Invocation | Lecture seule |
+|---|---|---|---|---|
+| 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | Vérifie la lecture de la demande ; ne remonte qu'une vraie bifurcation restante | une instruction | modèle | ✔ |
+| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Calibre le niveau suffisant le moins coûteux : fast, standard ou frontier | une tâche | modèle | ✔ |
+| 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Retire le bait, lance des lectures fraîches et signale d'abord la divergence | une direction | utilisateur | ✔ |
+| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Refuse d'être gentil : l'objection unique qui peut tuer le plan, plus le test le moins cher | un plan | utilisateur | |
+| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Découpe le périmètre dangereux en amont, exécute le reste sûr à pleine puissance, journalise le descope | une tâche | modèle | |
+| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | Réécrit un artifact qui a dérivé en v0 propre, plutôt qu'un patch de plus | un artifact | modèle | |
+| 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Remplace les noms d'outils accidentels par le mécanisme visé | un artifact durable | modèle | |
+| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Relit à froid, avec des yeux neufs et zéro contexte : tient-il debout seul ? | un artifact | modèle | ✔ |
+| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Vérifie ce qui est affirmé contre les sources, dans les deux sens : l'absurde pourrait-il être vrai, l'évident faux ? | une claim | modèle | |
+| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Audite les leakage : une ground truth externe entre-t-elle vraiment ? | un eval | modèle | ✔ |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Après chaque changement, goûte votre output avec les propres checks clean-and-true du dépôt | votre output | modèle | |
+| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Retire les em dashes et leurs sosies, en choisissant la ponctuation juste à chaque endroit | votre prose | utilisateur | |
+| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Réécrit le message d'un commit terminé, afin que `git log` fasse l'handoff à lui seul | un commit | utilisateur | |
+| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | Parcourt la checklist de shipping et releasing, puis tag et publie une fois confirmé | une release | utilisateur | |
 
 ### `breadth/`
 
-| Skill | Ce qu'il fait | Portée | Invocation |
-|---|---|---|---|
-| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Audite la dispersion, demande l'approbation, puis consolide le fait dans un seul foyer | un fait, plusieurs endroits | modèle |
-| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | Met à jour vos skills installés en toute sécurité en une seule commande, sans rien laisser d'obsolète ni rien installer en trop | votre installation de skills | utilisateur |
+| Skill | Ce qu'il fait | Portée | Invocation | Lecture seule |
+|---|---|---|---|---|
+| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Audite la dispersion, puis consolide le fait dans un seul foyer et fait pointer le reste dessus | un fait, plusieurs endroits | modèle | |
+| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | Amène vos skills au catalogue actuel complet en une commande : retire ce qui a été renommé, ajoute les nouveautés, le tout confirmé au préalable | votre installation de skills | utilisateur | |
 
 ### `coil/`
 
-| Skill | Ce qu'il fait | Portée | Invocation |
-|---|---|---|---|
-| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Extrait les leçons et anti-patterns d'un cycle terminé ou raté | un cycle terminé | modèle |
-| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Redémarre depuis v0 en gardant seulement les leçons qui ont mérité d'être réutilisées | un redémarrage | modèle |
-| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Lance la boucle build → QA → re0-memo → re0-work pour que l'apprentissage compose, pas le code | toute la boucle | modèle |
-| 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Reconstruit le contexte perdu de l'humain à partir de l'état en direct : ce dont il a besoin, ce qui a changé, ce que signifient les nouveaux mots *(lecture seule)* | une réentrée | modèle |
-| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lit l'état vivant du cycle et renvoie la seule meilleure prochaine action, pas un menu *(lecture seule)* | le cycle en cours | modèle |
-| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | Ouvre un nouveau dossier d'itération et y écrit son DESIGN/WORKFLOW/EVIDENCE avant le premier tour de re0-loop | un nouveau cycle | utilisateur |
+| Skill | Ce qu'il fait | Portée | Invocation | Lecture seule |
+|---|---|---|---|---|
+| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Extrait les leçons et anti-patterns d'un cycle terminé ou raté | un cycle terminé | modèle | |
+| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Redémarre depuis v0 en gardant seulement les leçons qui ont mérité d'être réutilisées | un redémarrage | modèle | |
+| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Lance la boucle build → QA → re0-memo → re0-work pour que l'apprentissage compose, pas le code | toute la boucle | modèle | |
+| 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Reconstruit le contexte perdu à partir de l'état en direct : ce dont il a besoin, ce qui a changé, ce que signifient les nouveaux mots | une réentrée | modèle | ✔ |
+| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lit l'état vivant du cycle et renvoie la seule meilleure prochaine action, pas un menu | le cycle en cours | modèle | ✔ |
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | Ouvre un nouveau dossier d'itération avec son DESIGN/WORKFLOW/EVIDENCE avant le premier tour de re0-loop | un nouveau cycle | utilisateur | |
 
 ### `mesh/`
 
