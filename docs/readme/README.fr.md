@@ -104,13 +104,17 @@ Ces skills parient dans l'autre sens. **Chacun enlève quelque chose :**
 
 - `re0` réécrit un brouillon en v0 propre au lieu de le patcher.
 - `readchk` reformule la demande et ne pose une question que si une vraie bifurcation survit.
+- `aim` lit un lot de données transmis et propose l'intention à confirmer, au lieu de la demander.
 - `modelchk` choisit le palier le moins cher suffisant avant que le travail commence.
 - `macrothink` déploie des lectures fraîches et rapporte la divergence avant que la convergence ne passe pour une preuve.
+- `feynman` presse une décision fraîche jusqu'à ce que vous puissiez l'expliquer à un sceptique, ou nomme la faille que vous ne pouvez pas justifier.
+- `prism` éclate un artefact en lentilles indépendantes et renvoie leurs contradictions, jamais leur moyenne.
 - `autobahn` découpe le périmètre dangereux en amont, pour que le reste sûr tourne à pleine vitesse.
 - `detool` remplace les noms d'outils incidents dans un contenu portable par le mécanisme qu'ils désignent.
 - `dedash` retire même le tic de l'em dash et ses sosies, occurrence par occurrence.
 - `shower` coupe ce qu'un inconnu ne peut pas suivre.
 - `ssotize` audite les faits dispersés, demande l'approbation, puis les replie dans un seul foyer.
+- `reorder` réaligne une liste qui a dérivé sous un seul principe, en déplaçant les éléments sans rien reformuler.
 - `re0-memo` / `re0-work` / `re0-loop` préservent la leçon, laissent mourir la mauvaise construction et gardent la boucle en marche.
 - `catchup` / `nba` reconstruisent la carte de l'humain à partir de l'état en direct, puis renvoient le seul prochain coup.
 - `sip` exécute tout cela automatiquement sur votre propre output.

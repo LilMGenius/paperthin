@@ -100,13 +100,17 @@ These skills bet the other way — **every one of them removes:**
 
 - `re0` rewrites a draft into a clean v0 instead of patching it,
 - `readchk` restates the request and asks only when a real fork survives,
+- `aim` reads a handed-over data drop and proposes the intent to confirm, instead of asking for it,
 - `modelchk` sizes the cheapest sufficient capability tier before the work starts,
 - `macrothink` fans out fresh reads and reports divergence before convergence reads as proof,
+- `feynman` presses a just-made decision until you can explain it to a skeptic, or names the gap you can't,
+- `prism` splits one artifact across independent lenses and returns where they clash, never their average,
 - `autobahn` carves unsafe scope out up front, so the safe remainder runs at full speed,
 - `detool` strips incidental stack nouns from portable content, leaving the mechanism they meant,
 - `dedash` removes even the em-dash tell and its look-alikes, one judged occurrence at a time,
 - `shower` cuts whatever a stranger can't follow,
 - `ssotize` audits scattered facts, asks approval, then folds them into one home,
+- `reorder` realigns a drifted listing under one principle, moving items and rewording nothing,
 - `re0-memo` / `re0-work` / `re0-loop` preserve the lesson, let the wrong build die, and keep the cycle running,
 - `catchup` / `nba` reload the human's map from live state, then return the one next move,
 - `sip` runs all of it on your own output, automatically.
@@ -250,7 +254,20 @@ A timeout value, a decision, a status — copied into a README, a doc, a ticket,
 - **So** — the copies never got the chance to drift: one home, five pointers, and the stale "next step" wording died the same day it became false.
 </details>
 
-### #10 — Your gut isn't a source
+### #10 — A list's order stops meaning anything
+Items get appended where they were typed, not where they belong. Kin drift apart, the sequence follows no axis a reader can feel, and an order that was information now says nothing.
+
+**The fix → `reorder`:** realign the listing under one nameable principle, moving items only — nothing reworded, added, or removed.
+
+<details>
+<summary><b>[PROOF]</b></summary>
+
+- **Setup** — this suite's own catalog had grown by appending each new skill in ship order, so the README Index and its ten translations listed skills by when they landed, not by what they do.
+- **Result** — `reorder` resequenced every copy by the work each skill serves, pinning `re0` first as the founding thesis and moving entries only, and the roster drift-guards stayed green because not one name changed.
+- **So** — the order reads as intentional across all eleven surfaces, and a reader can name the principle without being told it.
+</details>
+
+### #11 — Your gut isn't a source
 "Plausible," "absurd," "novel" — the least reliable line in any artifact. Human priors fail **both ways**: they exclude the real (desert frogs exist) and normalize the impossible (weightless crates).
 
 **The fix → `factchk`:** verify any reality-grounded claim against external sources, in both directions, before it ships — and flag, don't guess, when you can't reach one.
@@ -265,7 +282,7 @@ A timeout value, a decision, a status — copied into a README, a doc, a ticket,
 - **So** — a fact-checker that audits its own footnotes will audit yours.
 </details>
 
-### #11 — The eval confirms itself
+### #12 — The eval confirms itself
 A model, a scorer, and a designer can all agree a result is real while no outside ground-truth ever entered the loop — a whole room confidently remembering something that never independently happened.
 
 **The fix → `mandela`:** audit any eval, metric, or experiment against an 8-pattern leakage taxonomy — does external ground-truth enter independently, or is the verifier the designer?
@@ -280,7 +297,7 @@ A model, a scorer, and a designer can all agree a result is real while no outsid
 - **So** — the checklist isn't theoretical: every pattern in it already drew blood once.
 </details>
 
-### #12 — "Remember to verify" never fires
+### #13 — "Remember to verify" never fires
 A guideline buried in docs won't trigger in a brand-new session — exactly when author bias is highest.
 
 **The fix → `sip`:** the moment you finish something, it runs the clean checks (`shower`, `ssotize`, `re0`) and, when there's a claim or an eval, the true ones (`factchk`, `mandela`) on your output, automatically.
@@ -295,7 +312,7 @@ A guideline buried in docs won't trigger in a brand-new session — exactly when
 - **So** — the check bites where bias is highest: not on a fresh artifact, but on the drift a big change leaves behind — exactly what the author's own eyes skate over.
 </details>
 
-### #13 — Your session doesn't travel; the git log does
+### #14 — Your session doesn't travel; the git log does
 Your session is stuck where it ran — this agent, this account, this machine. A teammate or another agent can't load the context your work happened in.
 
 **The fix → `re0-git`:** clean a finished commit's message so `git log` — the one thing every environment shares — carries the handoff, and anyone picks up from the log alone.
@@ -310,7 +327,20 @@ Your session is stuck where it ran — this agent, this account, this machine. A
 - **So** — its first cleanup was after itself.
 </details>
 
-### #14 — Long cycles lose the build, and the builder
+### #15 — A contribution is a gift with a permanent cost
+An outside pull request either lands with its author's credit intact and the maintainer's own edits legible, or it doesn't — and a raw merge, a silent rewrite, or a quiet close loses one of those every time.
+
+**The fix → `re0-merge`:** gate the contribution against the thesis, land it with the author's authorship preserved and every maintainer change as its own commit, then approve, credit, and explain before closing.
+
+<details>
+<summary><b>[PROOF]</b></summary>
+
+- **Setup** — external pull requests arrived against this suite: some to accept as-is, some to reframe, some to complete into a finished skill.
+- **Result** — each landed on its own branch with the contributor's authorship kept and every maintainer edit split into a separate commit, was approved the moment it was accepted rather than at release, and closed with a comment that credited the author and named the release it shipped in.
+- **So** — the git log shows who did what, and a contributor whose idea got reframed sees their credit and the reason, not a silent overwrite.
+</details>
+
+### #16 — Long cycles lose the build, and the builder
 Long agentic cycles produce many working parts — panels, routes, tests, screenshots — that prove activity more than value, and the sunk cost tempts you to carry the architecture forward. The same cycles coin vocabulary, rename files, and make calls faster than the human owner can follow, so even a correct next action arrives unreadable: phrased in words invented while they were away.
 
 **The fix → `re0-memo` + `re0-work` + `re0-loop` + `catchup` + `nba`:** extract the lesson, anti-pattern, and next gate; restart from a clean v0 when the foundation is wrong; run the build → QA → re0-memo → re0-work loop. When the owner's mental model has gone stale, `catchup` rebuilds it first from live state, not conversation memory: what needs them, what changed, what new words mean. Only then does `nba` read the live cycle and return the single next best action. Keep only what earned reuse.

@@ -104,13 +104,17 @@ Diese Skills wetten in die andere Richtung. **Jeder einzelne entfernt etwas:**
 
 - `re0` schreibt einen Entwurf als saubere v0 neu, statt ihn weiter zu flicken.
 - `readchk` formuliert die Anfrage neu und fragt nur, wenn eine echte Weiche übrig bleibt.
+- `aim` liest einen übergebenen Daten-Drop und schlägt die zu bestätigende Absicht vor, statt danach zu fragen.
 - `modelchk` bestimmt die billigste ausreichende Tier, bevor die Arbeit beginnt.
 - `macrothink` fächert frische Lesarten auf und meldet Divergenz, bevor Konvergenz wie ein Beweis aussieht.
+- `feynman` bohrt bei einer gerade getroffenen Entscheidung nach, bis du sie einem Skeptiker erklären kannst, oder benennt die Lücke, die du nicht erklären kannst.
+- `prism` teilt ein Artefakt auf unabhängige Linsen auf und gibt zurück, wo sie kollidieren, nie ihren Durchschnitt.
 - `autobahn` schneidet unsicheren Scope vorab heraus, damit der sichere Rest mit voller Geschwindigkeit läuft.
 - `detool` ersetzt beiläufige Werkzeugnamen in portablen Inhalten durch den gemeinten Mechanismus.
 - `dedash` entfernt sogar den Gedankenstrich-Tell und seine Doppelgänger, Stelle für Stelle beurteilt.
 - `shower` schneidet weg, was ein Fremder nicht verfolgen kann.
 - `ssotize` prüft verstreute Facts, fragt nach Freigabe und faltet sie dann an einem Ort zusammen.
+- `reorder` richtet eine verdriftete Auflistung an einem Prinzip neu aus, verschiebt Einträge und formuliert nichts um.
 - `re0-memo` / `re0-work` / `re0-loop` bewahren die Lektion, lassen den falschen Build sterben und halten die Schleife am Laufen.
 - `catchup` / `nba` bauen die Landkarte des Menschen aus dem Live-Zustand neu auf und geben dann den einen nächsten Zug zurück.
 - `sip` führt all das automatisch auf deinem eigenen Output aus.

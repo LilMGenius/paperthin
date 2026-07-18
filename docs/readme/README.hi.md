@@ -104,13 +104,17 @@ Agent को goal दें और वह **add** करता है: और fi
 
 - `re0` draft को patch करने के बजाय clean v0 में rewrite करता है।
 - `readchk` request को दोबारा restate करता है और तभी पूछता है जब असली fork बचता है।
+- `aim` handed-over data drop पढ़ता है और intent मांगने के बजाय confirm करने के लिए propose करता है।
 - `modelchk` काम शुरू होने से पहले सबसे सस्ता पर्याप्त tier तय करता है।
 - `macrothink` fresh reads फैलाता है और convergence को proof मानने से पहले divergence report करता है।
+- `feynman` अभी-अभी लिए गए decision को तब तक दबाता है जब तक आप उसे किसी skeptic को समझा न सकें, या जिस gap को आप नहीं समझा सकते उसे नाम देता है।
+- `prism` एक artifact को independent lenses में बाँटता है और वे जहाँ टकराते हैं वह लौटाता है, कभी उनका average नहीं।
 - `autobahn` unsafe scope upfront carve करता है, ताकि safe remainder पूरी speed से चले।
 - `detool` portable content के incidental tool नामों को उनके असल mechanism से बदलता है।
 - `dedash` em-dash tell और उसके look-alikes तक हटाता है, एक-एक occurrence judge करके।
 - `shower` वह काटता है जिसे कोई stranger follow नहीं कर सकता।
 - `ssotize` files में फैले facts को audit करता है, approval मांगता है, फिर उन्हें एक home में collapse करता है।
+- `reorder` drifted listing को एक principle के तहत फिर align करता है, items हिलाता है और कुछ भी reword नहीं करता।
 - `re0-memo` / `re0-work` / `re0-loop` lesson बचाते हैं, गलत build को मरने देते हैं, और loop चलाए रखते हैं।
 - `catchup` / `nba` live state से इंसान का map फिर बनाते हैं, फिर एक ही अगला move लौटाते हैं।
 - `sip` यह सब अपने output पर automatically चलाता है।

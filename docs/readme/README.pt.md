@@ -104,13 +104,17 @@ Essas skills apostam no outro lado. **Cada uma remove algo:**
 
 - `re0` reescreve um rascunho como uma v0 limpa em vez de remenda-lo.
 - `readchk` reformula o pedido e so pergunta quando sobrevive uma bifurcacao real.
+- `aim` le um data drop entregue e propoe a intencao a confirmar, em vez de pedi-la.
 - `modelchk` escolhe o tier mais barato suficiente antes de o trabalho comecar.
 - `macrothink` espalha leituras novas e reporta a divergencia antes que a convergencia pareca prova.
+- `feynman` pressiona uma decisao recem-tomada ate voce conseguir explica-la a um cetico, ou nomeia a lacuna que voce nao consegue.
+- `prism` divide um artefato em lentes independentes e devolve onde elas colidem, nunca a media delas.
 - `autobahn` recorta o scope inseguro de antemao, para que o restante seguro rode em velocidade total.
 - `detool` troca nomes de ferramentas incidentais em conteudo portavel pelo mecanismo que eles significam.
 - `dedash` remove ate o sinal do em dash e seus parecidos, uma ocorrencia julgada de cada vez.
 - `shower` corta o que um estranho nao consegue acompanhar.
 - `ssotize` audita facts espalhados, pede aprovacao e entao os colapsa em um unico lar.
+- `reorder` realinha uma listagem que derivou sob um unico principio, movendo itens e sem reescrever nada.
 - `re0-memo` / `re0-work` / `re0-loop` preservam a licao, deixam o build errado morrer e mantem o loop rodando.
 - `catchup` / `nba` reconstroem o mapa do humano a partir do estado ao vivo, e devolvem o unico proximo passo.
 - `sip` executa tudo isso automaticamente sobre o seu proprio output.
