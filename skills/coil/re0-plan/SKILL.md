@@ -26,6 +26,7 @@ A cycle without a written thesis, gate list, and step plan drifts to whatever fr
 - **The folder is never empty at creation.** Every path, lightweight or full, writes real content in the same motion the folder is made, so a session break at any point still leaves something to resume from.
 - **Not portable, by design.** Names other paperthin skills directly and assumes the full package installed — the opposite of the self-contained default every other skill here follows. It exists only to pair with `re0-release` and `re0-memo`, not to travel alone.
 - **No padding.** Lightweight gets no `DESIGN`/`WORKFLOW`/`EVIDENCE`, and its `RETRO.local.md` seed stays one paragraph — a task note, not a `WORKFLOW.local.md` in disguise. A judgment skill or `re0-work` never gets forced in "just in case."
+- **The folder's `<version>` is provisional.** Apply the same minor/patch discriminator `re0-release` uses — kind not size: is the change, against the artifact's own prior spec, a fix (patch) or a new capability a user newly reaches for (minor)? — and keep it contingent on any unresolved fork the cycle opens. Never pre-commit a firm bump the cycle hasn't earned; a fork that could add a skill leaves the bump undecided until it resolves.
 - **negatives-as-corpus** — nothing this skill or the cycle it opens produces gets deleted; a cycle that goes wrong is retired by `re0-release`, not discarded.
 - Every `EVIDENCE.local.md` gate traces back to a line in `DESIGN.local.md`; don't invent proof surface `DESIGN` never asked for.
 
