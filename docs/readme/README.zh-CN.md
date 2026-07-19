@@ -48,7 +48,7 @@
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | 把漂移的 artifact 重写成干净的 v0，而不是再打一层 patch | 一个 artifact | 模型 | |
 | 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | 检查对请求的理解；只暴露真正仍然存在的分叉 | 一个 instruction | 模型 | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | 读取交接来的数据，主动提出待确认的意图，而不是反过来询问 | 一份数据交付 | 模型 | ✔ |
-| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 选择足够且最便宜的 tier：fast、standard 或 frontier | 一个任务 | 模型 | ✔ |
+| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 选择足够且最便宜的 tier 与推理强度 | 一个任务 | 模型 | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 拒绝客气，给出一个足以杀死计划的反对意见和最便宜的测试 | 一个计划 | 用户 | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | 去掉 bait，展开新鲜读法，并优先报告 divergence | 一个方向 | 用户 | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 追问一个刚做出的决定，直到你能把它解释清楚，否则标记出缺口 | 一个决定 | 用户 | ✔ |
@@ -105,7 +105,7 @@
 - `re0` 把草稿重写成干净的 v0，而不是继续打 patch。
 - `readchk` 在内部复述请求，只有真正存活的分歧才会提问。
 - `aim` 读一份交接过来的 data drop，直接提出待确认的意图，而不是反过来问你。
-- `modelchk` 在工作开始前选出足够用的最便宜 tier。
+- `modelchk` 在工作开始前选出足够用的最便宜 tier 与推理强度。
 - `macrothink` 展开新的解读，先报告分歧，再让收敛看起来像证据。
 - `feynman` 逼问一个刚做出的决定，直到你能把它讲给怀疑者听，或者点出你讲不清的那处缺口。
 - `prism` 把一个 artifact 拆到多个独立视角下，返回它们冲突之处，而不是取它们的平均。
@@ -115,9 +115,9 @@
 - `shower` 删掉陌生人看不懂的部分。
 - `ssotize` 审计散落在文件里的 facts，取得批准，然后把它们折叠到一个归宿。
 - `reorder` 按单一原则重新对齐一份已经漂移的列表，只挪动条目，不改动任何措辞。
+- `sip` 自动把这一切跑在你自己的 output 上。
 - `re0-memo` / `re0-work` / `re0-loop` 保留教训，让错误的 build 死掉，并让 loop 持续运转。
 - `catchup` / `nba` 从实时 state 重建人类的地图，然后只返回下一步该做什么。
-- `sip` 自动把这一切跑在你自己的 output 上。
 
 > [!TIP]
 > 难的不是加功能，而是克制。一次检查如果找不到可改进之处，就什么也不改。**这种克制就是产品。**

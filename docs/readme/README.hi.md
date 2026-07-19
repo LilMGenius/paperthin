@@ -48,7 +48,7 @@
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | drift हुए artifact को एक clean v0 में rewrite करता है, एक और patch नहीं लगाता | एक artifact | model | |
 | 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | request की read check करता है; सिर्फ बचा हुआ real fork दिखाता है | एक instruction | model | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | सौंपा गया data पढ़कर, पूछने के बजाय, confirm करने के लिए intent propose करता है | एक data drop | model | ✔ |
-| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | सबसे सस्ता sufficient tier चुनता है: fast, standard, या frontier | एक task | model | ✔ |
+| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | सबसे सस्ता sufficient tier और reasoning effort चुनता है | एक task | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | nice होने से इनकार करता है: plan को मार सकने वाली एक objection, और सबसे सस्ता test | एक plan | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait हटाता है, fresh reads fan out करता है, और divergence पहले report करता है | एक direction | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | अभी लिए गए decision को तब तक दबाता है जब तक आप उसे समझा न सकें, या gap flag हो जाए | एक decision | user | ✔ |
@@ -105,7 +105,7 @@ Agent को goal दें और वह **add** करता है: और fi
 - `re0` draft को patch करने के बजाय clean v0 में rewrite करता है।
 - `readchk` request को दोबारा restate करता है और तभी पूछता है जब असली fork बचता है।
 - `aim` handed-over data drop पढ़ता है और intent मांगने के बजाय confirm करने के लिए propose करता है।
-- `modelchk` काम शुरू होने से पहले सबसे सस्ता पर्याप्त tier तय करता है।
+- `modelchk` काम शुरू होने से पहले सबसे सस्ता पर्याप्त tier और reasoning effort तय करता है।
 - `macrothink` fresh reads फैलाता है और convergence को proof मानने से पहले divergence report करता है।
 - `feynman` अभी-अभी लिए गए decision को तब तक दबाता है जब तक आप उसे किसी skeptic को समझा न सकें, या जिस gap को आप नहीं समझा सकते उसे नाम देता है।
 - `prism` एक artifact को independent lenses में बाँटता है और वे जहाँ टकराते हैं वह लौटाता है, कभी उनका average नहीं।
@@ -115,9 +115,9 @@ Agent को goal दें और वह **add** करता है: और fi
 - `shower` वह काटता है जिसे कोई stranger follow नहीं कर सकता।
 - `ssotize` files में फैले facts को audit करता है, approval मांगता है, फिर उन्हें एक home में collapse करता है।
 - `reorder` drifted listing को एक principle के तहत फिर align करता है, items हिलाता है और कुछ भी reword नहीं करता।
+- `sip` यह सब अपने output पर automatically चलाता है।
 - `re0-memo` / `re0-work` / `re0-loop` lesson बचाते हैं, गलत build को मरने देते हैं, और loop चलाए रखते हैं।
 - `catchup` / `nba` live state से इंसान का map फिर बनाते हैं, फिर एक ही अगला move लौटाते हैं।
-- `sip` यह सब अपने output पर automatically चलाता है।
 
 > [!TIP]
 > मुश्किल हिस्सा features add करना नहीं, restraint है। कोई pass अगर improve करने लायक कुछ नहीं पाता, तो कुछ नहीं बदलता। **वही restraint product है।**

@@ -45,7 +45,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Rewrite a drifted artifact into a clean v0, not another patch | one artifact | model | |
 | 🧭 **[readchk](./skills/depth/readchk/SKILL.md)** | Check the model's read of the request; surface only a real surviving fork | one instruction | model | ✔ |
 | 🏹 **[aim](./skills/depth/aim/SKILL.md)** | Read handed-over data and propose the intent to confirm, instead of asking for it | one data drop | model | ✔ |
-| 📏 **[modelchk](./skills/depth/modelchk/SKILL.md)** | Size the cheapest sufficient tier: fast, standard, or frontier | one task | model | ✔ |
+| 📏 **[modelchk](./skills/depth/modelchk/SKILL.md)** | Size the cheapest sufficient tier and reasoning effort | one task | model | ✔ |
 | 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse to be nice: the one objection that could kill it, plus the cheapest test | one plan | user | |
 | 🧠 **[macrothink](./skills/depth/macrothink/SKILL.md)** | Strip the bait, fan out fresh reads, report divergence first | one direction | user | ✔ |
 | 🧐 **[feynman](./skills/depth/feynman/SKILL.md)** | Press a just-made decision until you can explain it, or the gap is flagged | one decision | user | ✔ |
@@ -101,7 +101,7 @@ These skills bet the other way — **every one of them removes:**
 - `re0` rewrites a draft into a clean v0 instead of patching it,
 - `readchk` restates the request and asks only when a real fork survives,
 - `aim` reads a handed-over data drop and proposes the intent to confirm, instead of asking for it,
-- `modelchk` sizes the cheapest sufficient capability tier before the work starts,
+- `modelchk` sizes the cheapest sufficient capability tier and reasoning effort before the work starts,
 - `macrothink` fans out fresh reads and reports divergence before convergence reads as proof,
 - `feynman` presses a just-made decision until you can explain it to a skeptic, or names the gap you can't,
 - `prism` splits one artifact across independent lenses and returns where they clash, never their average,
@@ -111,9 +111,9 @@ These skills bet the other way — **every one of them removes:**
 - `shower` cuts whatever a stranger can't follow,
 - `ssotize` audits scattered facts, asks approval, then folds them into one home,
 - `reorder` realigns a drifted listing under one principle, moving items and rewording nothing,
+- `sip` runs all of it on your own output, automatically,
 - `re0-memo` / `re0-work` / `re0-loop` preserve the lesson, let the wrong build die, and keep the cycle running,
-- `catchup` / `nba` reload the human's map from live state, then return the one next move,
-- `sip` runs all of it on your own output, automatically.
+- `catchup` / `nba` reload the human's map from live state, then return the one next move.
 
 > [!TIP]
 > The hard part isn't adding features — it's restraint. A pass that finds nothing to improve changes nothing. **That restraint is the product.**
@@ -152,17 +152,17 @@ A long or bundled instruction has enough surface area for a subtle misread: the 
 - **So** — the check catches expensive misreads without turning clear instructions into confirmation theater.
 </details>
 
-### #3 — Capability becomes guesswork
-Some work is run with too much horsepower because "stronger" feels safer; some is run too cheaply until the failure costs more than the saved tokens. Both are guesses wearing operational clothing.
+### #3 — Sizing the run becomes guesswork
+Some work is run with too much horsepower because "stronger" feels safer; some is run too cheaply until the failure costs more than the saved tokens. The same guessing hits the reasoning-effort dial: max it on everything and burn tokens, or skim a task that needed real deliberation. All of it is guessing wearing operational clothing.
 
-**The fix → `modelchk`:** classify the task by risk, ambiguity, reversibility, blast radius, and proof surface, then recommend the cheapest sufficient tier: `fast`, `standard`, or `frontier`. It advises; it never routes, pins, or names a concrete model.
+**The fix → `modelchk`:** from one risk read, recommend two coordinates — the cheapest sufficient capability tier (`fast`, `standard`, `frontier`) and the reasoning effort within it (`glance` to `exhaustive`), each on a neutral scale. It advises; it never routes, pins, or names a concrete model or level.
 
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Setup** — its first task cards included overpowered review, cheap mechanical work, model-branded input, and release-risk work.
-- **Result** — it kept only fast/standard/frontier tier language, named the proof surface separately, and rejected routing authority.
-- **So** — capability sizing becomes a bounded recommendation instead of a vendor claim or a reflexive escalation.
+- **Setup** — its task cards spanned overpowered review, cheap mechanical work, model-branded input, and release-risk work — and later, per-run reasoning effort that varies by vendor and even by model.
+- **Result** — it kept neutral tier language (fast/standard/frontier) and added a neutral effort scale that binds to the model's own ladder positions rather than any vendor's level names, named the proof surface separately, and rejected routing authority on both dials.
+- **So** — sizing the run becomes a bounded two-dial recommendation instead of a vendor claim or a reflexive escalation.
 </details>
 
 ### #4 — You can't kill your own plan
@@ -327,20 +327,7 @@ Your session is stuck where it ran — this agent, this account, this machine. A
 - **So** — its first cleanup was after itself.
 </details>
 
-### #15 — A contribution is a gift with a permanent cost
-An outside pull request either lands with its author's credit intact and the maintainer's own edits legible, or it doesn't — and a raw merge, a silent rewrite, or a quiet close loses one of those every time.
-
-**The fix → `re0-merge`:** gate the contribution against the thesis, land it with the author's authorship preserved and every maintainer change as its own commit, then approve, credit, and explain before closing.
-
-<details>
-<summary><b>[PROOF]</b></summary>
-
-- **Setup** — external pull requests arrived against this suite: some to accept as-is, some to reframe, some to complete into a finished skill.
-- **Result** — each landed on its own branch with the contributor's authorship kept and every maintainer edit split into a separate commit, was approved the moment it was accepted rather than at release, and closed with a comment that credited the author and named the release it shipped in.
-- **So** — the git log shows who did what, and a contributor whose idea got reframed sees their credit and the reason, not a silent overwrite.
-</details>
-
-### #16 — Long cycles lose the build, and the builder
+### #15 — Long cycles lose the build, and the builder
 Long agentic cycles produce many working parts — panels, routes, tests, screenshots — that prove activity more than value, and the sunk cost tempts you to carry the architecture forward. The same cycles coin vocabulary, rename files, and make calls faster than the human owner can follow, so even a correct next action arrives unreadable: phrased in words invented while they were away.
 
 **The fix → `re0-memo` + `re0-work` + `re0-loop` + `catchup` + `nba`:** extract the lesson, anti-pattern, and next gate; restart from a clean v0 when the foundation is wrong; run the build → QA → re0-memo → re0-work loop. When the owner's mental model has gone stale, `catchup` rebuilds it first from live state, not conversation memory: what needs them, what changed, what new words mean. Only then does `nba` read the live cycle and return the single next best action. Keep only what earned reuse.

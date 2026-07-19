@@ -48,7 +48,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | Schreibt ein gedriftetes Artifact als saubere v0 neu, statt noch einen Patch daraufzusetzen | ein Artifact | Modell | |
 | 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | Prüft die Lesart der Anfrage und zeigt nur einen echten verbleibenden Fork | eine Anweisung | Modell | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | Liest übergebene Daten und schlägt die zu bestätigende Absicht vor, statt danach zu fragen | eine Datenübergabe | Modell | ✔ |
-| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Bestimmt die billigste ausreichende Stufe: fast, standard oder frontier | eine Aufgabe | Modell | ✔ |
+| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Bestimmt die billigste ausreichende Stufe und reasoning effort | eine Aufgabe | Modell | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Weigert sich, nett zu sein: der eine Einwand, der den Plan töten könnte, plus der billigste Test | ein Plan | Nutzer | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Entfernt den Bait, fächert frische Lesarten auf, meldet Divergenz zuerst | eine Richtung | Nutzer | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Bohrt bei einer gerade getroffenen Entscheidung nach, bis du sie erklären kannst oder die Lücke markiert ist | eine Entscheidung | Nutzer | ✔ |
@@ -105,7 +105,7 @@ Diese Skills wetten in die andere Richtung. **Jeder einzelne entfernt etwas:**
 - `re0` schreibt einen Entwurf als saubere v0 neu, statt ihn weiter zu flicken.
 - `readchk` formuliert die Anfrage neu und fragt nur, wenn eine echte Weiche übrig bleibt.
 - `aim` liest einen übergebenen Daten-Drop und schlägt die zu bestätigende Absicht vor, statt danach zu fragen.
-- `modelchk` bestimmt die billigste ausreichende Tier, bevor die Arbeit beginnt.
+- `modelchk` bestimmt die billigste ausreichende Tier und den reasoning effort, bevor die Arbeit beginnt.
 - `macrothink` fächert frische Lesarten auf und meldet Divergenz, bevor Konvergenz wie ein Beweis aussieht.
 - `feynman` bohrt bei einer gerade getroffenen Entscheidung nach, bis du sie einem Skeptiker erklären kannst, oder benennt die Lücke, die du nicht erklären kannst.
 - `prism` teilt ein Artefakt auf unabhängige Linsen auf und gibt zurück, wo sie kollidieren, nie ihren Durchschnitt.
@@ -115,9 +115,9 @@ Diese Skills wetten in die andere Richtung. **Jeder einzelne entfernt etwas:**
 - `shower` schneidet weg, was ein Fremder nicht verfolgen kann.
 - `ssotize` prüft verstreute Facts, fragt nach Freigabe und faltet sie dann an einem Ort zusammen.
 - `reorder` richtet eine verdriftete Auflistung an einem Prinzip neu aus, verschiebt Einträge und formuliert nichts um.
+- `sip` führt all das automatisch auf deinem eigenen Output aus.
 - `re0-memo` / `re0-work` / `re0-loop` bewahren die Lektion, lassen den falschen Build sterben und halten die Schleife am Laufen.
 - `catchup` / `nba` bauen die Landkarte des Menschen aus dem Live-Zustand neu auf und geben dann den einen nächsten Zug zurück.
-- `sip` führt all das automatisch auf deinem eigenen Output aus.
 
 > [!TIP]
 > Das Schwere ist nicht, Features hinzuzufügen, sondern Zurückhaltung. Ein pass, der nichts zu verbessern findet, ändert nichts. **Diese Zurückhaltung ist das Produkt.**

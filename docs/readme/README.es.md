@@ -48,7 +48,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | Reescribe un artifact desviado como una v0 limpia, no como otro patch | un artifact | model | |
 | 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | Revisa la lectura de la solicitud; solo expone un fork real que sobreviva | una instruccion | model | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | Lee los datos entregados y propone la intencion a confirmar, en vez de preguntarla | una entrega de datos | model | ✔ |
-| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Dimensiona el tier suficiente mas barato: fast, standard o frontier | una tarea | model | ✔ |
+| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Dimensiona el tier suficiente mas barato y el esfuerzo de razonamiento | una tarea | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Se niega a ser amable: la objecion unica que podria matar el plan, mas la prueba mas barata | un plan | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Quita el bait, abre lecturas frescas y reporta primero la divergencia | una direccion | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Presiona una decision recien tomada hasta poder explicarla, o se marca el hueco | una decision | user | ✔ |
@@ -105,7 +105,7 @@ Estas skills apuestan en la direccion contraria. **Cada una elimina algo:**
 - `re0` reescribe un borrador como una v0 limpia en vez de patcharlo.
 - `readchk` reformula la solicitud y solo pregunta cuando sobrevive una bifurcacion real.
 - `aim` lee un data drop entregado y propone la intencion a confirmar, en vez de pedirla.
-- `modelchk` calcula el tier mas barato suficiente antes de que empiece el trabajo.
+- `modelchk` calcula el tier mas barato suficiente y el esfuerzo de razonamiento antes de que empiece el trabajo.
 - `macrothink` despliega lecturas frescas e informa la divergencia antes de que la convergencia parezca prueba.
 - `feynman` presiona una decision recien tomada hasta que puedas explicarsela a un esceptico, o nombra el hueco que no puedas.
 - `prism` divide un artefacto en lentes independientes y devuelve donde chocan, nunca su promedio.
@@ -115,9 +115,9 @@ Estas skills apuestan en la direccion contraria. **Cada una elimina algo:**
 - `shower` corta lo que un desconocido no puede seguir.
 - `ssotize` audita facts dispersos, pide aprobacion y luego los colapsa en un solo hogar.
 - `reorder` realinea un listado que derivo bajo un solo principio, moviendo items sin reescribir nada.
+- `sip` ejecuta todo eso automaticamente sobre tu propio output.
 - `re0-memo` / `re0-work` / `re0-loop` preservan la leccion, dejan morir el build equivocado y mantienen el ciclo corriendo.
 - `catchup` / `nba` reconstruyen el mapa del humano desde el estado en vivo y devuelven el unico siguiente movimiento.
-- `sip` ejecuta todo eso automaticamente sobre tu propio output.
 
 > [!TIP]
 > La parte dificil no es agregar features; es la contencion. Una pass que no encuentra nada que mejorar no cambia nada. **Esa contencion es el producto.**

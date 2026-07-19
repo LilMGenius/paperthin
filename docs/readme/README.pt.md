@@ -48,7 +48,7 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | Reescreve um artifact que derivou como uma v0 limpa, nao como mais um patch | um artifact | model | |
 | 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | Verifica a leitura do pedido; mostra apenas um fork real que sobrevive | uma instrucao | model | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | Le os dados recebidos e propoe a intencao a confirmar, em vez de pedi-la | um lote de dados | model | ✔ |
-| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Escolhe o tier suficiente mais barato: fast, standard ou frontier | uma tarefa | model | ✔ |
+| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Escolhe o tier suficiente mais barato e o esforco de raciocinio | uma tarefa | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Recusa ser gentil: a unica objecao que poderia matar o plano, mais o teste mais barato | um plano | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Remove o bait, abre leituras frescas e relata divergencia primeiro | uma direcao | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Pressiona uma decisao recem-tomada ate poder explica-la, ou a lacuna e sinalizada | uma decisao | user | ✔ |
@@ -105,7 +105,7 @@ Essas skills apostam no outro lado. **Cada uma remove algo:**
 - `re0` reescreve um rascunho como uma v0 limpa em vez de remenda-lo.
 - `readchk` reformula o pedido e so pergunta quando sobrevive uma bifurcacao real.
 - `aim` le um data drop entregue e propoe a intencao a confirmar, em vez de pedi-la.
-- `modelchk` escolhe o tier mais barato suficiente antes de o trabalho comecar.
+- `modelchk` escolhe o tier mais barato suficiente e o esforco de raciocinio antes de o trabalho comecar.
 - `macrothink` espalha leituras novas e reporta a divergencia antes que a convergencia pareca prova.
 - `feynman` pressiona uma decisao recem-tomada ate voce conseguir explica-la a um cetico, ou nomeia a lacuna que voce nao consegue.
 - `prism` divide um artefato em lentes independentes e devolve onde elas colidem, nunca a media delas.
@@ -115,9 +115,9 @@ Essas skills apostam no outro lado. **Cada uma remove algo:**
 - `shower` corta o que um estranho nao consegue acompanhar.
 - `ssotize` audita facts espalhados, pede aprovacao e entao os colapsa em um unico lar.
 - `reorder` realinha uma listagem que derivou sob um unico principio, movendo itens e sem reescrever nada.
+- `sip` executa tudo isso automaticamente sobre o seu proprio output.
 - `re0-memo` / `re0-work` / `re0-loop` preservam a licao, deixam o build errado morrer e mantem o loop rodando.
 - `catchup` / `nba` reconstroem o mapa do humano a partir do estado ao vivo, e devolvem o unico proximo passo.
-- `sip` executa tudo isso automaticamente sobre o seu proprio output.
 
 > [!TIP]
 > A parte dificil nao e adicionar recursos; e contencao. Uma pass que nao encontra nada a melhorar nao muda nada. **Essa contencao e o produto.**

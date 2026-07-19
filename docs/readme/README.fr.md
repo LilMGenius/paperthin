@@ -48,7 +48,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | Réécrit un artifact qui a dérivé en v0 propre, plutôt qu'un patch de plus | un artifact | modèle | |
 | 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | Vérifie la lecture de la demande ; ne remonte qu'une vraie bifurcation restante | une instruction | modèle | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | Lit les données transmises et propose l'intention à confirmer, au lieu de la demander | un lot de données | modèle | ✔ |
-| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Calibre le niveau suffisant le moins coûteux : fast, standard ou frontier | une tâche | modèle | ✔ |
+| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Calibre le niveau suffisant le moins coûteux et le reasoning effort | une tâche | modèle | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Refuse d'être gentil : l'objection unique qui peut tuer le plan, plus le test le moins cher | un plan | utilisateur | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Retire le bait, lance des lectures fraîches et signale d'abord la divergence | une direction | utilisateur | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Presse une décision fraîchement prise jusqu'à pouvoir l'expliquer, sinon la lacune est signalée | une décision | utilisateur | ✔ |
@@ -105,7 +105,7 @@ Ces skills parient dans l'autre sens. **Chacun enlève quelque chose :**
 - `re0` réécrit un brouillon en v0 propre au lieu de le patcher.
 - `readchk` reformule la demande et ne pose une question que si une vraie bifurcation survit.
 - `aim` lit un lot de données transmis et propose l'intention à confirmer, au lieu de la demander.
-- `modelchk` choisit le palier le moins cher suffisant avant que le travail commence.
+- `modelchk` choisit le palier le moins cher suffisant et le reasoning effort avant que le travail commence.
 - `macrothink` déploie des lectures fraîches et rapporte la divergence avant que la convergence ne passe pour une preuve.
 - `feynman` presse une décision fraîche jusqu'à ce que vous puissiez l'expliquer à un sceptique, ou nomme la faille que vous ne pouvez pas justifier.
 - `prism` éclate un artefact en lentilles indépendantes et renvoie leurs contradictions, jamais leur moyenne.
@@ -115,9 +115,9 @@ Ces skills parient dans l'autre sens. **Chacun enlève quelque chose :**
 - `shower` coupe ce qu'un inconnu ne peut pas suivre.
 - `ssotize` audite les faits dispersés, demande l'approbation, puis les replie dans un seul foyer.
 - `reorder` réaligne une liste qui a dérivé sous un seul principe, en déplaçant les éléments sans rien reformuler.
+- `sip` exécute tout cela automatiquement sur votre propre output.
 - `re0-memo` / `re0-work` / `re0-loop` préservent la leçon, laissent mourir la mauvaise construction et gardent la boucle en marche.
 - `catchup` / `nba` reconstruisent la carte de l'humain à partir de l'état en direct, puis renvoient le seul prochain coup.
-- `sip` exécute tout cela automatiquement sur votre propre output.
 
 > [!TIP]
 > Le plus dur n'est pas d'ajouter des fonctionnalités : c'est la retenue. Une passe qui ne trouve rien à améliorer ne change rien. **Cette retenue est le produit.**

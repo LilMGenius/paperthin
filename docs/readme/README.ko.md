@@ -48,7 +48,7 @@
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | drift된 아티팩트를 또 다른 패치가 아니라 깨끗한 v0로 다시 씁니다 | 아티팩트 하나 | 모델 | |
 | 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | 요청을 어떻게 읽었는지 확인하고, 실제로 남은 갈림길만 드러냅니다 | 지시 하나 | 모델 | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | 넘겨받은 데이터를 읽고, 물어보는 대신 확인할 의도를 먼저 제안합니다 | 넘겨받은 데이터 하나 | 모델 | ✔ |
-| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 충분한 가장 싼 tier를 고릅니다: fast, standard, frontier | 작업 하나 | 모델 | ✔ |
+| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 충분한 가장 싼 tier와 reasoning effort를 고릅니다 | 작업 하나 | 모델 | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 친절하기를 거부합니다. 계획을 죽일 수 있는 반론 하나와 가장 싼 테스트를 냅니다 | 계획 하나 | 사용자 | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait를 걷어내고 새 읽기를 펼친 뒤 divergence를 먼저 보고합니다 | 방향 하나 | 사용자 | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 방금 내린 결정을 설명할 수 있을 때까지 밀어붙이고, 안 되면 그 빈틈을 드러냅니다 | 결정 하나 | 사용자 | ✔ |
@@ -105,7 +105,7 @@
 - `re0`는 draft를 패치하지 않고 깨끗한 v0로 다시 씁니다.
 - `readchk`는 요청을 다시 진술하고, 실제로 갈림길이 남을 때만 묻습니다.
 - `aim`은 넘겨받은 data drop을 읽고, 묻는 대신 확인할 intent를 제안합니다.
-- `modelchk`는 작업이 시작되기 전에 충분한 가장 싼 tier를 정합니다.
+- `modelchk`는 작업이 시작되기 전에 충분한 가장 싼 tier와 reasoning effort를 정합니다.
 - `macrothink`는 새로운 읽기를 펼치고, 수렴이 증거처럼 보이기 전에 divergence를 먼저 보고합니다.
 - `feynman`은 방금 내린 결정을 회의론자에게 설명할 수 있을 때까지 밀어붙이고, 못 하면 그 빈틈을 짚어냅니다.
 - `prism`은 하나의 아티팩트를 독립된 lens로 쪼개고, 평균이 아니라 충돌하는 지점을 돌려줍니다.
@@ -115,9 +115,9 @@
 - `shower`는 낯선 사람이 따라가지 못하는 부분을 잘라냅니다.
 - `ssotize`는 파일 곳곳에 흩어진 팩트를 감사하고, 승인받은 뒤 한 집으로 접습니다.
 - `reorder`는 드리프트된 목록을 하나의 원칙으로 다시 맞추되, 항목만 옮기고 표현은 손대지 않습니다.
+- `sip`은 이 모든 것을 내 아웃풋에 자동으로 실행합니다.
 - `re0-memo` / `re0-work` / `re0-loop`는 교훈을 보존하고, 잘못된 빌드는 죽게 두고, loop는 계속 돌립니다.
 - `catchup` / `nba`는 실시간 state에서 인간의 지도를 재구성한 뒤, 단 하나의 다음 수만 돌려줍니다.
-- `sip`은 이 모든 것을 내 아웃풋에 자동으로 실행합니다.
 
 > [!TIP]
 > 어려운 부분은 기능 추가가 아니라 절제입니다. 개선할 것이 없다고 판단한 패스는 아무것도 바꾸지 않습니다. **그 절제가 제품입니다.**
