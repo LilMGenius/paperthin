@@ -56,6 +56,7 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Troca nomes incidentais de stack pelo mecanismo que queriam dizer | um artifact duravel | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Remove em dashes e semelhantes, escolhendo a pontuacao que cada ponto precisa | sua prosa | user | |
 | 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Realinha uma listagem que derivou em uma ordem logica sob um unico principio declarado; apenas move itens, nao reescreve nada | uma listagem | user | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Comprime um artefato inchado ate sua densidade essencial; corta palavras, nunca uma regra | um artefato | user | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Faz uma leitura fria, com olhos novos e zero contexto: isso se sustenta sozinho? | um artifact | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Verifica o que se afirma contra sources, nas duas direcoes: o absurdo poderia ser real, o obvio falso? | uma claim | model | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Audita em busca de leakage: a ground truth externa realmente entra? | um eval | model | ✔ |

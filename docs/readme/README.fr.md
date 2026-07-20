@@ -56,6 +56,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Remplace les noms d'outils accidentels par le mécanisme visé | un artifact durable | modèle | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Retire les em dashes et leurs sosies, en choisissant la ponctuation juste à chaque endroit | votre prose | utilisateur | |
 | 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Réaligne une liste qui a dérivé dans un ordre logique sous un principe unique énoncé ; déplace seulement les items, ne reformule rien | une liste | utilisateur | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Compresse un artefact surchargé à sa densité porteuse ; coupe des mots, jamais une règle | un artefact | utilisateur | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Relit à froid, avec des yeux neufs et zéro contexte : tient-il debout seul ? | un artifact | modèle | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Vérifie ce qui est affirmé contre les sources, dans les deux sens : l'absurde pourrait-il être vrai, l'évident faux ? | une claim | modèle | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Audite les leakage : une ground truth externe entre-t-elle vraiment ? | un eval | modèle | ✔ |

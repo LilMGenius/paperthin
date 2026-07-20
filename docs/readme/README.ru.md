@@ -56,6 +56,7 @@
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Заменяет случайные имена stack на механизм, который они означают | один durable artifact | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Убирает em dashes и их look-alikes, выбирая пунктуацию, которая реально нужна в каждом месте | ваша prose | user | |
 | 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Выравнивает поплывший список в логический порядок по одному заявленному принципу; только переставляет элементы, ничего не переписывает | один список | user | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Сжимает раздутый артефакт до его несущей плотности; отсекает слова, но никогда не правила | один артефакт | user | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Cold-read свежими глазами без контекста: держится ли артефакт сам по себе? | один артефакт | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Проверяет утверждаемое по sources в обе стороны: может ли абсурд быть реальным, а очевидное ложным? | один claim | model | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Аудитит на leakage: действительно ли внутрь входит внешняя ground truth? | один eval | model | ✔ |

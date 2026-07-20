@@ -56,6 +56,7 @@
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 把偶然绑定的工具名替换成它真正表达的机制 | 一个 durable artifact | 模型 | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | 移除 em dash 及其相似痕迹，并为每处选择真正需要的标点 | 你的文字 | 用户 | |
 | 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | 在一条明确的原则下，把漂移的列表重新排成合理顺序；只移动条目，不改动文字 | 一个列表 | 用户 | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | 把臃肿的产物压缩到承重的密度；只删文字，绝不删规则 | 一件产物 | 用户 | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 用全新、零上下文的眼睛冷读它，判断它能不能独自站住 | 一个 artifact | 模型 | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 双向对照 source 核验所主张的：荒谬的可能真实吗，显然的可能是假的吗？ | 一个 claim | 模型 | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | 审计是否 leakage：外部 ground truth 真的进入了吗？ | 一个 eval | 模型 | ✔ |

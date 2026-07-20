@@ -34,7 +34,7 @@ The `ssot-check` row is user-confirmed from pre-v0.2.0 history that current git 
 
 The convergence target: after a run, every skill here is installed under the chosen scope, minus only what the user declined at the confirmation gate. Also use this list to separate current paperthin skills from unknown installed names when parsing `npx skills list` and installed skill directories.
 
-`re0`, `readchk`, `aim`, `modelchk`, `hate`, `macrothink`, `feynman`, `autobahn`, `detool`, `dedash`, `reorder`, `shower`, `factchk`, `mandela`, `sip`, `re0-git`, `re0-release`, `re0-merge`, `ssotize`, `re0-upgrade`, `re0-plan`, `re0-loop`, `re0-memo`, `re0-work`, `catchup`, `nba`, `prism`
+`re0`, `readchk`, `aim`, `modelchk`, `hate`, `macrothink`, `feynman`, `autobahn`, `detool`, `dedash`, `reorder`, `debloat`, `shower`, `factchk`, `mandela`, `sip`, `re0-git`, `re0-release`, `re0-merge`, `ssotize`, `re0-upgrade`, `re0-plan`, `re0-loop`, `re0-memo`, `re0-work`, `catchup`, `nba`, `prism`
 
 ## Workflow
 

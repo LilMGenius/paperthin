@@ -13,6 +13,7 @@
     "./skills/depth/detool",
     "./skills/depth/dedash",
     "./skills/depth/reorder",
+    "./skills/depth/debloat",
     "./skills/depth/shower",
     "./skills/depth/factchk",
     "./skills/depth/mandela",

@@ -56,6 +56,7 @@
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | incidental stack nouns को उनके mechanism से बदलता है | एक durable artifact | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash और उसके look-alikes हटाता है, हर जगह सही punctuation चुनता है | आपकी prose | user | |
 | 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | drift हुई listing को एक बताए गए principle के तहत logical order में फिर से align करता है; सिर्फ items move करता है, कुछ reword नहीं करता | एक listing | user | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | bloated artifact को उसकी load-bearing density तक compress करता है; words काटता है, कभी कोई rule नहीं | एक artifact | user | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | fresh, zero-context eyes से cold-read करता है: क्या यह अपने दम पर समझ आता है? | एक artifact | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | sources के against जो दावा किया गया उसे दोनों दिशाओं में verify करता है: क्या absurd सच हो सकता है, और obvious झूठ? | एक claim | model | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | leakage audit करता है: क्या बाहर की ground truth सच में अंदर आती है? | एक eval | model | ✔ |

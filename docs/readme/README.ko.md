@@ -56,6 +56,7 @@
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 우연히 섞인 도구 이름을 그것이 뜻한 메커니즘으로 바꿉니다 | durable 아티팩트 하나 | 모델 | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash와 비슷한 tell을 지우고, 각 위치에 맞는 문장부호를 고릅니다 | 내 문장 | 사용자 | |
 | 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | drift된 목록을 하나의 명시된 원칙 아래 논리적 순서로 다시 맞춥니다. 항목만 옮기고, 표현은 바꾸지 않습니다 | 목록 하나 | 사용자 | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | bloat된 아티팩트를 load-bearing한 밀도까지 압축합니다. 단어는 잘라내되, 규칙은 절대 잘라내지 않습니다 | 아티팩트 하나 | 사용자 | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 맥락 없는 새 눈으로 차갑게 읽습니다. 이것이 혼자서도 서는가? | 아티팩트 하나 | 모델 | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 주장된 것을 양방향으로 소스에 대조합니다. 말도 안 되는 것이 팩트일 수 있고, 당연한 것이 거짓일 수 있는가? | 클레임 하나 | 모델 | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | leakage가 있는지 audit합니다. 외부 ground truth가 실제로 들어오는가? | eval 하나 | 모델 | ✔ |

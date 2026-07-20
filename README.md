@@ -53,6 +53,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🧰 **[detool](./skills/depth/detool/SKILL.md)** | Replace incidental stack nouns with the mechanism they mean | one durable artifact | model | |
 | ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and look-alikes, picking the punctuation each spot needs | your prose | user | |
 | 🔃 **[reorder](./skills/depth/reorder/SKILL.md)** | Realign a drifted listing into a logical order under one stated principle; move items only, reword nothing | one listing | user | |
+| 🗜️ **[debloat](./skills/depth/debloat/SKILL.md)** | Compress a bloated artifact to its load-bearing density; cut words, never a rule | one artifact | user | |
 | 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read it with fresh, zero-context eyes: does it stand alone? | one artifact | model | ✔ |
 | 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify what's asserted against sources both ways: could the absurd be real, the obvious false? | one claim | model | |
 | 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit for leakage: does outside ground-truth actually enter? | one eval | model | ✔ |
