@@ -21,3 +21,5 @@ jobs:
         run: bash scripts/check-links.sh
       - name: Catalog SSOT drift-guard
         run: node scripts/check-catalog-sync.cjs
+      - name: Deploy-home SSOT drift-guard
+        run: node scripts/check-deploy-home.cjs

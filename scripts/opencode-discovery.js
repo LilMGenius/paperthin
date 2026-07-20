@@ -8,34 +8,31 @@
  * The catalog + notice text come from the shared ./catalog.cjs, so nothing is duplicated.
  *
  * The `opencode-` prefix names the platform this adapter targets (it lands in opencode.json's shared
- * `plugin` array); no project prefix is needed — the repo and ~/.paperthin/ already namespace it.
+ * `plugin` array); no project prefix is needed — the repo and ~/.re0/ already namespace it.
  *
  * Install: add this file's path (or its npm package) to opencode.json's "plugin" array — the same
  * mechanism omo uses (packages/omo-opencode add-plugin-to-opencode-config writes the plugin entry).
  */
 
 import { createRequire } from 'node:module';
-import os from 'node:os';
-import path from 'node:path';
 import fs from 'node:fs';
 
 const require = createRequire(import.meta.url);
-const { missingSkills, noticeText } = require('./catalog.cjs');
+const { missingSkills, noticeText, STATE_DIR, NOTICE_STAMP } = require('./catalog.cjs');
 
-const NOTIFY_STAMP = path.join(os.homedir(), '.paperthin', 'last-notice.json');
 const THROTTLE_MS = 24 * 60 * 60 * 1000;
 
 function throttledWithin24h() {
   try {
-    const s = JSON.parse(fs.readFileSync(NOTIFY_STAMP, 'utf-8'));
+    const s = JSON.parse(fs.readFileSync(NOTICE_STAMP, 'utf-8'));
     return s && s.ts && (Date.now() - s.ts) < THROTTLE_MS;
   } catch { return false; }
 }
 
 function stampNotice(missing) {
   try {
-    fs.mkdirSync(path.dirname(NOTIFY_STAMP), { recursive: true });
-    fs.writeFileSync(NOTIFY_STAMP, JSON.stringify({ ts: Date.now(), missing }));
+    fs.mkdirSync(STATE_DIR, { recursive: true });
+    fs.writeFileSync(NOTICE_STAMP, JSON.stringify({ ts: Date.now(), missing }));
   } catch {}
 }
 

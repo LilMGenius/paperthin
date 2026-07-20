@@ -31,6 +31,13 @@ const SKILL_DIRS = [
   path.join(HOME, '.claude', 'skills'),
 ];
 
+// Deploy home for runtime state (the throttle stamp). SSOT for the path — both adapters import it,
+// so a rename is one edit here, not five. `~/.re0/` since v0.16.2. No legacy fallback by design:
+// pre-rename installs keep their own self-contained runtime until reinstalled — we do not drag them
+// forward (see .re0/iteration/v0.16.2-re0-home for the decision).
+const STATE_DIR = path.join(HOME, '.re0');
+const NOTICE_STAMP = path.join(STATE_DIR, 'last-notice.json');
+
 function installedNames() {
   const found = new Set();
   for (const dir of SKILL_DIRS) {
@@ -63,4 +70,7 @@ function noticeText(missing) {
     'Notice only — do NOT run /re0-upgrade or install anything yourself; it is the user\'s to run.';
 }
 
-module.exports = { CATALOG, installedNames, missingSkills, formatList, noticeText };
+module.exports = {
+  CATALOG, installedNames, missingSkills, formatList, noticeText,
+  STATE_DIR, NOTICE_STAMP,
+};

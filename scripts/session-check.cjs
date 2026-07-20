@@ -14,12 +14,8 @@
  */
 
 const fs = require('fs');
-const path = require('path');
-const os = require('os');
-const { missingSkills, noticeText } = require('./catalog.cjs');
+const { missingSkills, noticeText, STATE_DIR, NOTICE_STAMP } = require('./catalog.cjs');
 
-const STATE_DIR = path.join(os.homedir(), '.paperthin');
-const NOTIFY_STAMP = path.join(STATE_DIR, 'last-notice.json');
 const THROTTLE_MS = 24 * 60 * 60 * 1000;
 
 function emitSilent() {
@@ -37,7 +33,7 @@ function emitNotice(text) {
 
 function throttledWithin24h() {
   try {
-    const s = JSON.parse(fs.readFileSync(NOTIFY_STAMP, 'utf-8'));
+    const s = JSON.parse(fs.readFileSync(NOTICE_STAMP, 'utf-8'));
     return s && s.ts && (Date.now() - s.ts) < THROTTLE_MS;
   } catch { return false; }
 }
@@ -45,7 +41,7 @@ function throttledWithin24h() {
 function stampNotice(missing) {
   try {
     fs.mkdirSync(STATE_DIR, { recursive: true });
-    fs.writeFileSync(NOTIFY_STAMP, JSON.stringify({ ts: Date.now(), missing }));
+    fs.writeFileSync(NOTICE_STAMP, JSON.stringify({ ts: Date.now(), missing }));
   } catch {}
 }
 
