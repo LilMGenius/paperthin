@@ -14,7 +14,7 @@ Make "prepare and ship a release" a single deliberate command instead of re-deri
 
 1. Confirm shipping readiness against the pending diff — every applicable item from CLAUDE.md's Shipping checklist except the version bump and the `sip` run, which are steps 2 and 3 here:
    - any new or changed `SKILL.md` has the right shape (frontmatter `name`+`description`, `disable-model-invocation` only if user-invoked, body sections Goal/Workflow/Rules/Verification);
-   - the README, and every localized copy under `docs/readme/`, lists or describes it accurately, with the right invocation column;
+   - the README and every localized copy under `docs/readme/` list it accurately, with the right invocation column and in the roster's logical order — the same order held across `plugin.json`, `scripts/catalog.cjs`, and `re0-upgrade`'s catalog, kept in lockstep with `reorder`;
    - `plugin.json` registers its path;
    - any rename appends an old -> new row to `re0-upgrade`'s deprecations checklist, in release order;
    - shared cross-skill rules (edit-safety, negatives-as-corpus, commit-economy) stay coherent across every copy that carries them.
