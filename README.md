@@ -50,9 +50,9 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🧠 **[macrothink](./skills/depth/macrothink/SKILL.md)** | Strip the bait, fan out fresh reads, report divergence first | one direction | user | ✔ |
 | 🧐 **[feynman](./skills/depth/feynman/SKILL.md)** | Press a just-made decision until you can explain it, or the gap is flagged | one decision | user | ✔ |
 | 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Carve unsafe scope out up front, run the safe rest at full strength, log the descope | one task | model | |
+| 🔃 **[reorder](./skills/depth/reorder/SKILL.md)** | Realign a drifted listing into a logical order under one stated principle; move items only, reword nothing | one listing | user | |
 | 🧰 **[detool](./skills/depth/detool/SKILL.md)** | Replace incidental stack nouns with the mechanism they mean | one durable artifact | model | |
 | ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and look-alikes, picking the punctuation each spot needs | your prose | user | |
-| 🔃 **[reorder](./skills/depth/reorder/SKILL.md)** | Realign a drifted listing into a logical order under one stated principle; move items only, reword nothing | one listing | user | |
 | 🗜️ **[debloat](./skills/depth/debloat/SKILL.md)** | Compress a bloated artifact to its load-bearing density; cut words, never a rule | one artifact | user | |
 | 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read it with fresh, zero-context eyes: does it stand alone? | one artifact | model | ✔ |
 | 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify what's asserted against sources both ways: could the absurd be real, the obvious false? | one claim | model | |
@@ -109,6 +109,7 @@ These skills bet the other way — **every one of them removes:**
 - `autobahn` carves unsafe scope out up front, so the safe remainder runs at full speed,
 - `detool` strips incidental stack nouns from portable content, leaving the mechanism they meant,
 - `dedash` removes even the em-dash tell and its look-alikes, one judged occurrence at a time,
+- `debloat` compresses a bloated artifact to its load-bearing density, cutting words but never a rule,
 - `shower` cuts whatever a stranger can't follow,
 - `ssotize` audits scattered facts, asks approval, then folds them into one home,
 - `reorder` realigns a drifted listing under one principle, moving items and rewording nothing,

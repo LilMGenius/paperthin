@@ -53,9 +53,9 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Entfernt den Bait, fächert frische Lesarten auf, meldet Divergenz zuerst | eine Richtung | Nutzer | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Bohrt bei einer gerade getroffenen Entscheidung nach, bis du sie erklären kannst oder die Lücke markiert ist | eine Entscheidung | Nutzer | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Schneidet unsicheren Scope vorab heraus, fährt den sicheren Rest mit voller Leistung, protokolliert den Descope | eine Aufgabe | Modell | |
+| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Ordnet eine gedriftete Auflistung unter einem genannten Prinzip in eine logische Reihenfolge; verschiebt nur Einträge, formuliert nichts um | eine Auflistung | Nutzer | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Ersetzt beiläufige Stack-Nomen durch den gemeinten Mechanismus | ein dauerhaftes Artifact | Modell | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Entfernt Gedankenstriche und ihre Doppelgänger und wählt an jeder Stelle die passende Zeichensetzung | deine prose | Nutzer | |
-| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Ordnet eine gedriftete Auflistung unter einem genannten Prinzip in eine logische Reihenfolge; verschiebt nur Einträge, formuliert nichts um | eine Auflistung | Nutzer | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Verdichtet ein aufgeblähtes Artefakt auf seine tragende Dichte; streicht Wörter, niemals eine Regel | ein Artefakt | Nutzer | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Liest es kalt, mit frischen Augen und ohne Kontext: steht es für sich? | ein Artifact | Modell | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Prüft, was behauptet wird, in beide Richtungen gegen Sources: Könnte das Absurde wahr sein, das Offensichtliche falsch? | einen Claim | Modell | |
@@ -113,6 +113,7 @@ Diese Skills wetten in die andere Richtung. **Jeder einzelne entfernt etwas:**
 - `autobahn` schneidet unsicheren Scope vorab heraus, damit der sichere Rest mit voller Geschwindigkeit läuft.
 - `detool` ersetzt beiläufige Werkzeugnamen in portablen Inhalten durch den gemeinten Mechanismus.
 - `dedash` entfernt sogar den Gedankenstrich-Tell und seine Doppelgänger, Stelle für Stelle beurteilt.
+- `debloat` verdichtet ein aufgeblähtes Artefakt auf seine tragende Dichte, streicht Wörter, aber niemals eine Regel.
 - `shower` schneidet weg, was ein Fremder nicht verfolgen kann.
 - `ssotize` prüft verstreute Facts, fragt nach Freigabe und faltet sie dann an einem Ort zusammen.
 - `reorder` richtet eine verdriftete Auflistung an einem Prinzip neu aus, verschiebt Einträge und formuliert nichts um.

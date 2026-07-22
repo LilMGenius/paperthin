@@ -53,9 +53,9 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Quita el bait, abre lecturas frescas y reporta primero la divergencia | una direccion | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Presiona una decision recien tomada hasta poder explicarla, o se marca el hueco | una decision | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Recorta el scope inseguro desde el principio, ejecuta el resto seguro a plena fuerza y registra el descope | una tarea | model | |
+| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Realinea una lista desviada en un orden logico bajo un solo principio declarado; solo mueve elementos, no reescribe nada | una lista | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Sustituye nombres incidentales de stack por el mecanismo que querian decir | un artifact durable | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Elimina em dashes y sus imitaciones, eligiendo la puntuacion que cada lugar necesita | tu prosa | user | |
-| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Realinea una lista desviada en un orden logico bajo un solo principio declarado; solo mueve elementos, no reescribe nada | una lista | user | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Comprime un artifact inflado hasta su densidad portante; recorta palabras, nunca una regla | un artifact | user | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Lo lee en frio, con ojos frescos y cero contexto: se sostiene por si solo? | un artifact | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Verifica lo afirmado contra sources en ambas direcciones: podria lo absurdo ser real y lo obvio ser falso? | una claim | model | |
@@ -113,6 +113,7 @@ Estas skills apuestan en la direccion contraria. **Cada una elimina algo:**
 - `autobahn` recorta el scope inseguro desde el principio para que el resto seguro corra a toda velocidad.
 - `detool` reemplaza sustantivos de herramientas incidentales en contenido portable por el mecanismo que significan.
 - `dedash` elimina incluso el tic del em dash y sus parecidos, una ocurrencia juzgada a la vez.
+- `debloat` comprime un artifact inflado hasta su densidad portante, recortando palabras pero nunca una regla.
 - `shower` corta lo que un desconocido no puede seguir.
 - `ssotize` audita facts dispersos, pide aprobacion y luego los colapsa en un solo hogar.
 - `reorder` realinea un listado que derivo bajo un solo principio, moviendo items sin reescribir nada.

@@ -53,9 +53,9 @@
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | يزيل bait، يوزع قراءات جديدة، ويعرض divergence أولا | direction واحد | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | يضغط على قرار اتُّخذ للتو حتى تستطيع شرحه، أو تُعلَّم الفجوة | قرار واحد | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | يقطع scope غير الآمن مسبقا، يشغل الباقي الآمن بكامل القوة، ويسجل descope | task واحد | model | |
+| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | يعيد ترتيب قائمة انحرفت إلى نظام منطقي وفق مبدأ واحد معلن؛ ينقل العناصر فقط، دون إعادة صياغة أي شيء | قائمة واحدة | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | يستبدل أسماء الأدوات العارضة بالآلية المقصودة | artifact durable واحد | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | يزيل em dashes وما يشبهها، ويختار علامة الترقيم التي يحتاجها كل موضع | نثرك | user | |
-| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | يعيد ترتيب قائمة انحرفت إلى نظام منطقي وفق مبدأ واحد معلن؛ ينقل العناصر فقط، دون إعادة صياغة أي شيء | قائمة واحدة | user | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | يضغط artifact منتفخا إلى كثافته الحاملة؛ يقطع الكلمات، لا قاعدة أبدا | artifact واحد | user | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | يقرأه قراءة باردة بعين جديدة وبدون سياق: هل يقف وحده؟ | artifact واحد | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | يتحقق مما يُدّعى مقابل sources في الاتجاهين: هل يمكن أن يكون العبث صحيحا، والواضح خاطئا؟ | claim واحد | model | |
@@ -113,6 +113,7 @@
 - `autobahn` يقطع scope غير الآمن مسبقا، حتى يعمل الباقي الآمن بأقصى سرعة.
 - `detool` يستبدل أسماء الأدوات العرضية في المحتوى القابل للنقل بالآلية التي تعنيها.
 - `dedash` يزيل حتى أثر em-dash وما يشبهه، occurrence واحدة في كل مرة.
+- `debloat` يضغط artifact منتفخا إلى كثافته الحاملة، يقطع الكلمات لا قاعدة أبدا.
 - `shower` يقطع ما لا يستطيع غريب متابعته.
 - `ssotize` يدقق في ground truth المتناثرة عبر الملفات، يطلب الموافقة، ثم يطويها في بيت واحد.
 - `reorder` يعيد محاذاة قائمة منحرفة تحت مبدأ واحد، يحرك العناصر ولا يعيد صياغة شيء.

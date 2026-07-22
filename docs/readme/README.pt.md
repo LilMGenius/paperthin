@@ -53,9 +53,9 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Remove o bait, abre leituras frescas e relata divergencia primeiro | uma direcao | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Pressiona uma decisao recem-tomada ate poder explica-la, ou a lacuna e sinalizada | uma decisao | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Recorta o scope inseguro de antemao, executa o restante seguro com forca total e registra o descope | uma tarefa | model | |
+| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Realinha uma listagem que derivou em uma ordem logica sob um unico principio declarado; apenas move itens, nao reescreve nada | uma listagem | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Troca nomes incidentais de stack pelo mecanismo que queriam dizer | um artifact duravel | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Remove em dashes e semelhantes, escolhendo a pontuacao que cada ponto precisa | sua prosa | user | |
-| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Realinha uma listagem que derivou em uma ordem logica sob um unico principio declarado; apenas move itens, nao reescreve nada | uma listagem | user | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Comprime um artefato inchado ate sua densidade essencial; corta palavras, nunca uma regra | um artefato | user | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Faz uma leitura fria, com olhos novos e zero contexto: isso se sustenta sozinho? | um artifact | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Verifica o que se afirma contra sources, nas duas direcoes: o absurdo poderia ser real, o obvio falso? | uma claim | model | |
@@ -113,6 +113,7 @@ Essas skills apostam no outro lado. **Cada uma remove algo:**
 - `autobahn` recorta o scope inseguro de antemao, para que o restante seguro rode em velocidade total.
 - `detool` troca nomes de ferramentas incidentais em conteudo portavel pelo mecanismo que eles significam.
 - `dedash` remove ate o sinal do em dash e seus parecidos, uma ocorrencia julgada de cada vez.
+- `debloat` comprime um artefato inchado ate sua densidade essencial, cortando palavras mas nunca uma regra.
 - `shower` corta o que um estranho nao consegue acompanhar.
 - `ssotize` audita facts espalhados, pede aprovacao e entao os colapsa em um unico lar.
 - `reorder` realinha uma listagem que derivou sob um unico principio, movendo itens e sem reescrever nada.

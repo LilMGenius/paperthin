@@ -53,9 +53,9 @@
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | 去掉 bait，展开新鲜读法，并优先报告 divergence | 一个方向 | 用户 | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 追问一个刚做出的决定，直到你能把它解释清楚，否则标记出缺口 | 一个决定 | 用户 | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 先切掉不安全 scope，让安全部分全速运行，并记录 descope | 一个任务 | 模型 | |
+| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | 在一条明确的原则下，把漂移的列表重新排成合理顺序；只移动条目，不改动文字 | 一个列表 | 用户 | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 把偶然绑定的工具名替换成它真正表达的机制 | 一个 durable artifact | 模型 | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | 移除 em dash 及其相似痕迹，并为每处选择真正需要的标点 | 你的文字 | 用户 | |
-| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | 在一条明确的原则下，把漂移的列表重新排成合理顺序；只移动条目，不改动文字 | 一个列表 | 用户 | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | 把臃肿的产物压缩到承重的密度；只删文字，绝不删规则 | 一件产物 | 用户 | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 用全新、零上下文的眼睛冷读它，判断它能不能独自站住 | 一个 artifact | 模型 | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 双向对照 source 核验所主张的：荒谬的可能真实吗，显然的可能是假的吗？ | 一个 claim | 模型 | |
@@ -113,6 +113,7 @@
 - `autobahn` 先切掉不安全 scope，让安全剩余部分全速运行。
 - `detool` 把可移植内容里偶然带上的工具名换成它们真正指代的机制。
 - `dedash` 连 em dash 痕迹和相似符号也逐处判断并移除。
+- `debloat` 把臃肿的产物压缩到承重的密度，只删文字，绝不删规则。
 - `shower` 删掉陌生人看不懂的部分。
 - `ssotize` 审计散落在文件里的 facts，取得批准，然后把它们折叠到一个归宿。
 - `reorder` 按单一原则重新对齐一份已经漂移的列表，只挪动条目，不改动任何措辞。

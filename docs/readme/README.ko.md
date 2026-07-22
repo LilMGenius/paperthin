@@ -53,9 +53,9 @@
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait를 걷어내고 새 읽기를 펼친 뒤 divergence를 먼저 보고합니다 | 방향 하나 | 사용자 | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 방금 내린 결정을 설명할 수 있을 때까지 밀어붙이고, 안 되면 그 빈틈을 드러냅니다 | 결정 하나 | 사용자 | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 안전하지 않은 스코프를 앞에서 도려내고, 안전한 나머지는 전력으로 실행한 뒤 descope를 기록합니다 | 작업 하나 | 모델 | |
+| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | drift된 목록을 하나의 명시된 원칙 아래 논리적 순서로 다시 맞춥니다. 항목만 옮기고, 표현은 바꾸지 않습니다 | 목록 하나 | 사용자 | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 우연히 섞인 도구 이름을 그것이 뜻한 메커니즘으로 바꿉니다 | durable 아티팩트 하나 | 모델 | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash와 비슷한 tell을 지우고, 각 위치에 맞는 문장부호를 고릅니다 | 내 문장 | 사용자 | |
-| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | drift된 목록을 하나의 명시된 원칙 아래 논리적 순서로 다시 맞춥니다. 항목만 옮기고, 표현은 바꾸지 않습니다 | 목록 하나 | 사용자 | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | bloat된 아티팩트를 load-bearing한 밀도까지 압축합니다. 단어는 잘라내되, 규칙은 절대 잘라내지 않습니다 | 아티팩트 하나 | 사용자 | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 맥락 없는 새 눈으로 차갑게 읽습니다. 이것이 혼자서도 서는가? | 아티팩트 하나 | 모델 | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 주장된 것을 양방향으로 소스에 대조합니다. 말도 안 되는 것이 팩트일 수 있고, 당연한 것이 거짓일 수 있는가? | 클레임 하나 | 모델 | |
@@ -113,6 +113,7 @@
 - `autobahn`은 안전하지 않은 스코프를 앞에서 도려내 안전한 나머지가 전속력으로 달리게 합니다.
 - `detool`은 이식 가능한 콘텐츠에 우연히 섞인 도구 이름을 그것이 뜻하는 mechanism으로 바꿉니다.
 - `dedash`는 em dash tell과 닮은꼴까지 하나씩 판단해 제거합니다.
+- `debloat`는 bloat된 아티팩트를 load-bearing한 밀도까지 압축해, 단어는 잘라내되 규칙은 절대 잘라내지 않습니다.
 - `shower`는 낯선 사람이 따라가지 못하는 부분을 잘라냅니다.
 - `ssotize`는 파일 곳곳에 흩어진 팩트를 감사하고, 승인받은 뒤 한 집으로 접습니다.
 - `reorder`는 드리프트된 목록을 하나의 원칙으로 다시 맞추되, 항목만 옮기고 표현은 손대지 않습니다.
