@@ -8,15 +8,11 @@ Converge an install on the full current paperthin catalog in one step: retire re
 
 ## Goal
 
-Keep a returning user current with the whole paperthin suite, not just the slice they first installed. paperthin is a set of hygiene reflexes meant to compose; a skill shipped after a user's first install is invisible to them unless something brings it over, and most users don't watch the release feed. So the target state of an upgrade is the **full current catalog** — retire what's been renamed, add every catalog skill the user doesn't have, refresh the ones they do — under one chosen scope.
-
-Convergence is the default, never a silent force-install. The reconciliation plan is printed and confirmed before anything changes, with the skills newly added to this user named explicitly, so someone who deliberately kept a narrow set sees exactly what will land and can decline.
+Upgrade the chosen scope to the **full current catalog**, not just the originally installed subset. Show the reconciliation plan and name every new-to-user skill before confirmation; users who prefer a narrower install can decline.
 
 ## Deprecations
 
-This ordered checklist is the rename SSOT. Append future renames here in release order.
-
-The `ssot-check` row is user-confirmed from pre-v0.2.0 history that current git history cannot verify after a force-push; do not invent a date or tag for it. Resolve deprecation chains to the final current skill before installing replacements.
+The rename SSOT, in release order. Append future renames here; resolve chains to their final current names. The `ssot-check` row is user-confirmed pre-v0.2.0 history, unverifiable in git after a force-push; do not invent its date or tag.
 
 | Deprecated | Renamed to | Since |
 | --- | --- | --- |
@@ -32,77 +28,69 @@ The `ssot-check` row is user-confirmed from pre-v0.2.0 history that current git 
 
 ## Current catalog
 
-The convergence target: after a run, every skill here is installed under the chosen scope, minus only what the user declined at the confirmation gate. Also use this list to separate current paperthin skills from unknown installed names when parsing `npx skills list` and installed skill directories.
+Install every skill below in the chosen scope, except those declined at confirmation. Use this roster to distinguish current from unknown names in `npx skills list` and installed directories.
 
 `re0`, `readchk`, `aim`, `modelchk`, `hate`, `macrothink`, `feynman`, `autobahn`, `reorder`, `detool`, `dedash`, `debloat`, `shower`, `factchk`, `mandela`, `sip`, `re0-git`, `re0-release`, `re0-merge`, `ssotize`, `re0-upgrade`, `re0-plan`, `re0-loop`, `re0-memo`, `re0-work`, `catchup`, `nba`, `prism`
 
 ## Workflow
 
-1. Pick one install scope and keep it for the whole run. If the user hasn't said which, ask — don't assume: a scope mismatch makes step 2 read the wrong install location, classify the entire catalog as `missing`, and propose installing all of it into a scope where the user's skills don't actually live.
-   - global install: read with `npx skills list --global`, inspect `~/.agents/skills/<skill>/SKILL.md`, and use `--global` on every `remove`, `add`, and `update` command;
-   - project install: read with `npx skills list` from that project, inspect that project's installed skill directory if present, and omit `--global`;
-   - exact-agent install: use only explicit agent slugs such as `--agent claude-code`, never `--agent '*'`.
-2. **Before classifying, rule out a shadow install.** You are running as a paperthin skill, so paperthin is loaded; if `npx skills list` for the chosen scope reports **zero** paperthin skills, that contradicts a provable fact, and the ordinary "the whole catalog is missing" plan would rest on a false premise (an empty list is not the same as nothing installed) — do not emit it. Check the managed footprint: does the chosen scope's managed directory (`~/.agents/skills/` for a global install) hold any Current-catalog skill (e.g. `~/.agents/skills/re0`)?
-   - **It does** — the install is managed and the CLI read the wrong place or hiccuped: re-check the scope from step 1 (a global install lives in `~/.agents/skills/`, so `npx skills list --global` is what reads it) and retry the list. If a correct-scope retry still contradicts the on-disk footprint, report the CLI failure and stop rather than guessing — never treat a flaky or mis-scoped read as "nothing installed."
-   - **It does not, yet paperthin is loaded** — this is a **shadow install**: the repo was placed some other way (typically a `git clone` that Claude Code loads as a plugin, hence the `/paperthin:<skill>` namespace) with no managed entry, so the CLI cannot see, update, or remove it. STOP and report it doctor-style instead of classifying: offer two consented paths — a **managed reinstall** (recommended: `npx skills add` under the chosen scope, so the CLI can track it and future upgrades and the discovery notice reach the user) or **keep the clone** (left untouched, noting it stays CLI-invisible and every `re0-upgrade` run re-flags it). Change nothing until the user picks; never delete the clone or install a second copy on your own.
+1. Choose one install scope for the whole run; ask if unspecified. A wrong scope reads the wrong install location.
+   - **Global**: `npx skills list --global`, inspect `~/.agents/skills/<skill>/SKILL.md`, and pass `--global` to every `remove`, `add`, and `update`.
+   - **Project**: `npx skills list` from that project, inspect its installed skill directory if present, and omit `--global`.
+   - **Exact agent**: use explicit slugs such as `--agent claude-code`, never `--agent '*'`, including removals. Without agent scoping, use global or project scope.
+2. **Check for a shadow install before classifying.** If paperthin is loaded but the chosen scope's list reports zero paperthin skills, do not conclude the whole catalog is missing. Check for any Current-catalog directory in that scope's managed footprint (`~/.agents/skills/` globally, e.g. `~/.agents/skills/re0`).
+   - **Directory present**: re-check scope and retry the list (`npx skills list --global` globally). If it still contradicts the footprint, report the CLI failure and stop; a flaky read is not an empty install.
+   - **Directory absent, paperthin loaded**: report a **shadow install**, commonly a clone loaded as a Claude Code plugin (`/paperthin:<skill>`). The CLI cannot see, update, or remove it. Offer a managed reinstall via `npx skills add` in the chosen scope (recommended for future upgrades and discovery notices), or keep the clone untouched and CLI-invisible, with each upgrade re-flagging it. Await the user's choice; never delete the clone or install a second copy on your own.
 
-   Once the install is confirmed managed, read the installed state and cross-reference both installed names and installed directory slugs against the Deprecations checklist and the Current catalog:
-   - **stale** — installed entries or directory slugs in the `Deprecated` column;
-   - **missing** — Current catalog skills not installed, after resolving each deprecation chain to its final name (a replacement already installed under its new name counts as present, not missing);
-   - **present** — Current catalog skills already installed and not deprecated;
-   - **unknown** — installed names that are neither current catalog nor deprecated; these stay untouched.
-3. Report the full reconciliation plan before changing anything. State the target scope first (global / project / exact-agent), so a scope mismatch is visible at the gate before any install lands. Then the named groups:
-   - **retire**: `<stale names>`;
-   - **add (new to you)**: `<missing catalog skills>`, including the replacement for every retired name — this is the group full-catalog convergence adds that a subset refresh would have skipped, so name it in full;
-   - **refresh**: `<present current paperthin skills>`;
-   - **untouched**: `<unknown names>`;
-   - **wire discovery notice**: the present agents whose session-start hook will be pointed at the paperthin discovery notice (step 9), or `none` if the user declines it.
-4. Ask for explicit confirmation before any removal, install, or hook-wiring command. Convergence to the full catalog and wiring the discovery notice are both the recommendation, but the user may decline the whole run, decline just the wiring, or approve it as shown; nothing mutates before they do.
+   Once managed, classify both installed names and directory slugs against Deprecations and Current catalog:
+   - **stale**: a deprecated name or slug;
+   - **missing**: a current name not installed, after resolving rename chains; an already-installed replacement counts as present, not missing, so retire only the stale name and do not add the replacement again;
+   - **present**: current, installed, non-deprecated names;
+   - **unknown**: neither current nor deprecated; leave untouched.
+3. Print the reconciliation plan before changes: scope first (global / project / exact agent), then:
+   - **retire**: stale names;
+   - **add (new to you)**: missing catalog names in full, including replacements for retired names;
+   - **refresh**: present names;
+   - **untouched**: unknown names;
+   - **wire discovery notice**: present agents to wire in step 9, or `none` if declined.
+4. Get explicit confirmation before removal, installation, update, or hook wiring. Recommend full-catalog convergence and discovery wiring; the user may approve the plan, decline the whole run, or decline only wiring. Nothing mutates before approval.
 5. After confirmation, run only the commands the plan named, with the scope flags chosen in step 1:
    - `npx skills remove <scope-flags> <stale...> --yes` for the retire group;
    - `npx skills add LilMGenius/paperthin <scope-flags> -s <missing...> --yes` for the add group, enumerating each catalog name with its own `-s`;
    - `npx skills update <scope-flags> <present...> --yes` for the refresh group.
-6. If `npx skills add` or `npx skills update` reports that a specific skill failed, retry that skill alone with the same scope flags; if it still fails, confirm with the user by name, then remove and reinstall it using the same `skills remove`/`skills add -s` forms, rather than leaving the catalog incomplete or a skill stale.
+6. If `npx skills add` or `npx skills update` reports a failed skill, retry that skill alone with the same scope flags. If it fails again, obtain confirmation by skill name, then remove and reinstall it using the same `skills remove`/`skills add -s` forms.
 7. Verify with `npx skills list`: no deprecated name remains, every Current catalog skill is now installed, unknown names were left untouched, and any skill that took the retry/fallback path is actually present.
-8. Tell the user how their current session picks up the change: Claude Code applies updated `SKILL.md` content in the current session automatically, no restart needed, unless a different already-running Claude Code session shares the same install, in which case run `/reload-skills` in that other session. Codex has no in-session reload; restart Codex (or `codex resume`) to pick up the change. For any other agent, restart its session if the new behavior doesn't show up.
-9. After successful upgrade verification, wire the session-start discovery notice, unless the user declined it in the plan — so a future release's new skills reach the user without a manual setup. For each agent actually present on the machine:
-   - Place the notice runtime under `~/.re0/` by fetching it from the **pinned release tag**, never `main`: `catalog.cjs`, `session-check.cjs`, and (only if OpenCode is present) `opencode-discovery.js` from `https://raw.githubusercontent.com/LilMGenius/paperthin/v<installed-version>/scripts/<file>`.
-   - **Claude Code** (`~/.claude/settings.json`) and **Codex** (`~/.codex/config.toml`): add a `SessionStart` command hook that runs the placed `~/.re0/session-check.cjs`, only if no paperthin discovery hook is already wired — i.e. no existing `SessionStart` command runs a `session-check.cjs` by **any** path. (A pre-rename install stays wired to its own runtime and keeps working; never add a second hook — two would double-fire the notice.) Back the config up first.
-   - **OpenCode** (`opencode.json`/`opencode.jsonc`): add the placed `~/.re0/opencode-discovery.js` to the `plugin` array only if no `opencode-discovery.js` entry (by **any** path) is already present. Back the config up first.
-   - Wire only these three: Copilot CLI ignores session-start hook output, Antigravity CLI has no session-start event, and Grok Build's hook format is unverified — none can carry the notice today, so skip them.
-   - Never delete or overwrite another tool's hook; on a conflicting entry, report it doctor-style and leave it. State exactly what was wired, in which files, and how to unwire.
-10. **Optional GitHub star, separately confirmed.** After reporting the upgrade and discovery-notice outcomes, and only if upgrade verification succeeded, use the host's structured user-question tool to ask once: "Star LilMGenius/paperthin on GitHub using your authenticated gh account?" Offer "Star repository" and "Skip" as separate choices, in that order. State that this is optional and skipping leaves the upgrade unchanged.
-   - Suspend this step until the tool returns the user's submitted choice. If the tool returns a pending question, yield to the host's user-input flow and resume only when its answer arrives. Only submission of "Star repository" authorizes the action; a preselected option is not a submission. Do not substitute a chat question, parse free-text assent, or infer consent from silence.
-   - If a structured question tool is unavailable, the run is unattended, or the user skips, cancels, closes the session, times out, or supplies anything other than the submitted positive choice, skip the star. Do not repeat the question or fall back to another input method. Upgrade approval and install `--yes` flags never authorize it.
-   - After approval, check `gh auth status --hostname github.com`. If `gh` is missing or authentication fails, skip; offer `gh auth login --hostname github.com` and the star command only for the user to run themselves. Never log in, read tokens, or use another API client. A decline produces no star command or login nudge.
-   - With approval and working authentication, run `gh api --hostname github.com -X PUT user/starred/LilMGenius/paperthin --silent` once. `--silent` suppresses the response body, not consent or the outcome report. On command success, report that the star is set, without claiming it was newly added; report a failure separately without undoing or blocking the upgrade. No star action is a prerequisite for notice wiring.
+8. Explain how to pick up the update: Claude Code applies changed `SKILL.md` content automatically in this session; run `/reload-skills` in any other running Claude Code session sharing the install. Codex has no in-session reload: restart it (or `codex resume`). For other agents, restart if the new behavior does not appear.
+9. After successful upgrade verification, wire the session-start discovery notice for present agents unless declined. Back up each config before editing.
+   - Fetch `catalog.cjs` and `session-check.cjs`, plus `opencode-discovery.js` only for OpenCode, into `~/.re0/` from `https://raw.githubusercontent.com/LilMGenius/paperthin/v<installed-version>/scripts/<file>`. Use the **pinned installed release tag**, never `main`.
+   - **Claude Code** (`~/.claude/settings.json`) and **Codex** (`~/.codex/config.toml`): add a `SessionStart` command for `~/.re0/session-check.cjs` only if none already runs `session-check.cjs` by **any** path. Keep pre-rename wiring on its own runtime; a duplicate would double-fire.
+   - **OpenCode** (`opencode.json`/`opencode.jsonc`): add `~/.re0/opencode-discovery.js` to `plugin` only if no `opencode-discovery.js` entry exists by **any** path.
+   - Skip Copilot CLI (ignores session-start hook output), Antigravity CLI (no session-start event), and Grok Build (unverified hook format). Wire only the three supported agents.
+   - Never delete or overwrite another tool's hook. Report conflicts and leave them untouched. Report what was wired, which files changed, and how to unwire.
+10. **Optional GitHub star.** After successful upgrade verification and reporting upgrade/discovery outcomes, use the host's structured user-question tool once: "Star LilMGenius/paperthin on GitHub using your authenticated gh account?" Offer "Star repository", then "Skip"; explain that starring is optional and skipping leaves the upgrade unchanged.
+   - Suspend until a choice is submitted; for a pending question, yield to the host's input flow and resume on its answer. Only a submitted "Star repository" authorizes the action, never preselection, silence, upgrade approval, or install `--yes`.
+   - Skip if the tool is unavailable, the run is unattended, or the outcome is anything other than that choice (including skip, cancellation, session closure, timeout, or free text). No repeated question, chat substitute, assent parsing, or alternate input method.
+   - After approval, check `gh auth status --hostname github.com`. If `gh` is missing or auth fails, skip and offer `gh auth login --hostname github.com` and the star command for the user to run. Never log in, read tokens, or switch API clients. On decline, offer neither command nor login nudge.
+   - With approval and working auth, run `gh api --hostname github.com -X PUT user/starred/LilMGenius/paperthin --silent` once. `--silent` hides only the response body. On command success, report "star is set", not "newly added"; report failures separately. Star outcomes never block or undo the upgrade or gate notice wiring.
 
 ## Rules
 
 - The flat `npx skills add` path installs this command as `/re0-upgrade`; never describe a paperthin `ppt` namespace as part of the primary install path.
-- **Full-catalog convergence is the target, but never a silent one.** Always print the reconciliation plan with its `add (new to you)` group named in full and get explicit confirmation before mutating; the user may decline. Converging the install is the default, not a bypass of the confirmation gate.
-- Never use `skills add --all`; enumerate the catalog names with `-s <name>` instead, so the install is defined by this skill's Current catalog rather than by `--all`'s broader semantics.
-- Never run a bare `skills add LilMGenius/paperthin`; always include `-s <skill>` per skill.
-- Do not use raw filesystem deletion commands as workflow commands. Use `skills remove` for named stale skills after confirmation.
-- Do not run a bare `skills update`; pass only the present paperthin skill names from the reported plan.
-- Do not use wildcard agent scope for removal. If agent scoping is needed, pass explicit agent slugs; otherwise use `--global` or project scope.
-- Only act on names from the Deprecations checklist and Current catalog. Leave unknown installed names untouched — convergence is to the paperthin catalog only.
+- Only act on names from the Deprecations checklist and the Current catalog; unknown installed names stay untouched — convergence is to the paperthin catalog only.
 - Treat a deprecated directory slug as stale even when its `SKILL.md` frontmatter `name` already says the replacement name; remove it by the deprecated slug with `skills remove`.
-- If a replacement is already installed under its new name, do not add it again; retire the stale name and count the replacement as present.
-- `gh repo star` is not a real `gh` subcommand; use the consent-gated REST command in Workflow step 10.
-- **Discovery-notice wiring is idempotent, backed up, and version-pinned.** Never add a second paperthin hook when one is present; always back up a config before writing it; never modify a non-paperthin hook; fetch the runtime from the installed version's tag, never `main`. Wire only agents present on the machine, and only the three that can carry a session-start notice (Claude Code, Codex, OpenCode).
 - If the installed-skill list cannot be parsed confidently, stop and report the ambiguity instead of guessing.
-- A **shadow install** — you are running yet `npx skills list` shows zero paperthin — is stop-and-report, never duplicate-install. Distinguish it from a mis-scoped or flaky read by whether the managed directory `~/.agents/skills/` actually holds the catalog skills (managed: re-scope and retry) or not (shadow: loaded some other way, e.g. a git-clone plugin); on a confirmed shadow install, offer a managed reinstall or keeping the clone, and never classify the catalog as missing, install a second copy, or delete the clone without an explicit choice.
+- Do not use raw filesystem deletion commands as workflow commands. Use `skills remove` for named stale skills after confirmation.
+- Never use `skills add --all` or a bare `skills add LilMGenius/paperthin`; enumerate each catalog name with its own `-s <name>`, so the install is defined by this skill's Current catalog rather than by `--all`'s broader semantics.
+- Do not run a bare `skills update`; pass only the present paperthin skill names from the reported plan.
+- `gh repo star` is not a real `gh` subcommand; use the consent-gated REST command in Workflow step 10.
 
 ## Verification
 
 Before finishing:
 
 1. Reprint the executed plan: retired names, added (new-to-you) names, refreshed names, and untouched names.
-2. Confirm the final installed list and installed directory slugs have no name from the `Deprecated` column.
-3. Confirm every Current catalog skill is now installed — nothing in the catalog is missing.
-4. Confirm the confirmation gate was honored: nothing was removed, added, or updated before the plan was shown and approved, and the `add (new to you)` group was visible in that plan.
-5. Confirm any skill that took the retry/fallback path in step 6 is actually present and current, not silently missing.
-6. Confirm the discovery-notice wiring, if the user accepted it, is present and idempotent for each configured agent, backed up, version-pinned, and touched no foreign hook — or was correctly skipped (declined, or agent absent).
-7. Confirm the optional star had a submitted positive choice from the structured question tool before any star command, or was skipped. Report the command outcome separately from upgrade success.
-8. Report any skipped step, failed command, or unresolved ambiguity.
+2. The final installed list and installed directory slugs carry no name from the `Deprecated` column, every Current catalog skill is installed, and any skill that took step 6's retry/fallback path is present and current.
+3. The confirmation gate held: nothing was removed, added, or updated before the plan was shown and approved, with the `add (new to you)` group visible in it.
+4. Discovery-notice wiring, if the user accepted it, is present once per configured agent, backed up, version-pinned, and touched no foreign hook — or was correctly skipped (declined, or agent absent).
+5. The optional star ran only on a submitted positive choice from the structured question tool, or was skipped; report its outcome separately from upgrade success.
+6. Report any skipped step, failed command, or unresolved ambiguity.
