@@ -135,4 +135,4 @@
 - **Built on** [mattpocock/skills](https://github.com/mattpocock/skills) (MIT) - его architecture и philosophy.
 - **Not a fork** - это собственные, non-overlapping workflows [LilMGenius](https://github.com/LilMGenius).
 - **Vendored verbatim** - несколько shared building blocks оставлены as-is с per-source attribution в [NOTICE](../../NOTICE).
-- **Authoring guide** - conventions и philosophy живут в [CLAUDE.md](../../CLAUDE.md).
+- **Authoring guide** - conventions и philosophy живут в [AGENTS.md](../../AGENTS.md).

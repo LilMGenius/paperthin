@@ -135,4 +135,4 @@ Agent को goal दें और वह **add** करता है: और fi
 - **Built on** [mattpocock/skills](https://github.com/mattpocock/skills) (MIT) - इसकी architecture और philosophy।
 - **Fork नहीं** - ये [LilMGenius](https://github.com/LilMGenius) के अपने, non-overlapping workflows हैं।
 - **Vendored verbatim** - कुछ shared building blocks, per-source attribution के साथ [NOTICE](../../NOTICE) में as-is रखे गए हैं।
-- **Authoring guide** - conventions और philosophy [CLAUDE.md](../../CLAUDE.md) में हैं।
+- **Authoring guide** - conventions और philosophy [AGENTS.md](../../AGENTS.md) में हैं।

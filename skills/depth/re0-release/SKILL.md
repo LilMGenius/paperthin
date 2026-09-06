@@ -12,7 +12,7 @@ Make "prepare and ship a release" a single deliberate command instead of re-deri
 
 ## Workflow
 
-1. Confirm shipping readiness against the pending diff — every applicable item from CLAUDE.md's Shipping checklist except the version bump and the `sip` run, which are steps 2 and 3 here:
+1. Confirm shipping readiness against the pending diff — every applicable item from AGENTS.md's Shipping checklist except the version bump and the `sip` run, which are steps 2 and 3 here:
    - any new or changed `SKILL.md` has the right shape (frontmatter `name`+`description`, `disable-model-invocation` only if user-invoked, body sections Goal/Workflow/Rules/Verification);
    - the README and every localized copy under `docs/readme/` list it accurately, with the right invocation column and in the roster's logical order — the same order held across `plugin.json`, `scripts/catalog.cjs`, and `re0-upgrade`'s catalog, kept in lockstep with `reorder`; the README's Problem removes-list and Fixes narrative include it only if it carries the thesis (most skills earn neither — both are curated);
    - `plugin.json` registers its path;

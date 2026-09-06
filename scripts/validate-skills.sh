@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Validate the skill catalog against the conventions in CLAUDE.md + docs/invocation.md.
+# Validate the skill catalog against the conventions in AGENTS.md + docs/invocation.md.
 # The single source of truth for "is the catalog shippable" — called by release.yml
 # (pre-publish), ci.yml (every push/PR), and runnable locally (e.g. from sip).
 set -uo pipefail

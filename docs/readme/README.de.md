@@ -135,4 +135,4 @@ Die vollständige Fixes-Erzählung lebt als eine canonical source im [englischen
 - **Gebaut auf** [mattpocock/skills](https://github.com/mattpocock/skills) (MIT), seiner Architektur und Philosophie.
 - **Kein Fork**: Dies sind [LilMGenius](https://github.com/LilMGenius)' eigene, nicht überlappende Workflows.
 - **Vendored verbatim**: einige gemeinsame Bausteine, unverändert mit Sourceszuordnung in [NOTICE](../../NOTICE).
-- **Authoring Guide**: Konventionen und Philosophie stehen in [CLAUDE.md](../../CLAUDE.md).
+- **Authoring Guide**: Konventionen und Philosophie stehen in [AGENTS.md](../../AGENTS.md).

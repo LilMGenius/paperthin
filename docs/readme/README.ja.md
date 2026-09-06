@@ -135,4 +135,4 @@ Fixes の完全な narrative は [English README](../../README.md#the-fixes) を
 - **Built on** [mattpocock/skills](https://github.com/mattpocock/skills) (MIT) の architecture と philosophy。
 - **fork ではありません** - これは [LilMGenius](https://github.com/LilMGenius) 独自の、重ならない workflows です。
 - **Vendored verbatim** - いくつかの shared building blocks はそのまま保持し、 source ごとの attribution は [NOTICE](../../NOTICE) にあります。
-- **Authoring guide** - conventions と philosophy は [CLAUDE.md](../../CLAUDE.md) にあります。
+- **Authoring guide** - conventions と philosophy は [AGENTS.md](../../AGENTS.md) にあります。

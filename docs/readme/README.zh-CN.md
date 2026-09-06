@@ -135,4 +135,4 @@
 - **build 于** [mattpocock/skills](https://github.com/mattpocock/skills)（MIT）的架构和哲学之上。
 - **不是 fork** - 这些是 [LilMGenius](https://github.com/LilMGenius) 自己的、互不重叠的 workflow。
 - **按原样 vendored** - 少数共享 building blocks 保持原样，并在 [NOTICE](../../NOTICE) 中按 source 归属。
-- **作者指南** - 约定和哲学见 [CLAUDE.md](../../CLAUDE.md)。
+- **作者指南** - 约定和哲学见 [AGENTS.md](../../AGENTS.md)。

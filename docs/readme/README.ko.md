@@ -135,4 +135,4 @@
 - **기반** - [mattpocock/skills](https://github.com/mattpocock/skills) (MIT)의 아키텍처와 철학.
 - **포크 아님** - 이 워크플로들은 [LilMGenius](https://github.com/LilMGenius)의 고유하고 겹치지 않는 작업입니다.
 - **그대로 vendored** - 몇 가지 공유 building block은 원문 그대로 유지하며, 출처별 귀속은 [NOTICE](../../NOTICE)에 있습니다.
-- **작성 가이드** - 규칙과 철학은 [CLAUDE.md](../../CLAUDE.md)에 있습니다.
+- **작성 가이드** - 규칙과 철학은 [AGENTS.md](../../AGENTS.md)에 있습니다.

@@ -135,4 +135,4 @@ La narrativa completa de Fixes vive como unica fuente canonical en el [README en
 - **Construido sobre** [mattpocock/skills](https://github.com/mattpocock/skills) (MIT), su arquitectura y filosofia.
 - **No es un fork**: estos son workflows propios y no superpuestos de [LilMGenius](https://github.com/LilMGenius).
 - **Vendored verbatim**: algunos building blocks compartidos, conservados tal cual con atribucion por source en [NOTICE](../../NOTICE).
-- **Guia de authoring**: las convenciones y la filosofia viven en [CLAUDE.md](../../CLAUDE.md).
+- **Guia de authoring**: las convenciones y la filosofia viven en [AGENTS.md](../../AGENTS.md).

@@ -135,4 +135,4 @@ Le récit complet des correctifs vit comme source canonical unique dans le [READ
 - **Construit sur** [mattpocock/skills](https://github.com/mattpocock/skills) (MIT), son architecture et sa philosophie.
 - **Pas un fork** : ce sont les workflows propres, non chevauchants, de [LilMGenius](https://github.com/LilMGenius).
 - **Vendored verbatim** : quelques briques partagées, conservées telles quelles avec attribution par source dans [NOTICE](../../NOTICE).
-- **Guide d'authoring** : conventions et philosophie vivent dans [CLAUDE.md](../../CLAUDE.md).
+- **Guide d'authoring** : conventions et philosophie vivent dans [AGENTS.md](../../AGENTS.md).

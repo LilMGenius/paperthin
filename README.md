@@ -347,4 +347,4 @@ Long agentic cycles produce many working parts — panels, routes, tests, screen
 - **Built on** [mattpocock/skills](https://github.com/mattpocock/skills) (MIT) — its architecture and philosophy.
 - **Not a fork** — these are [LilMGenius](https://github.com/LilMGenius)'s own, non-overlapping workflows.
 - **Vendored verbatim** — a few shared building blocks, kept as-is with per-source attribution in [NOTICE](./NOTICE).
-- **Authoring guide** — conventions and philosophy live in [CLAUDE.md](./CLAUDE.md).
+- **Authoring guide** — conventions and philosophy live in [AGENTS.md](./AGENTS.md).

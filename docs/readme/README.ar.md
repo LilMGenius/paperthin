@@ -135,4 +135,4 @@
 - **مبني على** [mattpocock/skills](https://github.com/mattpocock/skills) (MIT) - معماره وفلسفته.
 - **ليس fork** - هذه workflows خاصة بـ [LilMGenius](https://github.com/LilMGenius)، وغير متداخلة.
 - **Vendored verbatim** - بعض building blocks المشتركة، محفوظة كما هي مع attribution لكل مصدر في [NOTICE](../../NOTICE).
-- **دليل التأليف** - conventions والفلسفة في [CLAUDE.md](../../CLAUDE.md).
+- **دليل التأليف** - conventions والفلسفة في [AGENTS.md](../../AGENTS.md).
