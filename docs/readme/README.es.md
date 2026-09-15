@@ -53,6 +53,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Quita el bait, abre lecturas frescas y reporta primero la divergencia | una direccion | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Presiona una decision recien tomada hasta poder explicarla, o se marca el hueco | una decision | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Recorta el scope inseguro desde el principio, ejecuta el resto seguro a plena fuerza y registra el descope | una tarea | model | |
+| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Revisa estilo, convenciones y consistencia del código; por defecto, cero cambios y un informe breve | un cambio en revisión | model | |
 | 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Realinea una lista desviada en un orden logico bajo un solo principio declarado; solo mueve elementos, no reescribe nada | una lista | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Sustituye nombres incidentales de stack por el mecanismo que querian decir | un artifact durable | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Elimina em dashes y sus imitaciones, eligiendo la puntuacion que cada lugar necesita | tu prosa | user | |

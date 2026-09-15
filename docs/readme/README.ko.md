@@ -53,6 +53,7 @@
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait를 걷어내고 새 읽기를 펼친 뒤 divergence를 먼저 보고합니다 | 방향 하나 | 사용자 | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 방금 내린 결정을 설명할 수 있을 때까지 밀어붙이고, 안 되면 그 빈틈을 드러냅니다 | 결정 하나 | 사용자 | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 안전하지 않은 스코프를 앞에서 도려내고, 안전한 나머지는 전력으로 실행한 뒤 descope를 기록합니다 | 작업 하나 | 모델 | |
+| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | 코드 스타일, 관례, 일관성을 확인합니다. 기본 결과는 수정 없이 짧은 보고서입니다 | 리뷰 중인 변경 하나 | 모델 | |
 | 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | drift된 목록을 하나의 명시된 원칙 아래 논리적 순서로 다시 맞춥니다. 항목만 옮기고, 표현은 바꾸지 않습니다 | 목록 하나 | 사용자 | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 우연히 섞인 도구 이름을 그것이 뜻한 메커니즘으로 바꿉니다 | durable 아티팩트 하나 | 모델 | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash와 비슷한 tell을 지우고, 각 위치에 맞는 문장부호를 고릅니다 | 내 문장 | 사용자 | |

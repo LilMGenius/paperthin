@@ -53,6 +53,7 @@
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait हटाता है, fresh reads fan out करता है, और divergence पहले report करता है | एक direction | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | अभी लिए गए decision को तब तक दबाता है जब तक आप उसे समझा न सकें, या gap flag हो जाए | एक decision | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | unsafe scope को upfront carve करता है, safe rest को full strength पर चलाता है, descope record करता है | एक task | model | |
+| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | code style, conventions और consistency जाँचता है; default में शून्य edits और एक छोटी report देता है | review में एक बदलाव | model | |
 | 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | drift हुई listing को एक बताए गए principle के तहत logical order में फिर से align करता है; सिर्फ items move करता है, कुछ reword नहीं करता | एक listing | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | incidental stack nouns को उनके mechanism से बदलता है | एक durable artifact | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash और उसके look-alikes हटाता है, हर जगह सही punctuation चुनता है | आपकी prose | user | |
