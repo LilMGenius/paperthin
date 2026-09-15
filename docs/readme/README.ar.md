@@ -53,6 +53,7 @@
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | يزيل bait، يوزع قراءات جديدة، ويعرض divergence أولا | direction واحد | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | يضغط على قرار اتُّخذ للتو حتى تستطيع شرحه، أو تُعلَّم الفجوة | قرار واحد | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | يقطع scope غير الآمن مسبقا، يشغل الباقي الآمن بكامل القوة، ويسجل descope | task واحد | model | |
+| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | يتحقق من أسلوب الكود وأعرافه واتساقه؛ الافتراضي بلا تعديلات وتقرير قصير | تغيير واحد قيد المراجعة | model | |
 | 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | يعيد ترتيب قائمة انحرفت إلى نظام منطقي وفق مبدأ واحد معلن؛ ينقل العناصر فقط، دون إعادة صياغة أي شيء | قائمة واحدة | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | يستبدل أسماء الأدوات العارضة بالآلية المقصودة | artifact durable واحد | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | يزيل em dashes وما يشبهها، ويختار علامة الترقيم التي يحتاجها كل موضع | نثرك | user | |

@@ -53,6 +53,7 @@
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Убирает bait, запускает свежие прочтения и первым сообщает divergence | одно direction | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Давит на только что принятое решение, пока не сможешь его объяснить, иначе помечает пробел | одно решение | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Заранее вырезает unsafe scope, запускает безопасный остаток на полной мощности и логирует descope | одна task | model | |
+| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Проверяет стиль, соглашения и согласованность кода; по умолчанию без правок, с кратким отчётом | одно изменение на ревью | model | |
 | 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Выравнивает поплывший список в логический порядок по одному заявленному принципу; только переставляет элементы, ничего не переписывает | один список | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Заменяет случайные имена stack на механизм, который они означают | один durable artifact | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Убирает em dashes и их look-alikes, выбирая пунктуацию, которая реально нужна в каждом месте | ваша prose | user | |
