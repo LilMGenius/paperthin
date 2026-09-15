@@ -53,6 +53,7 @@
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait を外し、新しい読みを fan out して、divergence を最初に報告する | direction 一つ | ユーザー | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 下したばかりの決定を、説明できるまで問い詰め、できなければ隙間を指摘する | 決定一つ | ユーザー | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 危険な scope を先に切り出し、安全な残りを全力で走らせ、descope を記録する | タスク一つ | モデル | |
+| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | コードのスタイル・慣習・一貫性を確認する。デフォルトは編集ゼロと短いレポート | レビュー中の変更一つ | モデル | |
 | 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | 一つの原則のもとで、drift した listing を論理的な順序に整え直す。項目を動かすだけで、文言は変えない | listing 一つ | ユーザー | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 紛れた incidental な stack 名を、意図した mechanism に置き換える | durable artifact 一つ | モデル | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash とその類似物を取り除き、各場所に必要な句読点を選ぶ | 自分の文章 | ユーザー | |

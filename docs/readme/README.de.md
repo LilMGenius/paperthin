@@ -53,6 +53,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Entfernt den Bait, fächert frische Lesarten auf, meldet Divergenz zuerst | eine Richtung | Nutzer | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Bohrt bei einer gerade getroffenen Entscheidung nach, bis du sie erklären kannst oder die Lücke markiert ist | eine Entscheidung | Nutzer | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Schneidet unsicheren Scope vorab heraus, fährt den sicheren Rest mit voller Leistung, protokolliert den Descope | eine Aufgabe | Modell | |
+| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Prüft Codestil, Konventionen und Konsistenz; standardmäßig keine Änderungen und ein kurzer Bericht | eine Änderung im Review | Modell | |
 | 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Ordnet eine gedriftete Auflistung unter einem genannten Prinzip in eine logische Reihenfolge; verschiebt nur Einträge, formuliert nichts um | eine Auflistung | Nutzer | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Ersetzt beiläufige Stack-Nomen durch den gemeinten Mechanismus | ein dauerhaftes Artifact | Modell | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Entfernt Gedankenstriche und ihre Doppelgänger und wählt an jeder Stelle die passende Zeichensetzung | deine prose | Nutzer | |
