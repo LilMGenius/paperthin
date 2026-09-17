@@ -54,7 +54,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Presiona una decision recien tomada hasta poder explicarla, o se marca el hueco | una decision | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Recorta el scope inseguro desde el principio, ejecuta el resto seguro a plena fuerza y registra el descope | una tarea | model | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Revisa estilo, convenciones y consistencia del código; por defecto, cero cambios y un informe breve | un cambio en revisión | model | |
-| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Realinea una lista desviada en un orden logico bajo un solo principio declarado; solo mueve elementos, no reescribe nada | una lista | user | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | Realinea una lista desviada en un orden logico bajo un solo principio declarado; solo mueve elementos, no reescribe nada | una lista | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Sustituye nombres incidentales de stack por el mecanismo que querian decir | un artifact durable | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Elimina em dashes y sus imitaciones, eligiendo la puntuacion que cada lugar necesita | tu prosa | user | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Comprime un artifact inflado hasta su densidad portante; recorta palabras, nunca una regla | un artifact | user | |
@@ -117,7 +117,7 @@ Estas skills apuestan en la direccion contraria. **Cada una elimina algo:**
 - `debloat` comprime un artifact inflado hasta su densidad portante, recortando palabras pero nunca una regla.
 - `shower` corta lo que un desconocido no puede seguir.
 - `ssotize` audita facts dispersos, pide aprobacion y luego los colapsa en un solo hogar.
-- `reorder` realinea un listado que derivo bajo un solo principio, moviendo items sin reescribir nada.
+- `re0-order` realinea un listado que derivo bajo un solo principio, moviendo items sin reescribir nada.
 - `sip` ejecuta todo eso automaticamente sobre tu propio output.
 - `re0-memo` / `re0-work` / `re0-loop` preservan la leccion, dejan morir el build equivocado y mantienen el ciclo corriendo.
 - `catchup` / `nba` reconstruyen el mapa del humano desde el estado en vivo y devuelven el unico siguiente movimiento.
