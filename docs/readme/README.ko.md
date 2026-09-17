@@ -54,7 +54,7 @@
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 방금 내린 결정을 설명할 수 있을 때까지 밀어붙이고, 안 되면 그 빈틈을 드러냅니다 | 결정 하나 | 사용자 | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 안전하지 않은 스코프를 앞에서 도려내고, 안전한 나머지는 전력으로 실행한 뒤 descope를 기록합니다 | 작업 하나 | 모델 | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | 코드 스타일, 관례, 일관성을 확인합니다. 기본 결과는 수정 없이 짧은 보고서입니다 | 리뷰 중인 변경 하나 | 모델 | |
-| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | drift된 목록을 하나의 명시된 원칙 아래 논리적 순서로 다시 맞춥니다. 항목만 옮기고, 표현은 바꾸지 않습니다 | 목록 하나 | 사용자 | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | drift된 목록을 하나의 명시된 원칙 아래 논리적 순서로 다시 맞춥니다. 항목만 옮기고, 표현은 바꾸지 않습니다 | 목록 하나 | 사용자 | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 우연히 섞인 도구 이름을 그것이 뜻한 메커니즘으로 바꿉니다 | durable 아티팩트 하나 | 모델 | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash와 비슷한 tell을 지우고, 각 위치에 맞는 문장부호를 고릅니다 | 내 문장 | 사용자 | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | bloat된 아티팩트를 load-bearing한 밀도까지 압축합니다. 단어는 잘라내되, 규칙은 절대 잘라내지 않습니다 | 아티팩트 하나 | 사용자 | |
@@ -117,7 +117,7 @@
 - `debloat`는 bloat된 아티팩트를 load-bearing한 밀도까지 압축해, 단어는 잘라내되 규칙은 절대 잘라내지 않습니다.
 - `shower`는 낯선 사람이 따라가지 못하는 부분을 잘라냅니다.
 - `ssotize`는 파일 곳곳에 흩어진 팩트를 감사하고, 승인받은 뒤 한 집으로 접습니다.
-- `reorder`는 드리프트된 목록을 하나의 원칙으로 다시 맞추되, 항목만 옮기고 표현은 손대지 않습니다.
+- `re0-order`는 드리프트된 목록을 하나의 원칙으로 다시 맞추되, 항목만 옮기고 표현은 손대지 않습니다.
 - `sip`은 이 모든 것을 내 아웃풋에 자동으로 실행합니다.
 - `re0-memo` / `re0-work` / `re0-loop`는 교훈을 보존하고, 잘못된 빌드는 죽게 두고, loop는 계속 돌립니다.
 - `catchup` / `nba`는 실시간 state에서 인간의 지도를 재구성한 뒤, 단 하나의 다음 수만 돌려줍니다.

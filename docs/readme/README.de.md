@@ -54,7 +54,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Bohrt bei einer gerade getroffenen Entscheidung nach, bis du sie erklären kannst oder die Lücke markiert ist | eine Entscheidung | Nutzer | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Schneidet unsicheren Scope vorab heraus, fährt den sicheren Rest mit voller Leistung, protokolliert den Descope | eine Aufgabe | Modell | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Prüft Codestil, Konventionen und Konsistenz; standardmäßig keine Änderungen und ein kurzer Bericht | eine Änderung im Review | Modell | |
-| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Ordnet eine gedriftete Auflistung unter einem genannten Prinzip in eine logische Reihenfolge; verschiebt nur Einträge, formuliert nichts um | eine Auflistung | Nutzer | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | Ordnet eine gedriftete Auflistung unter einem genannten Prinzip in eine logische Reihenfolge; verschiebt nur Einträge, formuliert nichts um | eine Auflistung | Nutzer | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Ersetzt beiläufige Stack-Nomen durch den gemeinten Mechanismus | ein dauerhaftes Artifact | Modell | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Entfernt Gedankenstriche und ihre Doppelgänger und wählt an jeder Stelle die passende Zeichensetzung | deine prose | Nutzer | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Verdichtet ein aufgeblähtes Artefakt auf seine tragende Dichte; streicht Wörter, niemals eine Regel | ein Artefakt | Nutzer | |
@@ -117,7 +117,7 @@ Diese Skills wetten in die andere Richtung. **Jeder einzelne entfernt etwas:**
 - `debloat` verdichtet ein aufgeblähtes Artefakt auf seine tragende Dichte, streicht Wörter, aber niemals eine Regel.
 - `shower` schneidet weg, was ein Fremder nicht verfolgen kann.
 - `ssotize` prüft verstreute Facts, fragt nach Freigabe und faltet sie dann an einem Ort zusammen.
-- `reorder` richtet eine verdriftete Auflistung an einem Prinzip neu aus, verschiebt Einträge und formuliert nichts um.
+- `re0-order` richtet eine verdriftete Auflistung an einem Prinzip neu aus, verschiebt Einträge und formuliert nichts um.
 - `sip` führt all das automatisch auf deinem eigenen Output aus.
 - `re0-memo` / `re0-work` / `re0-loop` bewahren die Lektion, lassen den falschen Build sterben und halten die Schleife am Laufen.
 - `catchup` / `nba` bauen die Landkarte des Menschen aus dem Live-Zustand neu auf und geben dann den einen nächsten Zug zurück.

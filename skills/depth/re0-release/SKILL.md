@@ -14,7 +14,7 @@ Prepare and ship a release through one deliberate command. Run `sip` when instal
 
 1. Check the pending diff against every applicable item in AGENTS.md's Shipping checklist, except the version bump and `sip` run covered in steps 2 and 3:
    - any new or changed `SKILL.md` has the right shape (frontmatter `name`+`description`, `disable-model-invocation` only if user-invoked, body sections Goal/Workflow/Rules/Verification);
-   - the README and every localized copy under `docs/readme/` list it accurately, with the right invocation column and roster order; keep that order aligned across `plugin.json`, `scripts/runtime/catalog.cjs`, and `re0-upgrade`'s catalog with `reorder`; include it in the README's curated Problem removes-list and Fixes narrative only if it carries the thesis, which most skills do not;
+   - the README and every localized copy under `docs/readme/` list it accurately, with the right invocation column and roster order; keep that order aligned across `plugin.json`, `scripts/runtime/catalog.cjs`, and `re0-upgrade`'s catalog with `re0-order`; include it in the README's curated Problem removes-list and Fixes narrative only if it carries the thesis, which most skills do not;
    - `plugin.json` registers its path;
    - any rename appends an old -> new row to `re0-upgrade`'s deprecations checklist, in release order;
    - shared cross-skill rules (edit-safety, negatives-as-corpus, commit-economy) stay coherent across every copy that carries them.

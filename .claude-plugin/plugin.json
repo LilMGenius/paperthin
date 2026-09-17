@@ -11,7 +11,7 @@
     "./skills/depth/feynman",
     "./skills/depth/autobahn",
     "./skills/depth/re0-style",
-    "./skills/depth/reorder",
+    "./skills/depth/re0-order",
     "./skills/depth/detool",
     "./skills/depth/dedash",
     "./skills/depth/debloat",
