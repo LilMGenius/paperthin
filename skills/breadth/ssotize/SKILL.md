@@ -7,34 +7,35 @@ Find where one truth lives, get approval for the consolidation plan, then collap
 
 ## Goal
 
-Enforce Single Source of Truth (SSOT): one fact = one home, and every other place that needs it references that home instead of copying it. References don't drift; copies do. This mutates artifacts, so it is deliberate and loss-averse.
+Enforce Single Source of Truth (SSOT): one fact lives in one home, and every other place references it. References don't drift; copies do. Consolidation must be deliberate and preserve information.
 
 `ssotize` starts as a read-only audit. It names the truth in scope, finds every copy, chooses the canonical home, and reports the exact consolidation plan. Only after the user approves that plan does it mutate artifacts.
 
-Use this to **establish or repair** SSOT — messy, legacy, or freshly-scaffolded states. Once SSOT holds, don't overuse it: consolidation is a one-time repair, not ongoing upkeep. When a read-only checker and a mutating follow-up have become one inseparable workflow, fold the checker into the consolidator and keep the approval gate; splitting the reflex only makes the safer first half easier to skip.
+Use this to **establish or repair** SSOT in messy, legacy, or freshly scaffolded states. Once SSOT holds, consolidation is a one-time repair, not ongoing upkeep. When a read-only checker and a mutating follow-up form one inseparable workflow, fold the checker into the consolidator and keep the approval gate; splitting them makes the audit easier to skip.
 
 ## Workflow
 
-1. Name the truth in scope — the specific fact, value, spec, decision, status, or definition being tracked, not the whole document.
-2. Audit read-only first: enumerate every occurrence across the given artifacts and platforms.
-3. Re-enumerate by a second method — a different search term, synonym, or tool — and confirm it surfaces no occurrence the first pass missed.
+1. Name the truth in scope: the specific fact, value, spec, decision, status, or definition being tracked, not the whole document.
+2. Audit read-only first: enumerate every occurrence across the given artifacts and platforms. For each candidate occurrence that is a file, record its path, mtime, size, and sha256 using host commands (`stat` or `Get-Item` for mtime and size, `sha256sum` or `Get-FileHash` for the digest), and report that table.
+3. Re-enumerate by a second method, using a different search term, synonym, or tool, and confirm it finds no occurrence the first pass missed.
 4. Classify each occurrence: exact copy, paraphrase, partial, stale, or contradictory.
-5. Pick the canonical home — the most authoritative and most-maintained location, closest to where the fact actually changes. Never promote a weak copy just because it is convenient; extract a new canonical home if none exists.
+5. Pick the canonical home: the most authoritative and most-maintained location, closest to where the fact changes. Never promote a weak copy for convenience; extract a new canonical home if none exists.
 6. Decide the action per non-canonical occurrence: **dedupe** (redundant copy), **reference** (docs should link to canonical, code should import/source/include it, config should use a shared read), or **reconcile** (it disagrees and needs a human call).
 7. Report the audit before editing: a table of occurrences (location · kind · action), the proposed canonical home with a one-line justification, unique details that must be folded into it, contradictions that need a decision, and the exact mutation plan.
 8. Ask for explicit approval to execute the mutation plan. If approval is not given, stop after the read-only report.
-9. Make or extract the canonical home complete and current — fold in any unique detail that lived only in a copy. Never lose information to consolidation.
+9. Immediately before the first write, re-read the path, mtime, size, and sha256 for every candidate file. If any candidate changed since the audit, stop before writing and report the file, each changed field, and its old and new values. Report missing or unreadable files too. A stopped run reports and re-audits instead of writing. Otherwise, make or extract a complete, current canonical home, folding in every unique detail from the copies. Never lose information to consolidation.
 10. Reconcile contradictions in the canonical home first; when the correct value is ambiguous, confirm it before replacing anything.
-11. Replace each duplicate with a live reference to the canonical home — for docs, use a link, a "see <home>", a quote-with-link, or a transclude where the platform supports it; for code, use an import/source/include of the shared home; for config, use a shared read from the one maintained file.
+11. Replace each duplicate with a live reference to the canonical home: for docs, use a link, a "see <home>", a quote-with-link, or a transclude where supported; for code, use an import/source/include of the shared home; for config, use a shared read from the one maintained file.
 12. Remove the now-redundant copies. Where removal would orphan a reader, leave a one-line pointer instead of deleting outright.
 
 ## Rules
 
+- Mtime is a staleness gate for the audit, never a rule for choosing the canonical home: never newest-wins.
 - A pass that finds no scatter to consolidate changes nothing.
 - The audit phase is read-only. Do not edit, move, or delete before the user approves the mutation plan.
-- An empty findings list is a valid result — never invent drift to justify a consolidation.
+- An empty findings list is a valid result; never invent drift to justify consolidation.
 - Keep contradictions separate from plain duplicates; never silently decide which conflicting value is "true".
-- Flag any detail that lives only in a non-canonical copy — it must be folded into the canonical home before that copy can be cut.
+- Flag any detail that lives only in a non-canonical copy; fold it into the canonical home before cutting that copy.
 - Don't consolidate across a trust/permission boundary (private → public, customer-facing → internal) without explicit confirmation.
 - Mutate with edit-safety: assert each replace target exists before touching it (report a MISS, never a silent no-op), edit unicode-safe (`PYTHONUTF8=1`), and act per occurrence, never a blanket sweep; make structural code moves with language-aware tools or scripted AST/parser edits, never scripted text rewrites.
 - Be platform-aware: transclude where possible, else link to a stable anchor the reader can follow; prefer a reference over a hard deletion when a platform can't link back.
