@@ -46,7 +46,7 @@
 | Skill | ماذا يفعل | scope | Invoker | قراءة فقط |
 |---|---|---|---|---|
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | يعيد كتابة artifact انحرف إلى v0 نظيفة، لا إلى رقعة أخرى | artifact واحد | model | |
-| 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | يتحقق من قراءة الطلب، ولا يظهر إلا fork حقيقيا باقيا | instruction واحد | model | ✔ |
+| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | يتحقق من قراءة الطلب، ولا يظهر إلا fork حقيقيا باقيا | instruction واحد | model | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | يقرأ البيانات المُسلَّمة ويقترح القصد للتأكيد، بدل أن يسأل عنه | دفعة بيانات واحدة | model | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | يحدد أرخص tier و reasoning effort كافيين | task واحد | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | يرفض المجاملة: الاعتراض الوحيد الذي قد يقتل الخطة، وأرخص test | plan واحد | user | |
@@ -105,7 +105,7 @@
 هذه الـ skills تراهن في الاتجاه الآخر. **كل واحدة منها تزيل:**
 
 - `re0` يعيد كتابة draft إلى v0 نظيفة بدلا من ترقيعه.
-- `readchk` يعيد صياغة الطلب داخليا ولا يسأل إلا حين ينجو مسار حقيقي.
+- `readback` يعيد صياغة الطلب داخليا ولا يسأل إلا حين ينجو مسار حقيقي.
 - `aim` يقرأ data drop مُسلَّمة ويقترح النية لتأكيدها بدلا من أن يطلبها.
 - `modelchk` يحدد أرخص tier و reasoning effort كافيين قبل أن يبدأ العمل.
 - `macrothink` ينشر قراءات جديدة ويبلغ عن الاختلاف قبل أن يصبح التقارب دليلا.

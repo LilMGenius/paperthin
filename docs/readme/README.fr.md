@@ -46,7 +46,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | Skill | Ce qu'il fait | Portée | Invocation | Lecture seule |
 |---|---|---|---|---|
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | Réécrit un artifact qui a dérivé en v0 propre, plutôt qu'un patch de plus | un artifact | modèle | |
-| 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | Vérifie la lecture de la demande ; ne remonte qu'une vraie bifurcation restante | une instruction | modèle | ✔ |
+| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | Vérifie la lecture de la demande ; ne remonte qu'une vraie bifurcation restante | une instruction | modèle | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | Lit les données transmises et propose l'intention à confirmer, au lieu de la demander | un lot de données | modèle | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Calibre le niveau suffisant le moins coûteux et le reasoning effort | une tâche | modèle | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Refuse d'être gentil : l'objection unique qui peut tuer le plan, plus le test le moins cher | un plan | utilisateur | |
@@ -105,7 +105,7 @@ Donnez un objectif à un agent et il **ajoute** : plus de fichiers, plus d'optio
 Ces skills parient dans l'autre sens. **Chacun enlève quelque chose :**
 
 - `re0` réécrit un brouillon en v0 propre au lieu de le patcher.
-- `readchk` reformule la demande et ne pose une question que si une vraie bifurcation survit.
+- `readback` reformule la demande et ne pose une question que si une vraie bifurcation survit.
 - `aim` lit un lot de données transmis et propose l'intention à confirmer, au lieu de la demander.
 - `modelchk` choisit le palier le moins cher suffisant et le reasoning effort avant que le travail commence.
 - `macrothink` déploie des lectures fraîches et rapporte la divergence avant que la convergence ne passe pour une preuve.
