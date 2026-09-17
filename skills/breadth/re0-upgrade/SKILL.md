@@ -26,12 +26,13 @@ This table owns renames in release order. Append future renames here and resolve
 | `ppt-upgrade` | `re0-upgrade` | 0.11.0 |
 | `ppt-release` | `re0-release` | 0.11.0 |
 | `readchk` | `readback` | <version being tagged> |
+| `reorder` | `re0-order` | <version being tagged> |
 
 ## Current catalog
 
 Install every skill below in the chosen scope, except those declined at confirmation. Use this roster to distinguish current from unknown names in `npx skills list` and installed directories.
 
-`re0`, `readback`, `aim`, `modelchk`, `hate`, `macrothink`, `feynman`, `autobahn`, `re0-style`, `reorder`, `detool`, `dedash`, `debloat`, `shower`, `factchk`, `mandela`, `sip`, `re0-git`, `re0-release`, `re0-merge`, `ssotize`, `re0-upgrade`, `re0-plan`, `re0-loop`, `re0-memo`, `re0-work`, `catchup`, `nba`, `prism`
+`re0`, `readback`, `aim`, `modelchk`, `hate`, `macrothink`, `feynman`, `autobahn`, `re0-style`, `re0-order`, `detool`, `dedash`, `debloat`, `shower`, `factchk`, `mandela`, `sip`, `re0-git`, `re0-release`, `re0-merge`, `ssotize`, `re0-upgrade`, `re0-plan`, `re0-loop`, `re0-memo`, `re0-work`, `catchup`, `nba`, `prism`
 
 ## Workflow
 

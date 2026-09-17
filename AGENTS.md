@@ -28,13 +28,13 @@ skills/
 └── mesh/      converge independent views into consensus
 ```
 
-The axes' quadrants and each skill's home are the README's facts — its [map](./README.md#the-map) and [index](./README.md#the-index); this file defines only the cut. Within a perspective the listing runs in a logical order (a `depth/` skill's work-lifecycle, say). One deliberate pin: `re0` leads `depth/` as the founding skill that opened the suite, so `reorder` keeps it first rather than sorting it into the cleanup group.
+The axes' quadrants and each skill's home are the README's facts — its [map](./README.md#the-map) and [index](./README.md#the-index); this file defines only the cut. Within a perspective the listing runs in a logical order (a `depth/` skill's work-lifecycle, say). One deliberate pin: `re0` leads `depth/` as the founding skill that opened the suite, so `re0-order` keeps it first rather than sorting it into the cleanup group.
 
 **File by trigger-scope, not by what a skill invokes.** A skill lives where the work it *triggers or emits* ranges, even when it orchestrates skills from other folders — `sip` gates one finished deliverable, so it's `depth/`, though its check may run cross-file `ssotize`.
 
 Reach for `breadth/` to *establish* order (legacy refactor, knowledge-base build, fresh scaffolding); once a fact is cleanly SSOT'd, *maintain* it with `re0` rather than re-consolidating. Keep drafts and retired skills out of the README and `plugin.json`.
 
-**Name it for the reflex it fires** — a plain real word (`shower`, `sip`) or a tight compression of a real term (`re0`, `ssotize`); a stranger should half-guess what it does from the name alone, so no opaque coinage. A self-evident metaphor-noun is allowed only as a deliberate exception, when its own intuition carries it — `autobahn` is the standing example. The `re0-` prefix is for clean-version lifecycle commands: upgrade an install, release a package, memorize a cycle, restart a build, run the loop, or clean a commit message. Never model-brand a name; the mechanism must outlive any one model.
+**Name it for the reflex it fires** — a plain real word (`shower`, `sip`) or a tight compression of a real term (`re0`, `ssotize`); a stranger should half-guess what it does from the name alone, so no opaque coinage. A self-evident metaphor-noun is allowed only as a deliberate exception, when its own intuition carries it — `autobahn` is the standing example. The `re0-` prefix marks clean-version lifecycle commands, the operator moves that carry an artifact from one clean state to the next (upgrade, release, memorize, restart, loop, clean a message, land a contribution, open a casebook, realign a listing); a bare `re` + verb coinage reads as one of them without being one, so such a name takes the prefix or a different word. Never model-brand a name; the mechanism must outlive any one model.
 
 ## SKILL.md format
 
@@ -66,7 +66,7 @@ Skills are self-contained ([Philosophy](#philosophy)); the couplings below are t
 
 Those inline rule-copies are mapped here so they stay coherent when you touch one — AGENTS.md is the contributor's map, not a runtime dependency:
 
-- **edit-safety** — safe mutation (assert the target exists and report a MISS, edit unicode-safe, replace positional targets per occurrence not by blanket sweep, script large structural moves): in `re0`, `dedash`, `ssotize`, `detool`, `reorder`, `debloat`.
+- **edit-safety** — safe mutation (assert the target exists and report a MISS, edit unicode-safe, replace positional targets per occurrence not by blanket sweep, script large structural moves): in `re0`, `dedash`, `ssotize`, `detool`, `re0-order`, `debloat`.
 - **negatives-as-corpus** — "cut" means move-to-archive, never delete; pruned and failed branches are assets: in `re0-memo`, `re0-work`, `re0-loop`, `autobahn`, `re0-plan`, `re0-merge`.
 - **commit-economy** — the commit-message standard, stated in full by its home `re0-git` and carried inline in `re0-release`.
 
@@ -83,7 +83,7 @@ Two canonical docs, two registers: **[AGENTS.md](./AGENTS.md) is LLM + human dua
 Before committing, confirm:
 
 1. **SKILL.md** follows the [anatomy](#skillmd-format).
-2. **[README](./README.md)** and its localized copies under [`docs/readme/`](./docs/readme/) list it — perspective group, invocation column, linked, in the perspective's logical order ([Layout](#layout)); the root README is the English source, and every translation keeps the `<sub>Read in: …</sub>` switcher with links rebased from its own directory. That order holds identically across `plugin.json`, [`scripts/runtime/catalog.cjs`](./scripts/runtime/catalog.cjs), and `re0-upgrade`'s catalog — a new skill or rename lands in place across all four surfaces with `reorder` (`check-catalog-sync` guards the set, not the order). Most skills earn only that catalog row; a Problem removes-list line or a Fixes entry is for the few that carry the thesis — both README sections are curated, not exhaustive.
+2. **[README](./README.md)** and its localized copies under [`docs/readme/`](./docs/readme/) list it — perspective group, invocation column, linked, in the perspective's logical order ([Layout](#layout)); the root README is the English source, and every translation keeps the `<sub>Read in: …</sub>` switcher with links rebased from its own directory. That order holds identically across `plugin.json`, [`scripts/runtime/catalog.cjs`](./scripts/runtime/catalog.cjs), and `re0-upgrade`'s catalog — a new skill or rename lands in place across all four surfaces with `re0-order` (`check-catalog-sync` guards the set, not the order). Most skills earn only that catalog row; a Problem removes-list line or a Fixes entry is for the few that carry the thesis — both README sections are curated, not exhaustive.
 3. **[plugin.json](./.claude-plugin/plugin.json)** registers its path.
 4. **[package.json](./package.json)** bumps by **kind, not size**: against the artifact's own prior spec, was the old behavior *wrong* (a fix → patch, even with much new plumbing) or *correct but narrower* (a new capability a user reaches for → minor)? A skill removed with no replacement is major. State that answer before naming the bump; keep `keywords` grouped.
 5. A **rename** appends its old → new row to [`re0-upgrade`](./skills/breadth/re0-upgrade/SKILL.md)'s deprecations, in release order.
