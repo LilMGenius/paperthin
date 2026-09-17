@@ -54,7 +54,7 @@
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 追问一个刚做出的决定，直到你能把它解释清楚，否则标记出缺口 | 一个决定 | 用户 | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 先切掉不安全 scope，让安全部分全速运行，并记录 descope | 一个任务 | 模型 | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | 检查代码风格、惯例和一致性；默认不做修改，只给出简短报告 | 一项待审查的变更 | 模型 | |
-| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | 在一条明确的原则下，把漂移的列表重新排成合理顺序；只移动条目，不改动文字 | 一个列表 | 用户 | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | 在一条明确的原则下，把漂移的列表重新排成合理顺序；只移动条目，不改动文字 | 一个列表 | 用户 | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 把偶然绑定的工具名替换成它真正表达的机制 | 一个 durable artifact | 模型 | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | 移除 em dash 及其相似痕迹，并为每处选择真正需要的标点 | 你的文字 | 用户 | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | 把臃肿的产物压缩到承重的密度；只删文字，绝不删规则 | 一件产物 | 用户 | |
@@ -117,7 +117,7 @@
 - `debloat` 把臃肿的产物压缩到承重的密度，只删文字，绝不删规则。
 - `shower` 删掉陌生人看不懂的部分。
 - `ssotize` 审计散落在文件里的 facts，取得批准，然后把它们折叠到一个归宿。
-- `reorder` 按单一原则重新对齐一份已经漂移的列表，只挪动条目，不改动任何措辞。
+- `re0-order` 按单一原则重新对齐一份已经漂移的列表，只挪动条目，不改动任何措辞。
 - `sip` 自动把这一切跑在你自己的 output 上。
 - `re0-memo` / `re0-work` / `re0-loop` 保留教训，让错误的 build 死掉，并让 loop 持续运转。
 - `catchup` / `nba` 从实时 state 重建人类的地图，然后只返回下一步该做什么。

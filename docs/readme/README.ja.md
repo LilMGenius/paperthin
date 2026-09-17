@@ -54,7 +54,7 @@
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 下したばかりの決定を、説明できるまで問い詰め、できなければ隙間を指摘する | 決定一つ | ユーザー | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 危険な scope を先に切り出し、安全な残りを全力で走らせ、descope を記録する | タスク一つ | モデル | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | コードのスタイル・慣習・一貫性を確認する。デフォルトは編集ゼロと短いレポート | レビュー中の変更一つ | モデル | |
-| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | 一つの原則のもとで、drift した listing を論理的な順序に整え直す。項目を動かすだけで、文言は変えない | listing 一つ | ユーザー | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | 一つの原則のもとで、drift した listing を論理的な順序に整え直す。項目を動かすだけで、文言は変えない | listing 一つ | ユーザー | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 紛れた incidental な stack 名を、意図した mechanism に置き換える | durable artifact 一つ | モデル | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash とその類似物を取り除き、各場所に必要な句読点を選ぶ | 自分の文章 | ユーザー | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | 肥大化した artifact を、意味を支える密度まで圧縮する。文言を削るだけで、rule は決して削らない | artifact 一つ | ユーザー | |
@@ -117,7 +117,7 @@ agent に目標を渡すと、agent は**足します**。ファイルを増や�
 - `debloat` は肥大化した artifact を意味を支える密度まで圧縮し、文言は削っても rule は決して削りません。
 - `shower` は見知らぬ人が追えない部分を切ります。
 - `ssotize` はファイル間に散らばった fact を監査し、承認を求めてから一つの家に畳みます。
-- `reorder` は drift した listing を一つの原則の下に並べ直し、項目を動かすだけで言葉には一切手を付けません。
+- `re0-order` は drift した listing を一つの原則の下に並べ直し、項目を動かすだけで言葉には一切手を付けません。
 - `sip` はそのすべてを自分の output に自動で実行します。
 - `re0-memo` / `re0-work` / `re0-loop` は教訓を保存し、間違った build を死なせ、loop を回し続けます。
 - `catchup` / `nba` はライブ state から人間の地図を再構築し、次の一手だけを返します。
