@@ -46,7 +46,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | Skill | Was er tut | Scope | Invoker | Nur Lesen |
 |---|---|---|---|---|
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | Schreibt ein gedriftetes Artifact als saubere v0 neu, statt noch einen Patch daraufzusetzen | ein Artifact | Modell | |
-| 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | Prüft die Lesart der Anfrage und zeigt nur einen echten verbleibenden Fork | eine Anweisung | Modell | ✔ |
+| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | Prüft die Lesart der Anfrage und zeigt nur einen echten verbleibenden Fork | eine Anweisung | Modell | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | Liest übergebene Daten und schlägt die zu bestätigende Absicht vor, statt danach zu fragen | eine Datenübergabe | Modell | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Bestimmt die billigste ausreichende Stufe und reasoning effort | eine Aufgabe | Modell | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Weigert sich, nett zu sein: der eine Einwand, der den Plan töten könnte, plus der billigste Test | ein Plan | Nutzer | |
@@ -105,7 +105,7 @@ Gib einem Agent ein Ziel und er **fügt hinzu**: mehr Dateien, mehr Optionen, me
 Diese Skills wetten in die andere Richtung. **Jeder einzelne entfernt etwas:**
 
 - `re0` schreibt einen Entwurf als saubere v0 neu, statt ihn weiter zu flicken.
-- `readchk` formuliert die Anfrage neu und fragt nur, wenn eine echte Weiche übrig bleibt.
+- `readback` formuliert die Anfrage neu und fragt nur, wenn eine echte Weiche übrig bleibt.
 - `aim` liest einen übergebenen Daten-Drop und schlägt die zu bestätigende Absicht vor, statt danach zu fragen.
 - `modelchk` bestimmt die billigste ausreichende Tier und den reasoning effort, bevor die Arbeit beginnt.
 - `macrothink` fächert frische Lesarten auf und meldet Divergenz, bevor Konvergenz wie ein Beweis aussieht.

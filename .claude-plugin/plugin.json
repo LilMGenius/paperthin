@@ -3,7 +3,7 @@
   "description": "Low-level agentic design patterns. Turning old engineering wisdom into reflexes your agent reaches for on its own—on any agent.",
   "skills": [
     "./skills/depth/re0",
-    "./skills/depth/readchk",
+    "./skills/depth/readback",
     "./skills/depth/aim",
     "./skills/depth/modelchk",
     "./skills/depth/hate",

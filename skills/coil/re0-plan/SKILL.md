@@ -15,7 +15,7 @@ A written thesis, gate list, and step plan keep a cycle from drifting toward its
 1. Classify the cycle's weight: a fix or hardening pass with no real design surface is **lightweight**; a cycle whose direction warrants debate is **full**.
 2. Create `.re0/iteration/<version>-<workname>/` and write its first file in the same step, according to weight:
    - **lightweight** → `RETRO.local.md`: one paragraph naming the task and why it's lightweight. `re0-memo` extends this same file at the end; it never starts a fresh one. Stop here.
-   - **full** → `DESIGN.local.md`: thesis, scope, and quality gates matching `re0-loop`'s FRAME turn, sufficient to resume after a session break. Changes to shippable surface always require an AGENTS.md/README reflection gate (see Rules). Confirm the read with `readchk` and size the tier with `modelchk`; use `macrothink` or another judgment skill only for a contestable direction.
+   - **full** → `DESIGN.local.md`: thesis, scope, and quality gates matching `re0-loop`'s FRAME turn, sufficient to resume after a session break. Changes to shippable surface always require an AGENTS.md/README reflection gate (see Rules). Confirm the read with `readback` and size the tier with `modelchk`; use `macrothink` or another judgment skill only for a contestable direction.
 3. (full only) Write `WORKFLOW.local.md`: numbered steps specific to this build, following `re0-loop`'s turn order without restating its generic stages.
 4. (full only) Write `EVIDENCE.local.md`: gates from `DESIGN.local.md`, stating the proof still required, not results.
 5. Keep reference material flat as `REF-<topic>.local.md`; promote to a `refs/` subfolder only once it multiplies past a couple of files.
