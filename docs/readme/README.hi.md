@@ -46,7 +46,7 @@
 | Skill | क्या करता है | Scope | Invoker | read-only |
 |---|---|---|---|---|
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | drift हुए artifact को एक clean v0 में rewrite करता है, एक और patch नहीं लगाता | एक artifact | model | |
-| 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | request की read check करता है; सिर्फ बचा हुआ real fork दिखाता है | एक instruction | model | ✔ |
+| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | request की read check करता है; सिर्फ बचा हुआ real fork दिखाता है | एक instruction | model | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | सौंपा गया data पढ़कर, पूछने के बजाय, confirm करने के लिए intent propose करता है | एक data drop | model | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | सबसे सस्ता sufficient tier और reasoning effort चुनता है | एक task | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | nice होने से इनकार करता है: plan को मार सकने वाली एक objection, और सबसे सस्ता test | एक plan | user | |
@@ -105,7 +105,7 @@ Agent को goal दें और वह **add** करता है: और fi
 ये skills उलटी दिशा में bet करते हैं। **इनमें से हर एक remove करता है:**
 
 - `re0` draft को patch करने के बजाय clean v0 में rewrite करता है।
-- `readchk` request को दोबारा restate करता है और तभी पूछता है जब असली fork बचता है।
+- `readback` request को दोबारा restate करता है और तभी पूछता है जब असली fork बचता है।
 - `aim` handed-over data drop पढ़ता है और intent मांगने के बजाय confirm करने के लिए propose करता है।
 - `modelchk` काम शुरू होने से पहले सबसे सस्ता पर्याप्त tier और reasoning effort तय करता है।
 - `macrothink` fresh reads फैलाता है और convergence को proof मानने से पहले divergence report करता है।

@@ -43,7 +43,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | Skill | What it does | Scope | Invoker | Read-only |
 |---|---|---|---|---|
 | ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Rewrite a drifted artifact into a clean v0, not another patch | one artifact | model | |
-| 🧭 **[readchk](./skills/depth/readchk/SKILL.md)** | Check the model's read of the request; surface only a real surviving fork | one instruction | model | ✔ |
+| 🧭 **[readback](./skills/depth/readback/SKILL.md)** | Check the model's read of the request; surface only a real surviving fork | one instruction | model | ✔ |
 | 🏹 **[aim](./skills/depth/aim/SKILL.md)** | Read handed-over data and propose the intent to confirm, instead of asking for it | one data drop | model | ✔ |
 | 📏 **[modelchk](./skills/depth/modelchk/SKILL.md)** | Size the cheapest sufficient tier and reasoning effort | one task | model | ✔ |
 | 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse to be nice: the one objection that could kill it, plus the cheapest test | one plan | user | |
@@ -101,7 +101,7 @@ Point an agent at a goal and it **adds** — more files, more options, more "hel
 These skills bet the other way — **every one of them removes:**
 
 - `re0` rewrites a draft into a clean v0 instead of patching it,
-- `readchk` restates the request and asks only when a real fork survives,
+- `readback` restates the request and asks only when a real fork survives,
 - `aim` reads a handed-over data drop and proposes the intent to confirm, instead of asking for it,
 - `modelchk` sizes the cheapest sufficient capability tier and reasoning effort before the work starts,
 - `macrothink` fans out fresh reads and reports divergence before convergence reads as proof,
@@ -145,7 +145,7 @@ Edit a doc one piece at a time across a session and it bloats: stale deltas, dup
 ### #2 — You can build the wrong request perfectly
 A long or bundled instruction has enough surface area for a subtle misread: the agent starts work, stays coherent, and only later proves it optimized the wrong target.
 
-**The fix → `readchk`:** restate the instruction internally, cross-check it against available context, proceed silently when the read is resolved, and ask only when one real fork survives.
+**The fix → `readback`:** restate the instruction internally, cross-check it against available context, proceed silently when the read is resolved, and ask only when one real fork survives.
 
 <details>
 <summary><b>[PROOF]</b></summary>

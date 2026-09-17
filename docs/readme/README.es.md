@@ -46,7 +46,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | Skill | Que hace | Alcance | Invocador | Solo lectura |
 |---|---|---|---|---|
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | Reescribe un artifact desviado como una v0 limpia, no como otro patch | un artifact | model | |
-| 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | Revisa la lectura de la solicitud; solo expone un fork real que sobreviva | una instruccion | model | ✔ |
+| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | Revisa la lectura de la solicitud; solo expone un fork real que sobreviva | una instruccion | model | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | Lee los datos entregados y propone la intencion a confirmar, en vez de preguntarla | una entrega de datos | model | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Dimensiona el tier suficiente mas barato y el esfuerzo de razonamiento | una tarea | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Se niega a ser amable: la objecion unica que podria matar el plan, mas la prueba mas barata | un plan | user | |
@@ -105,7 +105,7 @@ Apunta un agent a un objetivo y **agrega**: mas archivos, mas opciones, mas boil
 Estas skills apuestan en la direccion contraria. **Cada una elimina algo:**
 
 - `re0` reescribe un borrador como una v0 limpia en vez de patcharlo.
-- `readchk` reformula la solicitud y solo pregunta cuando sobrevive una bifurcacion real.
+- `readback` reformula la solicitud y solo pregunta cuando sobrevive una bifurcacion real.
 - `aim` lee un data drop entregado y propone la intencion a confirmar, en vez de pedirla.
 - `modelchk` calcula el tier mas barato suficiente y el esfuerzo de razonamiento antes de que empiece el trabajo.
 - `macrothink` despliega lecturas frescas e informa la divergencia antes de que la convergencia parezca prueba.
