@@ -54,7 +54,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Presse une décision fraîchement prise jusqu'à pouvoir l'expliquer, sinon la lacune est signalée | une décision | utilisateur | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Découpe le périmètre dangereux en amont, exécute le reste sûr à pleine puissance, journalise le descope | une tâche | modèle | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Vérifie le style, les conventions et la cohérence du code ; par défaut, aucune modification et un bref rapport | un changement en revue | modèle | |
-| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Réaligne une liste qui a dérivé dans un ordre logique sous un principe unique énoncé ; déplace seulement les items, ne reformule rien | une liste | utilisateur | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | Réaligne une liste qui a dérivé dans un ordre logique sous un principe unique énoncé ; déplace seulement les items, ne reformule rien | une liste | utilisateur | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Remplace les noms d'outils accidentels par le mécanisme visé | un artifact durable | modèle | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Retire les em dashes et leurs sosies, en choisissant la ponctuation juste à chaque endroit | votre prose | utilisateur | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Compresse un artefact surchargé à sa densité porteuse ; coupe des mots, jamais une règle | un artefact | utilisateur | |
@@ -117,7 +117,7 @@ Ces skills parient dans l'autre sens. **Chacun enlève quelque chose :**
 - `debloat` compresse un artefact surchargé à sa densité porteuse, coupant des mots mais jamais une règle.
 - `shower` coupe ce qu'un inconnu ne peut pas suivre.
 - `ssotize` audite les faits dispersés, demande l'approbation, puis les replie dans un seul foyer.
-- `reorder` réaligne une liste qui a dérivé sous un seul principe, en déplaçant les éléments sans rien reformuler.
+- `re0-order` réaligne une liste qui a dérivé sous un seul principe, en déplaçant les éléments sans rien reformuler.
 - `sip` exécute tout cela automatiquement sur votre propre output.
 - `re0-memo` / `re0-work` / `re0-loop` préservent la leçon, laissent mourir la mauvaise construction et gardent la boucle en marche.
 - `catchup` / `nba` reconstruisent la carte de l'humain à partir de l'état en direct, puis renvoient le seul prochain coup.

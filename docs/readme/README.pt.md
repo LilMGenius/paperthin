@@ -54,7 +54,7 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Pressiona uma decisao recem-tomada ate poder explica-la, ou a lacuna e sinalizada | uma decisao | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Recorta o scope inseguro de antemao, executa o restante seguro com forca total e registra o descope | uma tarefa | model | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Verifica estilo, convenções e consistência do código; por padrão, zero edições e um relatório breve | uma alteração em revisão | model | |
-| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | Realinha uma listagem que derivou em uma ordem logica sob um unico principio declarado; apenas move itens, nao reescreve nada | uma listagem | user | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | Realinha uma listagem que derivou em uma ordem logica sob um unico principio declarado; apenas move itens, nao reescreve nada | uma listagem | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Troca nomes incidentais de stack pelo mecanismo que queriam dizer | um artifact duravel | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Remove em dashes e semelhantes, escolhendo a pontuacao que cada ponto precisa | sua prosa | user | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Comprime um artefato inchado ate sua densidade essencial; corta palavras, nunca uma regra | um artefato | user | |
@@ -117,7 +117,7 @@ Essas skills apostam no outro lado. **Cada uma remove algo:**
 - `debloat` comprime um artefato inchado ate sua densidade essencial, cortando palavras mas nunca uma regra.
 - `shower` corta o que um estranho nao consegue acompanhar.
 - `ssotize` audita facts espalhados, pede aprovacao e entao os colapsa em um unico lar.
-- `reorder` realinha uma listagem que derivou sob um unico principio, movendo itens e sem reescrever nada.
+- `re0-order` realinha uma listagem que derivou sob um unico principio, movendo itens e sem reescrever nada.
 - `sip` executa tudo isso automaticamente sobre o seu proprio output.
 - `re0-memo` / `re0-work` / `re0-loop` preservam a licao, deixam o build errado morrer e mantem o loop rodando.
 - `catchup` / `nba` reconstroem o mapa do humano a partir do estado ao vivo, e devolvem o unico proximo passo.

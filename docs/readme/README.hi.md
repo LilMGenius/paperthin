@@ -54,7 +54,7 @@
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | अभी लिए गए decision को तब तक दबाता है जब तक आप उसे समझा न सकें, या gap flag हो जाए | एक decision | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | unsafe scope को upfront carve करता है, safe rest को full strength पर चलाता है, descope record करता है | एक task | model | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | code style, conventions और consistency जाँचता है; default में शून्य edits और एक छोटी report देता है | review में एक बदलाव | model | |
-| 🔃 **[reorder](../../skills/depth/reorder/SKILL.md)** | drift हुई listing को एक बताए गए principle के तहत logical order में फिर से align करता है; सिर्फ items move करता है, कुछ reword नहीं करता | एक listing | user | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | drift हुई listing को एक बताए गए principle के तहत logical order में फिर से align करता है; सिर्फ items move करता है, कुछ reword नहीं करता | एक listing | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | incidental stack nouns को उनके mechanism से बदलता है | एक durable artifact | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash और उसके look-alikes हटाता है, हर जगह सही punctuation चुनता है | आपकी prose | user | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | bloated artifact को उसकी load-bearing density तक compress करता है; words काटता है, कभी कोई rule नहीं | एक artifact | user | |
@@ -117,7 +117,7 @@ Agent को goal दें और वह **add** करता है: और fi
 - `debloat` bloated artifact को उसकी load-bearing density तक compress करता है, words काटता है पर कभी कोई rule नहीं।
 - `shower` वह काटता है जिसे कोई stranger follow नहीं कर सकता।
 - `ssotize` files में फैले facts को audit करता है, approval मांगता है, फिर उन्हें एक home में collapse करता है।
-- `reorder` drifted listing को एक principle के तहत फिर align करता है, items हिलाता है और कुछ भी reword नहीं करता।
+- `re0-order` drifted listing को एक principle के तहत फिर align करता है, items हिलाता है और कुछ भी reword नहीं करता।
 - `sip` यह सब अपने output पर automatically चलाता है।
 - `re0-memo` / `re0-work` / `re0-loop` lesson बचाते हैं, गलत build को मरने देते हैं, और loop चलाए रखते हैं।
 - `catchup` / `nba` live state से इंसान का map फिर बनाते हैं, फिर एक ही अगला move लौटाते हैं।

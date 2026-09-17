@@ -51,7 +51,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🧐 **[feynman](./skills/depth/feynman/SKILL.md)** | Press a just-made decision until you can explain it, or the gap is flagged | one decision | user | ✔ |
 | 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Carve unsafe scope out up front, run the safe rest at full strength, log the descope | one task | model | |
 | 🎨 **[re0-style](./skills/depth/re0-style/SKILL.md)** | Check code style, conventions, and consistency; default to zero edits and a short report | one change under review | model | |
-| 🔃 **[reorder](./skills/depth/reorder/SKILL.md)** | Realign a drifted listing into a logical order under one stated principle; move items only, reword nothing | one listing | user | |
+| 🔃 **[re0-order](./skills/depth/re0-order/SKILL.md)** | Realign a drifted listing into a logical order under one stated principle; move items only, reword nothing | one listing | user | |
 | 🧰 **[detool](./skills/depth/detool/SKILL.md)** | Replace incidental stack nouns with the mechanism they mean | one durable artifact | model | |
 | ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and look-alikes, picking the punctuation each spot needs | your prose | user | |
 | 🗜️ **[debloat](./skills/depth/debloat/SKILL.md)** | Compress a bloated artifact to its load-bearing density; cut words, never a rule | one artifact | user | |
@@ -113,7 +113,7 @@ These skills bet the other way — **every one of them removes:**
 - `debloat` compresses a bloated artifact to its load-bearing density, cutting words but never a rule,
 - `shower` cuts whatever a stranger can't follow,
 - `ssotize` audits scattered facts, asks approval, then folds them into one home,
-- `reorder` realigns a drifted listing under one principle, moving items and rewording nothing,
+- `re0-order` realigns a drifted listing under one principle, moving items and rewording nothing,
 - `sip` runs all of it on your own output, automatically,
 - `re0-memo` / `re0-work` / `re0-loop` preserve the lesson, let the wrong build die, and keep the cycle running,
 - `catchup` / `nba` reload the human's map from live state, then return the one next move.
@@ -260,13 +260,13 @@ A timeout value, a decision, a status — copied into a README, a doc, a ticket,
 ### #10 — A list's order stops meaning anything
 Items get appended where they were typed, not where they belong. Kin drift apart, the sequence follows no axis a reader can feel, and an order that was information now says nothing.
 
-**The fix → `reorder`:** realign the listing under one nameable principle, moving items only — nothing reworded, added, or removed.
+**The fix → `re0-order`:** realign the listing under one nameable principle, moving items only — nothing reworded, added, or removed.
 
 <details>
 <summary><b>[PROOF]</b></summary>
 
 - **Setup** — this suite's own catalog had grown by appending each new skill in ship order, so the README Index and its ten translations listed skills by when they landed, not by what they do.
-- **Result** — `reorder` resequenced every copy by the work each skill serves, pinning `re0` first as the founding thesis and moving entries only, and the roster drift-guards stayed green because not one name changed.
+- **Result** — `re0-order` resequenced every copy by the work each skill serves, pinning `re0` first as the founding thesis and moving entries only, and the roster drift-guards stayed green because not one name changed.
 - **So** — the order reads as intentional across all eleven surfaces, and a reader can name the principle without being told it.
 </details>
 
