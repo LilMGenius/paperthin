@@ -46,7 +46,7 @@
 | 스킬 | 하는 일 | 스코프 | 호출자 | 읽기 전용 |
 |---|---|---|---|---|
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | drift된 아티팩트를 또 다른 패치가 아니라 깨끗한 v0로 다시 씁니다 | 아티팩트 하나 | 모델 | |
-| 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | 요청을 어떻게 읽었는지 확인하고, 실제로 남은 갈림길만 드러냅니다 | 지시 하나 | 모델 | ✔ |
+| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | 요청을 어떻게 읽었는지 확인하고, 실제로 남은 갈림길만 드러냅니다 | 지시 하나 | 모델 | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | 넘겨받은 데이터를 읽고, 물어보는 대신 확인할 의도를 먼저 제안합니다 | 넘겨받은 데이터 하나 | 모델 | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 충분한 가장 싼 tier와 reasoning effort를 고릅니다 | 작업 하나 | 모델 | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 친절하기를 거부합니다. 계획을 죽일 수 있는 반론 하나와 가장 싼 테스트를 냅니다 | 계획 하나 | 사용자 | |
@@ -105,7 +105,7 @@
 이 스킬들은 반대로 겁니다. **모든 스킬이 무언가를 제거합니다.**
 
 - `re0`는 draft를 패치하지 않고 깨끗한 v0로 다시 씁니다.
-- `readchk`는 요청을 다시 진술하고, 실제로 갈림길이 남을 때만 묻습니다.
+- `readback`는 요청을 다시 진술하고, 실제로 갈림길이 남을 때만 묻습니다.
 - `aim`은 넘겨받은 data drop을 읽고, 묻는 대신 확인할 intent를 제안합니다.
 - `modelchk`는 작업이 시작되기 전에 충분한 가장 싼 tier와 reasoning effort를 정합니다.
 - `macrothink`는 새로운 읽기를 펼치고, 수렴이 증거처럼 보이기 전에 divergence를 먼저 보고합니다.

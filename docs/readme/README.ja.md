@@ -46,7 +46,7 @@
 | Skill | 何をするか | scope | 呼び出し元 | 読み取り専用 |
 |---|---|---|---|---|
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | drift した artifact を、さらにパッチするのではなく、きれいな v0 として書き直す | artifact 一つ | モデル | |
-| 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | 依頼の読みを確認し、残った本物の分岐だけを出す | instruction 一つ | モデル | ✔ |
+| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | 依頼の読みを確認し、残った本物の分岐だけを出す | instruction 一つ | モデル | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | 引き継がれたデータを読み、尋ねる代わりに、確認すべき意図を提案する | データ受け渡し一つ | モデル | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 十分な最安 tier と reasoning effort を選ぶ | タスク一つ | モデル | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 優しくしない。計画を殺せる一つの反論と、最も安いテストを返す | 計画一つ | ユーザー | |
@@ -105,7 +105,7 @@ agent に目標を渡すと、agent は**足します**。ファイルを増や�
 これらの skill は逆に賭けます。**すべてが何かを取り除きます。**
 
 - `re0` は draft を patch せず、きれいな v0 に書き直します。
-- `readchk` はリクエストを内部で言い直し、本当に分かれ道が残るときだけ尋ねます。
+- `readback` はリクエストを内部で言い直し、本当に分かれ道が残るときだけ尋ねます。
 - `aim` は引き継がれた data drop を読み、意図を尋ねる代わりに、確認すべき意図を提案します。
 - `modelchk` は作業が始まる前に十分な最安の tier と reasoning effort を決めます。
 - `macrothink` は新しい読みを展開し、収束が証拠に見える前に divergence を報告します。
