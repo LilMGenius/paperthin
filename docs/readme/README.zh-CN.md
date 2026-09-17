@@ -46,7 +46,7 @@
 | skill | 作用 | scope | Invoker | 只读 |
 |---|---|---|---|---|
 | ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | 把漂移的 artifact 重写成干净的 v0，而不是再打一层 patch | 一个 artifact | 模型 | |
-| 🧭 **[readchk](../../skills/depth/readchk/SKILL.md)** | 检查对请求的理解；只暴露真正仍然存在的分叉 | 一个 instruction | 模型 | ✔ |
+| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | 检查对请求的理解；只暴露真正仍然存在的分叉 | 一个 instruction | 模型 | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | 读取交接来的数据，主动提出待确认的意图，而不是反过来询问 | 一份数据交付 | 模型 | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 选择足够且最便宜的 tier 与推理强度 | 一个任务 | 模型 | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 拒绝客气，给出一个足以杀死计划的反对意见和最便宜的测试 | 一个计划 | 用户 | |
@@ -105,7 +105,7 @@
 这些 skill 押注相反方向。**每一个都在移除：**
 
 - `re0` 把草稿重写成干净的 v0，而不是继续打 patch。
-- `readchk` 在内部复述请求，只有真正存活的分歧才会提问。
+- `readback` 在内部复述请求，只有真正存活的分歧才会提问。
 - `aim` 读一份交接过来的 data drop，直接提出待确认的意图，而不是反过来问你。
 - `modelchk` 在工作开始前选出足够用的最便宜 tier 与推理强度。
 - `macrothink` 展开新的解读，先报告分歧，再让收敛看起来像证据。
