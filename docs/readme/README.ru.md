@@ -81,6 +81,7 @@
 | 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | Открывает новую папку iteration с DESIGN/WORKFLOW/EVIDENCE до первого хода re0-loop | один новый cycle | user | |
 | 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | Освойте один навык набора на трёх оцениваемых уровнях; завершение определяется собственной работой учащегося, а не следом вызовов | один навык | user | |
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Запускает loop build → QA → re0-memo → re0-work, чтобы накапливалось learning, а не code | весь loop | model | |
+| 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | Следит за длительной задачей агента и по умолчанию предупреждает о зависании; восстановление лишь предлагается на одобрение человеку | одна выполняемая задача | user | |
 | 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Извлекает lessons и anti-patterns из завершенного или проваленного cycle | один завершенный cycle | model | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Начинает заново с v0, оставляя только lessons, заслужившие reuse | один restart | model | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Восстанавливает потерянный context из live-состояния: что от него нужно, что изменилось, что значат новые слова | один re-entry | model | ✔ |
