@@ -57,6 +57,7 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | Realinha uma listagem que derivou em uma ordem logica sob um unico principio declarado; apenas move itens, nao reescreve nada | uma listagem | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Troca nomes incidentais de stack pelo mecanismo que queriam dizer | um artifact duravel | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Remove em dashes e semelhantes, escolhendo a pontuacao que cada ponto precisa | sua prosa | user | |
+| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | Propõe uma vírgula ou um conectivo, com uma razão para cada ponto médio que liga uma enumeração aberta em prosa coreana; preserva os três usos admitidos e os contextos protegidos | prosa coreana delimitada por quem escreve | user | ✔ |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Comprime um artefato inchado ate sua densidade essencial; corta palavras, nunca uma regra | um artefato | user | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Faz uma leitura fria, com olhos novos e zero contexto: isso se sustenta sozinho? | um artifact | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Verifica o que se afirma contra sources, nas duas direcoes: o absurdo poderia ser real, o obvio falso? | uma claim | model | |
