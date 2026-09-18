@@ -84,6 +84,7 @@
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 只保留赢得复用资格的教训，从 v0 重新开始 | 一次重启 | 模型 | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 从实时 state 重建丢失的 context：谁需要它、发生了什么变化、新词是什么意思 | 一次回归 | 模型 | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 读取实时 cycle state，返回一个下一步最佳行动，而不是菜单 | 当前 cycle | 模型 | ✔ |
+| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 为一个明确意图推荐有序的技能图，标明每一步的权限类型，但不调用任何技能 | 一个明确意图 | 模型 | ✔ |
 
 ### `mesh/`
 

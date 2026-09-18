@@ -84,6 +84,7 @@
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 재사용할 자격을 얻은 교훈만 남기고 v0에서 다시 시작합니다 | 재시작 하나 | 모델 | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 실시간 state에서 잃어버린 context를 재구성합니다: 누구에게 필요한지, 무엇이 바뀌었는지, 새 단어가 무엇을 뜻하는지 | 재진입 하나 | 모델 | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 살아 있는 사이클 state를 읽고 메뉴가 아니라 단 하나의 다음 최선 행동을 돌려줍니다 | 현재 사이클 | 모델 | ✔ |
+| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 명시된 의도 하나에 맞는 순서 있는 스킬 그래프를 추천하고 각 단계의 권한 유형을 표시하며 스킬을 호출하지 않습니다 | 명시된 의도 하나 | 모델 | ✔ |
 
 ### `mesh/`
 

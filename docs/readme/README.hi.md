@@ -84,6 +84,7 @@
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | सिर्फ reuse कमाने वाले lessons रखते हुए v0 से restart करता है | एक restart | model | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | live state से खोया हुआ context फिर से बनाता है: उसे क्या चाहिए, क्या बदला, नए शब्दों का मतलब क्या है | एक re-entry | model | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | live cycle state पढ़कर menu नहीं, single next best action देता है | live cycle | model | ✔ |
+| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | एक स्पष्ट रूप से बताए गए इरादे के लिए skills का क्रमबद्ध ग्राफ सुझाता है, हर चरण के अधिकार का प्रकार बताता है और किसी skill को चलाता नहीं | एक बताया गया इरादा | model | ✔ |
 
 ### `mesh/`
 

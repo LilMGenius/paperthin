@@ -84,6 +84,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Redémarre depuis v0 en gardant seulement les leçons qui ont mérité d'être réutilisées | un redémarrage | modèle | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Reconstruit le contexte perdu à partir de l'état en direct : ce dont il a besoin, ce qui a changé, ce que signifient les nouveaux mots | une réentrée | modèle | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lit l'état vivant du cycle et renvoie la seule meilleure prochaine action, pas un menu | le cycle en cours | modèle | ✔ |
+| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Recommande un graphe ordonné de skills pour une intention exprimée, avec le type d’autorité de chaque étape, sans les invoquer | une intention exprimée | modèle | ✔ |
 
 ### `mesh/`
 
