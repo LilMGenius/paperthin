@@ -57,6 +57,7 @@
 | 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | يعيد ترتيب قائمة انحرفت إلى نظام منطقي وفق مبدأ واحد معلن؛ ينقل العناصر فقط، دون إعادة صياغة أي شيء | قائمة واحدة | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | يستبدل أسماء الأدوات العارضة بالآلية المقصودة | artifact durable واحد | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | يزيل em dashes وما يشبهها، ويختار علامة الترقيم التي يحتاجها كل موضع | نثرك | user | |
+| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | يقترح فاصلة أو أداة ربط مع تعليل لكل نقطة وسطية تصل عناصر تعداد مفتوح في النثر الكوري؛ يحافظ على الاستخدامات الثلاثة المقررة والسياقات المحمية | نثر كوري يحدد الكاتب نطاقه | user | ✔ |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | يضغط artifact منتفخا إلى كثافته الحاملة؛ يقطع الكلمات، لا قاعدة أبدا | artifact واحد | user | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | يقرأه قراءة باردة بعين جديدة وبدون سياق: هل يقف وحده؟ | artifact واحد | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | يتحقق مما يُدّعى مقابل sources في الاتجاهين: هل يمكن أن يكون العبث صحيحا، والواضح خاطئا؟ | claim واحد | model | |

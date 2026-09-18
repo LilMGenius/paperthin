@@ -69,7 +69,7 @@ Those inline rule-copies are mapped here so they stay coherent when you touch on
 - **edit-safety** — safe mutation (assert the target exists and report a MISS, edit unicode-safe, replace positional targets per occurrence not by blanket sweep, script large structural moves): in `re0`, `dedash`, `ssotize`, `detool`, `re0-order`, `debloat`.
 - **negatives-as-corpus** — "cut" means move-to-archive, never delete; pruned and failed branches are assets: in `re0-memo`, `re0-work`, `re0-loop`, `autobahn`, `re0-plan`, `re0-merge`.
 - **commit-economy** — the commit-message standard, stated in full by its home `re0-git` and carried inline in `re0-release`.
-- **tell-family order** — the passes that remove machine-writing tells state their class and their order inline, and the punctuation pass runs last because a rewrite regenerates dashes: `debloat` (excess class, handing drift, duplication, dashes and stack nouns to their owners), `re0` (shape class by rewriting; an unsourced claim is observed, never deleted or sourced), `dedash` (punctuation, last); `detool` states that it is outside the family and `modelchk` that routing is not its dial.
+- **tell-family order** — the passes that remove machine-writing tells state their class and their order inline, and the punctuation pass runs last because a rewrite regenerates dashes: `debloat` (excess class, handing drift, duplication, dashes and stack nouns to their owners), `re0` (shape class by rewriting; an unsourced claim is observed, never deleted or sourced), `dedash` (punctuation, last), `dedot` (second punctuation pass, Korean middle dot; runs after any rewrite like `dedash`); `detool` states that it is outside the family and `modelchk` that routing is not its dial.
 
 ## Local provenance
 
