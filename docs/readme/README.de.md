@@ -84,6 +84,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Startet von v0 neu und behält nur Lektionen, die Wiederverwendung verdient haben | ein Neustart | Modell | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Baut den verlorenen Kontext aus dem Live-Zustand wieder auf: was ihn braucht, was sich geändert hat, was neue Begriffe bedeuten | ein Wiedereinstieg | Modell | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Liest den Live-cyclezustand und gibt die eine nächste beste Aktion zurück, kein Menü | der laufende cycle | Modell | ✔ |
+| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Empfiehlt einen geordneten Graphen von Skills für eine erklärte Absicht, mit ausgewiesener Befugnisart pro Schritt, ohne die Skills aufzurufen | eine erklärte Absicht | Modell | ✔ |
 
 ### `mesh/`
 

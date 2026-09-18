@@ -84,6 +84,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Reinicia desde v0, conservando solo las lecciones que ganaron derecho a reutilizarse | un reinicio | model | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Reconstruye el contexto perdido a partir del estado en vivo: que necesita, que cambio, que significan las palabras nuevas | una reentrada | model | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lee el estado vivo del cycle y devuelve una sola siguiente mejor accion, no un menu | el cycle vivo | model | ✔ |
+| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Recomienda un grafo ordenado de skills para una intención explícita, con el tipo de autoridad de cada paso, sin invocarlos | una intención explícita | model | ✔ |
 
 ### `mesh/`
 
