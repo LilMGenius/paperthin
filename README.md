@@ -54,6 +54,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🔃 **[re0-order](./skills/depth/re0-order/SKILL.md)** | Realign a drifted listing into a logical order under one stated principle; move items only, reword nothing | one listing | user | |
 | 🧰 **[detool](./skills/depth/detool/SKILL.md)** | Replace incidental stack nouns with the mechanism they mean | one durable artifact | model | |
 | ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and look-alikes, picking the punctuation each spot needs | your prose | user | |
+| ⸱ **[dedot](./skills/depth/dedot/SKILL.md)** | Propose a comma or connective, with a reason for each middle dot joining an open enumeration in Korean prose; preserve the three sanctioned uses and protected contexts | Korean prose the writer scopes | user | ✔ |
 | 🗜️ **[debloat](./skills/depth/debloat/SKILL.md)** | Compress a bloated artifact to its load-bearing density; cut words, never a rule | one artifact | user | |
 | 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read it with fresh, zero-context eyes: does it stand alone? | one artifact | model | ✔ |
 | 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify what's asserted against sources both ways: could the absurd be real, the obvious false? | one claim | model | |

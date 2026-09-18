@@ -57,6 +57,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | Ordnet eine gedriftete Auflistung unter einem genannten Prinzip in eine logische Reihenfolge; verschiebt nur Einträge, formuliert nichts um | eine Auflistung | Nutzer | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Ersetzt beiläufige Stack-Nomen durch den gemeinten Mechanismus | ein dauerhaftes Artifact | Modell | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Entfernt Gedankenstriche und ihre Doppelgänger und wählt an jeder Stelle die passende Zeichensetzung | deine prose | Nutzer | |
+| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | Schlägt für jeden Mittelpunkt in einer offenen Aufzählung koreanischer Prosa ein Komma oder Bindewort mit Begründung vor; bewahrt die drei zulässigen Verwendungen und geschützte Kontexte | vom Autor eingegrenzte koreanische Prosa | Nutzer | ✔ |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Verdichtet ein aufgeblähtes Artefakt auf seine tragende Dichte; streicht Wörter, niemals eine Regel | ein Artefakt | Nutzer | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Liest es kalt, mit frischen Augen und ohne Kontext: steht es für sich? | ein Artifact | Modell | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Prüft, was behauptet wird, in beide Richtungen gegen Sources: Könnte das Absurde wahr sein, das Offensichtliche falsch? | einen Claim | Modell | |
