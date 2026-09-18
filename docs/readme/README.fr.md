@@ -71,6 +71,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | Skill | Ce qu'il fait | Portée | Invocation | Lecture seule |
 |---|---|---|---|---|
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Audite la dispersion, puis consolide le fait dans un seul foyer et fait pointer le reste dessus | un fait, plusieurs endroits | modèle | |
+| 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | Consolide les fichiers ou arborescences en double en une identité gérée par le noyau : lien physique, lien symbolique, jonction ou montage bind, avec une procédure de retour vérifiée | mêmes octets, plusieurs chemins | modèle | |
 | 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | Amène vos skills au catalogue actuel complet en une commande : retire ce qui a été renommé, ajoute les nouveautés, le tout confirmé au préalable | votre installation de skills | utilisateur | |
 
 ### `coil/`

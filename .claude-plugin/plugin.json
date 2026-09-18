@@ -23,6 +23,7 @@
     "./skills/depth/re0-release",
     "./skills/depth/re0-merge",
     "./skills/breadth/ssotize",
+    "./skills/breadth/ssotize-local",
     "./skills/breadth/re0-upgrade",
     "./skills/coil/re0-plan",
     "./skills/coil/re0-loop",
