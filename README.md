@@ -68,6 +68,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | Skill | What it does | Scope | Invoker | Read-only |
 |---|---|---|---|---|
 | 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | Audit scatter, then consolidate to one home and point the rest at it | one fact, many places | model | |
+| 🔗 **[ssotize-local](./skills/breadth/ssotize-local/SKILL.md)** | Consolidate duplicate files or trees into one kernel-managed identity: hardlink, symlink, junction, or bind mount, with a verified reverse path | same bytes, many paths | model | |
 | 🧰 **[re0-upgrade](./skills/breadth/re0-upgrade/SKILL.md)** | Upgrade to the full current catalog in one command: retire renamed, add new, all confirmed first | your skill install | user | |
 
 ### `coil/`
