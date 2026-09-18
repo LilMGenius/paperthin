@@ -71,6 +71,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | Skill | Was er tut | Scope | Invoker | Nur Lesen |
 |---|---|---|---|---|
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Prüft Streuung, konsolidiert den Fact an einem Ort und lässt den Rest darauf zeigen | ein Fact, viele Orte | Modell | |
+| 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | Führt doppelte Dateien oder Verzeichnisbäume zu einer vom Kernel verwalteten Identität zusammen: Hardlink, Symlink, Junction oder Bind-Mount, mit geprüftem Rückweg | dieselben Bytes, viele Pfade | Modell | |
 | 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | Bringt installierte Skills mit einem Befehl auf den vollständigen aktuellen Katalog: Umbenanntes ausmustern, Neues hinzufügen, alles vorab bestätigt | deine Skill-Installation | Nutzer | |
 
 ### `coil/`

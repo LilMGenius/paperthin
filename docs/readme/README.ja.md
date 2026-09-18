@@ -71,6 +71,7 @@
 | Skill | 何をするか | scope | 呼び出し元 | 読み取り専用 |
 |---|---|---|---|---|
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | 散らばりを監査し、fact を一つの家に consolidate して残りをそこへ向ける | fact 一つ、多数の場所 | モデル | |
+| 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | 重複するファイルやディレクトリツリーをカーネルが管理する一つの実体に統合する: ハードリンク、シンボリックリンク、ジャンクション、バインドマウントを使い、元に戻す手順も検証する | 同じバイト列、多数のパス | モデル | |
 | 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 一つのコマンドで現在のフルカタログに引き上げる: 改名は整理、新規は追加、すべて事前に確認 | 自分の skill インストール | ユーザー | |
 
 ### `coil/`

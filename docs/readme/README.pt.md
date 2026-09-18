@@ -71,6 +71,7 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | Skill | O que faz | Escopo | Invocador | Somente leitura |
 |---|---|---|---|---|
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Audita a dispersao e consolida o fact em um unico lar, o resto aponta pra ele | um fact, muitos lugares | model | |
+| 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | Consolida arquivos ou árvores duplicados em uma identidade gerenciada pelo kernel: hardlink, link simbólico, junção ou montagem bind, com um caminho de reversão verificado | os mesmos bytes, muitos caminhos | model | |
 | 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | Leva suas skills ao catálogo atual completo em um comando: aposenta o renomeado, adiciona o novo, tudo confirmado primeiro | sua instalação de skills | user | |
 
 ### `coil/`
