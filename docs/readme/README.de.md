@@ -93,6 +93,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | Skill | Was er tut | Scope | Invoker | Nur Lesen |
 |---|---|---|---|---|
 | 🔺 **[prism](../../skills/mesh/prism/SKILL.md)** | Teilt ein Artifact auf unabhängige Blickwinkel auf und gibt zurück, wo sie kollidieren und welche Frage das auflöst | ein Artifact | Nutzer | ✔ |
+| 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | Führt bereits gesammelte unabhängige Lesarten zu Befunden zusammen, die nach zitierten Belegen klassifiziert werden, nie nach ihrer Anzahl; eine optionale Austauschrunde gibt nur strittige Belegstellen weiter und hält jede durch Belege bewirkte Revision fest. | viele Lesarten eines Artifacts oder einer Frage | Nutzer | ✔ |
 
 *Mehr zur Invocation: [docs/invocation.md](../invocation.md).*
 
