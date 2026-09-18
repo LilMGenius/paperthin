@@ -25,7 +25,7 @@ skills/
 ├── breadth/   reconcile one truth across files and platforms
 ├── coil/      carry learning between build cycles
 ├── depth/     refine or verify the thing in hand
-└── mesh/      converge independent views into consensus
+└── mesh/      aggregate independent views by their evidence, never by count
 ```
 
 The axes' quadrants and each skill's home are the README's facts — its [map](./README.md#the-map) and [index](./README.md#the-index); this file defines only the cut. Within a perspective the listing runs in a logical order (a `depth/` skill's work-lifecycle, say). One deliberate pin: `re0` leads `depth/` as the founding skill that opened the suite, so `re0-order` keeps it first rather than sorting it into the cleanup group.

@@ -90,6 +90,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | Skill | What it does | Scope | Invoker | Read-only |
 |---|---|---|---|---|
 | 🔺 **[prism](./skills/mesh/prism/SKILL.md)** | Split one artifact across independent lenses; return where they clash and the question that resolves it | one artifact | user | ✔ |
+| 🕸️ **[multithink](./skills/mesh/multithink/SKILL.md)** | Adjudicate already-collected independent reads into findings classified by cited evidence, never by count; one optional exchange circulates only disputed citations and records each evidence-caused revision. | many reads of one artifact or question | user | ✔ |
 
 *More on invocation: [docs/invocation.md](./docs/invocation.md)*
 
