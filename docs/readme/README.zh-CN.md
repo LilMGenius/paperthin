@@ -71,6 +71,7 @@
 | skill | 作用 | scope | Invoker | 只读 |
 |---|---|---|---|---|
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | 审计散落位置，把 fact 合并到一个归宿并让其他位置指向它 | 一个 fact，多个位置 | 模型 | |
+| 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | 将重复的文件或目录树整合为由内核管理的同一实体：硬链接、符号链接、目录联接或绑定挂载，并提供经过验证的还原步骤 | 相同字节，多个路径 | 模型 | |
 | 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 用一条命令把已安装的 skill 升级到完整的当前目录：淘汰改名的，补齐新增的，全部先确认 | 你的 skill 安装 | 用户 | |
 
 ### `coil/`
