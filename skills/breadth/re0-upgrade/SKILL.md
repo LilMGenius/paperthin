@@ -32,7 +32,7 @@ This table owns renames in release order. Append future renames here and resolve
 
 Install every skill below in the chosen scope, except those declined at confirmation. Use this roster to distinguish current from unknown names in `npx skills list` and installed directories.
 
-`re0`, `readback`, `aim`, `modelchk`, `hate`, `macrothink`, `feynman`, `autobahn`, `re0-style`, `re0-order`, `detool`, `dedash`, `debloat`, `shower`, `factchk`, `mandela`, `sip`, `re0-git`, `re0-release`, `re0-merge`, `ssotize`, `ssotize-local`, `re0-upgrade`, `re0-plan`, `re0-loop`, `re0-memo`, `re0-work`, `catchup`, `nba`, `re0-workflow`, `prism`
+`re0`, `readback`, `aim`, `modelchk`, `hate`, `macrothink`, `feynman`, `autobahn`, `re0-style`, `re0-order`, `detool`, `dedash`, `debloat`, `shower`, `factchk`, `mandela`, `sip`, `re0-git`, `re0-release`, `re0-merge`, `ssotize`, `ssotize-local`, `re0-upgrade`, `re0-plan`, `re0-tutorial`, `re0-loop`, `re0-memo`, `re0-work`, `catchup`, `nba`, `re0-workflow`, `prism`
 
 ## Workflow
 
