@@ -1,37 +1,37 @@
 ---
 name: debloat
 disable-model-invocation: true
-description: "Compress an artifact that has accreted into bloat — padding, over-qualification, fused sentences, walls of enumeration, adjacent restatement — down to its load-bearing density, meaning preserved. Use when prose is correct and current but has grown verbose or patched-over and you want it tight without a full rewrite."
+description: "Compress an artifact that has accreted into bloat: padding, over-qualification, fused sentences, walls of enumeration, adjacent restatement. Bring it down to its load-bearing density, meaning preserved. Use when prose is correct and current but has grown verbose or patched-over and you want it tight without a full rewrite."
 ---
 
 Cut a bloated artifact to its load-bearing minimum: same meaning, fewer words.
 
 ## Goal
 
-An artifact that is correct and current can still rot a second way: it accretes. Each edit bolts a qualifier onto the nearest sentence, a rule gets restated wherever it might apply, an enumeration grows into a wall — until a reader must study what they should skim. `debloat` compresses that bloat to its load-bearing density: every claim that carries weight survives, every word that does not is cut. It is not a rewrite (`re0`), a dedup (`ssotize`), or a tell-remover (`dedash`, `detool`) — it is a density pass on prose that is otherwise fine.
+Correct, current prose can accumulate qualifiers, repeated rules, and long enumerations until readers must study what they should skim. `debloat` cuts words that carry no meaning and preserves every load-bearing claim. It tightens otherwise sound prose; rewriting belongs to `re0` and deduplication to `ssotize`. The excess it removes is one class of machine-writing tell.
 
 ## Workflow
 
-1. Pin the artifact and read it end to end; note in one line what each section must convey — the load-bearing content that has to survive.
-2. Find the bloat, not the content: padding that adds length but not meaning; a qualifier or parenthetical the sentence holds without; a fused sentence carrying three ideas; a wall of enumeration where a rule plus a short list would do; a point restated within reach of itself; litigation-history (why-we-decided-it) where the rule alone suffices.
-3. Compress in place: cut the padding, split the fused sentence or drop its dead clause, collapse the wall, keep a repeated point once. Move nothing to another artifact and re-derive nothing.
-4. Preserve every load-bearing claim — a rule, fact, constraint, or example that carries weight. If cutting a word would lose one, keep the word.
-5. When the bloat is really duplication across artifacts, or the content has drifted stale, stop and name it: hand duplication to `ssotize` and drift to `re0`. `debloat` only tightens.
-6. Re-read cold and cut again — the first pass always leaves some.
+1. Pin the artifact and read it end to end. Note in one line what each section must convey and preserve.
+2. Find padding, dispensable qualifiers or parentheticals, sentences fused from three ideas, enumerations that a rule and short list could replace, nearby restatement, and decision history where the rule alone suffices.
+3. Compress in place: cut padding, split fused sentences or drop dead clauses, shorten enumerations, and keep repeated points once. Move nothing to another artifact and re-derive nothing.
+4. Preserve every load-bearing rule, fact, constraint, and example. Keep any word whose removal would lose one.
+5. If content is duplicated across artifacts or has gone stale, stop and name it. Hand duplication to `ssotize` and drift to `re0`; `debloat` only tightens.
+6. Re-read cold and cut again; the first pass always leaves some.
 
 ## Rules
 
-- Cut words, never load-bearing claims. Every rule, fact, and constraint that was there is still there; only the density changed.
-- Preserve the artifact's voice and structure; compress within it, do not re-style it.
-- Not a rewrite, a dedup, or a tell-remover: re-derive nothing (`re0`), move nothing to another home (`ssotize`), and leave em-dashes and stack nouns to `dedash`/`detool`.
-- Respect intended richness: human-facing prose meant to teach or orient (a quickstart, a worked example) earns its length — compress the bloat, not the accessibility.
+- Cut words, never load-bearing claims. Every rule, fact, and constraint survives; only density changes.
+- Preserve voice and structure. Compress within them without re-styling.
+- Compression removes excess-class machine-writing tells: padding, over-qualification, and adjacent restatement. Cite Wikipedia's published essay [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) for any tell list consulted; never re-derive it. Hand drift to `re0`, duplication to `ssotize`, em-dashes to `dedash` (last, because rewriting regenerates dashes), and stack nouns to `detool`, which owns portability and is outside the tell-remover family.
+- Respect intended richness: prose that teaches or orients, such as a quickstart or worked example, earns its length. Cut bloat while preserving accessibility.
 - A pass that finds nothing genuinely bloated changes nothing.
-- Mutate with edit-safety: assert each target exists (report a MISS, never a silent no-op), edit unicode-safe (`PYTHONUTF8=1`), replace per occurrence, and script a large structural move.
+- Edit safely: assert each target exists and report a MISS rather than a silent no-op; edit unicode-safe (`PYTHONUTF8=1`), replace per occurrence, and script large structural moves.
 
 ## Verification
 
 Before finishing:
 
-1. Every load-bearing claim present before is present after — only words were cut.
-2. The result reads tighter to a cold reader, and reads as intended-terse, not amputated.
-3. Anything that was duplication or drift, not bloat, was handed to `ssotize`/`re0`, not force-compressed.
+1. Every load-bearing claim survives; only words were cut.
+2. A cold reader finds the result tighter and intentionally terse without missing content.
+3. Duplication and drift were handed to `ssotize`/`re0`, never force-compressed.
