@@ -93,6 +93,7 @@
 | skill | 作用 | scope | Invoker | 只读 |
 |---|---|---|---|---|
 | 🔺 **[prism](../../skills/mesh/prism/SKILL.md)** | 把一个 artifact 拆到多个独立视角下审视；返回它们冲突之处，以及能化解冲突的那个问题 | 一个 artifact | 用户 | ✔ |
+| 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | 裁定已收集的独立解读，将发现按引用的证据分类，绝不按数量判断；可选的一轮交流只传递有争议的引文，并记录每一次由证据引发的修订。 | 对一个 artifact 或问题的多份解读 | 用户 | ✔ |
 
 *更多调用方式见 [docs/invocation.md](../invocation.md)。*
 
