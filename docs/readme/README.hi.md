@@ -71,6 +71,7 @@
 | Skill | क्या करता है | Scope | Invoker | read-only |
 |---|---|---|---|---|
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | scatter audit करता है, फिर fact को एक home में consolidate करके बाकी को उसकी ओर इंगित करता है | एक fact, कई जगह | model | |
+| 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | दोहराई गई फ़ाइलों या डायरेक्टरी ट्री को कर्नेल द्वारा प्रबंधित एक पहचान में समेकित करता है: हार्डलिंक, सिमलिंक, जंक्शन या बाइंड माउंट, साथ में सत्यापित वापसी प्रक्रिया | वही बाइट्स, कई पथ | model | |
 | 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | एक कमांड में पूरे मौजूदा catalog तक ले आता है: नाम बदले हटाता है, नए जोड़ता है, सब पहले पुष्टि | आपकी skill install | user | |
 
 ### `coil/`
