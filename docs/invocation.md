@@ -11,7 +11,7 @@ The localized READMEs and the top-level `README.md` mark invocation in the fourt
 
 ## Invocation choices, and why
 
-Default to model-invoked. A skill is user-invoked only when the model should never reach it on its own — either its trigger is a deliberate, human-decided action (commit, push, publish, deploy), or its mere presence in the model's reach would bias the agent. The twelve user-invoked skills today, with the model-invoked style check at the cleanup boundary:
+Default to model-invoked. A skill is user-invoked only when the model should never reach it on its own — either its trigger is a deliberate, human-decided action (commit, push, publish, deploy), or its mere presence in the model's reach would bias the agent. The thirteen user-invoked skills today, with the model-invoked style check at the cleanup boundary:
 
 - `hate` — a demolition reflex always in reach biases the agent toward demolition.
 - `macrothink` — plural fresh reads are an opt-in perspective spend; convergence must not masquerade as automatic proof.
@@ -25,6 +25,7 @@ Default to model-invoked. A skill is user-invoked only when the model should nev
 - `re0-merge` — reviewing and landing a contribution is a deliberate maintainer act a review reflex would bias toward merging.
 - `re0-upgrade` — it makes consequential local changes (reinstalling skill entries, writing a session-start hook into each agent's config).
 - `re0-plan` — it assumes the full paperthin package installed and pairs deliberately with `re0-release`, not a general-purpose reflex.
+- `re0-tutorial`: starting a graded exercise is a deliberate learner choice; completion depends on the learner's own submission, never an invocation trace.
 - `prism` — plural lenses are an opt-in spend whose convergence must not pass as automatic proof.
 
 Two skills stay model-invoked against the grain: `autobahn` (the model should autonomously carve risk-adjacent scope before execution) and `modelchk` (advisory capability sizing should be available before the model spends a run).

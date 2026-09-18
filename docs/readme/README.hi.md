@@ -79,6 +79,7 @@
 | Skill | क्या करता है | Scope | Invoker | read-only |
 |---|---|---|---|---|
 | 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | re0-loop की पहली turn से पहले नया iteration folder DESIGN/WORKFLOW/EVIDENCE के साथ खोलता है | एक नया cycle | user | |
+| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | सुइट का एक कौशल तीन मूल्यांकित स्तरों में सीखें; पूर्णता सीखने वाले के अपने प्रस्तुत काम पर निर्भर है, कभी भी invocation trace पर नहीं | एक कौशल | user | |
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | build → QA → re0-memo → re0-work loop चलाता है ताकि learning compound करे, code नहीं | पूरा loop | model | |
 | 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | finished या failed cycle से lessons और anti-patterns निकालता है | एक finished cycle | model | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | सिर्फ reuse कमाने वाले lessons रखते हुए v0 से restart करता है | एक restart | model | |
