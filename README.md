@@ -78,6 +78,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🗂️ **[re0-plan](./skills/coil/re0-plan/SKILL.md)** | Open a new iteration folder with DESIGN/WORKFLOW/EVIDENCE before re0-loop's first turn | one new cycle | user | |
 | 🎓 **[re0-tutorial](./skills/coil/re0-tutorial/SKILL.md)** | Learn one skill of the suite through three graded levels whose completion rests on the learner's own submission, never an invocation trace | one skill | user | |
 | 🌀 **[re0-loop](./skills/coil/re0-loop/SKILL.md)** | Run the build → QA → re0-memo → re0-work loop so learning compounds, not code | the whole loop | model | |
+| 👁️ **[re0-watch](./skills/coil/re0-watch/SKILL.md)** | Watch a long-running agent job for stalls and alert by default; recovery is only a proposal a human approves | one running job | user | |
 | 🧭 **[re0-memo](./skills/coil/re0-memo/SKILL.md)** | Pull the lessons and anti-patterns from a finished or failed cycle | one finished cycle | model | |
 | 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Start over from v0, keeping only the lessons that earned reuse | one restart | model | |
 | 🗺️ **[catchup](./skills/coil/catchup/SKILL.md)** | Rebuild lost context from live state: what needs them, what changed, what new words mean | one re-entry | model | ✔ |
