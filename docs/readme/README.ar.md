@@ -84,6 +84,7 @@
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | يبدأ من v0 من جديد، محتفظا فقط بالدروس التي استحقت إعادة الاستخدام | restart واحد | model | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | يعيد بناء context المفقود من الحالة الحية: ما يحتاجه، وما تغيّر، وماذا تعني الكلمات الجديدة | عودة واحدة | model | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | يقرأ حالة cycle الحية ويعيد next best action واحدا، لا قائمة | cycle الحية | model | ✔ |
+| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | يقترح مخططا مرتبا للمهارات لتحقيق مقصد واحد مصرح به، مع تحديد نوع صلاحية كل خطوة، دون استدعاء المهارات | مقصد واحد مصرح به | model | ✔ |
 
 ### `mesh/`
 

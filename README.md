@@ -81,6 +81,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Start over from v0, keeping only the lessons that earned reuse | one restart | model | |
 | 🗺️ **[catchup](./skills/coil/catchup/SKILL.md)** | Rebuild lost context from live state: what needs them, what changed, what new words mean | one re-entry | model | ✔ |
 | 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Read the live cycle state and return the single next best action, not a menu | the live cycle | model | ✔ |
+| 🧩 **[re0-workflow](./skills/coil/re0-workflow/SKILL.md)** | Recommend an ordered graph of skills for one stated intent, with each step's authority typed, without invoking them | one stated intent | model | ✔ |
 
 ### `mesh/`
 

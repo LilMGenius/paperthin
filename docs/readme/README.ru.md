@@ -84,6 +84,7 @@
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Начинает заново с v0, оставляя только lessons, заслужившие reuse | один restart | model | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Восстанавливает потерянный context из live-состояния: что от него нужно, что изменилось, что значат новые слова | один re-entry | model | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Читает live cycle state и возвращает один next best action, а не меню | текущий cycle | model | ✔ |
+| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Рекомендует упорядоченный граф skills для одного заявленного намерения, указывая тип полномочий каждого шага и не вызывая skills | одно заявленное намерение | model | ✔ |
 
 ### `mesh/`
 
