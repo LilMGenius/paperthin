@@ -81,6 +81,7 @@
 | 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | re0-loop の最初の turn の前に新しい iteration フォルダを開き、DESIGN/WORKFLOW/EVIDENCE を書き込む | 新しい cycle 一つ | ユーザー | |
 | 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | スイートのスキル一つを採点付きの3段階で学び、修了は学習者自身の提出物で判断し、呼び出し履歴では決して判断しません | スキル一つ | ユーザー | |
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | build → QA → re0-memo → re0-work ループを回し、コードではなく学習を複利化する | ループ全体 | モデル | |
+| 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | 長時間動くエージェントのジョブの停滞を監視し、既定では通知だけを行います。復旧は人間の承認を求める提案にとどめます | 実行中のジョブ一つ | ユーザー | |
 | 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 完了または失敗した cycle から教訓と anti-pattern を抽出する | 完了した cycle 一つ | モデル | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 再利用に値した教訓だけを残して v0 からやり直す | やり直し一つ | モデル | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | ライブ state から失った context を再構築する: 何が必要か、何が変わったか、新しい言葉が何を意味するか | re-entry 一つ | モデル | ✔ |
