@@ -79,6 +79,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | Skill | Ce qu'il fait | Portée | Invocation | Lecture seule |
 |---|---|---|---|---|
 | 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | Ouvre un nouveau dossier d'itération avec son DESIGN/WORKFLOW/EVIDENCE avant le premier tour de re0-loop | un nouveau cycle | utilisateur | |
+| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | Apprendre une compétence de la suite en trois niveaux évalués, dont la réussite repose sur le travail remis par l'apprenant lui-même, jamais sur une trace d'invocation | une compétence | utilisateur | |
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Lance la boucle build → QA → re0-memo → re0-work pour que l'apprentissage compose, pas le code | toute la boucle | modèle | |
 | 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Extrait les leçons et anti-patterns d'un cycle terminé ou raté | un cycle terminé | modèle | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Redémarre depuis v0 en gardant seulement les leçons qui ont mérité d'être réutilisées | un redémarrage | modèle | |

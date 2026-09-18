@@ -72,7 +72,7 @@ Those inline rule-copies are mapped here so they stay coherent when you touch on
 
 ## Local provenance
 
-`.re0/` holds this repo's own provenance, gitignored and never shipped: per-release iteration casebooks (`.re0/iteration/`) and the release rail (`.re0/release/`). History and scratch, not spec; nothing in it is canonical.
+`.re0/` holds this repo's own provenance, gitignored and never shipped: per-release iteration casebooks (`.re0/iteration/`) and the release rail (`.re0/release/`). History and scratch, not spec; nothing in it is canonical. `.re0/tutorial/` holds the tutorial's local attempt records, one record per attempt and never edited in place, gitignored like the rest of `.re0/`.
 
 `re0-plan` opens each casebook as `.re0/iteration/<version>-<workname>/` and seeds it the instant it's created: a cycle with real design surface gets `DESIGN.local.md`, then `WORKFLOW.local.md` + `EVIDENCE.local.md`; a lightweight fix gets a one-paragraph `RETRO.local.md` seed immediately, which `re0-memo` extends in place at the end rather than starting fresh. Reference material stays flat as `REF-<topic>.local.md` until it earns its own `refs/` subfolder. `re0-release` retires a shipped cycle's folder into `.re0/iteration/completed/`, unrenamed and never deleted.
 

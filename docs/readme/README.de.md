@@ -79,6 +79,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | Skill | Was er tut | Scope | Invoker | Nur Lesen |
 |---|---|---|---|---|
 | 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | Öffnet einen neuen Iterationsordner mit DESIGN/WORKFLOW/EVIDENCE, noch vor re0-loops erster Runde | ein neuer cycle | Nutzer | |
+| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | Eine Fertigkeit der Suite in drei bewerteten Stufen lernen; der Abschluss beruht auf der eigenen Einreichung des Lernenden, niemals auf einer Aufrufspur | eine Fertigkeit | Nutzer | |
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Führt die build → QA → re0-memo → re0-work Schleife aus, damit Lernen komponiert, nicht Code | die ganze Schleife | Modell | |
 | 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Extrahiert Lektionen und Anti-Patterns aus einem abgeschlossenen oder gescheiterten cycle | ein abgeschlossener cycle | Modell | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Startet von v0 neu und behält nur Lektionen, die Wiederverwendung verdient haben | ein Neustart | Modell | |
