@@ -93,6 +93,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | Skill | Que hace | Alcance | Invocador | Solo lectura |
 |---|---|---|---|---|
 | 🔺 **[prism](../../skills/mesh/prism/SKILL.md)** | Divide un artifact en lentes independientes; devuelve donde chocan y la pregunta que lo resuelve | un artifact | user | ✔ |
+| 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | Evalúa lecturas independientes ya recopiladas y las convierte en hallazgos clasificados por la evidencia citada, nunca por el recuento; una ronda opcional de intercambio hace circular solo las citas en disputa y registra cada revisión causada por la evidencia. | muchas lecturas de un artifact o una pregunta | user | ✔ |
 
 *Mas sobre invocacion: [docs/invocation.md](../invocation.md).*
 

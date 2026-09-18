@@ -11,7 +11,7 @@ The localized READMEs and the top-level `README.md` mark invocation in the fourt
 
 ## Invocation choices, and why
 
-Default to model-invoked. A skill is user-invoked only when the model should never reach it on its own — either its trigger is a deliberate, human-decided action (commit, push, publish, deploy), or its mere presence in the model's reach would bias the agent. The fourteen user-invoked skills today, with the model-invoked style check at the cleanup boundary:
+Default to model-invoked. A skill is user-invoked only when the model should never reach it on its own — either its trigger is a deliberate, human-decided action (commit, push, publish, deploy), or its mere presence in the model's reach would bias the agent. The fifteen user-invoked skills today, with the model-invoked style check at the cleanup boundary:
 
 - `hate` — a demolition reflex always in reach biases the agent toward demolition.
 - `macrothink` — plural fresh reads are an opt-in perspective spend; convergence must not masquerade as automatic proof.
@@ -28,6 +28,7 @@ Default to model-invoked. A skill is user-invoked only when the model should nev
 - `re0-tutorial`: starting a graded exercise is a deliberate learner choice; completion depends on the learner's own submission, never an invocation trace.
 - `re0-watch`: arming a watch is a deliberate human action; it alerts by default and hands recovery proposals to a human for approval.
 - `prism` — plural lenses are an opt-in spend whose convergence must not pass as automatic proof.
+- `multithink`: adjudicating already-collected reads and choosing an optional evidence exchange are deliberate user decisions; finding classes depend on cited evidence, never on counts.
 
 Two skills stay model-invoked against the grain: `autobahn` (the model should autonomously carve risk-adjacent scope before execution) and `modelchk` (advisory capability sizing should be available before the model spends a run).
 
