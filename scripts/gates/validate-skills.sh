@@ -3,7 +3,7 @@
 # The single source of truth for "is the catalog shippable" — called by release.yml
 # (pre-publish), ci.yml (every push/PR), and runnable locally (e.g. from sip).
 set -uo pipefail
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../.."
 
 fail=0
 err() { echo "::error::$*"; fail=1; }   # GitHub annotation on CI; prints plainly off-CI
@@ -67,8 +67,15 @@ while IFS= read -r f; do
   done
 done < <(find skills -name SKILL.md)
 
+# a script bundled inside a skill directory must at least parse; it ships with the skill and runs on the installing host
+if [ -n "$node_bin" ]; then
+  while IFS= read -r js; do
+    "$node_bin" --check "$js" 2>/dev/null || err "$js: does not parse (node --check)"
+  done < <(find skills -path "*/scripts/*" \( -name "*.mjs" -o -name "*.cjs" -o -name "*.js" \))
+fi
+
 # frontmatter parses as YAML 1.1 and 1.2 the way PyYAML (Codex) and js-yaml (Claude Code) load it
-[ -n "$node_bin" ] && { "$node_bin" scripts/check-frontmatter.cjs || fail=1; }
+[ -n "$node_bin" ] && { "$node_bin" scripts/gates/check-frontmatter.cjs || fail=1; }
 
 # every plugin.json skill path resolves to a SKILL.md
 while IFS= read -r p; do

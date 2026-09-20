@@ -34,7 +34,7 @@ function walk(dir) {
 module.exports = { checkFrontmatter };
 
 if (require.main === module) {
-  const root = path.join(__dirname, '..');
+  const root = path.join(__dirname, '..', '..');
   const errors = walk(path.join(root, 'skills')).flatMap((file) => checkFrontmatter(path.relative(root, file).split(path.sep).join('/'), fs.readFileSync(file, 'utf8')));
   for (const error of errors) console.error('::error::' + error);
   process.exit(errors.length ? 1 : 0);

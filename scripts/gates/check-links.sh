@@ -16,7 +16,7 @@
 #   - image stripping is best-effort on well-formed `![alt](path)` and does not
 #     defend against nested parens in the URL or `]` inside alt text
 set -uo pipefail
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../.."
 
 fail=0
 err() { echo "::error::$*"; fail=1; }
