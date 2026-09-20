@@ -10,7 +10,7 @@
 #   2. Orphan guard — every shipped skill must be reachable from README.md, by a
 #      backticked mention or a link to its SKILL.md, or it is orphaned on disk.
 set -uo pipefail
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../.."
 
 fail=0
 err() { echo "::error::$*"; fail=1; }
