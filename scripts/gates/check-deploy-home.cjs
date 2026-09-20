@@ -4,7 +4,7 @@
  * Deploy-home SSOT drift-guard (Gate 1 for the ~/.re0/ deploy home, v0.16.2).
  *
  * Two invariants, both binary:
- *   1. The deploy home is defined in EXACTLY ONE place — scripts/catalog.cjs exports STATE_DIR and
+ *   1. The deploy home is defined in EXACTLY ONE place — scripts/runtime/catalog.cjs exports STATE_DIR and
  *      NOTICE_STAMP — and imported everywhere else. Before v0.16.2 the literal was re-hardcoded in
  *      each adapter (AP-3: five sites, a rename = five edits, miss one = split-brain).
  *   2. The retired home name `.paperthin` appears NOWHERE in the shipped runtime or in re0-upgrade's
@@ -12,15 +12,15 @@
  *      self-contained ~/.paperthin/ runtime until reinstalled), so shipped code carries zero
  *      knowledge of the old home — no legacy fallback, no migrator, no dangling reference.
  *
- * Mirrors scripts/check-catalog-sync.cjs; run from ci.yml and locally. This guard file is not
+ * Mirrors scripts/gates/check-catalog-sync.cjs; run from ci.yml and locally. This guard file is not
  * self-scanned, so the literal below is fine here.
  */
 
 const fs = require('fs');
 const path = require('path');
 
-const ROOT = process.env.PAPERTHIN_REPO || path.join(__dirname, '..');
-const SCRIPTS = path.join(ROOT, 'scripts');
+const ROOT = process.env.PAPERTHIN_REPO || path.join(__dirname, '..', '..');
+const SCRIPTS = path.join(ROOT, 'scripts', 'runtime');
 const RETIRED = '.' + 'paperthin'; // the old home segment; must not appear in shipped runtime/prose
 const RUNTIME = ['catalog.cjs', 'session-check.cjs', 'opencode-discovery.js'];
 
@@ -36,7 +36,7 @@ try {
     }
   }
 } catch {
-  console.error('::error::deploy-home guard: scripts/catalog.cjs not readable');
+  console.error('::error::deploy-home guard: scripts/runtime/catalog.cjs not readable');
   bad++;
 }
 
