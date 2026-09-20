@@ -49,6 +49,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | Vérifie la lecture de la demande ; ne remonte qu'une vraie bifurcation restante | une instruction | modèle | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | Lit les données transmises et propose l'intention à confirmer, au lieu de la demander | un lot de données | modèle | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Calibre le niveau suffisant le moins coûteux et le reasoning effort | une tâche | modèle | ✔ |
+| 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | Propose de supprimer les exigences non encore mises en œuvre, imposées par inertie et sans bénéfice restant, avec leur source et les preuves ; préserve toute obligation externe | un ensemble d’exigences non encore mises en œuvre avec leurs sources | modèle | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Refuse d'être gentil : l'objection unique qui peut tuer le plan, plus le test le moins cher | un plan | utilisateur | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Retire le bait, lance des lectures fraîches et signale d'abord la divergence | une direction | utilisateur | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Presse une décision fraîchement prise jusqu'à pouvoir l'expliquer, sinon la lacune est signalée | une décision | utilisateur | ✔ |

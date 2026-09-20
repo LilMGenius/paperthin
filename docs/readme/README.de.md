@@ -49,6 +49,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | Prüft die Lesart der Anfrage und zeigt nur einen echten verbleibenden Fork | eine Anweisung | Modell | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | Liest übergebene Daten und schlägt die zu bestätigende Absicht vor, statt danach zu fragen | eine Datenübergabe | Modell | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Bestimmt die billigste ausreichende Stufe und reasoning effort | eine Aufgabe | Modell | ✔ |
+| 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | Schlägt vor, noch nicht umgesetzte Anforderungen zu streichen, die aus Gewohnheit fortbestehen und keinen Nutzen mehr haben, mit Quelle und Belegen; wahrt jede externe Vorgabe | noch nicht umgesetzte Anforderungen mit ihren Quellen | Modell | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Weigert sich, nett zu sein: der eine Einwand, der den Plan töten könnte, plus der billigste Test | ein Plan | Nutzer | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Entfernt den Bait, fächert frische Lesarten auf, meldet Divergenz zuerst | eine Richtung | Nutzer | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Bohrt bei einer gerade getroffenen Entscheidung nach, bis du sie erklären kannst oder die Lücke markiert ist | eine Entscheidung | Nutzer | ✔ |

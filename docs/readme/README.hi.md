@@ -49,6 +49,7 @@
 | 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | request की read check करता है; सिर्फ बचा हुआ real fork दिखाता है | एक instruction | model | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | सौंपा गया data पढ़कर, पूछने के बजाय, confirm करने के लिए intent propose करता है | एक data drop | model | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | सबसे सस्ता sufficient tier और reasoning effort चुनता है | एक task | model | ✔ |
+| 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | अभी लागू न की गई, जड़ता से थोपी गई और अब लाभहीन आवश्यकताओं को हटाने का प्रस्ताव देता है, स्रोत और साक्ष्य संलग्न करता है; हर बाहरी अनिवार्यता सुरक्षित रखता है | अभी लागू न की गई आवश्यकताओं का समूह और उनके स्रोत | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | nice होने से इनकार करता है: plan को मार सकने वाली एक objection, और सबसे सस्ता test | एक plan | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait हटाता है, fresh reads fan out करता है, और divergence पहले report करता है | एक direction | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | अभी लिए गए decision को तब तक दबाता है जब तक आप उसे समझा न सकें, या gap flag हो जाए | एक decision | user | ✔ |
