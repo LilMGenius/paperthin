@@ -6,6 +6,7 @@
     "./skills/depth/readback",
     "./skills/depth/aim",
     "./skills/depth/modelchk",
+    "./skills/depth/elon",
     "./skills/depth/hate",
     "./skills/depth/macrothink",
     "./skills/depth/feynman",

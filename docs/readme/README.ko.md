@@ -49,6 +49,7 @@
 | 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | 요청을 어떻게 읽었는지 확인하고, 실제로 남은 갈림길만 드러냅니다 | 지시 하나 | 모델 | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | 넘겨받은 데이터를 읽고, 물어보는 대신 확인할 의도를 먼저 제안합니다 | 넘겨받은 데이터 하나 | 모델 | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 충분한 가장 싼 tier와 reasoning effort를 고릅니다 | 작업 하나 | 모델 | ✔ |
+| 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | 관성으로 부과되어 효익이 남지 않은 미구현 요구사항의 삭제를 출처와 근거를 붙여 제안합니다. 외부에서 의무화한 제약은 모두 보존합니다 | 미구현 요구사항 집합과 각 요구사항의 출처 | 모델 | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 친절하기를 거부합니다. 계획을 죽일 수 있는 반론 하나와 가장 싼 테스트를 냅니다 | 계획 하나 | 사용자 | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait를 걷어내고 새 읽기를 펼친 뒤 divergence를 먼저 보고합니다 | 방향 하나 | 사용자 | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 방금 내린 결정을 설명할 수 있을 때까지 밀어붙이고, 안 되면 그 빈틈을 드러냅니다 | 결정 하나 | 사용자 | ✔ |
