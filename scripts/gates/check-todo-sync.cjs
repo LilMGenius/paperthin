@@ -9,7 +9,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const root = path.join(__dirname, '..');
+const root = path.join(__dirname, '..', '..');
 const md = fs.readFileSync(path.join(root, 'TODO.local.md'), 'utf8');
 const links = (text) => [...text.matchAll(/\]\(([^)]+)\)/g)].map((m) => m[1].trim());
 const entries = md.split(/\r?\n/).flatMap((line) => {

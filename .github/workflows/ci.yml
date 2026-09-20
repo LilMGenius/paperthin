@@ -15,14 +15,14 @@ jobs:
           node-version: 24
       - run: npm ci
       - name: Frontmatter gate tests
-        run: node --test scripts/check-frontmatter.test.cjs
+        run: node --test scripts/gates/check-frontmatter.test.cjs
       - name: Validate the skill catalog
-        run: bash scripts/validate-skills.sh
+        run: bash scripts/gates/validate-skills.sh
       - name: Verify skill references resolve
-        run: bash scripts/check-skill-refs.sh
+        run: bash scripts/gates/check-skill-refs.sh
       - name: Verify relative links resolve
-        run: bash scripts/check-links.sh
+        run: bash scripts/gates/check-links.sh
       - name: Catalog SSOT drift-guard
-        run: node scripts/check-catalog-sync.cjs
+        run: node scripts/gates/check-catalog-sync.cjs
       - name: Deploy-home SSOT drift-guard
-        run: node scripts/check-deploy-home.cjs
+        run: node scripts/gates/check-deploy-home.cjs
