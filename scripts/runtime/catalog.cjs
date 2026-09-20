@@ -3,12 +3,12 @@
  * paperthin — shared catalog + discovery-notice logic (single code home).
  *
  * Consumed by both platform adapters so the roster and the notice text live in ONE place:
- *   - scripts/session-check.cjs      (command-hook hosts: Claude Code, Codex)
- *   - scripts/opencode-discovery.js  (OpenCode plugin)
+ *   - scripts/runtime/session-check.cjs      (command-hook hosts: Claude Code, Codex)
+ *   - scripts/runtime/opencode-discovery.js  (OpenCode plugin)
  *
  * The roster mirrors re0-upgrade's "Current catalog" (the human/doc SSOT). Physical single
  * sourcing across the SKILL.md and this module is blocked by paperthin's self-containment + no-build-step
- * invariants, so scripts/check-catalog-sync.cjs asserting this array equals re0-upgrade's Current
+ * invariants, so scripts/gates/check-catalog-sync.cjs asserting this array equals re0-upgrade's Current
  * catalog is the enforcement of record. See .re0/iteration/v0.13.0-session-notice/.
  */
 

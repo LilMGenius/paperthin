@@ -4,7 +4,7 @@ set -euo pipefail
 # Links all skills in the repository to ~/.claude/skills, so that
 # they can be used by the local Claude CLI.
 
-REPO="$(cd "$(dirname "$0")/.." && pwd)"
+REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 DEST="$HOME/.claude/skills"
 
 # If ~/.claude/skills is a symlink that resolves into this repo, we'd end up

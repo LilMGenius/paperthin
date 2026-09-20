@@ -20,7 +20,7 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - name: Validate the skill catalog
-        run: bash scripts/validate-skills.sh
+        run: bash scripts/gates/validate-skills.sh
 
       - name: Verify tag matches package.json
         run: |
