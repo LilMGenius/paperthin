@@ -13,7 +13,7 @@ Run the cycle so learning compounds and code accumulation does not masquerade as
 FRAME -> BUILD -> DRIVE -> RE0-MEMO -> HATE -> RE0-WORK -> BUILD AGAIN
 ```
 
-The unit of progress is not hours, files, panels, or features. It is the count of quality-cleared templates, reusable platform modules, and anti-patterns eliminated in later cycles.
+Measure progress by the count of quality-cleared templates, reusable platform modules, and anti-patterns eliminated in later cycles, never by hours, files, panels, or features.
 
 ## Workflow
 
