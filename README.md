@@ -146,7 +146,7 @@ Edit a doc one piece at a time across a session and it bloats: stale deltas, dup
 
 - **Setup** — we asked `re0` to refresh these docs once more, but they were already at v0.
 - **Result** — it found nothing to improve and left every line of prose untouched.
-- **So** — a tool that does nothing when nothing is wrong never bloats your repo: these skills remove noise, they never add it.
+- **So** — a tool that does nothing when nothing is wrong never bloats your repo.
 </details>
 
 ### #2 — You can build the wrong request perfectly
@@ -157,9 +157,9 @@ A long or bundled instruction has enough surface area for a subtle misread: the 
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Setup** — its first casebook mixed flexible ordering, a concrete file creation, a resolved "that", and a bundled ambiguous update.
-- **Result** — it surfaced only the real forks and stayed silent on the concrete and context-resolved cases.
-- **So** — the check catches expensive misreads without turning clear instructions into confirmation theater.
+- **Setup** — a project's opening stage grew from 13 steps to 143, but the pass bar written for the 13-step version still applied.
+- **Result** — three difficulty tables were already raised to meet that old bar when `readback` caught that the opening stage was now the tutorial. Reverted before it shipped.
+- **So** — the expensive misread is the instruction you read correctly, before its scope moved.
 </details>
 
 ### #3 — Sizing the run becomes guesswork
@@ -170,9 +170,9 @@ Some work is run with too much horsepower because "stronger" feels safer; some i
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Setup** — its task cards spanned overpowered review, cheap mechanical work, model-branded input, and release-risk work — and later, per-run reasoning effort that varies by vendor and even by model.
-- **Result** — it kept neutral tier language (fast/standard/frontier) and added a neutral effort scale that binds to the model's own ladder positions rather than any vendor's level names, named the proof surface separately, and rejected routing authority on both dials.
-- **So** — sizing the run becomes a bounded two-dial recommendation instead of a vendor claim or a reflexive escalation.
+- **Setup** — we sized four jobs against it: an over-powered review, cheap mechanical edits, a request naming one vendor's model, and a release step where being wrong was expensive.
+- **Result** — it answered in neutral tiers (fast, standard, frontier) plus an effort dial, and refused to route the job or name a brand on either.
+- **So** — the recommendation still holds after you change vendors.
 </details>
 
 ### #4 — You can't kill your own plan
@@ -185,9 +185,9 @@ You built it, so you defend it. The questions that would break it are exactly th
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Setup** — every research pass closed with an adversarial critic, and its verdict was always one root cause plus the cheapest test that would settle it, never a checklist.
-- **Result** — it killed a recombination engine with "one more box drawn, not a sharper tip", and a human-holdout protocol on the numbers alone: n≈24 where 36 was needed, a family-wise error rate near 34%, and a design that cited a principle while implementing its opposite.
-- **So** — the objection that mattered was always singular and cheap to test — exactly the `{root, first nail}` that `hate` is locked to return.
+- **Setup** — every research pass closed with an adversarial critic returning one root cause and the cheapest test that would settle it.
+- **Result** — it killed a recombination engine with "one more box drawn, not a sharper tip", and a human-holdout protocol on the numbers alone: n≈24 where 36 was needed, a 34% family-wise error rate, a design citing a principle while implementing its opposite.
+- **So** — the objection that mattered was always singular and cheap to test.
 </details>
 
 ### #5 — One framing becomes the whole world
@@ -198,9 +198,9 @@ Examples, names, and first plausible answers can trap a session before the plan 
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Setup** — its founding cases tested bait stripping, convergence-as-reassurance, and constraint completeness.
-- **Result** — it stayed user-invoked, read-only, capped at 2 to 5 reads, with divergence first and explicit bans on majority vote, averaging, and "verified" wording from same-model convergence.
-- **So** — plurality is used to expose blind spots, not to manufacture consensus.
+- **Setup** — an agent proposed deleting a 762-line file of old lessons, claiming the surviving docs already covered it.
+- **Result** — fresh reads, given the question without that framing, asked how coverage was checked: by matching section titles, eight of thirty-nine. An audit found five lessons missing and ten half covered, and the file was restored.
+- **So** — a second opinion is only worth having if it reaches the problem clean.
 </details>
 
 ### #6 — Risk-adjacent work comes back hedged
@@ -213,8 +213,8 @@ Point an agent at a task that brushes guardrails — scraping, licensing, privac
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Setup** — the method was lifted from a live rewrite of a confidential strategy doc that was risk-adjacent on four axes at once: stealth tooling, trademarked names, privacy-adjacent profiling, scraping gray zones.
-- **Result** — a main loop plus ten subagents ran the frontier model end to end with zero flags, zero refusals, zero fallbacks — and every descoped item's safe alternative turned out to be the better product anyway.
+- **Setup** — the method came from a live rewrite of a confidential strategy doc, risk-adjacent on four axes at once: stealth tooling, trademarked names, privacy-adjacent profiling, scraping gray zones.
+- **Result** — a main loop plus ten subagents ran end to end with zero flags, zero refusals, zero fallbacks, and every descoped item's safe alternative was the better product anyway.
 - **So** — the main loop carved, clean subagents ran the safe scope, and the carve is why they could floor it.
 </details>
 
@@ -226,9 +226,9 @@ A durable artifact says it should work across agents, hosts, and time, but its p
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Setup** — its founding cases covered durable content, provenance, operational runbooks, and comparative claims about named tools.
-- **Result** — portable content moved to mechanism language while concrete paths, commands, and named tool subjects stayed when they were evidence or instructions.
-- **So** — tool nouns are removed only when they are accidental coupling, not when they are the artifact's subject or proof.
+- **Setup** — we pointed it at four kinds of text: a durable guide, a record of what happened on one machine, a runbook, and a claim about one named tool.
+- **Result** — only the durable guide lost its vendor nouns. The record kept its paths, the runbook its commands, the claim its tool.
+- **So** — portability is knowing which sentences were about the tool.
 </details>
 
 ### #8 — You go blind to your own work
@@ -259,9 +259,9 @@ A timeout value, a decision, a status — copied into a README, a doc, a ticket,
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Setup** — a pilot milestone landed in a strategy repo, and its status lived in six files at once: the plan that gated on it, the re0-memo, an eval-corpus inventory, two frontier docs, and the build's own metadata.
-- **Result** — one pass made the re0-memo's new cycle section the single home for what the milestone proved, rewrote the other five to point at it, and converted every plan line the milestone had answered from future-tense intent to present-tense fact.
-- **So** — the copies never got the chance to drift: one home, five pointers, and the stale "next step" wording died the same day it became false.
+- **Setup** — five releases of one tool each carried the same four-bullet list of known fixes, copied forward every time.
+- **Result** — before pointing them at one shared page, the pass found that page missing two of those fixes, and found the release checklist that had been ordering the copy every time.
+- **So** — copies come back unless the destination is complete and the rule that spawned them is gone.
 </details>
 
 ### #10 — A list's order stops meaning anything
@@ -272,9 +272,9 @@ Items get appended where they were typed, not where they belong. Kin drift apart
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Setup** — this suite's own catalog had grown by appending each new skill in ship order, so the README Index and its ten translations listed skills by when they landed, not by what they do.
-- **Result** — `re0-order` resequenced every copy by the work each skill serves, pinning `re0` first as the founding thesis and moving entries only, and the roster drift-guards stayed green because not one name changed.
-- **So** — the order reads as intentional across all eleven surfaces, and a reader can name the principle without being told it.
+- **Setup** — this suite's own catalog listed skills in ship order, across the Index and its ten translations.
+- **Result** — `re0-order` resequenced all eleven copies by the work each skill serves, moving entries only, and the drift-guards stayed green because not one name changed.
+- **So** — a reader can name the ordering principle without being told it.
 </details>
 
 ### #11 — Your gut isn't a source
@@ -302,8 +302,8 @@ A model, a scorer, and a designer can all agree a result is real while no outsid
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Setup** — the audit was distilled from one research design that kept dying to a single failure mode: a scorer, a model, and a designer agreeing on a result no outside truth ever produced.
-- **Result** — leakage surfaced in eight distinct shapes in that one project — a scorer grading buckets it had drawn, two components "verifying" each other in a shared space, a private recipe that made the verifier the designer — and that catalog became the skill's 8-pattern taxonomy.
+- **Setup** — the audit came from one research design that kept dying to the same failure: a scorer, a model, and a designer agreeing on a result no outside truth produced.
+- **Result** — leakage surfaced in eight distinct shapes in that one project: a scorer grading buckets it had drawn, two components verifying each other in a shared space, a private recipe making the verifier the designer. That catalog became the 8-pattern taxonomy.
 - **So** — the checklist isn't theoretical: every pattern in it already drew blood once.
 </details>
 
@@ -318,8 +318,8 @@ A guideline buried in docs won't trigger in a brand-new session — exactly when
 <summary><b>[PROOF]</b></summary>
 
 - **Setup** — right after a large refactor that made every skill self-contained, `sip` auto-fired on the result.
-- **Result** — its fresh-eyes pass caught two things the author could no longer see: a maintenance rule still pointing at skill-to-skill links that the same refactor had just deleted, and a file-editing safety rule present in two skills but missing from a third that also edits files.
-- **So** — the check bites where bias is highest: not on a fresh artifact, but on the drift a big change leaves behind — exactly what the author's own eyes skate over.
+- **Result** — it caught two things the author could no longer see: a maintenance rule pointing at skill-to-skill links the same refactor had deleted, and a file-editing safety rule in two skills but missing from a third that also edits files.
+- **So** — the check bites hardest on the drift a big change leaves behind.
 </details>
 
 ### #14 — Your session doesn't travel; the git log does
@@ -345,9 +345,9 @@ Long agentic cycles produce many working parts — panels, routes, tests, screen
 <details>
 <summary><b>[PROOF]</b></summary>
 
-- **Setup** — a game-engine demo reached a full-stack, runnable state: API routes, a canvas runtime, a leaderboard, arcade pages, remix and telemetry panels, tests, screenshots. Separately, after a multi-hour autonomous realign plus a context compaction, the project's owner returned to coined terms, renamed docs, and a rebuilt pipeline, and asked what half the words even meant.
-- **Result** — the demo was still the wrong product — the generated games were mock, one-screen, with no durable replay layer — while every pass ended in "what now?" against a pile of unmet gates; and an `nba`-style answer alone would have failed the owner, since the recommended action itself carried the unexplained coinage they'd have had to ask about.
-- **So** — running and shipping-shaped is not done, and a correct next move is not a briefing: the cycle needs a skill to name the missing gate, one to reload the owner's map, and one to return the single next move — in that order.
+- **Setup** — a demo reached the point where everything ran: pages, tests, screenshots, a path end to end. Separately, after hours of autonomous work, the owner came back to renamed files and invented vocabulary.
+- **Result** — the demo was still the wrong product: what it generated was shallow, with no way to replay a session, and every pass ended in "what now?" against unmet gates. A bare next move would have failed the owner too, phrased in the words they had missed.
+- **So** — running is not done. The cycle needs one skill to name the missing gate, one to rebuild the owner's map, and one to pick the move.
 </details>
 
 ## Credits
