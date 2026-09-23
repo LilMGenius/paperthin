@@ -58,7 +58,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | Realinea una lista desviada en un orden logico bajo un solo principio declarado; solo mueve elementos, no reescribe nada | una lista | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Sustituye nombres incidentales de stack por el mecanismo que querian decir | un artifact durable | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Elimina em dashes y sus imitaciones, eligiendo la puntuacion que cada lugar necesita | tu prosa | user | |
-| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | Propone una coma o un conector, con una razón por cada punto medio que une una enumeración abierta en prosa coreana; conserva los tres usos admitidos y los contextos protegidos | prosa coreana delimitada por quien escribe | user | ✔ |
+| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | Propone una coma o un conector en prosa, o un espacio en una fila de etiquetas, con una razón por cada punto medio que une una enumeración abierta en coreano; conserva los tres usos admitidos y los contextos protegidos | prosa coreana o filas de etiquetas delimitadas por quien escribe | user | ✔ |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Comprime un artifact inflado hasta su densidad portante; recorta palabras, nunca una regla | un artifact | user | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Lo lee en frio, con ojos frescos y cero contexto: se sostiene por si solo? | un artifact | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Verifica lo afirmado contra sources en ambas direcciones: podria lo absurdo ser real y lo obvio ser falso? | una claim | model | |
