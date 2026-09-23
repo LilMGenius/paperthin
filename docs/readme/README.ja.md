@@ -58,7 +58,7 @@
 | 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | 一つの原則のもとで、drift した listing を論理的な順序に整え直す。項目を動かすだけで、文言は変えない | listing 一つ | ユーザー | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 紛れた incidental な stack 名を、意図した mechanism に置き換える | durable artifact 一つ | モデル | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash とその類似物を取り除き、各場所に必要な句読点を選ぶ | 自分の文章 | ユーザー | |
-| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | 韓国語の文章で開かれた列挙をつなぐ中点ごとに、理由を添えてコンマか接続語を提案する。認められた3つの用法と保護対象の文脈はそのまま残す | 書き手が範囲を指定した韓国語の文章 | ユーザー | ✔ |
+| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | 韓国語で開かれた列挙をつなぐ中点ごとに、理由を添えて、文章ならコンマか接続語、ラベル行なら空白を提案する。認められた3つの用法と保護対象の文脈はそのまま残す | 書き手が範囲を指定した韓国語の文章やラベル行 | ユーザー | ✔ |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | 肥大化した artifact を、意味を支える密度まで圧縮する。文言を削るだけで、rule は決して削らない | artifact 一つ | ユーザー | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 新鮮でゼロコンテキストの目で冷たく読む。これ単体で成立するか？ | artifact 一つ | モデル | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 主張されたことを source に両方向で照合する。ばかげたことが本当で、当然に見えることが偽かもしれないか？ | claim 一つ | モデル | |
