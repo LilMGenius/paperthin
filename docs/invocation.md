@@ -19,7 +19,7 @@ Default to model-invoked. A skill is user-invoked only when the model should nev
 - `re0-style` — model-invoked: checking code style, conventions, and consistency is useful during review; the default is zero edits and a short report.
 - `re0-order` — reordering churns a listing; its logical order is an opinionated, deliberate call.
 - `dedash` — the human owns the exact prose scope.
-- `dedot`: the writer owns the exact Korean prose scope and chooses whether to apply each reasoned punctuation proposal.
+- `dedot`: the writer owns the exact scope of Korean prose or label rows and chooses whether to apply each reasoned punctuation proposal.
 - `debloat` — how tight and what to cut is an opinionated, scope-dependent call the human owns; a compress reflex in reach would over-compress or strip intended richness.
 - `re0-git` — committing is human-decided; a commit-cleanup reflex in reach would bias toward committing.
 - `re0-release` — publishing a release is a deliberate, human-decided action.
