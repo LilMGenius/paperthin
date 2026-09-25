@@ -64,7 +64,7 @@
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | يتحقق مما يُدّعى مقابل sources في الاتجاهين: هل يمكن أن يكون العبث صحيحا، والواضح خاطئا؟ | claim واحد | model | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | يدقق بحثا عن leakage: هل تدخل ground truth خارجية فعلا؟ | eval واحد | model | ✔ |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | بعد أي تغيير، يتذوق output الخاص بك بفحوص clean-and-true الخاصة بالـ repo | output الخاص بك | model | |
-| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | يعيد كتابة رسالة commit مكتمل حتى يحمل `git log` وحده التسليم | commit واحد | user | |
+| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | يعيد كتابة رسالة commit مكتمل ويحافظ على السجل خطيًا ومرتبًا زمنيًا حتى يحمل `git log` وحده التسليم | commit واحد | user | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | يشغّل قائمة فحص shipping و releasing، ثم ينشئ tag وينشر بعد التأكيد | إصدار واحد | user | |
 | 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | يراجع مساهمة ويدمجها: يفحصها، يحفظ نسبة الفضل لصاحبها، يوافق قبل الإغلاق، ويشرح أي تغيير | مساهمة واحدة | user | |
 
