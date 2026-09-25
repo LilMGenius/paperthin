@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v5
         with:
           node-version: 24
@@ -25,3 +27,19 @@ jobs:
         run: node scripts/gates/check-catalog-sync.cjs
       - name: Deploy-home SSOT drift-guard
         run: node scripts/gates/check-deploy-home.cjs
+      - name: Test the commit message check
+        run: node --test scripts/gates/check-commit-messages.test.cjs
+      - name: Check commit messages in the pull request
+        if: github.event_name == 'pull_request'
+        run: node scripts/gates/check-commit-messages.cjs "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+      - name: Check commit messages in the push
+        if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          if git cat-file -e "$BEFORE^{commit}" 2>/dev/null && git merge-base --is-ancestor "$BEFORE" "$AFTER"; then
+            node scripts/gates/check-commit-messages.cjs "$BEFORE..$AFTER"
+          else
+            echo "::notice::the push rewrote history, so no fast-forward range exists to check; the pull request check covers reviewed changes"
+          fi
