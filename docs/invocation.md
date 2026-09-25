@@ -17,17 +17,17 @@ Default to model-invoked. A skill is user-invoked only when the model should nev
 - `macrothink` — plural fresh reads are an opt-in perspective spend; convergence must not masquerade as automatic proof.
 - `feynman` — a challenge-every-decision reflex in reach biases toward chronic self-doubt.
 - `re0-style` — model-invoked: checking code style, conventions, and consistency is useful during review; the default is zero edits and a short report.
+- `debloat` — how tight and what to cut is an opinionated, scope-dependent call the human owns; a compress reflex in reach would over-compress or strip intended richness.
 - `re0-order` — reordering churns a listing; its logical order is an opinionated, deliberate call.
 - `dedash` — the human owns the exact prose scope.
 - `dedot`: the writer owns the exact scope of Korean prose or label rows and chooses whether to apply each reasoned punctuation proposal.
-- `debloat` — how tight and what to cut is an opinionated, scope-dependent call the human owns; a compress reflex in reach would over-compress or strip intended richness.
 - `re0-git` — committing is human-decided; a commit-cleanup reflex in reach would bias toward committing.
 - `re0-release` — publishing a release is a deliberate, human-decided action.
 - `re0-merge` — reviewing and landing a contribution is a deliberate maintainer act a review reflex would bias toward merging.
 - `re0-upgrade` — it makes consequential local changes (reinstalling skill entries, writing a session-start hook into each agent's config).
 - `re0-plan` — it assumes the full paperthin package installed and pairs deliberately with `re0-release`, not a general-purpose reflex.
-- `re0-tutorial`: starting a graded exercise is a deliberate learner choice; completion depends on the learner's own submission, never an invocation trace.
 - `re0-watch`: arming a watch is a deliberate human action; it alerts by default and hands recovery proposals to a human for approval.
+- `re0-tutorial`: starting a graded exercise is a deliberate learner choice; completion depends on the learner's own submission, never an invocation trace.
 - `prism` — plural lenses are an opt-in spend whose convergence must not pass as automatic proof.
 - `multithink`: adjudicating already-collected reads and choosing an optional evidence exchange are deliberate user decisions; finding classes depend on cited evidence, never on counts.
 
@@ -36,6 +36,10 @@ Two skills stay model-invoked against the grain: `autobahn` (the model should au
 ## Dependencies between them
 
 Dependencies are expressed as **`/skill`-style prose invocation** ("Run the `/re0` skill"), not deep `../other-skill/FILE.md` cross-references. Shared reference docs live inside the skill that owns them; other skills reach that material by invoking the skill, not by linking across folders.
+
+## Pipelines
+
+A pipeline is a skill whose workflow runs other skills in a fixed order: `re0-plan`, `re0-loop`, `sip`, `re0-merge` and `re0-release`, listed with their steps in the README's [Pipelines](../README.md#the-pipelines). Two rules follow from the invocation split. A step that names a user-invoked skill is a handoff: the pipeline stops, says what to run and why, and goes on once you have run it, because nothing but you can reach that skill. A step with a condition, such as `factchk` for a factual claim or `detool` for a portability claim, is skipped with its reason when the condition does not hold, so a pipeline never runs every member by default. `nba` and `re0-workflow` recommend and run nothing.
 
 ## Passive vs active domain work
 
