@@ -17,6 +17,8 @@ jobs:
         run: bash scripts/gates/validate-skills.sh
       - name: Verify skill references resolve
         run: bash scripts/gates/check-skill-refs.sh
+      - name: Test the skill reference scope
+        run: node --test scripts/gates/check-skill-refs.test.cjs
       - name: Verify relative links resolve
         run: bash scripts/gates/check-links.sh
       - name: Catalog SSOT drift-guard
