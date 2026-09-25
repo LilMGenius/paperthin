@@ -41,7 +41,8 @@ if (onlyScript.length || onlySkill.length) {
 const pluginPath = path.join(__dirname, '..', '..', '.claude-plugin', 'plugin.json');
 const plugin = JSON.parse(fs.readFileSync(pluginPath, 'utf-8')).skills.map((p) => p.split('/').pop());
 const readmePath = path.join(__dirname, '..', '..', 'README.md');
-const readme = [...fs.readFileSync(readmePath, 'utf-8').matchAll(/^\|[^\n]*\*\*\[([a-z0-9-]+)\]\([^)]*\/SKILL\.md\)\*\*/gm)].map((m) => m[1]);
+const readmeIndex = (fs.readFileSync(readmePath, 'utf-8').split(/^## The Index[ \t]*$/m)[1] || '').split(/^## /m)[0];
+const readme = [...readmeIndex.matchAll(/^\|[^\n]*\*\*\[([a-z0-9-]+)\]\([^)]*\/SKILL\.md\)\*\*/gm)].map((m) => m[1]);
 const surfaces = { 'scripts/runtime/catalog.cjs': CATALOG, 're0-upgrade Current catalog': roster, '.claude-plugin/plugin.json': plugin, 'README.md index': readme };
 const reference = CATALOG.join(' ');
 let disorder = 0;

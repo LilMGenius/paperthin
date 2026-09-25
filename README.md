@@ -52,11 +52,11 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🧐 **[feynman](./skills/depth/feynman/SKILL.md)** | Press a just-made decision until you can explain it, or the gap is flagged | one decision | user | ✔ |
 | 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Carve unsafe scope out up front, run the safe rest at full strength, log the descope | one task | model | |
 | 🎨 **[re0-style](./skills/depth/re0-style/SKILL.md)** | Check code style, conventions, and consistency; default to zero edits and a short report | one change under review | model | |
-| 🔃 **[re0-order](./skills/depth/re0-order/SKILL.md)** | Realign a drifted listing into a logical order under one stated principle; move items only, reword nothing | one listing | user | |
 | 🧰 **[detool](./skills/depth/detool/SKILL.md)** | Replace incidental stack nouns with the mechanism they mean | one durable artifact | model | |
+| 🗜️ **[debloat](./skills/depth/debloat/SKILL.md)** | Compress a bloated artifact to its load-bearing density; cut words, never a rule | one artifact | user | |
+| 🔃 **[re0-order](./skills/depth/re0-order/SKILL.md)** | Realign a drifted listing into a logical order under one stated principle; move items only, reword nothing | one listing | user | |
 | ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and look-alikes, picking the punctuation each spot needs | your prose | user | |
 | ⸱ **[dedot](./skills/depth/dedot/SKILL.md)** | Propose a comma or connective in prose, or spacing in a label row, with a reason for each middle dot joining an open enumeration in Korean; preserve the three sanctioned uses and protected contexts | Korean prose or label rows the writer scopes | user | ✔ |
-| 🗜️ **[debloat](./skills/depth/debloat/SKILL.md)** | Compress a bloated artifact to its load-bearing density; cut words, never a rule | one artifact | user | |
 | 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read it with fresh, zero-context eyes: does it stand alone? | one artifact | model | ✔ |
 | 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify what's asserted against sources both ways: could the absurd be real, the obvious false? | one claim | model | |
 | 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit for leakage: does outside ground-truth actually enter? | one eval | model | ✔ |
@@ -78,7 +78,6 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | Skill | What it does | Scope | Invoker | Read-only |
 |---|---|---|---|---|
 | 🗂️ **[re0-plan](./skills/coil/re0-plan/SKILL.md)** | Open a new iteration folder with DESIGN/WORKFLOW/EVIDENCE before re0-loop's first turn | one new cycle | user | |
-| 🎓 **[re0-tutorial](./skills/coil/re0-tutorial/SKILL.md)** | Learn one skill of the suite through three graded levels whose completion rests on the learner's own submission, never an invocation trace | one skill | user | |
 | 🌀 **[re0-loop](./skills/coil/re0-loop/SKILL.md)** | Run the build → QA → re0-memo → re0-work loop so learning compounds, not code | the whole loop | model | |
 | 👁️ **[re0-watch](./skills/coil/re0-watch/SKILL.md)** | Watch a long-running agent job for stalls and alert by default; recovery is only a proposal a human approves | one running job | user | |
 | 🧭 **[re0-memo](./skills/coil/re0-memo/SKILL.md)** | Pull the lessons and anti-patterns from a finished or failed cycle | one finished cycle | model | |
@@ -86,6 +85,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🗺️ **[catchup](./skills/coil/catchup/SKILL.md)** | Rebuild lost context from live state: what needs them, what changed, what new words mean | one re-entry | model | ✔ |
 | 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Read the live cycle state and return the single next best action, not a menu | the live cycle | model | ✔ |
 | 🧩 **[re0-workflow](./skills/coil/re0-workflow/SKILL.md)** | Recommend an ordered graph of skills for one stated intent, with each step's authority typed, without invoking them | one stated intent | model | ✔ |
+| 🎓 **[re0-tutorial](./skills/coil/re0-tutorial/SKILL.md)** | Learn one skill of the suite through three graded levels whose completion rests on the learner's own submission, never an invocation trace | one skill | user | |
 
 ### `mesh/`
 
