@@ -64,7 +64,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Verifica lo afirmado contra sources en ambas direcciones: podria lo absurdo ser real y lo obvio ser falso? | una claim | model | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Audita en busca de leakage: entra de verdad una ground truth externa? | un eval | model | ✔ |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Despues de cualquier cambio, prueba tu output con los checks clean-and-true del propio repo | tu output | model | |
-| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Reescribe el mensaje de un commit terminado para que `git log` haga el handoff por si solo | un commit | user | |
+| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Reescribe el mensaje de un commit terminado y mantiene el historial lineal y en orden cronologico, para que `git log` haga el handoff por si solo | un commit | user | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | Recorre la checklist de shipping y releasing, luego etiqueta y publica una vez confirmado | un release | user | |
 | 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | Revisa e integra una contribucion: pasala por el gate, conserva el credito del autor, aprueba antes de cerrar, explica cualquier cambio | una contribucion | user | |
 
