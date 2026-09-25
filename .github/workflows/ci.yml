@@ -25,6 +25,8 @@ jobs:
         run: bash scripts/gates/check-links.sh
       - name: Catalog SSOT drift-guard
         run: node scripts/gates/check-catalog-sync.cjs
+      - name: Test the catalog index scope
+        run: node --test scripts/gates/check-catalog-sync.test.cjs
       - name: Deploy-home SSOT drift-guard
         run: node scripts/gates/check-deploy-home.cjs
       - name: Test the commit message check

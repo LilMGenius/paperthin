@@ -8,7 +8,7 @@
 
 على **أي** agent | Claude Code، Codex، OpenCode، Antigravity، Copilot، Cursor، Grok-Build، Pi، Hermes، OpenClaw، وغيرها.
 
-[البدء السريع](#quickstart-15-seconds) · [الخريطة](#the-map) · [الفهرس](#the-index) · [المشكلة](#the-problem) · [fixes](#the-fixes) · [الشكر](#credits)
+[البدء السريع](#quickstart-15-seconds) · [الخريطة](#the-map) · [الـ Pipelines](#the-pipelines) · [الفهرس](#the-index) · [المشكلة](#the-problem) · [fixes](#the-fixes) · [الشكر](#credits)
 
 <sub>Read in: [English](../../README.md) · [中文](./README.zh-CN.md) · [हिन्दी](./README.hi.md) · [Español](./README.es.md) · العربية · [Português](./README.pt.md) · [Русский](./README.ru.md) · [日本語](./README.ja.md) · [Français](./README.fr.md) · [Deutsch](./README.de.md) · [한국어](./README.ko.md)</sub>
 
@@ -38,64 +38,79 @@
 <img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/map.svg" alt="خريطة Paperthin من LilMGenius/paperthin، matrix اثنان في اثنان. المحور الأفقي هو العددية: واحد ثم كثير؛ والمحور العمودي هو الزمن: الآن ثم عبر التكرارات؛ أربع مناطق. أعلى اليسار، depth: artifact واحد، الآن؛ هل هذا الشيء الواحد نظيف وصحيح؟ أعلى اليمين، breadth: artifacts كثيرة، الآن؛ هل fact واحدة متسقة في كل مكان؟ أسفل اليسار، coil: مشروع واحد عبر التكرارات؛ هل علّم كل مرور المرور التالي؟ أسفل اليمين، mesh: عقول كثيرة عبر جولات؛ هل يتقارب الحشد نحو ground truth؟" width="820">
 </div>
 
+<a id="the-pipelines"></a>
+## الـ Pipelines
+
+خمس skills هي روتينات مبنية من skills أخرى: استدعاء واحد يشغّل الأعضاء أدناه بالترتيب ويتخطى أي خطوة لا يتحقق شرطها. الخطوة المعلّمة بـ 👤 هي skill لا يستدعيها إلا المستخدم، لذلك يتوقف الـ pipeline عندها ويسلّمها لك ([لماذا](../invocation.md#pipelines)).
+
+| Pipeline | متى تستخدمه | ما يشغّله بالترتيب | Invoker |
+|---|---|---|---|
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | عند فتح cycle بناء جديدة | تقدير وزن الـ cycle → فتح الـ casebook → في cycle كاملة: `readback`، `modelchk`، 👤 `macrothink` إذا كان الاتجاه محل خلاف → التسليم إلى `re0-loop` | user |
+| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | حين يسير مشروع طويل دورة بعد دورة | frame → build → تشغيله على السطح الحقيقي → `re0-memo` → التكرار أو `re0-work`، مع سؤال `nba` عند الغموض → 👤 `hate` على الخطة التالية | model |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | بعد أن تنشئ شيئا أو تغيّره للتو | `shower` → `factchk` لادعاء، `mandela` لتقييم → تدقيق `ssotize` → `detool` إذا ادّعى قابلية النقل → `re0` | model |
+| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | حين تراجع pull request لشخص آخر | gate → `shower` → الموافقة والدمج، مع 👤 `re0-git` للرسائل → إكمال تسجيل skill جديدة → الإغلاق مع نسبة الفضل بعد الإصدار | user |
+| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | حين تقرر النشر | قائمة فحص الـ shipping → نوع الإصدار → `sip` → commit بعد موافقتك → tag ونشر بعد موافقة ثانية | user |
+
+`nba` يوصي بالخطوة التالية و`re0-workflow` بترتيب skills لنية واحدة؛ ولا يشغّل أي منهما شيئا.
+
 <a id="the-index"></a>
 ## الفهرس
 
 ### `depth/`
 
-| Skill | ماذا يفعل | scope | Invoker | قراءة فقط |
-|---|---|---|---|---|
-| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | يعيد كتابة artifact انحرف إلى v0 نظيفة، لا إلى رقعة أخرى | artifact واحد | model | |
-| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | يتحقق من قراءة الطلب، ولا يظهر إلا fork حقيقيا باقيا | instruction واحد | model | ✔ |
-| 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | يقرأ البيانات المُسلَّمة ويقترح القصد للتأكيد، بدل أن يسأل عنه | دفعة بيانات واحدة | model | ✔ |
-| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | يحدد أرخص tier و reasoning effort كافيين | task واحد | model | ✔ |
-| 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | يقترح إزالة المتطلبات التي لم تنفذ بعد وفرضها القصور الذاتي دون فائدة باقية، مع إرفاق المصدر والأدلة؛ يحافظ على كل إلزام خارجي | مجموعة متطلبات لم تنفذ بعد مع مصادرها | model | ✔ |
-| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | يرفض المجاملة: الاعتراض الوحيد الذي قد يقتل الخطة، وأرخص test | plan واحد | user | |
-| 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | يزيل bait، يوزع قراءات جديدة، ويعرض divergence أولا | direction واحد | user | ✔ |
-| 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | يضغط على قرار اتُّخذ للتو حتى تستطيع شرحه، أو تُعلَّم الفجوة | قرار واحد | user | ✔ |
-| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | يقطع scope غير الآمن مسبقا، يشغل الباقي الآمن بكامل القوة، ويسجل descope | task واحد | model | |
-| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | يتحقق من أسلوب الكود وأعرافه واتساقه؛ الافتراضي بلا تعديلات وتقرير قصير | تغيير واحد قيد المراجعة | model | |
-| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | يعيد ترتيب قائمة انحرفت إلى نظام منطقي وفق مبدأ واحد معلن؛ ينقل العناصر فقط، دون إعادة صياغة أي شيء | قائمة واحدة | user | |
-| 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | يستبدل أسماء الأدوات العارضة بالآلية المقصودة | artifact durable واحد | model | |
-| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | يزيل em dashes وما يشبهها، ويختار علامة الترقيم التي يحتاجها كل موضع | نثرك | user | |
-| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | يقترح فاصلة أو أداة ربط في النثر، أو مسافة في صف تسميات، مع تعليل لكل نقطة وسطية تصل عناصر تعداد مفتوح بالكورية؛ يحافظ على الاستخدامات الثلاثة المقررة والسياقات المحمية | نثر كوري أو صف تسميات يحدد الكاتب نطاقه | user | ✔ |
-| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | يضغط artifact منتفخا إلى كثافته الحاملة؛ يقطع الكلمات، لا قاعدة أبدا | artifact واحد | user | |
-| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | يقرأه قراءة باردة بعين جديدة وبدون سياق: هل يقف وحده؟ | artifact واحد | model | ✔ |
-| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | يتحقق مما يُدّعى مقابل sources في الاتجاهين: هل يمكن أن يكون العبث صحيحا، والواضح خاطئا؟ | claim واحد | model | |
-| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | يدقق بحثا عن leakage: هل تدخل ground truth خارجية فعلا؟ | eval واحد | model | ✔ |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | بعد أي تغيير، يتذوق output الخاص بك بفحوص clean-and-true الخاصة بالـ repo | output الخاص بك | model | |
-| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | يعيد كتابة رسالة commit مكتمل ويحافظ على السجل خطيًا ومرتبًا زمنيًا حتى يحمل `git log` وحده التسليم | commit واحد | user | |
-| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | يشغّل قائمة فحص shipping و releasing، ثم ينشئ tag وينشر بعد التأكيد | إصدار واحد | user | |
-| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | يراجع مساهمة ويدمجها: يفحصها، يحفظ نسبة الفضل لصاحبها، يوافق قبل الإغلاق، ويشرح أي تغيير | مساهمة واحدة | user | |
+| Skill | ماذا يفعل | scope | Invoker | قراءة فقط | يعيد استخدام |
+|---|---|---|---|---|---|
+| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | يعيد كتابة artifact انحرف إلى v0 نظيفة، لا إلى رقعة أخرى | artifact واحد | model | | |
+| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | يتحقق من قراءة الطلب، ولا يظهر إلا fork حقيقيا باقيا | instruction واحد | model | ✔ | |
+| 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | يقرأ البيانات المُسلَّمة ويقترح القصد للتأكيد، بدل أن يسأل عنه | دفعة بيانات واحدة | model | ✔ | |
+| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | يحدد أرخص tier و reasoning effort كافيين | task واحد | model | ✔ | |
+| 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | يقترح إزالة المتطلبات التي لم تنفذ بعد وفرضها القصور الذاتي دون فائدة باقية، مع إرفاق المصدر والأدلة؛ يحافظ على كل إلزام خارجي | مجموعة متطلبات لم تنفذ بعد مع مصادرها | model | ✔ | |
+| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | يرفض المجاملة: الاعتراض الوحيد الذي قد يقتل الخطة، وأرخص test | plan واحد | user | | |
+| 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | يزيل bait، يوزع قراءات جديدة، ويعرض divergence أولا | direction واحد | user | ✔ | |
+| 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | يضغط على قرار اتُّخذ للتو حتى تستطيع شرحه، أو تُعلَّم الفجوة | قرار واحد | user | ✔ | |
+| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | يقطع scope غير الآمن مسبقا، يشغل الباقي الآمن بكامل القوة، ويسجل descope | task واحد | model | | |
+| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | يتحقق من أسلوب الكود وأعرافه واتساقه؛ الافتراضي بلا تعديلات وتقرير قصير | تغيير واحد قيد المراجعة | model | | |
+| 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | يستبدل أسماء الأدوات العارضة بالآلية المقصودة | artifact durable واحد | model | | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | يضغط artifact منتفخا إلى كثافته الحاملة؛ يقطع الكلمات، لا قاعدة أبدا | artifact واحد | user | | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | يعيد ترتيب قائمة انحرفت إلى نظام منطقي وفق مبدأ واحد معلن؛ ينقل العناصر فقط، دون إعادة صياغة أي شيء | قائمة واحدة | user | | |
+| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | يزيل em dashes وما يشبهها، ويختار علامة الترقيم التي يحتاجها كل موضع | نثرك | user | | |
+| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | يقترح فاصلة أو أداة ربط في النثر، أو مسافة في صف تسميات، مع تعليل لكل نقطة وسطية تصل عناصر تعداد مفتوح بالكورية؛ يحافظ على الاستخدامات الثلاثة المقررة والسياقات المحمية | نثر كوري أو صف تسميات يحدد الكاتب نطاقه | user | ✔ | |
+| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | يقرأه قراءة باردة بعين جديدة وبدون سياق: هل يقف وحده؟ | artifact واحد | model | ✔ | |
+| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | يتحقق مما يُدّعى مقابل sources في الاتجاهين: هل يمكن أن يكون العبث صحيحا، والواضح خاطئا؟ | claim واحد | model | | |
+| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | يدقق بحثا عن leakage: هل تدخل ground truth خارجية فعلا؟ | eval واحد | model | ✔ | |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | بعد أي تغيير، يتذوق output الخاص بك بفحوص clean-and-true الخاصة بالـ repo | output الخاص بك | model | | `shower`, `factchk`, `mandela`, `ssotize`, `detool`, `re0` |
+| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | يعيد كتابة رسالة commit مكتمل ويحافظ على السجل خطيًا ومرتبًا زمنيًا حتى يحمل `git log` وحده التسليم | commit واحد | user | | |
+| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | يشغّل قائمة فحص shipping و releasing، ثم ينشئ tag وينشر بعد التأكيد | إصدار واحد | user | | `sip` |
+| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | يراجع مساهمة ويدمجها: يفحصها، يحفظ نسبة الفضل لصاحبها، يوافق قبل الإغلاق، ويشرح أي تغيير | مساهمة واحدة | user | | `shower`, 👤 `re0-git` |
 
 ### `breadth/`
 
-| Skill | ماذا يفعل | scope | Invoker | قراءة فقط |
-|---|---|---|---|---|
-| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | يدقق في التشتت، ثم يوحد fact في بيت واحد ويجعل الباقي يشير إليه | fact واحدة، أماكن كثيرة | model | |
-| 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | يوحّد الملفات أو الأشجار المكررة في هوية واحدة تديرها النواة: رابط صلب أو رابط رمزي أو وصلة دليل أو تركيب ربط، مع مسار تراجع متحقق منه | البايتات نفسها، مسارات كثيرة | model | |
-| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | يرفع skills المثبتة إلى الكتالوج الحالي الكامل بأمر واحد: يتقاعد المُعاد تسميته، يضيف الجديد، كله بعد التأكيد أولا | تثبيت skills الخاص بك | user | |
+| Skill | ماذا يفعل | scope | Invoker | قراءة فقط | يعيد استخدام |
+|---|---|---|---|---|---|
+| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | يدقق في التشتت، ثم يوحد fact في بيت واحد ويجعل الباقي يشير إليه | fact واحدة، أماكن كثيرة | model | | |
+| 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | يوحّد الملفات أو الأشجار المكررة في هوية واحدة تديرها النواة: رابط صلب أو رابط رمزي أو وصلة دليل أو تركيب ربط، مع مسار تراجع متحقق منه | البايتات نفسها، مسارات كثيرة | model | | |
+| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | يرفع skills المثبتة إلى الكتالوج الحالي الكامل بأمر واحد: يتقاعد المُعاد تسميته، يضيف الجديد، كله بعد التأكيد أولا | تثبيت skills الخاص بك | user | | |
 
 ### `coil/`
 
-| Skill | ماذا يفعل | scope | Invoker | قراءة فقط |
-|---|---|---|---|---|
-| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | يفتح مجلد iteration جديدا مع DESIGN/WORKFLOW/EVIDENCE قبل أول turn في re0-loop | cycle جديدة واحدة | user | |
-| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | تعلّم مهارة واحدة من المجموعة عبر ثلاثة مستويات مقيّمة، يُحكم على إكمالها من عمل المتعلّم نفسه، وليس من سجل الاستدعاء أبدا | مهارة واحدة | user | |
-| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | يشغل حلقة build → QA → re0-memo → re0-work حتى يتراكم التعلم، لا الكود | الحلقة كلها | model | |
-| 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | يراقب مهمة وكيل طويلة التشغيل لرصد التعثر وينبه افتراضيا؛ التعافي مجرد اقتراح يوافق عليه الإنسان | مهمة قيد التشغيل | user | |
-| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | يستخرج الدروس والـ anti-patterns من cycle انتهت أو فشلت | cycle مكتملة | model | |
-| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | يبدأ من v0 من جديد، محتفظا فقط بالدروس التي استحقت إعادة الاستخدام | restart واحد | model | |
-| 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | يعيد بناء context المفقود من الحالة الحية: ما يحتاجه، وما تغيّر، وماذا تعني الكلمات الجديدة | عودة واحدة | model | ✔ |
-| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | يقرأ حالة cycle الحية ويعيد next best action واحدا، لا قائمة | cycle الحية | model | ✔ |
-| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | يقترح مخططا مرتبا للمهارات لتحقيق مقصد واحد مصرح به، مع تحديد نوع صلاحية كل خطوة، دون استدعاء المهارات | مقصد واحد مصرح به | model | ✔ |
+| Skill | ماذا يفعل | scope | Invoker | قراءة فقط | يعيد استخدام |
+|---|---|---|---|---|---|
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | يفتح مجلد iteration جديدا مع DESIGN/WORKFLOW/EVIDENCE قبل أول turn في re0-loop | cycle جديدة واحدة | user | | `readback`, `modelchk`, 👤 `macrothink`, `re0-loop` |
+| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | يشغل حلقة build → QA → re0-memo → re0-work حتى يتراكم التعلم، لا الكود | الحلقة كلها | model | | `re0-memo`, `re0-work`, `nba`, 👤 `hate` |
+| 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | يراقب مهمة وكيل طويلة التشغيل لرصد التعثر وينبه افتراضيا؛ التعافي مجرد اقتراح يوافق عليه الإنسان | مهمة قيد التشغيل | user | | |
+| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | يستخرج الدروس والـ anti-patterns من cycle انتهت أو فشلت | cycle مكتملة | model | | |
+| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | يبدأ من v0 من جديد، محتفظا فقط بالدروس التي استحقت إعادة الاستخدام | restart واحد | model | | |
+| 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | يعيد بناء context المفقود من الحالة الحية: ما يحتاجه، وما تغيّر، وماذا تعني الكلمات الجديدة | عودة واحدة | model | ✔ | |
+| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | يقرأ حالة cycle الحية ويعيد next best action واحدا، لا قائمة | cycle الحية | model | ✔ | |
+| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | يقترح مخططا مرتبا للمهارات لتحقيق مقصد واحد مصرح به، مع تحديد نوع صلاحية كل خطوة، دون استدعاء المهارات | مقصد واحد مصرح به | model | ✔ | |
+| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | تعلّم مهارة واحدة من المجموعة عبر ثلاثة مستويات مقيّمة، يُحكم على إكمالها من عمل المتعلّم نفسه، وليس من سجل الاستدعاء أبدا | مهارة واحدة | user | | |
 
 ### `mesh/`
 
-| Skill | ماذا يفعل | scope | Invoker | قراءة فقط |
-|---|---|---|---|---|
-| 🔺 **[prism](../../skills/mesh/prism/SKILL.md)** | يقسّم artifact واحدا عبر عدسات مستقلة؛ يعيد حيث تتصادم والسؤال الذي يحسمها | artifact واحد | user | ✔ |
-| 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | يفصل في القراءات المستقلة المجمعة مسبقا ويحوّلها إلى نتائج مصنفة بحسب الأدلة المستشهد بها، لا بحسب العدد أبدا؛ تتداول جولة تبادل اختيارية واحدة الاستشهادات المتنازع عليها فقط وتسجل كل مراجعة أحدثتها الأدلة. | قراءات متعددة لـ artifact واحد أو سؤال واحد | user | ✔ |
+| Skill | ماذا يفعل | scope | Invoker | قراءة فقط | يعيد استخدام |
+|---|---|---|---|---|---|
+| 🔺 **[prism](../../skills/mesh/prism/SKILL.md)** | يقسّم artifact واحدا عبر عدسات مستقلة؛ يعيد حيث تتصادم والسؤال الذي يحسمها | artifact واحد | user | ✔ | |
+| 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | يفصل في القراءات المستقلة المجمعة مسبقا ويحوّلها إلى نتائج مصنفة بحسب الأدلة المستشهد بها، لا بحسب العدد أبدا؛ تتداول جولة تبادل اختيارية واحدة الاستشهادات المتنازع عليها فقط وتسجل كل مراجعة أحدثتها الأدلة. | قراءات متعددة لـ artifact واحد أو سؤال واحد | user | ✔ | |
 
 *المزيد عن الاستدعاء: [docs/invocation.md](../invocation.md).*
 
@@ -120,11 +135,11 @@
 - `prism` يقسم artifact واحدا عبر عدسات مستقلة ويعيد حيث تتصادم، لا متوسطها.
 - `autobahn` يقطع scope غير الآمن مسبقا، حتى يعمل الباقي الآمن بأقصى سرعة.
 - `detool` يستبدل أسماء الأدوات العرضية في المحتوى القابل للنقل بالآلية التي تعنيها.
-- `dedash` يزيل حتى أثر em-dash وما يشبهه، occurrence واحدة في كل مرة.
 - `debloat` يضغط artifact منتفخا إلى كثافته الحاملة، يقطع الكلمات لا قاعدة أبدا.
 - `shower` يقطع ما لا يستطيع غريب متابعته.
 - `ssotize` يدقق في ground truth المتناثرة عبر الملفات، يطلب الموافقة، ثم يطويها في بيت واحد.
 - `re0-order` يعيد محاذاة قائمة منحرفة تحت مبدأ واحد، يحرك العناصر ولا يعيد صياغة شيء.
+- `dedash` يزيل حتى أثر em-dash وما يشبهه، occurrence واحدة في كل مرة.
 - `sip` يشغل كل ذلك على output الخاص بك تلقائيا.
 - `re0-memo` / `re0-work` / `re0-loop` يحفظون الدرس، يتركون البناء الخاطئ يموت، ويبقون الحلقة تدور.
 - `catchup` / `nba` يعيدان بناء خريطة الإنسان من الحالة الحية، ثم يعيدان الخطوة التالية الواحدة.

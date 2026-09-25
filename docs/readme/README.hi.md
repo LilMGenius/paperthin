@@ -8,7 +8,7 @@
 
 **किसी भी** agent पर | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, Grok-Build, Pi, Hermes, OpenClaw आदि।
 
-[Quickstart](#quickstart-15-seconds) · [Map](#the-map) · [Index](#the-index) · [Problem](#the-problem) · [Fixes](#the-fixes) · [Credits](#credits)
+[Quickstart](#quickstart-15-seconds) · [Map](#the-map) · [Pipelines](#the-pipelines) · [Index](#the-index) · [Problem](#the-problem) · [Fixes](#the-fixes) · [Credits](#credits)
 
 <sub>Read in: [English](../../README.md) · [中文](./README.zh-CN.md) · हिन्दी · [Español](./README.es.md) · [العربية](./README.ar.md) · [Português](./README.pt.md) · [Русский](./README.ru.md) · [日本語](./README.ja.md) · [Français](./README.fr.md) · [Deutsch](./README.de.md) · [한국어](./README.ko.md)</sub>
 
@@ -38,64 +38,79 @@
 <img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/map.svg" alt="LilMGenius/paperthin का Paperthin map, दो-by-दो matrix. Horizontal axis cardinality (एक, फिर कई); vertical axis time (अभी, फिर iterations के पार); चार regions. Top-left, depth: एक artifact, अभी; क्या यह एक चीज clean और true है? Top-right, breadth: कई artifacts, अभी; क्या एक truth हर जगह consistent है? Bottom-left, coil: एक project, iterations के पार; क्या हर pass ने अगले को सिखाया? Bottom-right, mesh: कई minds, कई rounds के पार; क्या crowd truth पर converge करता है?" width="820">
 </div>
 
+<a id="the-pipelines"></a>
+## Pipelines
+
+पाँच skills दूसरी skills से बनी routines हैं: एक call नीचे के members को क्रम से चलाता है और जिस step की शर्त पूरी न हो उसे छोड़ देता है। 👤 वाला step ऐसी skill है जिसे सिर्फ user बुला सकता है, इसलिए pipeline वहीं रुककर वह step आपको सौंप देता है ([क्यों](../invocation.md#pipelines))।
+
+| Pipeline | कब इस्तेमाल करें | क्रम से क्या चलता है | Invoker |
+|---|---|---|---|
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | नया build cycle खुलता है | cycle का वज़न आँकना → casebook खोलना → full cycle में `readback`, `modelchk`, दिशा पर मतभेद हो तो 👤 `macrothink` → `re0-loop` को सौंपना | user |
+| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | लंबा project एक-एक lap में चलता है | frame → build → असली surface पर चलाना → `re0-memo` → वहीं iterate या `re0-work`, साफ़ न हो तो `nba` से पूछना → अगले plan पर 👤 `hate` | model |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | आपने अभी कुछ बनाया या बदला है | `shower` → claim हो तो `factchk`, eval हो तो `mandela` → `ssotize` audit → portability का दावा हो तो `detool` → `re0` | model |
+| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | आप किसी और का pull request review करते हैं | gate → `shower` → approve करके land करना, messages पर 👤 `re0-git` → नई skill का registration पूरा करना → release के बाद credit के साथ close करना | user |
+| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | आप ship करने का फ़ैसला करते हैं | shipping checklist → version का प्रकार → `sip` → आपकी हाँ पर commit → दूसरी हाँ पर tag और publish | user |
+
+`nba` अगली चाल सुझाता है और `re0-workflow` एक intent के लिए skills का क्रम; दोनों में से कोई कुछ नहीं चलाता।
+
 <a id="the-index"></a>
 ## Index
 
 ### `depth/`
 
-| Skill | क्या करता है | Scope | Invoker | read-only |
-|---|---|---|---|---|
-| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | drift हुए artifact को एक clean v0 में rewrite करता है, एक और patch नहीं लगाता | एक artifact | model | |
-| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | request की read check करता है; सिर्फ बचा हुआ real fork दिखाता है | एक instruction | model | ✔ |
-| 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | सौंपा गया data पढ़कर, पूछने के बजाय, confirm करने के लिए intent propose करता है | एक data drop | model | ✔ |
-| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | सबसे सस्ता sufficient tier और reasoning effort चुनता है | एक task | model | ✔ |
-| 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | अभी लागू न की गई, जड़ता से थोपी गई और अब लाभहीन आवश्यकताओं को हटाने का प्रस्ताव देता है, स्रोत और साक्ष्य संलग्न करता है; हर बाहरी अनिवार्यता सुरक्षित रखता है | अभी लागू न की गई आवश्यकताओं का समूह और उनके स्रोत | model | ✔ |
-| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | nice होने से इनकार करता है: plan को मार सकने वाली एक objection, और सबसे सस्ता test | एक plan | user | |
-| 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait हटाता है, fresh reads fan out करता है, और divergence पहले report करता है | एक direction | user | ✔ |
-| 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | अभी लिए गए decision को तब तक दबाता है जब तक आप उसे समझा न सकें, या gap flag हो जाए | एक decision | user | ✔ |
-| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | unsafe scope को upfront carve करता है, safe rest को full strength पर चलाता है, descope record करता है | एक task | model | |
-| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | code style, conventions और consistency जाँचता है; default में शून्य edits और एक छोटी report देता है | review में एक बदलाव | model | |
-| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | drift हुई listing को एक बताए गए principle के तहत logical order में फिर से align करता है; सिर्फ items move करता है, कुछ reword नहीं करता | एक listing | user | |
-| 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | incidental stack nouns को उनके mechanism से बदलता है | एक durable artifact | model | |
-| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash और उसके look-alikes हटाता है, हर जगह सही punctuation चुनता है | आपकी prose | user | |
-| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | कोरियाई में खुली गणना जोड़ने वाले हर मध्य बिंदु के लिए कारण सहित, गद्य में अल्पविराम या संयोजक और लेबल पंक्ति में खाली जगह सुझाता है; तीन मान्य उपयोग और संरक्षित संदर्भ जस के तस रखता है | लेखक द्वारा सीमित कोरियाई गद्य या लेबल पंक्तियाँ | user | ✔ |
-| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | bloated artifact को उसकी load-bearing density तक compress करता है; words काटता है, कभी कोई rule नहीं | एक artifact | user | |
-| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | fresh, zero-context eyes से cold-read करता है: क्या यह अपने दम पर समझ आता है? | एक artifact | model | ✔ |
-| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | sources के against जो दावा किया गया उसे दोनों दिशाओं में verify करता है: क्या absurd सच हो सकता है, और obvious झूठ? | एक claim | model | |
-| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | leakage audit करता है: क्या बाहर की ground truth सच में अंदर आती है? | एक eval | model | ✔ |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | हर change के बाद repo के अपने clean-and-true checks से आपके output को taste करता है | आपका output | model | |
-| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | finished commit message को rewrite करता है और history को linear और समय-क्रम में रखता है, ताकि `git log` अकेले handoff दे सके | एक commit | user | |
-| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | shipping aur releasing checklist चलाता है, फिर confirm होने पर tag करके publish करता है | एक release | user | |
-| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | किसी contribution को review करके land करता है: उसे gate करता है, author का credit बनाए रखता है, close करने से पहले approve करता है, और किसी भी change को explain करता है | एक contribution | user | |
+| Skill | क्या करता है | Scope | Invoker | read-only | पुनः उपयोग |
+|---|---|---|---|---|---|
+| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | drift हुए artifact को एक clean v0 में rewrite करता है, एक और patch नहीं लगाता | एक artifact | model | | |
+| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | request की read check करता है; सिर्फ बचा हुआ real fork दिखाता है | एक instruction | model | ✔ | |
+| 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | सौंपा गया data पढ़कर, पूछने के बजाय, confirm करने के लिए intent propose करता है | एक data drop | model | ✔ | |
+| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | सबसे सस्ता sufficient tier और reasoning effort चुनता है | एक task | model | ✔ | |
+| 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | अभी लागू न की गई, जड़ता से थोपी गई और अब लाभहीन आवश्यकताओं को हटाने का प्रस्ताव देता है, स्रोत और साक्ष्य संलग्न करता है; हर बाहरी अनिवार्यता सुरक्षित रखता है | अभी लागू न की गई आवश्यकताओं का समूह और उनके स्रोत | model | ✔ | |
+| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | nice होने से इनकार करता है: plan को मार सकने वाली एक objection, और सबसे सस्ता test | एक plan | user | | |
+| 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait हटाता है, fresh reads fan out करता है, और divergence पहले report करता है | एक direction | user | ✔ | |
+| 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | अभी लिए गए decision को तब तक दबाता है जब तक आप उसे समझा न सकें, या gap flag हो जाए | एक decision | user | ✔ | |
+| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | unsafe scope को upfront carve करता है, safe rest को full strength पर चलाता है, descope record करता है | एक task | model | | |
+| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | code style, conventions और consistency जाँचता है; default में शून्य edits और एक छोटी report देता है | review में एक बदलाव | model | | |
+| 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | incidental stack nouns को उनके mechanism से बदलता है | एक durable artifact | model | | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | bloated artifact को उसकी load-bearing density तक compress करता है; words काटता है, कभी कोई rule नहीं | एक artifact | user | | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | drift हुई listing को एक बताए गए principle के तहत logical order में फिर से align करता है; सिर्फ items move करता है, कुछ reword नहीं करता | एक listing | user | | |
+| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash और उसके look-alikes हटाता है, हर जगह सही punctuation चुनता है | आपकी prose | user | | |
+| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | कोरियाई में खुली गणना जोड़ने वाले हर मध्य बिंदु के लिए कारण सहित, गद्य में अल्पविराम या संयोजक और लेबल पंक्ति में खाली जगह सुझाता है; तीन मान्य उपयोग और संरक्षित संदर्भ जस के तस रखता है | लेखक द्वारा सीमित कोरियाई गद्य या लेबल पंक्तियाँ | user | ✔ | |
+| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | fresh, zero-context eyes से cold-read करता है: क्या यह अपने दम पर समझ आता है? | एक artifact | model | ✔ | |
+| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | sources के against जो दावा किया गया उसे दोनों दिशाओं में verify करता है: क्या absurd सच हो सकता है, और obvious झूठ? | एक claim | model | | |
+| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | leakage audit करता है: क्या बाहर की ground truth सच में अंदर आती है? | एक eval | model | ✔ | |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | हर change के बाद repo के अपने clean-and-true checks से आपके output को taste करता है | आपका output | model | | `shower`, `factchk`, `mandela`, `ssotize`, `detool`, `re0` |
+| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | finished commit message को rewrite करता है और history को linear और समय-क्रम में रखता है, ताकि `git log` अकेले handoff दे सके | एक commit | user | | |
+| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | shipping aur releasing checklist चलाता है, फिर confirm होने पर tag करके publish करता है | एक release | user | | `sip` |
+| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | किसी contribution को review करके land करता है: उसे gate करता है, author का credit बनाए रखता है, close करने से पहले approve करता है, और किसी भी change को explain करता है | एक contribution | user | | `shower`, 👤 `re0-git` |
 
 ### `breadth/`
 
-| Skill | क्या करता है | Scope | Invoker | read-only |
-|---|---|---|---|---|
-| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | scatter audit करता है, फिर fact को एक home में consolidate करके बाकी को उसकी ओर इंगित करता है | एक fact, कई जगह | model | |
-| 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | दोहराई गई फ़ाइलों या डायरेक्टरी ट्री को कर्नेल द्वारा प्रबंधित एक पहचान में समेकित करता है: हार्डलिंक, सिमलिंक, जंक्शन या बाइंड माउंट, साथ में सत्यापित वापसी प्रक्रिया | वही बाइट्स, कई पथ | model | |
-| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | एक कमांड में पूरे मौजूदा catalog तक ले आता है: नाम बदले हटाता है, नए जोड़ता है, सब पहले पुष्टि | आपकी skill install | user | |
+| Skill | क्या करता है | Scope | Invoker | read-only | पुनः उपयोग |
+|---|---|---|---|---|---|
+| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | scatter audit करता है, फिर fact को एक home में consolidate करके बाकी को उसकी ओर इंगित करता है | एक fact, कई जगह | model | | |
+| 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | दोहराई गई फ़ाइलों या डायरेक्टरी ट्री को कर्नेल द्वारा प्रबंधित एक पहचान में समेकित करता है: हार्डलिंक, सिमलिंक, जंक्शन या बाइंड माउंट, साथ में सत्यापित वापसी प्रक्रिया | वही बाइट्स, कई पथ | model | | |
+| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | एक कमांड में पूरे मौजूदा catalog तक ले आता है: नाम बदले हटाता है, नए जोड़ता है, सब पहले पुष्टि | आपकी skill install | user | | |
 
 ### `coil/`
 
-| Skill | क्या करता है | Scope | Invoker | read-only |
-|---|---|---|---|---|
-| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | re0-loop की पहली turn से पहले नया iteration folder DESIGN/WORKFLOW/EVIDENCE के साथ खोलता है | एक नया cycle | user | |
-| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | सुइट का एक कौशल तीन मूल्यांकित स्तरों में सीखें; पूर्णता सीखने वाले के अपने प्रस्तुत काम पर निर्भर है, कभी भी invocation trace पर नहीं | एक कौशल | user | |
-| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | build → QA → re0-memo → re0-work loop चलाता है ताकि learning compound करे, code नहीं | पूरा loop | model | |
-| 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | लंबे समय तक चलने वाले एजेंट कार्य में रुकावट पर नज़र रखता है और डिफ़ॉल्ट रूप से चेतावनी देता है; रिकवरी केवल मानव की स्वीकृति के लिए प्रस्ताव है | एक चालू कार्य | user | |
-| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | finished या failed cycle से lessons और anti-patterns निकालता है | एक finished cycle | model | |
-| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | सिर्फ reuse कमाने वाले lessons रखते हुए v0 से restart करता है | एक restart | model | |
-| 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | live state से खोया हुआ context फिर से बनाता है: उसे क्या चाहिए, क्या बदला, नए शब्दों का मतलब क्या है | एक re-entry | model | ✔ |
-| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | live cycle state पढ़कर menu नहीं, single next best action देता है | live cycle | model | ✔ |
-| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | एक स्पष्ट रूप से बताए गए इरादे के लिए skills का क्रमबद्ध ग्राफ सुझाता है, हर चरण के अधिकार का प्रकार बताता है और किसी skill को चलाता नहीं | एक बताया गया इरादा | model | ✔ |
+| Skill | क्या करता है | Scope | Invoker | read-only | पुनः उपयोग |
+|---|---|---|---|---|---|
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | re0-loop की पहली turn से पहले नया iteration folder DESIGN/WORKFLOW/EVIDENCE के साथ खोलता है | एक नया cycle | user | | `readback`, `modelchk`, 👤 `macrothink`, `re0-loop` |
+| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | build → QA → re0-memo → re0-work loop चलाता है ताकि learning compound करे, code नहीं | पूरा loop | model | | `re0-memo`, `re0-work`, `nba`, 👤 `hate` |
+| 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | लंबे समय तक चलने वाले एजेंट कार्य में रुकावट पर नज़र रखता है और डिफ़ॉल्ट रूप से चेतावनी देता है; रिकवरी केवल मानव की स्वीकृति के लिए प्रस्ताव है | एक चालू कार्य | user | | |
+| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | finished या failed cycle से lessons और anti-patterns निकालता है | एक finished cycle | model | | |
+| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | सिर्फ reuse कमाने वाले lessons रखते हुए v0 से restart करता है | एक restart | model | | |
+| 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | live state से खोया हुआ context फिर से बनाता है: उसे क्या चाहिए, क्या बदला, नए शब्दों का मतलब क्या है | एक re-entry | model | ✔ | |
+| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | live cycle state पढ़कर menu नहीं, single next best action देता है | live cycle | model | ✔ | |
+| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | एक स्पष्ट रूप से बताए गए इरादे के लिए skills का क्रमबद्ध ग्राफ सुझाता है, हर चरण के अधिकार का प्रकार बताता है और किसी skill को चलाता नहीं | एक बताया गया इरादा | model | ✔ | |
+| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | सुइट का एक कौशल तीन मूल्यांकित स्तरों में सीखें; पूर्णता सीखने वाले के अपने प्रस्तुत काम पर निर्भर है, कभी भी invocation trace पर नहीं | एक कौशल | user | | |
 
 ### `mesh/`
 
-| Skill | क्या करता है | Scope | Invoker | read-only |
-|---|---|---|---|---|
-| 🔺 **[prism](../../skills/mesh/prism/SKILL.md)** | एक artifact को independent lenses में बांटता है; जहां वे टकराते हैं वह लौटाता है और वह सवाल जो उसे सुलझाता है | एक artifact | user | ✔ |
-| 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | पहले से एकत्र स्वतंत्र पढ़तों का आकलन करके निष्कर्षों को उद्धृत साक्ष्यों के आधार पर वर्गीकृत करता है, कभी संख्या के आधार पर नहीं; आदान-प्रदान का एक वैकल्पिक दौर केवल विवादित उद्धरणों को साझा करता है और साक्ष्य के कारण हुए हर संशोधन को दर्ज करता है। | एक artifact या प्रश्न की कई पढ़तें | user | ✔ |
+| Skill | क्या करता है | Scope | Invoker | read-only | पुनः उपयोग |
+|---|---|---|---|---|---|
+| 🔺 **[prism](../../skills/mesh/prism/SKILL.md)** | एक artifact को independent lenses में बांटता है; जहां वे टकराते हैं वह लौटाता है और वह सवाल जो उसे सुलझाता है | एक artifact | user | ✔ | |
+| 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | पहले से एकत्र स्वतंत्र पढ़तों का आकलन करके निष्कर्षों को उद्धृत साक्ष्यों के आधार पर वर्गीकृत करता है, कभी संख्या के आधार पर नहीं; आदान-प्रदान का एक वैकल्पिक दौर केवल विवादित उद्धरणों को साझा करता है और साक्ष्य के कारण हुए हर संशोधन को दर्ज करता है। | एक artifact या प्रश्न की कई पढ़तें | user | ✔ | |
 
 *Invocation पर अधिक: [docs/invocation.md](../invocation.md)।*
 
@@ -120,11 +135,11 @@ Agent को goal दें और वह **add** करता है: और fi
 - `prism` एक artifact को independent lenses में बाँटता है और वे जहाँ टकराते हैं वह लौटाता है, कभी उनका average नहीं।
 - `autobahn` unsafe scope upfront carve करता है, ताकि safe remainder पूरी speed से चले।
 - `detool` portable content के incidental tool नामों को उनके असल mechanism से बदलता है।
-- `dedash` em-dash tell और उसके look-alikes तक हटाता है, एक-एक occurrence judge करके।
 - `debloat` bloated artifact को उसकी load-bearing density तक compress करता है, words काटता है पर कभी कोई rule नहीं।
 - `shower` वह काटता है जिसे कोई stranger follow नहीं कर सकता।
 - `ssotize` files में फैले facts को audit करता है, approval मांगता है, फिर उन्हें एक home में collapse करता है।
 - `re0-order` drifted listing को एक principle के तहत फिर align करता है, items हिलाता है और कुछ भी reword नहीं करता।
+- `dedash` em-dash tell और उसके look-alikes तक हटाता है, एक-एक occurrence judge करके।
 - `sip` यह सब अपने output पर automatically चलाता है।
 - `re0-memo` / `re0-work` / `re0-loop` lesson बचाते हैं, गलत build को मरने देते हैं, और loop चलाए रखते हैं।
 - `catchup` / `nba` live state से इंसान का map फिर बनाते हैं, फिर एक ही अगला move लौटाते हैं।

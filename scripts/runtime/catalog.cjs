@@ -17,10 +17,10 @@ const path = require('path');
 const os = require('os');
 
 const CATALOG = [
-  're0', 'readback', 'aim', 'modelchk', 'elon', 'hate', 'macrothink', 'feynman', 'autobahn',
-  're0-style', 're0-order', 'detool', 'dedash', 'dedot', 'debloat', 'shower', 'factchk', 'mandela', 'sip', 're0-git',
-  're0-release', 're0-merge', 'ssotize', 'ssotize-local', 're0-upgrade', 're0-plan', 're0-tutorial', 're0-loop', 're0-watch',
-  're0-memo', 're0-work', 'catchup', 'nba', 're0-workflow', 'prism', 'multithink',
+  're0', 'readback', 'aim', 'modelchk', 'elon', 'hate', 'macrothink', 'feynman', 'autobahn', 're0-style', 'detool',
+  'debloat', 're0-order', 'dedash', 'dedot', 'shower', 'factchk', 'mandela', 'sip', 're0-git', 're0-release', 're0-merge',
+  'ssotize', 'ssotize-local', 're0-upgrade', 're0-plan', 're0-loop', 're0-watch', 're0-memo', 're0-work', 'catchup', 'nba',
+  're0-workflow', 're0-tutorial', 'prism', 'multithink',
 ];
 
 const HOME = os.homedir();

@@ -8,7 +8,7 @@
 
 Для **любого** агента | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, Grok-Build, Pi, Hermes, OpenClaw и т. д.
 
-[Быстрый старт](#quickstart-15-seconds) · [Карта](#the-map) · [Индекс](#the-index) · [Проблема](#the-problem) · [Фиксы](#the-fixes) · [Credits](#credits)
+[Быстрый старт](#quickstart-15-seconds) · [Карта](#the-map) · [Пайплайны](#the-pipelines) · [Индекс](#the-index) · [Проблема](#the-problem) · [Фиксы](#the-fixes) · [Credits](#credits)
 
 <sub>Read in: [English](../../README.md) · [中文](./README.zh-CN.md) · [हिन्दी](./README.hi.md) · [Español](./README.es.md) · [العربية](./README.ar.md) · [Português](./README.pt.md) · Русский · [日本語](./README.ja.md) · [Français](./README.fr.md) · [Deutsch](./README.de.md) · [한국어](./README.ko.md)</sub>
 
@@ -38,64 +38,79 @@
 <img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/map.svg" alt="Карта Paperthin от LilMGenius/paperthin, матрица два на два. Горизонтальная ось - cardinality: один, затем много; вертикальная ось - time: сейчас, затем через iterations; четыре области. Вверху слева, depth: один артефакт, сейчас; чистая и правдивая ли эта одна вещь? Вверху справа, breadth: много артефактов, сейчас; единая truth консистентна везде? Внизу слева, coil: один проект через iterations; научил ли каждый pass следующий? Внизу справа, mesh: много умов через несколько rounds; сходится ли crowd к truth?" width="820">
 </div>
 
+<a id="the-pipelines"></a>
+## Пайплайны
+
+Пять skills собраны из других skills: один вызов запускает участников ниже по порядку и пропускает шаг, условие которого не выполнено. Шаг с 👤 означает skill, который вызывает только пользователь, поэтому пайплайн останавливается на нём и передаёт этот шаг вам ([почему](../invocation.md#pipelines)).
+
+| Пайплайн | Когда | Запускает по порядку | Invoker |
+|---|---|---|---|
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | открывается новый cycle сборки | оценить вес cycle → открыть casebook → для полного cycle: `readback`, `modelchk`, 👤 `macrothink`, если направление спорное → передать `re0-loop` | user |
+| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | долгий проект идёт круг за кругом | frame → build → прогон на реальной поверхности → `re0-memo` → итерация или `re0-work`, при неясности спросить `nba` → 👤 `hate` по следующему плану | model |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | вы только что что-то создали или изменили | `shower` → `factchk` для утверждения, `mandela` для eval → аудит `ssotize` → `detool`, если заявлена переносимость → `re0` | model |
+| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | вы ревьюите чужой pull request | gate → `shower` → одобрить и принять, с 👤 `re0-git` для сообщений → завершить регистрацию нового skill → закрыть с credit после release | user |
+| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | вы решили выпускать | чек-лист shipping → тип версии → `sip` → commit после вашего «да» → tag и публикация после второго «да» | user |
+
+`nba` советует следующий ход, а `re0-workflow` порядок skills для одного намерения; ни один из них ничего не запускает.
+
 <a id="the-index"></a>
 ## Индекс
 
 ### `depth/`
 
-| Skill | Что делает | Scope | Invoker | read-only |
-|---|---|---|---|---|
-| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | Переписывает поплывший артефакт в чистую v0, а не накладывает еще один patch | один артефакт | model | |
-| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | Проверяет прочтение запроса и показывает только реальную оставшуюся развилку | одна инструкция | model | ✔ |
-| 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | Читает переданные данные и предлагает подтвердить намерение, вместо того чтобы о нём спрашивать | один data drop | model | ✔ |
-| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Подбирает самый дешевый достаточный tier и reasoning effort | одна task | model | ✔ |
-| 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | Предлагает убрать ещё не реализованные требования, навязанные по инерции и больше не приносящие пользы, приложив источник и доказательства; сохраняет все внешние обязательства | набор ещё не реализованных требований с их источниками | model | ✔ |
-| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Отказывается быть добрым: одно objection, которое может убить plan, плюс самый дешевый test | один plan | user | |
-| 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Убирает bait, запускает свежие прочтения и первым сообщает divergence | одно direction | user | ✔ |
-| 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Давит на только что принятое решение, пока не сможешь его объяснить, иначе помечает пробел | одно решение | user | ✔ |
-| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Заранее вырезает unsafe scope, запускает безопасный остаток на полной мощности и логирует descope | одна task | model | |
-| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Проверяет стиль, соглашения и согласованность кода; по умолчанию без правок, с кратким отчётом | одно изменение на ревью | model | |
-| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | Выравнивает поплывший список в логический порядок по одному заявленному принципу; только переставляет элементы, ничего не переписывает | один список | user | |
-| 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Заменяет случайные имена stack на механизм, который они означают | один durable artifact | model | |
-| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Убирает em dashes и их look-alikes, выбирая пунктуацию, которая реально нужна в каждом месте | ваша prose | user | |
-| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | Предлагает запятую или связующее слово в прозе либо пробел в строке меток, с обоснованием для каждой средней точки, соединяющей открытое перечисление на корейском; сохраняет три допустимых употребления и защищённые контексты | корейская проза или строки меток в границах, заданных автором | user | ✔ |
-| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Сжимает раздутый артефакт до его несущей плотности; отсекает слова, но никогда не правила | один артефакт | user | |
-| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Cold-read свежими глазами без контекста: держится ли артефакт сам по себе? | один артефакт | model | ✔ |
-| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Проверяет утверждаемое по sources в обе стороны: может ли абсурд быть реальным, а очевидное ложным? | один claim | model | |
-| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Аудитит на leakage: действительно ли внутрь входит внешняя ground truth? | один eval | model | ✔ |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | После любого изменения пробует output через собственные clean-and-true checks репозитория | ваш output | model | |
-| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Переписывает message готового commit и держит историю линейной и в хронологическом порядке, чтобы один `git log` нес handoff | один commit | user | |
-| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | Проходит чек-лист shipping и releasing, затем создаёт tag и публикует после подтверждения | один release | user | |
-| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | Ревьюит и принимает contribution: проводит через gate, сохраняет авторский credit, апрувит перед закрытием и объясняет любое изменение | одна contribution | user | |
+| Skill | Что делает | Scope | Invoker | read-only | Использует |
+|---|---|---|---|---|---|
+| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | Переписывает поплывший артефакт в чистую v0, а не накладывает еще один patch | один артефакт | model | | |
+| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | Проверяет прочтение запроса и показывает только реальную оставшуюся развилку | одна инструкция | model | ✔ | |
+| 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | Читает переданные данные и предлагает подтвердить намерение, вместо того чтобы о нём спрашивать | один data drop | model | ✔ | |
+| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Подбирает самый дешевый достаточный tier и reasoning effort | одна task | model | ✔ | |
+| 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | Предлагает убрать ещё не реализованные требования, навязанные по инерции и больше не приносящие пользы, приложив источник и доказательства; сохраняет все внешние обязательства | набор ещё не реализованных требований с их источниками | model | ✔ | |
+| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Отказывается быть добрым: одно objection, которое может убить plan, плюс самый дешевый test | один plan | user | | |
+| 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Убирает bait, запускает свежие прочтения и первым сообщает divergence | одно direction | user | ✔ | |
+| 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Давит на только что принятое решение, пока не сможешь его объяснить, иначе помечает пробел | одно решение | user | ✔ | |
+| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Заранее вырезает unsafe scope, запускает безопасный остаток на полной мощности и логирует descope | одна task | model | | |
+| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Проверяет стиль, соглашения и согласованность кода; по умолчанию без правок, с кратким отчётом | одно изменение на ревью | model | | |
+| 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Заменяет случайные имена stack на механизм, который они означают | один durable artifact | model | | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Сжимает раздутый артефакт до его несущей плотности; отсекает слова, но никогда не правила | один артефакт | user | | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | Выравнивает поплывший список в логический порядок по одному заявленному принципу; только переставляет элементы, ничего не переписывает | один список | user | | |
+| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Убирает em dashes и их look-alikes, выбирая пунктуацию, которая реально нужна в каждом месте | ваша prose | user | | |
+| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | Предлагает запятую или связующее слово в прозе либо пробел в строке меток, с обоснованием для каждой средней точки, соединяющей открытое перечисление на корейском; сохраняет три допустимых употребления и защищённые контексты | корейская проза или строки меток в границах, заданных автором | user | ✔ | |
+| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Cold-read свежими глазами без контекста: держится ли артефакт сам по себе? | один артефакт | model | ✔ | |
+| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Проверяет утверждаемое по sources в обе стороны: может ли абсурд быть реальным, а очевидное ложным? | один claim | model | | |
+| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Аудитит на leakage: действительно ли внутрь входит внешняя ground truth? | один eval | model | ✔ | |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | После любого изменения пробует output через собственные clean-and-true checks репозитория | ваш output | model | | `shower`, `factchk`, `mandela`, `ssotize`, `detool`, `re0` |
+| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Переписывает message готового commit и держит историю линейной и в хронологическом порядке, чтобы один `git log` нес handoff | один commit | user | | |
+| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | Проходит чек-лист shipping и releasing, затем создаёт tag и публикует после подтверждения | один release | user | | `sip` |
+| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | Ревьюит и принимает contribution: проводит через gate, сохраняет авторский credit, апрувит перед закрытием и объясняет любое изменение | одна contribution | user | | `shower`, 👤 `re0-git` |
 
 ### `breadth/`
 
-| Skill | Что делает | Scope | Invoker | read-only |
-|---|---|---|---|---|
-| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Аудитит разброс, затем consolidates fact в одном доме, остальное указывает на него | один fact, много мест | model | |
-| 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | Объединяет дублирующиеся файлы или деревья каталогов в одну сущность под управлением ядра: жёсткая ссылка, символическая ссылка, соединение каталогов или bind-монтирование, с проверенным способом отката | одни байты, много путей | model | |
-| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | Приводит установленные skills к полному актуальному каталогу одной командой: удаляет переименованное, добавляет новое, всё сначала подтверждается | ваша установка skills | user | |
+| Skill | Что делает | Scope | Invoker | read-only | Использует |
+|---|---|---|---|---|---|
+| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Аудитит разброс, затем consolidates fact в одном доме, остальное указывает на него | один fact, много мест | model | | |
+| 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | Объединяет дублирующиеся файлы или деревья каталогов в одну сущность под управлением ядра: жёсткая ссылка, символическая ссылка, соединение каталогов или bind-монтирование, с проверенным способом отката | одни байты, много путей | model | | |
+| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | Приводит установленные skills к полному актуальному каталогу одной командой: удаляет переименованное, добавляет новое, всё сначала подтверждается | ваша установка skills | user | | |
 
 ### `coil/`
 
-| Skill | Что делает | Scope | Invoker | read-only |
-|---|---|---|---|---|
-| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | Открывает новую папку iteration с DESIGN/WORKFLOW/EVIDENCE до первого хода re0-loop | один новый cycle | user | |
-| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | Освойте один навык набора на трёх оцениваемых уровнях; завершение определяется собственной работой учащегося, а не следом вызовов | один навык | user | |
-| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Запускает loop build → QA → re0-memo → re0-work, чтобы накапливалось learning, а не code | весь loop | model | |
-| 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | Следит за длительной задачей агента и по умолчанию предупреждает о зависании; восстановление лишь предлагается на одобрение человеку | одна выполняемая задача | user | |
-| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Извлекает lessons и anti-patterns из завершенного или проваленного cycle | один завершенный cycle | model | |
-| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Начинает заново с v0, оставляя только lessons, заслужившие reuse | один restart | model | |
-| 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Восстанавливает потерянный context из live-состояния: что от него нужно, что изменилось, что значат новые слова | один re-entry | model | ✔ |
-| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Читает live cycle state и возвращает один next best action, а не меню | текущий cycle | model | ✔ |
-| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Рекомендует упорядоченный граф skills для одного заявленного намерения, указывая тип полномочий каждого шага и не вызывая skills | одно заявленное намерение | model | ✔ |
+| Skill | Что делает | Scope | Invoker | read-only | Использует |
+|---|---|---|---|---|---|
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | Открывает новую папку iteration с DESIGN/WORKFLOW/EVIDENCE до первого хода re0-loop | один новый cycle | user | | `readback`, `modelchk`, 👤 `macrothink`, `re0-loop` |
+| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Запускает loop build → QA → re0-memo → re0-work, чтобы накапливалось learning, а не code | весь loop | model | | `re0-memo`, `re0-work`, `nba`, 👤 `hate` |
+| 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | Следит за длительной задачей агента и по умолчанию предупреждает о зависании; восстановление лишь предлагается на одобрение человеку | одна выполняемая задача | user | | |
+| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Извлекает lessons и anti-patterns из завершенного или проваленного cycle | один завершенный cycle | model | | |
+| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Начинает заново с v0, оставляя только lessons, заслужившие reuse | один restart | model | | |
+| 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Восстанавливает потерянный context из live-состояния: что от него нужно, что изменилось, что значат новые слова | один re-entry | model | ✔ | |
+| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Читает live cycle state и возвращает один next best action, а не меню | текущий cycle | model | ✔ | |
+| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Рекомендует упорядоченный граф skills для одного заявленного намерения, указывая тип полномочий каждого шага и не вызывая skills | одно заявленное намерение | model | ✔ | |
+| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | Освойте один навык набора на трёх оцениваемых уровнях; завершение определяется собственной работой учащегося, а не следом вызовов | один навык | user | | |
 
 ### `mesh/`
 
-| Skill | Что делает | Scope | Invoker | read-only |
-|---|---|---|---|---|
-| 🔺 **[prism](../../skills/mesh/prism/SKILL.md)** | Разбивает один артефакт по независимым линзам; возвращает, где они расходятся, и вопрос, который это разрешает | один артефакт | user | ✔ |
-| 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | Оценивает уже собранные независимые прочтения и сводит их в выводы, классифицированные по приведённым свидетельствам, никогда по числу прочтений; один необязательный раунд обмена передаёт только спорные цитаты и фиксирует каждое изменение, вызванное свидетельствами. | много прочтений одного артефакта или вопроса | user | ✔ |
+| Skill | Что делает | Scope | Invoker | read-only | Использует |
+|---|---|---|---|---|---|
+| 🔺 **[prism](../../skills/mesh/prism/SKILL.md)** | Разбивает один артефакт по независимым линзам; возвращает, где они расходятся, и вопрос, который это разрешает | один артефакт | user | ✔ | |
+| 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | Оценивает уже собранные независимые прочтения и сводит их в выводы, классифицированные по приведённым свидетельствам, никогда по числу прочтений; один необязательный раунд обмена передаёт только спорные цитаты и фиксирует каждое изменение, вызванное свидетельствами. | много прочтений одного артефакта или вопроса | user | ✔ | |
 
 *Подробнее о вызове: [docs/invocation.md](../invocation.md).*
 
@@ -120,11 +135,11 @@
 - `prism` разбивает один артефакт на независимые линзы и возвращает то, где они расходятся, а не их среднее.
 - `autobahn` заранее вырезает unsafe scope, чтобы безопасный остаток шел на полной скорости.
 - `detool` заменяет случайные названия инструментов в переносимом контенте на механизм, который они означают.
-- `dedash` убирает даже em-dash tell и его look-alikes, оценивая каждое вхождение отдельно.
 - `debloat` сжимает раздутый артефакт до его несущей плотности, отсекая слова, но никогда не правила.
 - `shower` вырезает то, за чем незнакомый читатель не сможет проследить.
 - `ssotize` аудитит разбросанные facts, просит подтверждение и затем сворачивает их в один дом.
 - `re0-order` выравнивает съехавший список по одному принципу, переставляя элементы и ничего не переписывая.
+- `dedash` убирает даже em-dash tell и его look-alikes, оценивая каждое вхождение отдельно.
 - `sip` автоматически запускает все это на вашем own output.
 - `re0-memo` / `re0-work` / `re0-loop` сохраняют lesson, дают неправильному build умереть и держат loop живым.
 - `catchup` / `nba` восстанавливают карту человека из live-состояния и возвращают один следующий ход.

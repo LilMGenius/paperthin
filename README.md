@@ -8,7 +8,7 @@
 
 On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, Grok-Build, Pi, Hermes, OpenClaw, etc.
 
-[Quickstart](#quickstart-15-seconds) · [The Map](#the-map) · [The Index](#the-index) · [The Problem](#the-problem) · [The Fixes](#the-fixes) · [Credits](#credits)
+[Quickstart](#quickstart-15-seconds) · [The Map](#the-map) · [The Pipelines](#the-pipelines) · [The Index](#the-index) · [The Problem](#the-problem) · [The Fixes](#the-fixes) · [Credits](#credits)
 
 <sub>Read in: English · [中文](./docs/readme/README.zh-CN.md) · [हिन्दी](./docs/readme/README.hi.md) · [Español](./docs/readme/README.es.md) · [العربية](./docs/readme/README.ar.md) · [Português](./docs/readme/README.pt.md) · [Русский](./docs/readme/README.ru.md) · [日本語](./docs/readme/README.ja.md) · [Français](./docs/readme/README.fr.md) · [Deutsch](./docs/readme/README.de.md) · [한국어](./docs/readme/README.ko.md)</sub>
 
@@ -36,63 +36,77 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 <img src="https://raw.githubusercontent.com/LilMGenius/paperthin/main/assets/map.svg" alt="The Paperthin map by LilMGenius/paperthin, a two-by-two matrix. Horizontal axis cardinality (one, then many); vertical axis time (now, then across iterations); four regions. Top-left, depth: one artifact, now; is this one thing clean and true? Top-right, breadth: many artifacts, now; is one truth consistent everywhere? Bottom-left, coil: one project, across iterations; did each pass teach the next? Bottom-right, mesh: many minds, across rounds; does the crowd converge on truth?" width="820">
 </div>
 
+## The Pipelines
+
+Five skills are routines built from other skills: one call runs the members below in order and skips any step whose condition doesn't hold. A step marked 👤 is a user-invoked skill, so the pipeline stops there and hands it to you ([why](./docs/invocation.md#pipelines)).
+
+| Pipeline | Use it when | Runs, in order | Invoker |
+|---|---|---|---|
+| 🗂️ **[re0-plan](./skills/coil/re0-plan/SKILL.md)** | a new build cycle opens | weigh the cycle → open its casebook → for a full cycle: `readback`, `modelchk`, 👤 `macrothink` if the direction is contestable → hand off to `re0-loop` | user |
+| 🌀 **[re0-loop](./skills/coil/re0-loop/SKILL.md)** | a long project runs lap after lap | frame → build → drive it on the real surface → `re0-memo` → iterate or `re0-work`, asking `nba` when unclear → 👤 `hate` on the next plan | model |
+| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | you just made or changed something | `shower` → `factchk` for a claim, `mandela` for an eval → `ssotize` audit → `detool` if it claims portability → `re0` | model |
+| 🤝 **[re0-merge](./skills/depth/re0-merge/SKILL.md)** | you review someone else's pull request | gate it → `shower` → approve and land, with 👤 `re0-git` on the messages → finish a new skill's registration → close with credit once released | user |
+| 🚀 **[re0-release](./skills/depth/re0-release/SKILL.md)** | you decide to ship | shipping checklist → version kind → `sip` → commit on your yes → tag and publish on a second yes | user |
+
+`nba` recommends the next move and `re0-workflow` an order of skills for one intent; neither runs anything.
+
 ## The Index
 
 ### `depth/`
 
-| Skill | What it does | Scope | Invoker | Read-only |
-|---|---|---|---|---|
-| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Rewrite a drifted artifact into a clean v0, not another patch | one artifact | model | |
-| 🧭 **[readback](./skills/depth/readback/SKILL.md)** | Check the model's read of the request; surface only a real surviving fork | one instruction | model | ✔ |
-| 🏹 **[aim](./skills/depth/aim/SKILL.md)** | Read handed-over data and propose the intent to confirm, instead of asking for it | one data drop | model | ✔ |
-| 📏 **[modelchk](./skills/depth/modelchk/SKILL.md)** | Size the cheapest sufficient tier and reasoning effort | one task | model | ✔ |
-| 🧹 **[elon](./skills/depth/elon/SKILL.md)** | Propose removing not-yet-built requirements imposed by inertia with no remaining benefit, attaching the source and evidence; preserve every external mandate | a set of not-yet-built requirements with their sources | model | ✔ |
-| 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse to be nice: the one objection that could kill it, plus the cheapest test | one plan | user | |
-| 🧠 **[macrothink](./skills/depth/macrothink/SKILL.md)** | Strip the bait, fan out fresh reads, report divergence first | one direction | user | ✔ |
-| 🧐 **[feynman](./skills/depth/feynman/SKILL.md)** | Press a just-made decision until you can explain it, or the gap is flagged | one decision | user | ✔ |
-| 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Carve unsafe scope out up front, run the safe rest at full strength, log the descope | one task | model | |
-| 🎨 **[re0-style](./skills/depth/re0-style/SKILL.md)** | Check code style, conventions, and consistency; default to zero edits and a short report | one change under review | model | |
-| 🔃 **[re0-order](./skills/depth/re0-order/SKILL.md)** | Realign a drifted listing into a logical order under one stated principle; move items only, reword nothing | one listing | user | |
-| 🧰 **[detool](./skills/depth/detool/SKILL.md)** | Replace incidental stack nouns with the mechanism they mean | one durable artifact | model | |
-| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and look-alikes, picking the punctuation each spot needs | your prose | user | |
-| ⸱ **[dedot](./skills/depth/dedot/SKILL.md)** | Propose a comma or connective in prose, or spacing in a label row, with a reason for each middle dot joining an open enumeration in Korean; preserve the three sanctioned uses and protected contexts | Korean prose or label rows the writer scopes | user | ✔ |
-| 🗜️ **[debloat](./skills/depth/debloat/SKILL.md)** | Compress a bloated artifact to its load-bearing density; cut words, never a rule | one artifact | user | |
-| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read it with fresh, zero-context eyes: does it stand alone? | one artifact | model | ✔ |
-| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify what's asserted against sources both ways: could the absurd be real, the obvious false? | one claim | model | |
-| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit for leakage: does outside ground-truth actually enter? | one eval | model | ✔ |
-| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | After any change, taste it with the repo's own clean-and-true checks | your output | model | |
-| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrite a finished commit's message and keep the log linear and in time order, so `git log` alone hands off | one commit | user | |
-| 🚀 **[re0-release](./skills/depth/re0-release/SKILL.md)** | Run the shipping and releasing checklist, then tag and publish once confirmed | one release | user | |
-| 🤝 **[re0-merge](./skills/depth/re0-merge/SKILL.md)** | Review and land a contribution: gate it, keep the author's credit, approve before closing, explain any change | one contribution | user | |
+| Skill | What it does | Scope | Invoker | Read-only | Reuses |
+|---|---|---|---|---|---|
+| ♻️ **[re0](./skills/depth/re0/SKILL.md)** | Rewrite a drifted artifact into a clean v0, not another patch | one artifact | model | | |
+| 🧭 **[readback](./skills/depth/readback/SKILL.md)** | Check the model's read of the request; surface only a real surviving fork | one instruction | model | ✔ | |
+| 🏹 **[aim](./skills/depth/aim/SKILL.md)** | Read handed-over data and propose the intent to confirm, instead of asking for it | one data drop | model | ✔ | |
+| 📏 **[modelchk](./skills/depth/modelchk/SKILL.md)** | Size the cheapest sufficient tier and reasoning effort | one task | model | ✔ | |
+| 🧹 **[elon](./skills/depth/elon/SKILL.md)** | Propose removing not-yet-built requirements imposed by inertia with no remaining benefit, attaching the source and evidence; preserve every external mandate | a set of not-yet-built requirements with their sources | model | ✔ | |
+| 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse to be nice: the one objection that could kill it, plus the cheapest test | one plan | user | | |
+| 🧠 **[macrothink](./skills/depth/macrothink/SKILL.md)** | Strip the bait, fan out fresh reads, report divergence first | one direction | user | ✔ | |
+| 🧐 **[feynman](./skills/depth/feynman/SKILL.md)** | Press a just-made decision until you can explain it, or the gap is flagged | one decision | user | ✔ | |
+| 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Carve unsafe scope out up front, run the safe rest at full strength, log the descope | one task | model | | |
+| 🎨 **[re0-style](./skills/depth/re0-style/SKILL.md)** | Check code style, conventions, and consistency; default to zero edits and a short report | one change under review | model | | |
+| 🧰 **[detool](./skills/depth/detool/SKILL.md)** | Replace incidental stack nouns with the mechanism they mean | one durable artifact | model | | |
+| 🗜️ **[debloat](./skills/depth/debloat/SKILL.md)** | Compress a bloated artifact to its load-bearing density; cut words, never a rule | one artifact | user | | |
+| 🔃 **[re0-order](./skills/depth/re0-order/SKILL.md)** | Realign a drifted listing into a logical order under one stated principle; move items only, reword nothing | one listing | user | | |
+| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and look-alikes, picking the punctuation each spot needs | your prose | user | | |
+| ⸱ **[dedot](./skills/depth/dedot/SKILL.md)** | Propose a comma or connective in prose, or spacing in a label row, with a reason for each middle dot joining an open enumeration in Korean; preserve the three sanctioned uses and protected contexts | Korean prose or label rows the writer scopes | user | ✔ | |
+| 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read it with fresh, zero-context eyes: does it stand alone? | one artifact | model | ✔ | |
+| 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify what's asserted against sources both ways: could the absurd be real, the obvious false? | one claim | model | | |
+| 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit for leakage: does outside ground-truth actually enter? | one eval | model | ✔ | |
+| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | After any change, taste it with the repo's own clean-and-true checks | your output | model | | `shower`, `factchk`, `mandela`, `ssotize`, `detool`, `re0` |
+| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrite a finished commit's message and keep the log linear and in time order, so `git log` alone hands off | one commit | user | | |
+| 🚀 **[re0-release](./skills/depth/re0-release/SKILL.md)** | Run the shipping and releasing checklist, then tag and publish once confirmed | one release | user | | `sip` |
+| 🤝 **[re0-merge](./skills/depth/re0-merge/SKILL.md)** | Review and land a contribution: gate it, keep the author's credit, approve before closing, explain any change | one contribution | user | | `shower`, 👤 `re0-git` |
 
 ### `breadth/`
 
-| Skill | What it does | Scope | Invoker | Read-only |
-|---|---|---|---|---|
-| 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | Audit scatter, then consolidate to one home and point the rest at it | one fact, many places | model | |
-| 🔗 **[ssotize-local](./skills/breadth/ssotize-local/SKILL.md)** | Consolidate duplicate files or trees into one kernel-managed identity: hardlink, symlink, junction, or bind mount, with a verified reverse path | same bytes, many paths | model | |
-| 🧰 **[re0-upgrade](./skills/breadth/re0-upgrade/SKILL.md)** | Upgrade to the full current catalog in one command: retire renamed, add new, all confirmed first | your skill install | user | |
+| Skill | What it does | Scope | Invoker | Read-only | Reuses |
+|---|---|---|---|---|---|
+| 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | Audit scatter, then consolidate to one home and point the rest at it | one fact, many places | model | | |
+| 🔗 **[ssotize-local](./skills/breadth/ssotize-local/SKILL.md)** | Consolidate duplicate files or trees into one kernel-managed identity: hardlink, symlink, junction, or bind mount, with a verified reverse path | same bytes, many paths | model | | |
+| 🧰 **[re0-upgrade](./skills/breadth/re0-upgrade/SKILL.md)** | Upgrade to the full current catalog in one command: retire renamed, add new, all confirmed first | your skill install | user | | |
 
 ### `coil/`
 
-| Skill | What it does | Scope | Invoker | Read-only |
-|---|---|---|---|---|
-| 🗂️ **[re0-plan](./skills/coil/re0-plan/SKILL.md)** | Open a new iteration folder with DESIGN/WORKFLOW/EVIDENCE before re0-loop's first turn | one new cycle | user | |
-| 🎓 **[re0-tutorial](./skills/coil/re0-tutorial/SKILL.md)** | Learn one skill of the suite through three graded levels whose completion rests on the learner's own submission, never an invocation trace | one skill | user | |
-| 🌀 **[re0-loop](./skills/coil/re0-loop/SKILL.md)** | Run the build → QA → re0-memo → re0-work loop so learning compounds, not code | the whole loop | model | |
-| 👁️ **[re0-watch](./skills/coil/re0-watch/SKILL.md)** | Watch a long-running agent job for stalls and alert by default; recovery is only a proposal a human approves | one running job | user | |
-| 🧭 **[re0-memo](./skills/coil/re0-memo/SKILL.md)** | Pull the lessons and anti-patterns from a finished or failed cycle | one finished cycle | model | |
-| 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Start over from v0, keeping only the lessons that earned reuse | one restart | model | |
-| 🗺️ **[catchup](./skills/coil/catchup/SKILL.md)** | Rebuild lost context from live state: what needs them, what changed, what new words mean | one re-entry | model | ✔ |
-| 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Read the live cycle state and return the single next best action, not a menu | the live cycle | model | ✔ |
-| 🧩 **[re0-workflow](./skills/coil/re0-workflow/SKILL.md)** | Recommend an ordered graph of skills for one stated intent, with each step's authority typed, without invoking them | one stated intent | model | ✔ |
+| Skill | What it does | Scope | Invoker | Read-only | Reuses |
+|---|---|---|---|---|---|
+| 🗂️ **[re0-plan](./skills/coil/re0-plan/SKILL.md)** | Open a new iteration folder with DESIGN/WORKFLOW/EVIDENCE before re0-loop's first turn | one new cycle | user | | `readback`, `modelchk`, 👤 `macrothink`, `re0-loop` |
+| 🌀 **[re0-loop](./skills/coil/re0-loop/SKILL.md)** | Run the build → QA → re0-memo → re0-work loop so learning compounds, not code | the whole loop | model | | `re0-memo`, `re0-work`, `nba`, 👤 `hate` |
+| 👁️ **[re0-watch](./skills/coil/re0-watch/SKILL.md)** | Watch a long-running agent job for stalls and alert by default; recovery is only a proposal a human approves | one running job | user | | |
+| 🧭 **[re0-memo](./skills/coil/re0-memo/SKILL.md)** | Pull the lessons and anti-patterns from a finished or failed cycle | one finished cycle | model | | |
+| 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Start over from v0, keeping only the lessons that earned reuse | one restart | model | | |
+| 🗺️ **[catchup](./skills/coil/catchup/SKILL.md)** | Rebuild lost context from live state: what needs them, what changed, what new words mean | one re-entry | model | ✔ | |
+| 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Read the live cycle state and return the single next best action, not a menu | the live cycle | model | ✔ | |
+| 🧩 **[re0-workflow](./skills/coil/re0-workflow/SKILL.md)** | Recommend an ordered graph of skills for one stated intent, with each step's authority typed, without invoking them | one stated intent | model | ✔ | |
+| 🎓 **[re0-tutorial](./skills/coil/re0-tutorial/SKILL.md)** | Learn one skill of the suite through three graded levels whose completion rests on the learner's own submission, never an invocation trace | one skill | user | | |
 
 ### `mesh/`
 
-| Skill | What it does | Scope | Invoker | Read-only |
-|---|---|---|---|---|
-| 🔺 **[prism](./skills/mesh/prism/SKILL.md)** | Split one artifact across independent lenses; return where they clash and the question that resolves it | one artifact | user | ✔ |
-| 🕸️ **[multithink](./skills/mesh/multithink/SKILL.md)** | Adjudicate already-collected independent reads into findings classified by cited evidence, never by count; one optional exchange circulates only disputed citations and records each evidence-caused revision. | many reads of one artifact or question | user | ✔ |
+| Skill | What it does | Scope | Invoker | Read-only | Reuses |
+|---|---|---|---|---|---|
+| 🔺 **[prism](./skills/mesh/prism/SKILL.md)** | Split one artifact across independent lenses; return where they clash and the question that resolves it | one artifact | user | ✔ | |
+| 🕸️ **[multithink](./skills/mesh/multithink/SKILL.md)** | Adjudicate already-collected independent reads into findings classified by cited evidence, never by count; one optional exchange circulates only disputed citations and records each evidence-caused revision. | many reads of one artifact or question | user | ✔ | |
 
 *More on invocation: [docs/invocation.md](./docs/invocation.md)*
 
@@ -116,11 +130,11 @@ These skills bet the other way — **every one of them removes:**
 - `prism` splits one artifact across independent lenses and returns where they clash, never their average,
 - `autobahn` carves unsafe scope out up front, so the safe remainder runs at full speed,
 - `detool` strips incidental stack nouns from portable content, leaving the mechanism they meant,
-- `dedash` removes even the em-dash tell and its look-alikes, one judged occurrence at a time,
 - `debloat` compresses a bloated artifact to its load-bearing density, cutting words but never a rule,
 - `shower` cuts whatever a stranger can't follow,
 - `ssotize` audits scattered facts, asks approval, then folds them into one home,
 - `re0-order` realigns a drifted listing under one principle, moving items and rewording nothing,
+- `dedash` removes even the em-dash tell and its look-alikes, one judged occurrence at a time,
 - `sip` runs all of it on your own output, automatically,
 - `re0-memo` / `re0-work` / `re0-loop` preserve the lesson, let the wrong build die, and keep the cycle running,
 - `catchup` / `nba` reload the human's map from live state, then return the one next move.
