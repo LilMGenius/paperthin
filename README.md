@@ -61,7 +61,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify what's asserted against sources both ways: could the absurd be real, the obvious false? | one claim | model | |
 | 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit for leakage: does outside ground-truth actually enter? | one eval | model | ✔ |
 | 🥄 **[sip](./skills/depth/sip/SKILL.md)** | After any change, taste it with the repo's own clean-and-true checks | your output | model | |
-| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrite a finished commit's message so `git log` alone hands off | one commit | user | |
+| 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrite a finished commit's message and keep the log linear and in time order, so `git log` alone hands off | one commit | user | |
 | 🚀 **[re0-release](./skills/depth/re0-release/SKILL.md)** | Run the shipping and releasing checklist, then tag and publish once confirmed | one release | user | |
 | 🤝 **[re0-merge](./skills/depth/re0-merge/SKILL.md)** | Review and land a contribution: gate it, keep the author's credit, approve before closing, explain any change | one contribution | user | |
 
