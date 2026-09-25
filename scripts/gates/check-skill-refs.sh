@@ -30,13 +30,21 @@ if [ ! -f README.md ]; then
   echo "✗ skill reference check failed"; exit 1
 fi
 
-# scope of files to scan: docs, top-level *.md, and every SKILL.md
-mapfile -t files < <(
-  { find skills -name SKILL.md
-    find docs -name '*.md' 2>/dev/null
-    ls *.md 2>/dev/null
-  } | sort -u
-)
+# scope of files to scan: docs, top-level *.md, and every SKILL.md; in a checkout, git
+# lists them so gitignored local drafts are skipped the way CI never sees them
+if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  mapfile -t files < <(
+    git -c core.quotePath=false ls-files --cached --others --exclude-standard -- '*.md' |
+      grep -E '^(skills/.+/SKILL\.md|docs/.+\.md|[^/]+\.md)$' | sort -u
+  )
+else
+  mapfile -t files < <(
+    { find skills -name SKILL.md
+      find docs -name '*.md' 2>/dev/null
+      ls *.md 2>/dev/null
+    } | sort -u
+  )
+fi
 
 # check 1 — a backticked skill-shaped token near a known skill name but not resolving
 # is almost certainly a typo (e.g. `re0-git-log` when only `re0-git` is shipped).
