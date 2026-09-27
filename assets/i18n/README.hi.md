@@ -23,7 +23,7 @@
    ```bash
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
    ```
-2. अगर OS कहे तो इसे elevated/admin shell से चलाएं, ताकि skills copy न होकर symlink हों और अपने आप update होते रहें।
+2. अगर OS कहे तो इसे elevated/admin shell से चलाएं, ताकि skills copy न होकर symlink हों और हर agent एक ही copy पढ़े।
 3. **अपडेट रहें**। जब अपडेट करना हो तब `/re0-upgrade` चलाएं; यह नई skills के लिए एक हल्की session-start सूचना भी चालू करता है।
 4. **इन्हें इस्तेमाल करें**। किसी भी skill को `/re0` जैसे नाम से call करें; model-invoked खुद भी चल जाती हैं।
 

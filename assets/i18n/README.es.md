@@ -23,7 +23,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
    ```bash
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
    ```
-2. **Ejecutalo desde una shell elevada/admin si tu OS lo pide** para que las skills queden enlazadas por symlink y se actualicen solas, en lugar de copiarse.
+2. **Ejecutalo desde una shell elevada/admin si tu OS lo pide** para que las skills queden enlazadas por symlink en lugar de copiarse, y todos los agents lean una sola copia.
 3. **Mantente al dia**. Ejecuta `/re0-upgrade` cuando quieras actualizar; tambien activa un aviso discreto de inicio de sesion para nuevas skills.
 4. **Usalas**. Llama cualquier skill por nombre, como `/re0`; las model-invoked tambien se activan solas.
 

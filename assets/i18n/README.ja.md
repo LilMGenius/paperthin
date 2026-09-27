@@ -23,7 +23,7 @@
    ```bash
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
    ```
-2. OS が求める場合は昇格/admin シェルで実行し、skills がコピーではなく symlink されるようにします。そうすると自動更新されます。
+2. OS が求める場合は昇格/admin シェルで実行し、skills がコピーではなく symlink されるようにします。すべての agent が同じ一つのコピーを読みます。
 3. **最新に保つ**。更新したいときに `/re0-upgrade` を実行します。新しい skill が出たら知らせる控えめな session-start 通知も有効になります。
 4. **使います**。どの skill も `/re0` のように名前で呼べます。model-invoked は自動でも動きます。
 
