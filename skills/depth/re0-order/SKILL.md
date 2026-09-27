@@ -1,7 +1,6 @@
 ---
 name: re0-order
-disable-model-invocation: true
-description: "Move items only, reword nothing; realign a listing whose order has gone arbitrary (a list, table, catalog, sections, an enum) into a logical sequence under one stated principle. Nothing is added or removed. Use when the order no longer helps a reader follow the set."
+description: "Move items only, reword nothing; realign a listing whose order has gone arbitrary (a list, table, catalog, sections, an enum) into a logical sequence under one stated principle. Nothing is added or removed. Use when the user names a listing, or a scope holding one, whose order no longer helps a reader follow the set, or when a pipeline the user invoked passes that scope on. Acts only inside that scope."
 ---
 
 Put a listing back into an order that carries meaning, moving items only.
@@ -23,6 +22,7 @@ A listing conveys meaning when related items sit together and follow one clear a
 - Reorder only. Never reword, add, remove, split, or merge an item; those are other reflexes.
 - Use one principle a reader can name. Do not blend incompatible sorts into one listing.
 - Respect a deliberate order. If the current sequence already encodes a real principle, complete and tidy it rather than replacing it; surface the call when it is unclear.
+- Reorder only inside the scope a human named, or the scope a pipeline they invoked passes on. Never pick a listing yourself; its order is the human's call, and a reorder reflex that picks its own target churns what nobody asked to move.
 - Give mirrored copies of the same set the same order.
 - Mutate with edit-safety: assert each item exists before moving it (report a MISS, never a silent drop), edit unicode-safe, and script a large structural move rather than sweeping by hand.
 
