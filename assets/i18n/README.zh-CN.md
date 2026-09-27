@@ -23,7 +23,7 @@
    ```bash
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
    ```
-2. 如果 OS 要求，请在提升权限/admin shell 中运行，让这些 skill 以符号链接方式安装并自动更新，而不是被复制。
+2. 如果 OS 要求，请在提升权限/admin shell 中运行，让这些 skill 以符号链接方式安装而不是被复制，所有 agent 读取同一份副本。
 3. **保持最新**。想更新时运行 `/re0-upgrade`；它还会开启一个安静的会话启动提醒，有新 skill 时通知你。
 4. **直接使用**。任何 skill 都能像 `/re0` 一样点名调用；model-invoked 也会自动触发。
 

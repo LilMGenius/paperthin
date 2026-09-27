@@ -30,6 +30,10 @@ jobs:
         run: node scripts/gates/check-catalog-sync.cjs
       - name: Test the catalog index scope
         run: node --test scripts/gates/check-catalog-sync.test.cjs
+      - name: Install block drift-guard
+        run: node scripts/gates/check-install-block.cjs
+      - name: Test the install block check
+        run: node --test scripts/gates/check-install-block.test.cjs
       - name: Deploy-home SSOT drift-guard
         run: node scripts/gates/check-deploy-home.cjs
       - name: Test the commit message check
