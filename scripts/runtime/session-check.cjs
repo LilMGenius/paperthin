@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 'use strict';
 /*
- * paperthin — SessionStart discovery notice (command-hook adapter).
+ * paperthin: SessionStart discovery notice (command-hook adapter).
  *
  * Class-A hosts whose SessionStart hook runs a command and adds its stdout /
  * hookSpecificOutput.additionalContext to the model's context: Claude Code, Codex. The catalog +
  * notice logic lives in ./catalog.cjs (shared with the OpenCode plugin adapter).
  *
  * Channel reality (see .re0/iteration/v0.13.0-session-notice/): the output is injected into the
- * MODEL's context, not shown to the human directly — the model relays it. Notice only; never installs.
+ * MODEL's context, not shown to the human directly; the model relays it. Notice only; never installs.
  * Throttled once/day, silent when current, every path exits 0 with valid JSON so a hook can never
  * break the session.
  */

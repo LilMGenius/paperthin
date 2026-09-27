@@ -4,13 +4,13 @@
  * Deploy-home SSOT drift-guard (Gate 1 for the ~/.re0/ deploy home, v0.16.2).
  *
  * Two invariants, both binary:
- *   1. The deploy home is defined in EXACTLY ONE place — scripts/runtime/catalog.cjs exports STATE_DIR and
- *      NOTICE_STAMP — and imported everywhere else. Before v0.16.2 the literal was re-hardcoded in
+ *   1. The deploy home is defined in EXACTLY ONE place (scripts/runtime/catalog.cjs exports STATE_DIR and
+ *      NOTICE_STAMP) and imported everywhere else. Before v0.16.2 the literal was re-hardcoded in
  *      each adapter (AP-3: five sites, a rename = five edits, miss one = split-brain).
  *   2. The retired home name `.paperthin` appears NOWHERE in the shipped runtime or in re0-upgrade's
  *      wiring prose. We deliberately do NOT migrate pre-rename installs (they keep their own
  *      self-contained ~/.paperthin/ runtime until reinstalled), so shipped code carries zero
- *      knowledge of the old home — no legacy fallback, no migrator, no dangling reference.
+ *      knowledge of the old home: no legacy fallback, no migrator, no dangling reference.
  *
  * Mirrors scripts/gates/check-catalog-sync.cjs; run from ci.yml and locally. This guard file is not
  * self-scanned, so the literal below is fine here.
@@ -47,7 +47,7 @@ for (const file of RUNTIME) {
   text.split('\n').forEach((line, i) => {
     if (line.includes(RETIRED)) {
       console.error('::error::deploy-home guard: ' + file + ':' + (i + 1) +
-        ' references the retired home `' + RETIRED + '` — shipped runtime must know only ~/.re0/');
+        ' references the retired home `' + RETIRED + '`; shipped runtime must know only ~/.re0/');
       console.error('    ' + line.trim());
       bad++;
     }

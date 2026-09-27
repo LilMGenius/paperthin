@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Two catalog-vocabulary guards over the docs, in the spirit of the drift `ssotize`
-# looks for — applied to cross-skill names rather than a full resolver:
-#   1. Typo heuristic — a backticked, hyphenated, skill-shaped token sitting one
+# looks for, applied to cross-skill names rather than a full resolver:
+#   1. Typo heuristic: a backticked, hyphenated, skill-shaped token sitting one
 #      affix away from a shipped name (e.g. `re0-git-log` near `re0-git`) but not
 #      resolving is flagged as a likely typo. Deliberately narrow: it ignores
 #      non-hyphenated tokens and any token whose segments don't touch a real skill
-#      name, so it does NOT catch every stale reference — that would mean flagging
+#      name, so it does NOT catch every stale reference, which would mean flagging
 #      the many backticked non-skill identifiers the docs legitimately carry.
-#   2. Orphan guard — every shipped skill must be reachable from README.md, by a
+#   2. Orphan guard: every shipped skill must be reachable from README.md, by a
 #      backticked mention or a link to its SKILL.md, or it is orphaned on disk.
 set -uo pipefail
 cd "$(dirname "$0")/../.."
@@ -18,7 +18,7 @@ err() { echo "::error::$*"; fail=1; }
 # collect shipped skill names (directory basenames under skills/*/*/SKILL.md)
 mapfile -t shipped < <(find skills -name SKILL.md -printf '%h\n' 2>/dev/null | xargs -n1 basename | sort -u)
 if [ "${#shipped[@]}" -eq 0 ]; then
-  err "no shipped SKILL.md found under skills/ — nothing to check against"
+  err "no shipped SKILL.md found under skills/, so there is nothing to check against"
   echo "✗ skill reference check failed"; exit 1
 fi
 declare -A known
@@ -26,7 +26,7 @@ for s in "${shipped[@]}"; do known[$s]=1; done
 
 # README.md is the authoritative catalog; without it check-2 would flag every skill.
 if [ ! -f README.md ]; then
-  err "README.md missing at repo root — cannot verify catalog reachability"
+  err "README.md missing at repo root, so catalog reachability cannot be verified"
   echo "✗ skill reference check failed"; exit 1
 fi
 
@@ -46,7 +46,7 @@ else
   )
 fi
 
-# check 1 — a backticked skill-shaped token near a known skill name but not resolving
+# check 1: a backticked skill-shaped token near a known skill name but not resolving
 # is almost certainly a typo (e.g. `re0-git-log` when only `re0-git` is shipped).
 # The while-read loop is fed via process substitution so it runs in the current
 # shell and `fail=1` set by `err` propagates. A piped `while read` runs in a
@@ -57,7 +57,7 @@ for f in "${files[@]}"; do
       if [[ $tok == *-* ]]; then
         for s in "${shipped[@]}"; do
           if [[ $tok == "$s"-?* || $tok == ?*-"$s" ]]; then
-            err "$f: backticked '\`$tok\`' looks skill-shaped and near a shipped skill '$s' but does not resolve — rename or remove"
+            err "$f: backticked '\`$tok\`' looks skill-shaped and near a shipped skill '$s' but does not resolve; rename or remove it"
             break
           fi
         done
@@ -66,14 +66,14 @@ for f in "${files[@]}"; do
   done < <(grep -oE '`[a-z][a-z0-9-]{1,}`' "$f" 2>/dev/null | tr -d '`' | sort -u)
 done
 
-# check 2 — every shipped skill must be reachable from README.md, either by name
+# check 2: every shipped skill must be reachable from README.md, either by name
 # (backticked) or as a link path. Path form is authoritative because the catalog
 # lives in a table of paths; a skill on disk that README never links to is orphaned.
 for s in "${shipped[@]}"; do
   # accept a backticked mention OR any link whose target contains the skill dir
   if grep -qF "\`$s\`" README.md; then continue; fi
   if grep -qE "\]\([^)]*/${s}/SKILL\.md\)" README.md; then continue; fi
-  err "README.md: shipped skill '$s' is neither mentioned by name nor linked — orphan on disk"
+  err "README.md: shipped skill '$s' is neither mentioned by name nor linked, so it is orphaned on disk"
 done
 
 if [ "$fail" -eq 0 ]; then
