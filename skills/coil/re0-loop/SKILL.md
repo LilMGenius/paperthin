@@ -20,8 +20,8 @@ Measure progress by the count of quality-cleared templates, reusable platform mo
 1. Frame the thesis and quality gates.
 2. Build one complete vertical slice.
 3. Drive it through the real surface: browser for web apps, HTTP for API contracts, computer-use for desktop apps, and CLI only for data-shaped artifacts.
-4. Run `re0-memo` to extract lessons, anti-patterns, and next-cycle gates.
-5. Decide whether the next pass iterates in place or uses `re0-work`; when that call or the next move is unclear, `nba` reads the cycle state and returns the single next action.
+4. Call the Skill tool with "re0-memo" to extract lessons, anti-patterns, and next-cycle gates.
+5. Decide whether the next pass iterates in place or restarts, calling the Skill tool with "re0-work" for a restart; when that call or the next move is unclear, call the Skill tool with "nba", which reads the cycle state and returns the single next action.
 6. Kill the next plan before build: use the project's adversarial review skill or a human-invoked attack when that skill is user-only.
 7. Version only templates or modules that clear their gates.
 
