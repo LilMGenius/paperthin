@@ -1,0 +1,5 @@
+interface:
+  display_name: "re0-watch"
+  short_description: "Watch a long job for stalls and alert"
+policy:
+  allow_implicit_invocation: false

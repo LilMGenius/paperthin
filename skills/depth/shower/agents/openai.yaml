@@ -1,0 +1,3 @@
+interface:
+  display_name: "shower"
+  short_description: "Cold-read an artifact with zero-context eyes"

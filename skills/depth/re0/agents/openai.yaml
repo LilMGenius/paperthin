@@ -1,0 +1,3 @@
+interface:
+  display_name: "re0"
+  short_description: "Rewrite a drifted artifact into a clean v0"

@@ -1,0 +1,3 @@
+interface:
+  display_name: "re0-work"
+  short_description: "Restart from v0 keeping only proven lessons"

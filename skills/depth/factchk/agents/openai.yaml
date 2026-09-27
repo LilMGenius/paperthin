@@ -1,0 +1,3 @@
+interface:
+  display_name: "factchk"
+  short_description: "Verify claims against sources in both directions"

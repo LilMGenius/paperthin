@@ -1,0 +1,5 @@
+interface:
+  display_name: "re0-release"
+  short_description: "Run the release checklist, then tag and publish"
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,3 @@
+interface:
+  display_name: "modelchk"
+  short_description: "Size the cheapest sufficient tier and effort"

@@ -1,0 +1,5 @@
+interface:
+  display_name: "feynman"
+  short_description: "Explain a just-made decision or flag the gap"
+policy:
+  allow_implicit_invocation: false
