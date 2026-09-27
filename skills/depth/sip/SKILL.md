@@ -12,11 +12,11 @@ A reminder in documentation will not reliably trigger verification in a fresh se
 ## Workflow
 
 1. Spot the trigger: you just created or changed an artifact or skill and are about to call it done, commit, or hand it off.
-2. **Cold-read it:** run `shower` for a fresh reader's comprehension and handoff check.
-3. **Verify truth:** run `factchk` for reality-grounded claims and `mandela` for an eval, metric, or experiment. Skip when the artifact has neither.
-4. **Check consistency:** run `ssotize` in audit mode across the repository for anything the change duplicated or contradicted. Execute its consolidation plan only after approval.
-5. **Check portability claims:** run `detool` only when the artifact claims portability, tool-neutrality, stack-agnostic durability, or cross-agent reuse. Skip provenance, operational notes, tool-targeted runbooks, and artifacts that do not claim portability.
-6. **Tidy:** run `re0` on changed docs so they read as a clean v0, without traces of patching.
+2. **Cold-read it:** call the Skill tool with "shower" for a fresh reader's comprehension and handoff check.
+3. **Verify truth:** call the Skill tool with "factchk" for reality-grounded claims, and again with "mandela" for an eval, metric, or experiment. Skip when the artifact has neither.
+4. **Check consistency:** call the Skill tool with "ssotize" to audit the repository for anything the change duplicated or contradicted. Execute its consolidation plan only after approval.
+5. **Check portability claims:** call the Skill tool with "detool" only when the artifact claims portability, tool-neutrality, stack-agnostic durability, or cross-agent reuse. Skip provenance, operational notes, tool-targeted runbooks, and artifacts that do not claim portability.
+6. **Tidy:** call the Skill tool with "re0" for the changed docs so they read as a clean v0, without traces of patching.
 7. Apply the findings in the author session, then hand over the artifact.
 
 ## Rules
