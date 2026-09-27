@@ -19,12 +19,12 @@ Only explicit user invocation authorizes the bounded fresh sub-sessions below. T
 1. Name the current direction: the decision the session is about to keep building on.
 2. Restate the underlying problem using its goal, constraints, and known facts. Remove the session's examples, suggested answer, preferred naming, and framing-specific wording.
 3. Fan out independent fresh reads of that restatement: **2 to 5, default 3**. Same model is allowed because this pass does not claim cross-model verification.
-4. Collect each read without correcting it toward the session's current direction.
+4. Collect each read verbatim, without correcting it toward the session's current direction.
 5. Classify each read against the current direction:
    - `divergent-incompatible`: challenges a premise the direction depends on.
    - `divergent-compatible`: adds or reframes something useful without discarding the direction.
    - `convergent`: independently lands near the current direction.
-6. Cluster reads that diverge in the same direction under their shared root. Report that root as the finding and the individual reads as evidence beneath it. Do not report one gap as five separate findings.
+6. Cluster reads that diverge in the same direction under their shared root. Report that root as the finding and the individual reads, kept verbatim, as evidence beneath it. Do not report one gap as five separate findings.
 7. Report `divergent-incompatible` first, then `divergent-compatible`, then `convergent`. Label convergence as reassurance only.
 8. Return control to the main session. This skill is read-only and advisory; it does not rewrite the plan or pick the final answer.
 
