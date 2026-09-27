@@ -97,7 +97,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | 🔺 **[prism](../../skills/mesh/prism/SKILL.md)** | Éclate un artifact selon des lentilles indépendantes ; renvoie où elles divergent et la question qui tranche | un artifact | utilisateur | ✔ |
 | 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | Arbitre des lectures indépendantes déjà recueillies pour produire des constats classés selon les éléments de preuve cités, jamais selon leur nombre ; un tour d’échange facultatif fait circuler uniquement les citations contestées et consigne chaque révision causée par les preuves. | plusieurs lectures d’un artifact ou d’une question | utilisateur | ✔ |
 
-*Plus d'informations sur l'invocation : [docs/invocation.md](../invocation.md).*
+*Plus d'informations sur l'invocation : [docs/invocation.md](../../docs/invocation.md).*
 
 <a id="the-problem"></a>
 ## Le problème
