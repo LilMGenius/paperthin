@@ -31,6 +31,7 @@ Arm an observable watch for one running job only on explicit human invocation. A
 
 ## Rules
 
+- User-invoked on purpose: arming a watch is a deliberate human action.
 - Watching authorizes observation and alerts only. This skill never executes recovery; a human owns any action after the handoff.
 - Unknown is not absent. No unresolved rung permits a recovery proposal, and file activity cannot override identity, terminal truth, or pause validation.
 - One observer and one human-directed attempt may be in flight per run identity. Use the host's registration and recovery mechanisms; do not invent substitutes.

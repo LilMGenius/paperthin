@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Validate the skill catalog against the conventions in AGENTS.md + docs/invocation.md.
+# Validate the skill catalog against the conventions in AGENTS.md + .agents/invocation.md.
 # The single source of truth for "is the catalog shippable" — called by release.yml
 # (pre-publish), ci.yml (every push/PR), and runnable locally (e.g. from sip).
 set -uo pipefail
@@ -63,6 +63,7 @@ while IFS= read -r f; do
     user_md=0; grep -qE '^disable-model-invocation: *true *$' "$f" && user_md=1
     user_yaml=0; grep -qE '^ *allow_implicit_invocation: *false *$' "$y" && user_yaml=1
     [ "$user_md" = "$user_yaml" ] || err "$d: disable-model-invocation and agents/openai.yaml policy.allow_implicit_invocation disagree"
+    [ "$user_md" = 1 ] && grep -qE '^description:.*Use when' "$f" && err "$f: a user-invoked description is human-facing; strip its 'Use when' trigger list"
   fi
 
   # frontmatter description length cap — keeps it a description, not a paragraph

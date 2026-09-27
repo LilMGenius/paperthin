@@ -1,7 +1,7 @@
 ---
 name: re0-merge
 disable-model-invocation: true
-description: "Review and land an external contribution the way this suite does: gate it against the thesis, land it with the author's credit intact, complete a new skill rather than merging it raw, then approve, credit, and explain before closing. Use when reviewing a pull request, as any collaborator or maintainer, not only the author."
+description: "Review and land an external contribution the way this suite does: gate it against the thesis, land it with the author's credit intact, complete a new skill rather than merging it raw, then approve, credit, and explain before closing."
 ---
 
 Land a contribution fairly: credit preserved, the maintainer's changes legible, accepted on the record.
@@ -22,6 +22,7 @@ A review must respect the contribution and its permanent carrying cost. `re0-mer
 
 ## Rules
 
+- User-invoked on purpose: reviewing and landing a contribution is a deliberate maintainer act, and a review reflex in reach would bias the agent toward merging.
 - Default-deny for surface, but decline well: a reason tied to the thesis, the branch kept, never a silent close (negatives-as-corpus).
 - Preserve authorship. The contributor authors their commit; every maintainer edit is a separate commit under the maintainer's name.
 - Approve on acceptance, before landing, separately from closing after release. Approval judges the contributor's code even if the release later fails. Any collaborator or maintainer with review access can do this.
