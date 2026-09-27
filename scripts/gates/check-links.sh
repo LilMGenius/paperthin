@@ -21,16 +21,16 @@ cd "$(dirname "$0")/../.."
 fail=0
 err() { echo "::error::$*"; fail=1; }
 
-# collect Markdown files: docs, top-level, and every SKILL.md
+# collect Markdown files: .agents/, assets/, top-level, and every SKILL.md
 mapfile -t files < <(
   { find skills -name SKILL.md 2>/dev/null
-    find assets docs -name '*.md' 2>/dev/null
+    find .agents assets -name '*.md' 2>/dev/null
     ls *.md 2>/dev/null
   } | sort -u
 )
 
 if [ "${#files[@]}" -eq 0 ]; then
-  err "no Markdown files found under skills/, assets/, docs/, or repo root"
+  err "no Markdown files found under skills/, .agents/, assets/, or repo root"
   echo "✗ link check failed"; exit 1
 fi
 

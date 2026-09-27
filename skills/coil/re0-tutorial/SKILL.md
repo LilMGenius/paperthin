@@ -48,6 +48,7 @@ The logbook is private to its owner, local to the machine, untracked under `.re0
 
 ## Rules
 
+- User-invoked on purpose: starting a graded exercise is the learner's deliberate choice.
 - Grade submissions and record attempts; never perform the exercise for the learner, write their artifact or account, or roleplay their actions as learning evidence. Leave user-only actions for the human to invoke.
 - Keep L2 even when a pipeline exists: a frozen execution order does not demonstrate the learner's reasoning about order, omission, and authority.
 - Advance the exercise; leave catalog orientation and routing elsewhere. No guide installation is required. Do not turn the lesson into an execution pipeline or a general workflow recommender.

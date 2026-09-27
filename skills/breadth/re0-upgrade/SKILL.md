@@ -81,6 +81,7 @@ Install every skill below in the chosen scope, except those declined at confirma
 
 ## Rules
 
+- User-invoked on purpose: it makes consequential local changes, reinstalling skill entries and writing a session-start hook into each agent's config, so it runs only when the human asks.
 - The flat `npx skills add` path installs this command as `/re0-upgrade`; never describe a paperthin `ppt` namespace as part of the primary install path.
 - Only act on names from the Deprecations checklist and the Current catalog; unknown installed names stay untouched. Convergence is to the paperthin catalog only.
 - Treat a deprecated directory slug as stale even when its `SKILL.md` frontmatter `name` already says the replacement name; remove it by the deprecated slug with `skills remove`.

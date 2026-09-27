@@ -58,22 +58,22 @@ test('the same near-miss name in a tracked doc still fails', () => {
 test('an untracked doc that is not ignored is scanned', () => {
   const repo = fixture({});
   try {
-    fs.mkdirSync(path.join(repo, 'docs'), { recursive: true });
-    fs.writeFileSync(path.join(repo, 'docs', 'draft.md'), 'see \x60foo-next\x60\n');
+    fs.mkdirSync(path.join(repo, '.agents'), { recursive: true });
+    fs.writeFileSync(path.join(repo, '.agents', 'draft.md'), 'see \x60foo-next\x60\n');
     const run = check(repo);
     assert.equal(run.status, 1);
-    assert.match(run.stdout, /docs\/draft\.md/);
+    assert.match(run.stdout, /\.agents\/draft\.md/);
   } finally {
     fs.rmSync(repo, { recursive: true, force: true });
   }
 });
 
 test('a doc with a non-ASCII name is scanned', () => {
-  const repo = fixture({ 'docs/노트.md': 'see \x60foo-next\x60\n' });
+  const repo = fixture({ '.agents/노트.md': 'see \x60foo-next\x60\n' });
   try {
     const run = check(repo);
     assert.equal(run.status, 1);
-    assert.match(run.stdout, /docs\/노트\.md: backticked/);
+    assert.match(run.stdout, /\.agents\/노트\.md: backticked/);
   } finally {
     fs.rmSync(repo, { recursive: true, force: true });
   }
