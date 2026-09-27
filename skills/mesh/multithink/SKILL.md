@@ -1,7 +1,7 @@
 ---
 name: multithink
 disable-model-invocation: true
-description: "Adjudicate already-collected independent reads of one artifact or question into findings classified by cited evidence alone, never by how many agreed, preserving every original, with one optional caller-run exchange that adds circulation of only disputed citations and a record of each evidence-caused revision beyond a one-pass lens split."
+description: "Adjudicate already-collected independent reads of one artifact or question into findings classified by cited evidence alone, never by how many agreed, preserving every original, with one optional caller-run exchange that circulates only disputed citations and records each evidence-caused revision."
 ---
 
 Receive independent reads, check their evidence, and preserve the audit trail behind each finding.
@@ -30,7 +30,7 @@ Every finding carries these five fields; the finding statement, class and proven
 | location | The exact file and line, passage, or specific claim the finding concerns. |
 | reproduction | The command, passage lookup, or query another reader can repeat to inspect the evidence. Record an unavailable or unsafe reproduction as missing, not successful. |
 | counterevidence | What could defeat the finding, what was checked, and cited counter-support found; distinguish looked and found none from did not look. |
-| independence | How support arrived: external material, a re-derivation from the target, or assertion only. Record shared origins and unknown dependencies. Record model and persona spread as a coverage fact, never as a weight or numeric independence score. |
+| independence | How support arrived: external material, a re-derivation from the target, or assertion only. Record shared origins and unknown dependencies. Record model, persona and lens spread as a coverage fact, never as a weight or numeric independence score; reads the caller split by failure mode are adjudicated like any others. |
 
 ### Assertion-then-evidence rule
 
