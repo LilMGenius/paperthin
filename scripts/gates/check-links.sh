@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Verify that every relative Markdown link points at a file that exists on disk.
-# External links (http://, https://) are out of scope — a broken external is a live
+# External links (http://, https://) are out of scope: a broken external is a live
 # concern, not a catalog concern. This is the local-shape check.
 #
 # Covers the two link forms the catalog actually uses, and ignores images:
@@ -65,7 +65,7 @@ for f in "${files[@]}"; do
 
   # Strip image links so they never appear as inline-link candidates.
   # A raw ![alt](path) would otherwise match the `](target)` pattern below and
-  # get flagged if the image is missing — image assets are catalog-orthogonal.
+  # get flagged if the image is missing, and image assets are catalog-orthogonal.
   content=$(sed -E 's/!\[[^]]*\]\([^)]*\)//g' "$f")
 
   # 1. inline links: [text](target)

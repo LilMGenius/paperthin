@@ -1,6 +1,6 @@
 'use strict';
 /*
- * paperthin — shared catalog + discovery-notice logic (single code home).
+ * paperthin: shared catalog + discovery-notice logic (single code home).
  *
  * Consumed by both platform adapters so the roster and the notice text live in ONE place:
  *   - scripts/runtime/session-check.cjs      (command-hook hosts: Claude Code, Codex)
@@ -31,9 +31,9 @@ const SKILL_DIRS = [
   path.join(HOME, '.claude', 'skills'),
 ];
 
-// Deploy home for runtime state (the throttle stamp). SSOT for the path — both adapters import it,
+// Deploy home for runtime state (the throttle stamp). SSOT for the path: both adapters import it,
 // so a rename is one edit here, not five. `~/.re0/` since v0.16.2. No legacy fallback by design:
-// pre-rename installs keep their own self-contained runtime until reinstalled — we do not drag them
+// pre-rename installs keep their own self-contained runtime until reinstalled; we do not drag them
 // forward (see .re0/iteration/v0.16.2-re0-home for the decision).
 const STATE_DIR = path.join(HOME, '.re0');
 const NOTICE_STAMP = path.join(STATE_DIR, 'last-notice.json');
@@ -47,7 +47,7 @@ function installedNames() {
 }
 
 // Returns: null when no skills are visible at all (can't tell missing from a non-standard install
-// location — caller should stay silent), else the array of catalog skills not installed.
+// location, so the caller should stay silent), else the array of catalog skills not installed.
 function missingSkills() {
   const installed = installedNames();
   if (installed.size === 0) return null;
@@ -67,7 +67,7 @@ function noticeText(missing) {
   return 'paperthin discovery notice: the user is missing ' + missing.length +
     ' skill(s) from the current catalog (' + formatList(missing) + '). If it fits naturally, tell ' +
     'the user they can run /re0-upgrade to install the full current catalog in one confirmed step. ' +
-    'Notice only — do NOT run /re0-upgrade or install anything yourself; it is the user\'s to run.';
+    'Notice only: do NOT run /re0-upgrade or install anything yourself; it is the user\'s to run.';
 }
 
 module.exports = {
