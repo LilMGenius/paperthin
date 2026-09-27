@@ -1,0 +1,3 @@
+interface:
+  display_name: "ssotize-local"
+  short_description: "Link duplicate files into one filesystem identity"

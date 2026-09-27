@@ -16,7 +16,7 @@ Paperthin is an agent-agnostic suite of plain-Markdown skills that keep an artif
 skills/<perspective>/<name>/SKILL.md
 ```
 
-Topic domains belong in separate plugins, so within a plugin the only durable cut is **perspective**. One skill = one directory with a `SKILL.md`.
+Topic domains belong in separate plugins, so within a plugin the only durable cut is **perspective**. One skill = one directory with a `SKILL.md` and an `agents/openai.yaml`.
 
 That cut is two orthogonal axes, **cardinality × time**:
 
@@ -55,7 +55,7 @@ description: "<trigger-rich one-liner>"
 
 ## Invocation
 
-Every `SKILL.md` is either user-invoked (`disable-model-invocation: true`, reachable only by the human) or model-invoked (model- or user-reachable). Default to model-invoked; make a skill user-invoked only when the model should never reach it on its own — its trigger is a deliberate human action (commit, push, publish, deploy), or its mere presence in reach would bias the agent. Which skills are user-invoked today and why, the description conventions, and why a user-invoked skill can invoke model-invoked skills but never another user-invoked one, live in [docs/invocation.md](./docs/invocation.md).
+Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `policy.allow_implicit_invocation: false` in `agents/openai.yaml`, reachable only by the human) or model-invoked (model- or user-reachable). Default to model-invoked; make a skill user-invoked only when the model should never reach it on its own — its trigger is a deliberate human action (commit, push, publish, deploy), or its mere presence in reach would bias the agent. Which skills are user-invoked today and why, the description conventions, and why a user-invoked skill can invoke model-invoked skills but never another user-invoked one, live in [docs/invocation.md](./docs/invocation.md).
 
 ## Conventions
 
