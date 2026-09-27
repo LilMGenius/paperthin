@@ -1,0 +1,5 @@
+interface:
+  display_name: "re0-merge"
+  short_description: "Review and land a contribution with credit"
+policy:
+  allow_implicit_invocation: false

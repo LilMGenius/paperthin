@@ -1,0 +1,5 @@
+interface:
+  display_name: "re0-upgrade"
+  short_description: "Upgrade installed skills to the current catalog"
+policy:
+  allow_implicit_invocation: false

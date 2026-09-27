@@ -1,0 +1,3 @@
+interface:
+  display_name: "re0-order"
+  short_description: "Reorder a listing under one principle"

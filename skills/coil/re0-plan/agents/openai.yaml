@@ -1,0 +1,5 @@
+interface:
+  display_name: "re0-plan"
+  short_description: "Open an iteration casebook before the loop"
+policy:
+  allow_implicit_invocation: false
