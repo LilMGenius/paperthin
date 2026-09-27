@@ -8,7 +8,7 @@ Run this repo's shipping and releasing checklist on a pending change, then tag a
 
 ## Goal
 
-Prepare and ship a release through one deliberate command. Run `sip` when installed, apply commit-economy directly, and never auto-fire another user-invoked skill. Confirm committing and tagging + pushing separately: the commit stays local and reversible; tagging + pushing goes public.
+Prepare and ship a release through one deliberate command. Call the Skill tool with "sip" when it is installed, apply commit-economy directly, and never call another user-invoked skill. Confirm committing and tagging + pushing separately: the commit stays local and reversible; tagging + pushing goes public.
 
 ## Workflow
 
@@ -20,9 +20,9 @@ Prepare and ship a release through one deliberate command. Run `sip` when instal
    - shared cross-skill rules (edit-safety, negatives-as-corpus, commit-economy) stay coherent across every copy that carries them.
    Report any gap and stop rather than guessing past it.
 2. Classify the version bump: a new skill is minor; a fix or docs-only change is patch; a skill removed with no replacement path is major. Classify an existing skill's enhancement by **kind, not size** against its own prior spec: *wrong* behavior means a fix (patch, including new plumbing that only serves the fix); *correct but narrower / missing a dimension* means a new capability a user newly reaches for (minor). State which applies, not just the bump.
-3. Run `sip` if installed and apply its findings. Otherwise, run its checks directly in order and apply their findings: cold-read (`shower`), truth checks only for a claim or eval (`factchk`/`mandela`), consistency (`ssotize` audit first, consolidation only after approval), then tidy (`re0`).
+3. Call the Skill tool with "sip" if it is installed and apply its findings. Otherwise run its checks yourself, one Skill tool call each, in order, and apply their findings: "shower" to cold-read, "factchk" or "mandela" only for a claim or an eval, "ssotize" for consistency (audit first, consolidation only after approval), then "re0" to tidy.
 4. Bump `package.json`'s version to the classification from step 2.
-5. Apply commit-economy from the first draft: one bullet per real, durable change with supporting edits folded in; nothing the diff or version already proves; no co-author tags. Match the local log's shape or, absent one, use a subject and one `-` bullet per change on a single unwrapped line. Rewrite the message as edits develop rather than appending to it. If an existing commit needs cleanup, ask the human to run `re0-git`; do not invoke it automatically.
+5. Apply commit-economy from the first draft: one bullet per real, durable change with supporting edits folded in; nothing the diff or version already proves; no co-author tags. Match the local log's shape or, absent one, use a subject and one `-` bullet per change on a single unwrapped line. Rewrite the message as edits develop rather than appending to it. If an existing commit needs cleanup, tell the user to run `/re0-git`; it is user-invoked, so never call it.
 6. Ask for explicit confirmation, then commit.
 7. Write `.re0/release/RELEASE_NOTES.local.md`, a gitignored local scratch file never shipped as a file, as the signed tag's message. Follow the house style: one `##` heading naming the release's durable idea, not the version; one short present-tense paragraph of what is true now; only the sections the release earns (`### New`, `### Also`, `### The catalog (N skills)` only when the roster needs re-mapping, `### Install` always last as an indented block); each externally-contributed change credited inline with its PR number and author handle (`(#123, @handle)`); skill names and paths in backticks; nothing the tag or version already proves.
 8. Ask for a second, separate confirmation before tagging and pushing, the step that goes public. Then: `git tag -s vX.Y.Z -F .re0/release/RELEASE_NOTES.local.md --cleanup=verbatim`, confirm `git tag -v vX.Y.Z` reports a good signature, push `main`, push the tag.
