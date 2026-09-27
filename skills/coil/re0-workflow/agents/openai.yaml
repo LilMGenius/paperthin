@@ -1,0 +1,3 @@
+interface:
+  display_name: "re0-workflow"
+  short_description: "Recommend an ordered graph of skills for an intent"

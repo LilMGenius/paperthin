@@ -1,0 +1,3 @@
+interface:
+  display_name: "debloat"
+  short_description: "Compress bloated prose to load-bearing density"

@@ -1,0 +1,3 @@
+interface:
+  display_name: "nba"
+  short_description: "Return the single next best action"

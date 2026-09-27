@@ -1,0 +1,5 @@
+interface:
+  display_name: "multithink"
+  short_description: "Adjudicate collected reads by cited evidence"
+policy:
+  allow_implicit_invocation: false

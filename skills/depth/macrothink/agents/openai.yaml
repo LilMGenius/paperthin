@@ -1,0 +1,5 @@
+interface:
+  display_name: "macrothink"
+  short_description: "Fan out fresh reads and report divergence"
+policy:
+  allow_implicit_invocation: false

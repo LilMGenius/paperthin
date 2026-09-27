@@ -55,6 +55,16 @@ while IFS= read -r f; do
   grep -qF "$d/SKILL.md" README.md                   || err "$d: not listed in README.md"
   grep -q '\.\./' "$f"                               && err "$f: deep cross-file ref ('../') — compose by naming, not relative links"
 
+  # Codex reads its invocation policy from agents/openai.yaml; a skill is user-invoked in both harnesses or neither
+  y="$d/agents/openai.yaml"
+  if [ ! -f "$y" ]; then
+    err "$d: missing agents/openai.yaml"
+  else
+    user_md=0; grep -qE '^disable-model-invocation: *true *$' "$f" && user_md=1
+    user_yaml=0; grep -qE '^ *allow_implicit_invocation: *false *$' "$y" && user_yaml=1
+    [ "$user_md" = "$user_yaml" ] || err "$d: disable-model-invocation and agents/openai.yaml policy.allow_implicit_invocation disagree"
+  fi
+
   # frontmatter description length cap — keeps it a description, not a paragraph
   desc_len=$(awk '/^description:/{sub(/^description: */,""); gsub(/^"|"$/,""); print length; exit}' "$f")
   [ -n "$desc_len" ] && [ "$desc_len" -le "$desc_max" ] \

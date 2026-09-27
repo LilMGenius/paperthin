@@ -1,0 +1,5 @@
+interface:
+  display_name: "re0-tutorial"
+  short_description: "Learn one skill through three graded levels"
+policy:
+  allow_implicit_invocation: false

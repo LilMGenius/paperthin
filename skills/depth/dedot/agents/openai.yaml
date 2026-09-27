@@ -1,0 +1,5 @@
+interface:
+  display_name: "dedot"
+  short_description: "Propose fixes for Korean middle-dot lists"
+policy:
+  allow_implicit_invocation: false

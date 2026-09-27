@@ -1,0 +1,3 @@
+interface:
+  display_name: "aim"
+  short_description: "Propose the intent behind handed-over data"

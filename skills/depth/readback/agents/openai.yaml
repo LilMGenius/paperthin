@@ -1,0 +1,3 @@
+interface:
+  display_name: "readback"
+  short_description: "Check the read of a request before working"

@@ -1,0 +1,5 @@
+interface:
+  display_name: "prism"
+  short_description: "Split an artifact across lenses and find clashes"
+policy:
+  allow_implicit_invocation: false

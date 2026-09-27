@@ -1,0 +1,5 @@
+interface:
+  display_name: "re0-git"
+  short_description: "Clean a commit message and keep history linear"
+policy:
+  allow_implicit_invocation: false

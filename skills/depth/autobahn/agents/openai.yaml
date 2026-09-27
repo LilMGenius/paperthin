@@ -1,0 +1,3 @@
+interface:
+  display_name: "autobahn"
+  short_description: "Carve out unsafe scope, run the rest at speed"
