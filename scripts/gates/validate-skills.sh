@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Validate the skill catalog against the conventions in AGENTS.md + .agents/invocation.md.
-# The single source of truth for "is the catalog shippable" — called by release.yml
+# The single source of truth for "is the catalog shippable", called by release.yml
 # (pre-publish), ci.yml (every push/PR), and runnable locally (e.g. from sip).
 set -uo pipefail
 cd "$(dirname "$0")/../.."
@@ -24,7 +24,7 @@ elif [ -z "$node_bin" ]; then
   elif [ -x "/mnt/c/Program Files/nodejs/node.exe" ]; then
     node_bin="/mnt/c/Program Files/nodejs/node.exe"
   else
-    err "node runtime not found — install Node.js or set NODE=/path/to/node"
+    err "node runtime not found; install Node.js or set NODE=/path/to/node"
   fi
 fi
 
@@ -38,7 +38,7 @@ fi
 if [ -n "$node_bin" ] && [ "$fail" -eq 0 ]; then
   pkg_desc=$("$node_bin" -p "require('./package.json').description" 2>/dev/null)
   plg_desc=$("$node_bin" -p "require('./.claude-plugin/plugin.json').description" 2>/dev/null)
-  [ "$pkg_desc" = "$plg_desc" ] || err "package.json and plugin.json 'description' differ — keep the brand one-liner in sync"
+  [ "$pkg_desc" = "$plg_desc" ] || err "package.json and plugin.json 'description' differ; keep the brand one-liner in sync"
 fi
 
 # structural section names required in every SKILL.md (empirically shared across the catalog)
@@ -53,7 +53,7 @@ while IFS= read -r f; do
   [ "$name" = "$(basename "$d")" ]                   || err "$f: name '$name' != directory '$(basename "$d")'"
   grep -qF "\"./$d\"" .claude-plugin/plugin.json     || err "$d: not registered in plugin.json"
   grep -qF "$d/SKILL.md" README.md                   || err "$d: not listed in README.md"
-  grep -q '\.\./' "$f"                               && err "$f: deep cross-file ref ('../') — compose by naming, not relative links"
+  grep -q '\.\./' "$f"                               && err "$f: deep cross-file ref ('../'); compose by naming, not relative links"
 
   # Codex reads its invocation policy from agents/openai.yaml; a skill is user-invoked in both harnesses or neither
   y="$d/agents/openai.yaml"
@@ -66,12 +66,12 @@ while IFS= read -r f; do
     [ "$user_md" = 1 ] && grep -qE '^description:.*Use when' "$f" && err "$f: a user-invoked description is human-facing; strip its 'Use when' trigger list"
   fi
 
-  # frontmatter description length cap — keeps it a description, not a paragraph
+  # frontmatter description length cap keeps it a description, not a paragraph
   desc_len=$(awk '/^description:/{sub(/^description: */,""); gsub(/^"|"$/,""); print length; exit}' "$f")
   [ -n "$desc_len" ] && [ "$desc_len" -le "$desc_max" ] \
     || err "$f: description length ${desc_len:-0} > $desc_max chars (tighten to a description, not a paragraph)"
 
-  # required structural sections — verify every SKILL.md carries the shared skeleton
+  # required structural sections: verify every SKILL.md carries the shared skeleton
   for sec in "${required_sections[@]}"; do
     grep -qE "^## +${sec}\$" "$f" \
       || err "$f: missing required section '## ${sec}'"

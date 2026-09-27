@@ -13,7 +13,7 @@ const root = path.join(__dirname, '..', '..');
 const md = fs.readFileSync(path.join(root, 'TODO.local.md'), 'utf8');
 const links = (text) => [...text.matchAll(/\]\(([^)]+)\)/g)].map((m) => m[1].trim());
 const entries = md.split(/\r?\n/).flatMap((line) => {
-  const match = line.match(/^\*\*(.+?)\*\*(.*?) — \*\*(진행|통합실험|보류|기각|외부)\*\*/);
+  const match = line.match(/^\*\*(.+?)\*\*(.*?) \u2014 \*\*(진행|통합실험|보류|기각|외부)\*\*/);
   return match ? [{ name: match[1], status: match[3], line, links: links(line) }] : [];
 });
 const planDir = path.join(root, '.omo', 'plans');

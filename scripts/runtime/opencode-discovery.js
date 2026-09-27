@@ -1,5 +1,5 @@
 /*
- * paperthin — discovery notice, OpenCode plugin (class-B adapter).
+ * paperthin: discovery notice, OpenCode plugin (class-B adapter).
  *
  * OpenCode's hooks are JS/TS plugins, not command hooks, so the class-A command script can't be
  * pointed at directly. This plugin injects the same notice into the system prompt via the
@@ -8,9 +8,9 @@
  * The catalog + notice text come from the shared ./catalog.cjs, so nothing is duplicated.
  *
  * The `opencode-` prefix names the platform this adapter targets (it lands in opencode.json's shared
- * `plugin` array); no project prefix is needed — the repo and ~/.re0/ already namespace it.
+ * `plugin` array); no project prefix is needed, since the repo and ~/.re0/ already namespace it.
  *
- * Install: add this file's path (or its npm package) to opencode.json's "plugin" array — the same
+ * Install: add this file's path (or its npm package) to opencode.json's "plugin" array, the same
  * mechanism omo uses (packages/omo-opencode add-plugin-to-opencode-config writes the plugin entry).
  */
 
