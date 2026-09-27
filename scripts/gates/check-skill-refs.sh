@@ -35,12 +35,12 @@ fi
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   mapfile -t files < <(
     git -c core.quotePath=false ls-files --cached --others --exclude-standard -- '*.md' |
-      grep -E '^(skills/.+/SKILL\.md|docs/.+\.md|[^/]+\.md)$' | sort -u
+      grep -E '^(skills/.+/SKILL\.md|assets/.+\.md|docs/.+\.md|[^/]+\.md)$' | sort -u
   )
 else
   mapfile -t files < <(
     { find skills -name SKILL.md
-      find docs -name '*.md' 2>/dev/null
+      find assets docs -name '*.md' 2>/dev/null
       ls *.md 2>/dev/null
     } | sort -u
   )

@@ -24,13 +24,13 @@ err() { echo "::error::$*"; fail=1; }
 # collect Markdown files: docs, top-level, and every SKILL.md
 mapfile -t files < <(
   { find skills -name SKILL.md 2>/dev/null
-    find docs -name '*.md' 2>/dev/null
+    find assets docs -name '*.md' 2>/dev/null
     ls *.md 2>/dev/null
   } | sort -u
 )
 
 if [ "${#files[@]}" -eq 0 ]; then
-  err "no Markdown files found under skills/, docs/, or repo root"
+  err "no Markdown files found under skills/, assets/, docs/, or repo root"
   echo "✗ link check failed"; exit 1
 fi
 
