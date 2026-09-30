@@ -19,6 +19,8 @@ jobs:
           node-version: 24
           registry-url: https://registry.npmjs.org
 
+      - run: npm ci
+
       - name: Validate the skill catalog
         run: bash scripts/validate-skills.sh
 

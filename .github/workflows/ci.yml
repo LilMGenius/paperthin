@@ -13,6 +13,9 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 24
+      - run: npm ci
+      - name: Frontmatter gate tests
+        run: node --test scripts/check-frontmatter.test.cjs
       - name: Validate the skill catalog
         run: bash scripts/validate-skills.sh
       - name: Verify skill references resolve
