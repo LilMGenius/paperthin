@@ -55,11 +55,6 @@ while IFS= read -r f; do
   grep -qF "$d/SKILL.md" README.md                   || err "$d: not listed in README.md"
   grep -q '\.\./' "$f"                               && err "$f: deep cross-file ref ('../') — compose by naming, not relative links"
 
-  # frontmatter is parseable YAML (extract lines between the two --- delimiters)
-  awk '/^---$/{c++; next} c==1' "$f" \
-    | node -e "const y=require('fs').readFileSync(0,'utf8'); if(!/^[a-z_-]+:\s/mi.test(y)) process.exit(1)" 2>/dev/null \
-    || err "$f: frontmatter block missing or malformed (expected 'key: value' lines between '---' delimiters)"
-
   # frontmatter description length cap — keeps it a description, not a paragraph
   desc_len=$(awk '/^description:/{sub(/^description: */,""); gsub(/^"|"$/,""); print length; exit}' "$f")
   [ -n "$desc_len" ] && [ "$desc_len" -le "$desc_max" ] \
@@ -71,6 +66,9 @@ while IFS= read -r f; do
       || err "$f: missing required section '## ${sec}'"
   done
 done < <(find skills -name SKILL.md)
+
+# frontmatter parses as YAML 1.1 and 1.2 the way PyYAML (Codex) and js-yaml (Claude Code) load it
+[ -n "$node_bin" ] && { "$node_bin" scripts/check-frontmatter.cjs || fail=1; }
 
 # every plugin.json skill path resolves to a SKILL.md
 while IFS= read -r p; do
