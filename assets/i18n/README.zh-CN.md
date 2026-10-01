@@ -55,11 +55,11 @@
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 追问一个刚做出的决定，直到你能把它解释清楚，否则标记出缺口 | 一个决定 | 用户 | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 先切掉不安全 scope，让安全部分全速运行，并记录 descope | 一个任务 | 模型 | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | 检查代码风格、惯例和一致性；默认不做修改，只给出简短报告 | 一项待审查的变更 | 模型 | |
-| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | 在一条明确的原则下，把漂移的列表重新排成合理顺序；只移动条目，不改动文字 | 一个列表 | 用户 | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 把偶然绑定的工具名替换成它真正表达的机制 | 一个 durable artifact | 模型 | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | 把臃肿的产物压缩到承重的密度；只删文字，绝不删规则 | 一件产物 | 用户 | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | 在一条明确的原则下，把漂移的列表重新排成合理顺序；只移动条目，不改动文字 | 一个列表 | 用户 | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | 移除 em dash 及其相似痕迹，并为每处选择真正需要的标点 | 你的文字 | 用户 | |
 | ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | 对韩语中连接开放式列举的每个中点附上理由，在散文中建议改用逗号或连接词，在标签行中建议改用空格；保留三种允许的用法和受保护的语境 | 作者指定范围的韩语散文或标签行 | 用户 | ✔ |
-| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | 把臃肿的产物压缩到承重的密度；只删文字，绝不删规则 | 一件产物 | 用户 | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 用全新、零上下文的眼睛冷读它，判断它能不能独自站住 | 一个 artifact | 模型 | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 双向对照 source 核验所主张的：荒谬的可能真实吗，显然的可能是假的吗？ | 一个 claim | 模型 | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | 审计是否 leakage：外部 ground truth 真的进入了吗？ | 一个 eval | 模型 | ✔ |
@@ -81,7 +81,6 @@
 | skill | 作用 | scope | Invoker | 只读 |
 |---|---|---|---|---|
 | 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | 在 re0-loop 第一轮之前打开新的 iteration 文件夹并写入它的 DESIGN/WORKFLOW/EVIDENCE | 一个新 cycle | 用户 | |
-| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | 通过三个分级考核关卡学习套件中的一项技能，完成与否以学习者本人提交的作品为依据，绝不以调用记录为依据 | 一项技能 | 用户 | |
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | 跑 build → QA → re0-memo → re0-work cycle，让学习复利，而不是代码膨胀 | 整个 cycle | 模型 | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | 监视长时间运行的代理任务是否停滞，默认仅发出提醒；恢复仅作为提案交由人批准 | 一个运行中的任务 | 用户 | |
 | 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 从一次完成或失败的 cycle 中抽取教训和反模式 | 一个结束的 cycle | 模型 | |
@@ -89,6 +88,7 @@
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 从实时 state 重建丢失的 context：谁需要它、发生了什么变化、新词是什么意思 | 一次回归 | 模型 | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 读取实时 cycle state，返回一个下一步最佳行动，而不是菜单 | 当前 cycle | 模型 | ✔ |
 | 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 为一个明确意图推荐有序的技能图，标明每一步的权限类型，但不调用任何技能 | 一个明确意图 | 模型 | ✔ |
+| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | 通过三个分级考核关卡学习套件中的一项技能，完成与否以学习者本人提交的作品为依据，绝不以调用记录为依据 | 一项技能 | 用户 | |
 
 ### `mesh/`
 
