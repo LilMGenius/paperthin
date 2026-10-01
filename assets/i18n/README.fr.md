@@ -55,11 +55,11 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Presse une décision fraîchement prise jusqu'à pouvoir l'expliquer, sinon la lacune est signalée | une décision | utilisateur | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Découpe le périmètre dangereux en amont, exécute le reste sûr à pleine puissance, journalise le descope | une tâche | modèle | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Vérifie le style, les conventions et la cohérence du code ; par défaut, aucune modification et un bref rapport | un changement en revue | modèle | |
-| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | Réaligne une liste qui a dérivé dans un ordre logique sous un principe unique énoncé ; déplace seulement les items, ne reformule rien | une liste | utilisateur | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Remplace les noms d'outils accidentels par le mécanisme visé | un artifact durable | modèle | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Compresse un artefact surchargé à sa densité porteuse ; coupe des mots, jamais une règle | un artefact | utilisateur | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | Réaligne une liste qui a dérivé dans un ordre logique sous un principe unique énoncé ; déplace seulement les items, ne reformule rien | une liste | utilisateur | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Retire les em dashes et leurs sosies, en choisissant la ponctuation juste à chaque endroit | votre prose | utilisateur | |
 | ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | Propose une virgule ou un connecteur en prose, ou un espace dans une ligne d'étiquettes, avec une raison pour chaque point médian reliant une énumération ouverte en coréen ; préserve les trois usages admis et les contextes protégés | prose coréenne ou lignes d'étiquettes délimitées par leur auteur | utilisateur | ✔ |
-| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Compresse un artefact surchargé à sa densité porteuse ; coupe des mots, jamais une règle | un artefact | utilisateur | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Relit à froid, avec des yeux neufs et zéro contexte : tient-il debout seul ? | un artifact | modèle | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Vérifie ce qui est affirmé contre les sources, dans les deux sens : l'absurde pourrait-il être vrai, l'évident faux ? | une claim | modèle | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Audite les leakage : une ground truth externe entre-t-elle vraiment ? | un eval | modèle | ✔ |
@@ -81,7 +81,6 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | Skill | Ce qu'il fait | Portée | Invocation | Lecture seule |
 |---|---|---|---|---|
 | 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | Ouvre un nouveau dossier d'itération avec son DESIGN/WORKFLOW/EVIDENCE avant le premier tour de re0-loop | un nouveau cycle | utilisateur | |
-| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | Apprendre une compétence de la suite en trois niveaux évalués, dont la réussite repose sur le travail remis par l'apprenant lui-même, jamais sur une trace d'invocation | une compétence | utilisateur | |
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Lance la boucle build → QA → re0-memo → re0-work pour que l'apprentissage compose, pas le code | toute la boucle | modèle | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | Surveille une tâche longue d’un agent pour détecter les blocages et alerte par défaut ; la reprise reste une proposition soumise à approbation humaine | une tâche en cours | utilisateur | |
 | 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Extrait les leçons et anti-patterns d'un cycle terminé ou raté | un cycle terminé | modèle | |
@@ -89,6 +88,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Reconstruit le contexte perdu à partir de l'état en direct : ce dont il a besoin, ce qui a changé, ce que signifient les nouveaux mots | une réentrée | modèle | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lit l'état vivant du cycle et renvoie la seule meilleure prochaine action, pas un menu | le cycle en cours | modèle | ✔ |
 | 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Recommande un graphe ordonné de skills pour une intention exprimée, avec le type d’autorité de chaque étape, sans les invoquer | une intention exprimée | modèle | ✔ |
+| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | Apprendre une compétence de la suite en trois niveaux évalués, dont la réussite repose sur le travail remis par l'apprenant lui-même, jamais sur une trace d'invocation | une compétence | utilisateur | |
 
 ### `mesh/`
 

@@ -55,11 +55,11 @@
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | يضغط على قرار اتُّخذ للتو حتى تستطيع شرحه، أو تُعلَّم الفجوة | قرار واحد | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | يقطع scope غير الآمن مسبقا، يشغل الباقي الآمن بكامل القوة، ويسجل descope | task واحد | model | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | يتحقق من أسلوب الكود وأعرافه واتساقه؛ الافتراضي بلا تعديلات وتقرير قصير | تغيير واحد قيد المراجعة | model | |
-| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | يعيد ترتيب قائمة انحرفت إلى نظام منطقي وفق مبدأ واحد معلن؛ ينقل العناصر فقط، دون إعادة صياغة أي شيء | قائمة واحدة | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | يستبدل أسماء الأدوات العارضة بالآلية المقصودة | artifact durable واحد | model | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | يضغط artifact منتفخا إلى كثافته الحاملة؛ يقطع الكلمات، لا قاعدة أبدا | artifact واحد | user | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | يعيد ترتيب قائمة انحرفت إلى نظام منطقي وفق مبدأ واحد معلن؛ ينقل العناصر فقط، دون إعادة صياغة أي شيء | قائمة واحدة | user | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | يزيل em dashes وما يشبهها، ويختار علامة الترقيم التي يحتاجها كل موضع | نثرك | user | |
 | ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | يقترح فاصلة أو أداة ربط في النثر، أو مسافة في صف تسميات، مع تعليل لكل نقطة وسطية تصل عناصر تعداد مفتوح بالكورية؛ يحافظ على الاستخدامات الثلاثة المقررة والسياقات المحمية | نثر كوري أو صف تسميات يحدد الكاتب نطاقه | user | ✔ |
-| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | يضغط artifact منتفخا إلى كثافته الحاملة؛ يقطع الكلمات، لا قاعدة أبدا | artifact واحد | user | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | يقرأه قراءة باردة بعين جديدة وبدون سياق: هل يقف وحده؟ | artifact واحد | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | يتحقق مما يُدّعى مقابل sources في الاتجاهين: هل يمكن أن يكون العبث صحيحا، والواضح خاطئا؟ | claim واحد | model | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | يدقق بحثا عن leakage: هل تدخل ground truth خارجية فعلا؟ | eval واحد | model | ✔ |
@@ -81,7 +81,6 @@
 | Skill | ماذا يفعل | scope | Invoker | قراءة فقط |
 |---|---|---|---|---|
 | 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | يفتح مجلد iteration جديدا مع DESIGN/WORKFLOW/EVIDENCE قبل أول turn في re0-loop | cycle جديدة واحدة | user | |
-| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | تعلّم مهارة واحدة من المجموعة عبر ثلاثة مستويات مقيّمة، يُحكم على إكمالها من عمل المتعلّم نفسه، وليس من سجل الاستدعاء أبدا | مهارة واحدة | user | |
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | يشغل حلقة build → QA → re0-memo → re0-work حتى يتراكم التعلم، لا الكود | الحلقة كلها | model | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | يراقب مهمة وكيل طويلة التشغيل لرصد التعثر وينبه افتراضيا؛ التعافي مجرد اقتراح يوافق عليه الإنسان | مهمة قيد التشغيل | user | |
 | 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | يستخرج الدروس والـ anti-patterns من cycle انتهت أو فشلت | cycle مكتملة | model | |
@@ -89,6 +88,7 @@
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | يعيد بناء context المفقود من الحالة الحية: ما يحتاجه، وما تغيّر، وماذا تعني الكلمات الجديدة | عودة واحدة | model | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | يقرأ حالة cycle الحية ويعيد next best action واحدا، لا قائمة | cycle الحية | model | ✔ |
 | 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | يقترح مخططا مرتبا للمهارات لتحقيق مقصد واحد مصرح به، مع تحديد نوع صلاحية كل خطوة، دون استدعاء المهارات | مقصد واحد مصرح به | model | ✔ |
+| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | تعلّم مهارة واحدة من المجموعة عبر ثلاثة مستويات مقيّمة، يُحكم على إكمالها من عمل المتعلّم نفسه، وليس من سجل الاستدعاء أبدا | مهارة واحدة | user | |
 
 ### `mesh/`
 
