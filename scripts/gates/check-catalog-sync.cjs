@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 /*
- * Catalog SSOT drift-guard: the roster set across the code copy and the doc canonical, and the roster order across the four hand-written surfaces.
+ * Catalog SSOT drift-guard: the roster set across the code copy and the doc canonical, and the roster order across the four hand-written surfaces and every translated README Index.
  *
  * The roster necessarily exists in two places: re0-upgrade's "Current catalog" (the
  * human/doc canonical) and scripts/runtime/catalog.cjs (the code copy the notice adapters share).
@@ -40,10 +40,17 @@ if (onlyScript.length || onlySkill.length) {
 
 const pluginPath = path.join(__dirname, '..', '..', '.claude-plugin', 'plugin.json');
 const plugin = JSON.parse(fs.readFileSync(pluginPath, 'utf-8')).skills.map((p) => p.split('/').pop());
-const readmePath = path.join(__dirname, '..', '..', 'README.md');
-const readmeIndex = (fs.readFileSync(readmePath, 'utf-8').split(/^## The Index[ \t]*$/m)[1] || '').split(/^## /m)[0];
-const readme = [...readmeIndex.matchAll(/^\|[^\n]*\*\*\[([a-z0-9-]+)\]\([^)]*\/SKILL\.md\)\*\*/gm)].map((m) => m[1]);
-const surfaces = { 'scripts/runtime/catalog.cjs': CATALOG, 're0-upgrade Current catalog': roster, '.claude-plugin/plugin.json': plugin, 'README.md index': readme };
+// A translation translates the Index heading, so its Index is the section holding the most roster rows.
+// Only Index rows count; a skill named in prose elsewhere, whose place a translation's word order may
+// move, does not.
+const root = path.join(__dirname, '..', '..');
+const sectionsOf = (file) => fs.readFileSync(path.join(root, file), 'utf-8').split(/^## /m);
+const rosterIn = (section) => [...(section || '').matchAll(/^\|[^\n]*\*\*\[([a-z0-9-]+)\]\([^)]*\/SKILL\.md\)\*\*/gm)].map((m) => m[1]);
+const english = sectionsOf('README.md');
+const surfaces = { 'scripts/runtime/catalog.cjs': CATALOG, 're0-upgrade Current catalog': roster, '.claude-plugin/plugin.json': plugin, 'README.md index': rosterIn(english.find((section) => /^The Index[ \t]*\r?\n/.test(section))) };
+for (const name of fs.readdirSync(path.join(root, 'assets', 'i18n')).filter((f) => /^README\..+\.md$/.test(f)).sort()) {
+  surfaces['assets/i18n/' + name + ' index'] = sectionsOf('assets/i18n/' + name).map(rosterIn).reduce((a, b) => (b.length > a.length ? b : a), []);
+}
 const reference = CATALOG.join(' ');
 let disorder = 0;
 for (const [name, list] of Object.entries(surfaces)) {
@@ -55,4 +62,4 @@ for (const [name, list] of Object.entries(surfaces)) {
 }
 if (disorder) process.exit(1);
 
-console.log('catalog SSOT OK: ' + CATALOG.length + ' skills match re0-upgrade Current catalog, plugin.json and README in one order');
+console.log('catalog SSOT OK: ' + CATALOG.length + ' skills match re0-upgrade Current catalog, plugin.json and every README Index in one order');
