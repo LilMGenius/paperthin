@@ -55,11 +55,11 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Presiona una decision recien tomada hasta poder explicarla, o se marca el hueco | una decision | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Recorta el scope inseguro desde el principio, ejecuta el resto seguro a plena fuerza y registra el descope | una tarea | model | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Revisa estilo, convenciones y consistencia del código; por defecto, cero cambios y un informe breve | un cambio en revisión | model | |
-| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | Realinea una lista desviada en un orden logico bajo un solo principio declarado; solo mueve elementos, no reescribe nada | una lista | user | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Sustituye nombres incidentales de stack por el mecanismo que querian decir | un artifact durable | model | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Comprime un artifact inflado hasta su densidad portante; recorta palabras, nunca una regla | un artifact | user | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | Realinea una lista desviada en un orden logico bajo un solo principio declarado; solo mueve elementos, no reescribe nada | una lista | user | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Elimina em dashes y sus imitaciones, eligiendo la puntuacion que cada lugar necesita | tu prosa | user | |
 | ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | Propone una coma o un conector en prosa, o un espacio en una fila de etiquetas, con una razón por cada punto medio que une una enumeración abierta en coreano; conserva los tres usos admitidos y los contextos protegidos | prosa coreana o filas de etiquetas delimitadas por quien escribe | user | ✔ |
-| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Comprime un artifact inflado hasta su densidad portante; recorta palabras, nunca una regla | un artifact | user | |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Lo lee en frio, con ojos frescos y cero contexto: se sostiene por si solo? | un artifact | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Verifica lo afirmado contra sources en ambas direcciones: podria lo absurdo ser real y lo obvio ser falso? | una claim | model | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Audita en busca de leakage: entra de verdad una ground truth externa? | un eval | model | ✔ |
@@ -81,7 +81,6 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | Skill | Que hace | Alcance | Invocador | Solo lectura |
 |---|---|---|---|---|
 | 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | Abre una nueva carpeta de iteración con DESIGN/WORKFLOW/EVIDENCE antes del primer turno de re0-loop | un cycle nuevo | user | |
-| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | Aprende una habilidad de la suite en tres niveles evaluados; completarlos depende del trabajo entregado por el propio aprendiz, nunca de un registro de invocaciones | una habilidad | user | |
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Ejecuta el cycle build → QA → re0-memo → re0-work para que el aprendizaje componga, no el codigo | todo el cycle | model | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | Vigila una tarea prolongada de un agente para detectar bloqueos y alerta por defecto; la recuperación solo se propone para aprobación humana | una tarea en curso | user | |
 | 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Extrae lecciones y anti-patrones de un cycle terminado o fallido | un cycle terminado | model | |
@@ -89,6 +88,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Reconstruye el contexto perdido a partir del estado en vivo: que necesita, que cambio, que significan las palabras nuevas | una reentrada | model | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lee el estado vivo del cycle y devuelve una sola siguiente mejor accion, no un menu | el cycle vivo | model | ✔ |
 | 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Recomienda un grafo ordenado de skills para una intención explícita, con el tipo de autoridad de cada paso, sin invocarlos | una intención explícita | model | ✔ |
+| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | Aprende una habilidad de la suite en tres niveles evaluados; completarlos depende del trabajo entregado por el propio aprendiz, nunca de un registro de invocaciones | una habilidad | user | |
 
 ### `mesh/`
 
