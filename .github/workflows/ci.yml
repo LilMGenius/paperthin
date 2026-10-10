@@ -42,6 +42,8 @@ jobs:
         run: node scripts/gates/check-deploy-home.cjs
       - name: Test the commit message check
         run: node --test scripts/gates/check-commit-messages.test.cjs
+      - name: Test the re0-watch goal re-arm
+        run: node --test skills/coil/re0-watch/scripts/goal-rearm.test.mjs
       - name: Check commit messages in the pull request
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         run: node scripts/gates/check-commit-messages.cjs "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
