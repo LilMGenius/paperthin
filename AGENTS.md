@@ -104,7 +104,7 @@ The log is the handoff between sessions, so every message takes the form this hi
 - **Subject:** `type(scope): description`. The type is `feat`, `fix`, `docs`, `refactor`, `chore` or `ci`; the scope names the skill or area the change serves (`dedot`, `catalog`, `readme`, `scripts`); the description is lowercase English in the imperative, says what is true after the change, has no final period and fits in 72 characters.
 - **Body:** a blank line, then one `- ` bullet per durable change, lowercase unless it opens with a name, one source line each, with no final period. A change the subject fully states takes no body.
 - **Leave out** what a later reader cannot use: release kinds, plan paths, co-author tags, the list of surfaces a skill was registered on or translations synced, gitignored local paths, and how a pilot went. Keep a reason when the diff cannot show why.
-- **Commit** one verified feature at a time, signed, with one date as both author and committer date; `re0-git` rewrites and places commits under that rule. [`check-commit-messages.cjs`](./scripts/gates/check-commit-messages.cjs) checks the form in CI; whether a bullet is worth keeping stays a review call.
+- **Commit** one verified feature at a time, signed; `re0-git` rewrites a message without touching a commit's dates and places a late commit at its time. [`check-commit-messages.cjs`](./scripts/gates/check-commit-messages.cjs) checks the form in CI; whether a bullet is worth keeping stays a review call.
 
 ## Releasing
 
