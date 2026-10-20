@@ -4,7 +4,7 @@ disable-model-invocation: true
 description: "Rewrite a finished commit's message into a clean, handoff-ready form in your own log style, and place a late commit in time order on a linear history, so `git log` alone tells the story. User-invoked: run it once you've decided to commit."
 ---
 
-Rewrite a finished commit message so the log supports handoff in the author's voice and reads in the order the work happened.
+Rewrite a finished commit message so the log supports handoff in the author's voice, and place a late commit where its time falls.
 
 ## Goal
 
