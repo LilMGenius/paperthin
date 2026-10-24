@@ -157,7 +157,7 @@ A long or bundled instruction has enough surface area for a subtle misread: the 
 ### #3 — Sizing the run becomes guesswork
 Some work is run with too much horsepower because "stronger" feels safer; some is run too cheaply until the failure costs more than the saved tokens. The same guessing hits the reasoning-effort dial: max it on everything and burn tokens, or skim a task that needed real deliberation. All of it is guessing wearing operational clothing.
 
-**The fix → `modelchk`:** from one risk read, recommend two coordinates — the cheapest sufficient capability tier (`fast`, `standard`, `frontier`) and the reasoning effort within it (`glance` to `exhaustive`), each on a neutral scale. It advises; it never routes, pins, or names a concrete model or level.
+**The fix → `modelchk`:** from one risk read, recommend two coordinates — the cheapest sufficient capability tier (`fast`, `standard`, `frontier`) and the reasoning effort within it (`glance` to `exhaustive`), each on a neutral scale — and name the task domain (`coding`, `agentic`, `reasoning`, `writing`, `knowledge`, `general`) the tier is measured in, since models of one price class differ by domain. It advises; it never routes, pins, or names a concrete model or level.
 
 <details>
 <summary><b>[PROOF]</b></summary>
