@@ -26,6 +26,21 @@ From a single risk-and-complexity read, recommend two coordinates.
 
 The two axes are orthogonal — a bounded-but-fiddly task can be `fast` + `thorough`, a quick expert call `frontier` + `glance` — yet in most work they move together, parting only when a cheap task needs hard thinking or a strong model needs only a quick call. Effort buys deliberation, never capability, and more of it is not more correct.
 
+**Task domain** — the kind of capability the tier is measured in. It sizes nothing; it tells whoever binds the tier which measured strength matters, because models of one price class differ by domain:
+
+- `coding` — writing, changing, or reviewing code in a repository.
+- `agentic` — long multi-step tool use, where the work is completing a run of actions without derailing.
+- `reasoning` — math, logic, planning, or analysis whose answer is derived rather than looked up.
+- `writing` — prose meant for a reader: documents, messages, copy.
+- `knowledge` — research and factual recall across sources.
+- `general` — none of the above dominates.
+
+A tier is a capability claim, never a price claim. A binder resolves it against measured capability in the named domain, read live from a regularly refreshed evaluation source, and uses price only to choose the cheapest model among those that measure sufficient. Price rank stands in for capability only where no measurement exists, and says so. Three limits hold on any source:
+
+- An explicit user mapping of a model to a tier outranks every measurement.
+- A model the source does not list is unmeasured, not weak: it stays out of the measured ranking until a user mapping places it, and the report says so.
+- The source's terms decide what may be shown. Open data can be reported with its scores and attribution; data read under the user's own credential informs the choice and stays internal, so only the attribution and the resulting tier are shown.
+
 ## Workflow
 
 1. Frame the exact work unit being sized: task, artifact, review, rerun, or plan.
@@ -38,18 +53,19 @@ The two axes are orthogonal — a bounded-but-fiddly task can be `fast` + `thoro
    - cost of a wrong answer.
 3. Read off the capability tier: the cheapest class whose ceiling covers the work's judgment and risk.
 4. Read off the reasoning effort: default it to track the tier (`fast`→`glance`, `standard`→`measured`, `frontier`→`thorough`, reserving `exhaustive` for the hardest, highest-stakes work), then deviate where deliberation-hunger and capability-need part — raise it for ambiguity, long multi-step reasoning, or adversarial self-check on an otherwise cheap task; lower it for a bounded task under a strong model.
-5. Report both coordinates, one shared rationale, `move up if...` and `move down if...` triggers for each dial, and the proof surface — the verification the work still needs regardless of tier or effort.
-6. Stop.
+5. Name the one task domain the work depends on most; pick `general` rather than guess when none dominates.
+6. Report both coordinates and the domain, one shared rationale, `move up if...` and `move down if...` triggers for each dial, and the proof surface — the verification the work still needs regardless of tier or effort.
+7. Stop.
 
 ## Rules
 
-- Size the run's cognitive spend, nothing else. The two dials are *which mind* (capability tier) and *how hard it thinks* (reasoning effort). Orchestration dials — context budget, fan-out width, tool-permission scope — are a different reflex and stay out; sharing this one risk read does not pull them in.
-- Neutral language only: tier is `fast`/`standard`/`frontier`; effort is `glance`/`measured`/`thorough`/`exhaustive`, each an intent defined by a position on the active model's ladder — floor, default, above-default, ceiling — never a named vendor level.
+- Size the run's cognitive spend, nothing else. The two dials are *which mind* (capability tier) and *how hard it thinks* (reasoning effort); the task domain labels which capability the tier is measured in and sizes nothing. Orchestration dials — context budget, fan-out width, tool-permission scope — are a different reflex and stay out; sharing this one risk read does not pull them in.
+- Neutral language only: tier is `fast`/`standard`/`frontier`; effort is `glance`/`measured`/`thorough`/`exhaustive`, each an intent defined by a position on the active model's ladder — floor, default, above-default, ceiling — never a named vendor level; domain is one of the six words above.
 - When resolved, effort binds to positions, not levels: a model lacking an interior level collapses the rung to the nearest it offers, so the intent always maps to a real setting and never resolves out of range.
 - The default is the cheapest sufficient tier and the effort that meets the work, not the strongest of either.
 - Effort is deliberation budget, not capability and not answer length. Never raise it to buy capability — that is the tier's job.
 - No routing authority. This skill recommends two coordinates; the user, harness, or executor decides what runs and sets the actual level.
-- Do not name concrete model products, vendors, or versions in durable mechanism text.
+- Do not name concrete model products, vendors, versions, or evaluation sources in durable mechanism text.
 - Risk beats size: a one-file high-risk change can want `frontier`; a broad mechanical rename can stay `fast` + `thorough` when verification is complete.
 - Verification is separate. A stronger tier or a higher effort never replaces tests, review, command output, manual QA, or other proof surface.
 - Do not execute the task being sized, change configuration, call another model, or alter provider settings.
@@ -60,6 +76,7 @@ The two axes are orthogonal — a bounded-but-fiddly task can be `fast` + `thoro
 ```text
 recommended_tier: fast|standard|frontier
 recommended_effort: glance|measured|thorough|exhaustive
+task_domain: coding|agentic|reasoning|writing|knowledge|general
 rationale: <one sentence, covering both dials>
 move_up_if: <signals that would justify a stronger tier or higher effort>
 move_down_if: <signals that would justify a cheaper tier or lower effort>
@@ -70,7 +87,7 @@ proof_surface: <verification still required, independent of tier and effort>
 
 Before finishing, confirm the report:
 
-- names exactly one tier (`fast`/`standard`/`frontier`) and one effort (`glance`/`measured`/`thorough`/`exhaustive`);
+- names exactly one tier (`fast`/`standard`/`frontier`), one effort (`glance`/`measured`/`thorough`/`exhaustive`), and one task domain;
 - states the cheapest sufficient tier and the effort that meets the work, not the strongest of either;
 - gives move-up and move-down triggers covering both dials;
 - names the proof surface;
