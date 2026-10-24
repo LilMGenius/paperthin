@@ -1,6 +1,6 @@
 ---
 name: re0-memo
-description: "Turn a finished, failed, or disappointing work cycle into portable lessons, anti-patterns, quality gates, and next-cycle vocabulary. Use after a build, QA pass, demo, user complaint, or abandoned attempt when the useful output is what the next pass must learn rather than the code itself."
+description: "Turn a finished, failed, or disappointing work cycle into portable lessons, anti-patterns, quality gates, and next-cycle vocabulary. Use after a build, QA pass, demo, user complaint or correction, a request the user had to repeat, or an abandoned attempt when the useful output is what the next pass must learn rather than the code itself."
 ---
 
 Turn a completed cycle into lessons the next cycle can use.
@@ -17,10 +17,12 @@ Use `re0-memo` when the artifact is done, failed, disappointing, or ambiguous en
 2. Separate assets that earned reuse (contracts, schemas, tests, services, vocabulary, and examples) from UI, panels, scaffolds, or abstractions that only looked productive.
 3. Generalize before recording: cluster specific complaints into their shared pattern before writing. Complaints across many items usually share one root gap. Record that root and its pattern family as the lesson, with the specifics beneath it as evidence rather than separate lessons.
 4. Name each failure as an anti-pattern, not a mood.
-5. Convert repeated or high-impact failures into quality gates for the next pass.
-6. Convert vague user direction into architecture vocabulary a fresh agent can use.
-7. Write or refresh local docs for the cycle: a re0-memo for lessons and a plan for next-cycle contracts, gates, and vocabulary.
-8. Verify that a from-scratch agent could avoid the same failure from those docs alone.
+5. Find the rule or gate that already owns each class. If one exists, it did not fire, so the lesson is the missing trigger, check, or step, never a second rule that would drift from the first.
+6. Convert repeated or high-impact failures into quality gates for the next pass.
+7. Convert vague user direction into architecture vocabulary a fresh agent can use.
+8. Write or refresh local docs for the cycle: a re0-memo for lessons and a plan for next-cycle contracts, gates, and vocabulary.
+9. Land a lesson in the artifact that owns its class by rewriting the passage as if the lesson had always been there. A new idea takes its own step or sentence; a neighboring sentence keeps its wording rather than carrying an appended clause.
+10. Verify that a from-scratch agent could avoid the same failure from those docs alone.
 
 ## Rules
 
@@ -40,4 +42,5 @@ Before finishing:
 1. Every lesson traces to observed cycle evidence.
 2. Every anti-pattern names a concrete failure mode and the gate that catches it.
 3. Every lesson covers a class, with the reported specifics beneath it as evidence.
-4. A fresh agent can tell what to preserve, what to discard, and what to test first without reading the whole old session.
+4. Every edited owner reads as its clean current version, with no lesson bolted onto a neighboring sentence.
+5. A fresh agent can tell what to preserve, what to discard, and what to test first without reading the whole old session.
