@@ -27,8 +27,8 @@ This section owns every rename, in release order; a future rename appends its ro
 | `ssotchk` | `ssotize` | 0.11.0 |
 | `ppt-upgrade` | `re0-upgrade` | 0.11.0 |
 | `ppt-release` | `re0-release` | 0.11.0 |
-| `readchk` | `readback` | <version being tagged> |
-| `reorder` | `re0-order` | <version being tagged> |
+| `readchk` | `readback` | 1.0.0 |
+| `reorder` | `re0-order` | 1.0.0 |
 
 ## Current catalog
 
