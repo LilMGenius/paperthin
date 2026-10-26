@@ -50,6 +50,7 @@
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | 引き継がれたデータを読み、尋ねる代わりに、確認すべき意図を提案する | データ受け渡し一つ | モデル | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 十分な最安 tier と reasoning effort を選ぶ | タスク一つ | モデル | ✔ |
 | 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | 惰性で課され、便益が残っていない未実装の要件について、出所と証拠を添えて削除を提案する。外部から義務づけられた制約はすべて保持する | 未実装の要件群と各要件の出所 | モデル | ✔ |
+| 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | 対象自身の資料から読み取った既存の範囲に項目が収まるかを確かめ、収まらなければ合う置き場所を挙げる | 一つの項目と、それが加わる対象 | モデル | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 優しくしない。計画を殺せる一つの反論と、最も安いテストを返す | 計画一つ | ユーザー | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait を外し、新しい読みを fan out して、divergence を最初に報告する | direction 一つ | ユーザー | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 下したばかりの決定を、説明できるまで問い詰め、できなければ隙間を指摘する | 決定一つ | ユーザー | ✔ |

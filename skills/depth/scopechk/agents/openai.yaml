@@ -1,0 +1,3 @@
+interface:
+  display_name: "scopechk"
+  short_description: "Check if an item fits a target's existing scope"

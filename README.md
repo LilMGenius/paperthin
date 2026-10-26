@@ -47,6 +47,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🏹 **[aim](./skills/depth/aim/SKILL.md)** | Read handed-over data and propose the intent to confirm, instead of asking for it | one data drop | model | ✔ |
 | 📏 **[modelchk](./skills/depth/modelchk/SKILL.md)** | Size the cheapest sufficient tier and reasoning effort | one task | model | ✔ |
 | 🧹 **[elon](./skills/depth/elon/SKILL.md)** | Propose removing not-yet-built requirements imposed by inertia with no remaining benefit, attaching the source and evidence; preserve every external mandate | a set of not-yet-built requirements with their sources | model | ✔ |
+| 🧩 **[scopechk](./skills/depth/scopechk/SKILL.md)** | Check whether an item falls inside a target's existing scope, read from the target's own sources, and name the home that fits when it does not | one item and the target it would join | model | ✔ |
 | 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse to be nice: the one objection that could kill it, plus the cheapest test | one plan | user | |
 | 🧠 **[macrothink](./skills/depth/macrothink/SKILL.md)** | Strip the bait, fan out fresh reads, report divergence first | one direction | user | ✔ |
 | 🧐 **[feynman](./skills/depth/feynman/SKILL.md)** | Press a just-made decision until you can explain it, or the gap is flagged | one decision | user | ✔ |
