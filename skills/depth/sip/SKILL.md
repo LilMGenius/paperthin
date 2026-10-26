@@ -26,8 +26,8 @@ Run the steps in this order.
 - `sip` orchestrates only: findings go back to the author session, which makes the fixes.
 - Skip any check that plainly does not apply, and any whose skill is not installed. `factchk` and `mandela` need a claim or an eval; `detool` needs one of the four portability claims in step 4. A one-line prose tweak may need only the consistency check.
 - State every skip with its reason.
-- Stop at the artifact: never touch git and never commit.
-- Call only model-invoked skills. A skill marked `disable-model-invocation` (user-invoked) can be fired only by a human, so `sip` never calls one.
+- Stop at the artifact: never touch version control and never commit.
+- Call only model-invoked skills. A user-invoked skill is one its host keeps out of the model's reach (a `disable-model-invocation` frontmatter flag, for one); only a human can fire it, so `sip` never calls one.
 - The only approval gate is `ssotize`'s consolidation plan in step 3.
 
 ## Verification
