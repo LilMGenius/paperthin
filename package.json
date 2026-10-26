@@ -54,6 +54,10 @@
   "bugs": {
     "url": "https://github.com/LilMGenius/paperthin/issues"
   },
+  "scripts": {
+    "test": "node --test \"scripts/**/*.test.*\" \"skills/**/*.test.*\"",
+    "check": "node scripts/gates/check.cjs"
+  },
   "devDependencies": {
     "yaml": "2.9.1"
   }

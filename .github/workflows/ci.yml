@@ -16,32 +16,8 @@ jobs:
         with:
           node-version: 24
       - run: npm ci
-      - name: Frontmatter gate tests
-        run: node --test scripts/gates/check-frontmatter.test.cjs
-      - name: Validate the skill catalog
-        run: bash scripts/gates/validate-skills.sh
-      - name: Verify skill references resolve
-        run: bash scripts/gates/check-skill-refs.sh
-      - name: Test the skill reference scope
-        run: node --test scripts/gates/check-skill-refs.test.cjs
-      - name: Verify relative links resolve
-        run: bash scripts/gates/check-links.sh
-      - name: Catalog SSOT drift-guard
-        run: node scripts/gates/check-catalog-sync.cjs
-      - name: Test the catalog index scope
-        run: node --test scripts/gates/check-catalog-sync.test.cjs
-      - name: Install block drift-guard
-        run: node scripts/gates/check-install-block.cjs
-      - name: Test the install block check
-        run: node --test scripts/gates/check-install-block.test.cjs
-      - name: Em-dash guard
-        run: node scripts/gates/check-em-dashes.cjs
-      - name: Test the em-dash guard
-        run: node --test scripts/gates/check-em-dashes.test.cjs
-      - name: Test the commit message check
-        run: node --test scripts/gates/check-commit-messages.test.cjs
-      - name: Test the re0-watch goal re-arm
-        run: node --test skills/coil/re0-watch/scripts/goal-rearm.test.mjs
+      - run: npm test
+      - run: npm run check
       - name: Check commit messages in the pull request
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         run: node scripts/gates/check-commit-messages.cjs "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
