@@ -50,6 +50,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🧩 **[scopechk](./skills/depth/scopechk/SKILL.md)** | Check whether an item falls inside a target's existing scope, read from the target's own sources, and name the home that fits when it does not | one item and the target it would join | model | ✔ |
 | 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse to be nice: the one objection that could kill it, plus the cheapest test | one plan | user | |
 | 🧠 **[macrothink](./skills/depth/macrothink/SKILL.md)** | Strip the bait, fan out fresh reads, report divergence first | one direction | user | ✔ |
+| ⚖️ **[re0-decide](./skills/depth/re0-decide/SKILL.md)** | Turn material submitted for a decision into a traceable, checkable instrument whose verdict is computed from the decider's own answers, never recommending an outcome | material submitted for a decision | user | ✔ |
 | 🧐 **[feynman](./skills/depth/feynman/SKILL.md)** | Press a just-made decision until you can explain it, or the gap is flagged | one decision | user | ✔ |
 | 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Carve unsafe scope out up front, run the safe rest at full strength, log the descope | one task | model | |
 | 🎨 **[re0-style](./skills/depth/re0-style/SKILL.md)** | Check code style, conventions, and consistency; default to zero edits and a short report | one change under review | model | |
@@ -63,6 +64,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit for leakage: does outside ground-truth actually enter? | one eval | model | ✔ |
 | 🥄 **[sip](./skills/depth/sip/SKILL.md)** | After any change, taste it with the repo's own clean-and-true checks | your output | model | |
 | 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrite a finished commit's message with every date and position kept, and slot a late commit into the linear log at its time, so `git log` alone hands off | one commit | user | |
+| 🧨 **[re0-squash](./skills/depth/re0-squash/SKILL.md)** | Republish a GitHub repository as one signed commit with the same tree: delete the remote and recreate it, since a force push leaves old commits reachable | one repository | user | |
 | 🚀 **[re0-release](./skills/depth/re0-release/SKILL.md)** | Run the shipping and releasing checklist, then tag and publish once confirmed | one release | user | |
 | 🤝 **[re0-merge](./skills/depth/re0-merge/SKILL.md)** | Review and land a contribution: gate it, keep the author's credit, approve before closing, explain any change | one contribution | user | |
 
@@ -72,6 +74,8 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 |---|---|---|---|---|
 | 🧲 **[ssotize](./skills/breadth/ssotize/SKILL.md)** | Audit scatter, then consolidate to one home and point the rest at it | one fact, many places | model | |
 | 🔗 **[ssotize-local](./skills/breadth/ssotize-local/SKILL.md)** | Consolidate duplicate files or trees into one kernel-managed identity: hardlink, symlink, junction, or bind mount, with a verified reverse path | same bytes, many paths | model | |
+| 📖 **[re0-readme](./skills/breadth/re0-readme/SKILL.md)** | Audit a README and its AGENTS.md, then move each line to the file whose reader needs it | one repository README and AGENTS.md | model | |
+| 📥 **[re0-import](./skills/breadth/re0-import/SKILL.md)** | Land handed-over material in the document of an existing knowledge base that owns it, by rules read from that base; report what cannot be placed | handed-over material and one knowledge base | user | |
 | 🧰 **[re0-upgrade](./skills/breadth/re0-upgrade/SKILL.md)** | Upgrade to the full current catalog in one command: retire renamed, add new, all confirmed first | your skill install | user | |
 
 ### `coil/`
