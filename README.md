@@ -54,8 +54,8 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Carve unsafe scope out up front, run the safe rest at full strength, log the descope | one task | model | |
 | 🎨 **[re0-style](./skills/depth/re0-style/SKILL.md)** | Check code style, conventions, and consistency; default to zero edits and a short report | one change under review | model | |
 | 🧰 **[detool](./skills/depth/detool/SKILL.md)** | Replace incidental stack nouns with the mechanism they mean | one durable artifact | model | |
-| 🗜️ **[debloat](./skills/depth/debloat/SKILL.md)** | Compress a bloated artifact to its load-bearing density; cut words, never a rule | one artifact | user | |
-| 🔃 **[re0-order](./skills/depth/re0-order/SKILL.md)** | Realign a drifted listing into a logical order under one stated principle; move items only, reword nothing | one listing | user | |
+| 🗜️ **[debloat](./skills/depth/debloat/SKILL.md)** | Compress a bloated artifact to its load-bearing density; cut words, never a rule | one artifact | model | |
+| 🔃 **[re0-order](./skills/depth/re0-order/SKILL.md)** | Realign a drifted listing into a logical order under one stated principle; move items only, reword nothing | one listing | model | |
 | ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and look-alikes, picking the punctuation each spot needs | your prose | user | |
 | ⸱ **[dedot](./skills/depth/dedot/SKILL.md)** | Propose a comma or connective in prose, or spacing in a label row, with a reason for each middle dot joining an open enumeration in Korean; preserve the three sanctioned uses and protected contexts | Korean prose or label rows the writer scopes | user | ✔ |
 | 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read it with fresh, zero-context eyes: does it stand alone? | one artifact | model | ✔ |

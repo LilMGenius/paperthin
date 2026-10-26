@@ -57,8 +57,8 @@
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | unsafe scope को upfront carve करता है, safe rest को full strength पर चलाता है, descope record करता है | एक task | model | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | code style, conventions और consistency जाँचता है; default में शून्य edits और एक छोटी report देता है | review में एक बदलाव | model | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | incidental stack nouns को उनके mechanism से बदलता है | एक durable artifact | model | |
-| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | bloated artifact को उसकी load-bearing density तक compress करता है; words काटता है, कभी कोई rule नहीं | एक artifact | user | |
-| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | drift हुई listing को एक बताए गए principle के तहत logical order में फिर से align करता है; सिर्फ items move करता है, कुछ reword नहीं करता | एक listing | user | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | bloated artifact को उसकी load-bearing density तक compress करता है; words काटता है, कभी कोई rule नहीं | एक artifact | model | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | drift हुई listing को एक बताए गए principle के तहत logical order में फिर से align करता है; सिर्फ items move करता है, कुछ reword नहीं करता | एक listing | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash और उसके look-alikes हटाता है, हर जगह सही punctuation चुनता है | आपकी prose | user | |
 | ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | कोरियाई में खुली गणना जोड़ने वाले हर मध्य बिंदु के लिए कारण सहित, गद्य में अल्पविराम या संयोजक और लेबल पंक्ति में खाली जगह सुझाता है; तीन मान्य उपयोग और संरक्षित संदर्भ जस के तस रखता है | लेखक द्वारा सीमित कोरियाई गद्य या लेबल पंक्तियाँ | user | ✔ |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | fresh, zero-context eyes से cold-read करता है: क्या यह अपने दम पर समझ आता है? | एक artifact | model | ✔ |
