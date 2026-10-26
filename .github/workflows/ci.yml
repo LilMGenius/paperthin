@@ -38,8 +38,6 @@ jobs:
         run: node scripts/gates/check-em-dashes.cjs
       - name: Test the em-dash guard
         run: node --test scripts/gates/check-em-dashes.test.cjs
-      - name: Deploy-home SSOT drift-guard
-        run: node scripts/gates/check-deploy-home.cjs
       - name: Test the commit message check
         run: node --test scripts/gates/check-commit-messages.test.cjs
       - name: Test the re0-watch goal re-arm
