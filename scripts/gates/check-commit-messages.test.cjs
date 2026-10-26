@@ -57,3 +57,28 @@ test('the command fails a range holding a bad message and passes a clean one', (
     fs.rmSync(repo, { recursive: true, force: true });
   }
 });
+
+test('a closing block of human co-author trailers passes', () => {
+  const valid = [
+    'fix(minimax): move to the released model id\n\n- saved selections of the preview id are renamed at startup\n\nCo-authored-by: Jane Doe <jane@example.com>',
+    'fix(usage): keep prompt estimates on hosted tool paths\n\nCo-authored-by: handle <12345+handle@users.noreply.github.com>\nCo-authored-by: Jane Doe <jane@example.com>\n',
+  ];
+  for (const message of valid) assert.deepEqual(checkMessage(message), [], message);
+});
+
+test('a co-author trailer is refused out of place, malformed or naming no human', () => {
+  const cases = [
+    ['fix(a): b\n\nCo-authored-by: Jane Doe <jane@example.com>\n\n- a bullet after the trailer', 'body line is not a bullet'],
+    ['fix(a): b\n\n- a bullet\nCo-authored-by: Jane Doe <jane@example.com>', 'body line is not a bullet'],
+    ['fix(a): b\n\nCo-authored-by: Jane Doe', 'body line is not a bullet'],
+    ['fix(a): b\n\n- a bullet\n\nCo-authored-by: Claude <noreply@anthropic.com>', 'co-author is not a human contributor'],
+    ['fix(a): b\n\nCo-authored-by: Codex <codex@openai.com>', 'co-author is not a human contributor'],
+    ['fix(a): b\n\nCo-authored-by: Copilot <198982749+Copilot@users.noreply.github.com>', 'co-author is not a human contributor'],
+    ['fix(a): b\n\nCo-authored-by: helper[bot] <1+helper[bot]@users.noreply.github.com>', 'co-author is not a human contributor'],
+    ['fix(a): b\n\nCo-authored-by: Jane Doe <jane@example.com>\nCo-authored-by: GitHub <noreply@github.com>', 'co-author is not a human contributor'],
+  ];
+  for (const [message, fragment] of cases) {
+    const problems = checkMessage(message).join(' | ');
+    assert.ok(problems.includes(fragment), message + ' => ' + problems);
+  }
+});
