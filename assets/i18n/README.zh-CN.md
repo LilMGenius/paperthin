@@ -50,6 +50,7 @@
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | 读取交接来的数据，主动提出待确认的意图，而不是反过来询问 | 一份数据交付 | 模型 | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 选择足够且最便宜的 tier 与推理强度 | 一个任务 | 模型 | ✔ |
 | 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | 对因惯性而施加且已无收益的未实现需求，附上来源和证据提出删除建议；保留一切外部强制要求 | 一组尚未实现的需求及其来源 | 模型 | ✔ |
+| 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | 依据目标自身的资料检查某项是否落在目标现有范围内，不在时指出合适的归属 | 一个条目及其将加入的目标 | 模型 | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 拒绝客气，给出一个足以杀死计划的反对意见和最便宜的测试 | 一个计划 | 用户 | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | 去掉 bait，展开新鲜读法，并优先报告 divergence | 一个方向 | 用户 | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 追问一个刚做出的决定，直到你能把它解释清楚，否则标记出缺口 | 一个决定 | 用户 | ✔ |
