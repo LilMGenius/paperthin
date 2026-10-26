@@ -50,6 +50,7 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | Le os dados recebidos e propoe a intencao a confirmar, em vez de pedi-la | um lote de dados | model | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Escolhe o tier suficiente mais barato e o esforco de raciocinio | uma tarefa | model | ✔ |
 | 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | Propõe remover requisitos ainda não implementados, impostos por inércia e sem benefício restante, anexando a fonte e as evidências; preserva toda obrigação externa | um conjunto de requisitos ainda não implementados com suas fontes | model | ✔ |
+| 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | Verifica se um item cabe no escopo existente de um destino, lido das próprias fontes do destino, e indica o lar adequado quando não cabe | um item e o destino ao qual se juntaria | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Recusa ser gentil: a unica objecao que poderia matar o plano, mais o teste mais barato | um plano | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Remove o bait, abre leituras frescas e relata divergencia primeiro | uma direcao | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Pressiona uma decisao recem-tomada ate poder explica-la, ou a lacuna e sinalizada | uma decisao | user | ✔ |

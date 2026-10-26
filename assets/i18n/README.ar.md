@@ -50,6 +50,7 @@
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | يقرأ البيانات المُسلَّمة ويقترح القصد للتأكيد، بدل أن يسأل عنه | دفعة بيانات واحدة | model | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | يحدد أرخص tier و reasoning effort كافيين | task واحد | model | ✔ |
 | 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | يقترح إزالة المتطلبات التي لم تنفذ بعد وفرضها القصور الذاتي دون فائدة باقية، مع إرفاق المصدر والأدلة؛ يحافظ على كل إلزام خارجي | مجموعة متطلبات لم تنفذ بعد مع مصادرها | model | ✔ |
+| 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | يتحقق مما إذا كان عنصر ما يقع ضمن النطاق القائم لهدف ما كما تحدده مصادر الهدف نفسه، ويسمي الموطن المناسب حين لا يقع | عنصر واحد والهدف الذي سينضم إليه | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | يرفض المجاملة: الاعتراض الوحيد الذي قد يقتل الخطة، وأرخص test | plan واحد | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | يزيل bait، يوزع قراءات جديدة، ويعرض divergence أولا | direction واحد | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | يضغط على قرار اتُّخذ للتو حتى تستطيع شرحه، أو تُعلَّم الفجوة | قرار واحد | user | ✔ |

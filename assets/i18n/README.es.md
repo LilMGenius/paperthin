@@ -50,6 +50,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | Lee los datos entregados y propone la intencion a confirmar, en vez de preguntarla | una entrega de datos | model | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | Dimensiona el tier suficiente mas barato y el esfuerzo de razonamiento | una tarea | model | ✔ |
 | 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | Propone eliminar requisitos aún no implementados, impuestos por inercia y sin beneficio vigente, adjuntando la fuente y las pruebas; preserva todo mandato externo | un conjunto de requisitos aún no implementados con sus fuentes | model | ✔ |
+| 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | Comprueba si un elemento entra en el alcance existente de un destino, leído de las propias fuentes del destino, y nombra el hogar adecuado cuando no entra | un elemento y el destino al que se uniría | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Se niega a ser amable: la objecion unica que podria matar el plan, mas la prueba mas barata | un plan | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Quita el bait, abre lecturas frescas y reporta primero la divergencia | una direccion | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Presiona una decision recien tomada hasta poder explicarla, o se marca el hueco | una decision | user | ✔ |
