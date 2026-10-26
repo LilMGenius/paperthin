@@ -14,7 +14,7 @@ It is **user-invoked**: shipping is a deliberate human action, so only the human
 
 ## Workflow
 
-1. **Check the checklist.** Read the pending diff against every applicable item of the Shipping checklist in the repository root's `AGENTS.md` (its Shipping section) except the version bump and the `sip` run, which steps 2 and 3 own:
+1. **Check the checklist.** Read the pending diff against every applicable item of the Shipping checklist in the repository root's `AGENTS.md` (its Shipping section) except the version bump and the `sip` run, which steps 2 and 3 own. That section is the authority; in this suite's own repository its items are:
    - any new or changed `SKILL.md` has the right shape: frontmatter `name` and `description`, `disable-model-invocation` only if the skill is user-invoked, and body sections Goal, Workflow, Rules, Verification; its `agents/openai.yaml` carries `policy.allow_implicit_invocation: false` exactly when the skill is user-invoked;
    - the README and every localized copy under `assets/i18n/` list it accurately, with the right invocation column and roster order; that order stays aligned across `plugin.json`, `scripts/runtime/catalog.cjs` and `re0-upgrade`'s catalog, set with `re0-order`; it enters the README's curated Problem removes-list and Fixes narrative only if it carries the thesis, which most skills do not;
    - `plugin.json` registers its path;
