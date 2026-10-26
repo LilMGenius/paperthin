@@ -113,7 +113,7 @@ The log is the handoff between sessions, so every message takes the form this hi
 
 Signed tags and `re0-git`'d messages are the human's trust boundary; CI runs the mechanical distribution only once a tag is pushed, and it never signs or creates a commit or tag.
 
-An external contribution lands on a `land/pr-<n>` branch (a range only for a real multi-PR batch), never a merge from the fork: approve the PR when you accept it (a verdict on the code, before the land), cherry-pick each contributor commit with its authorship kept (you become the committer; `re0-git` cleans the message), add any maintainer change as a separate commit so the credit split stays legible, then fast-forward into `main`.
+An external contribution lands through [`re0-merge`](./skills/depth/re0-merge/SKILL.md), which owns the procedure: approved when accepted, then merged as it is, merged after the maintainer's follow-up commits on its own branch, or carried into a maintainer PR that credits the author and closes the original as superseded, each squash-merged on GitHub so `main` stays linear and signed.
 
 1. `re0-git` the message; bump `package.json` if warranted ([Shipping](#shipping)).
 2. Write `.re0/release/RELEASE_NOTES.local.md` as the tag message, house style:
