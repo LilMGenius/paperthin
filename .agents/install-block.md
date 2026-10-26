@@ -28,7 +28,7 @@ Run it whenever you want to update. In one confirmed step it installs the full c
 
 </canonical-block>
 
-`re0-upgrade` owns every command after the first install, and its Current catalog is the roster. It ships and runs installed alone, so its add, update and remove forms are written inline in its own `SKILL.md` rather than here. `skills@latest` is the pinned spelling in both places, and [`check-install-block.cjs`](../scripts/gates/check-install-block.cjs) fails CI when a consumer drops the `install` block's command or spells the CLI any other way.
+`re0-upgrade` owns every command after the first install, and its Current catalog is the roster. It ships and runs installed alone, so its add, update and remove forms are written inline in its own `SKILL.md` rather than here. `skills@latest` is the pinned spelling in both places, and [`npm run check`](../scripts/gates/check.cjs) fails when a consumer drops the `install` block's command or spells the CLI any other way.
 
 ## Handed only this repository
 

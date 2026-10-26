@@ -8,7 +8,7 @@
  *
  * The roster mirrors re0-upgrade's "Current catalog" (the human/doc SSOT). Physical single
  * sourcing across the SKILL.md and this module is blocked by paperthin's self-containment + no-build-step
- * invariants, so scripts/gates/check-catalog-sync.cjs asserting this array equals re0-upgrade's Current
+ * invariants, so scripts/gates/catalog.cjs asserting this array equals re0-upgrade's Current
  * catalog is the enforcement of record. See .re0/iteration/v0.13.0-session-notice/.
  */
 
