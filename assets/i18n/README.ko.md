@@ -53,6 +53,7 @@
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | 항목이 대상의 기존 범위 안에 드는지를 대상 자신의 문서로 확인하고, 들지 않으면 맞는 자리를 제시합니다 | 항목 하나와 그 항목이 들어갈 대상 | 모델 | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 친절하기를 거부합니다. 계획을 죽일 수 있는 반론 하나와 가장 싼 테스트를 냅니다 | 계획 하나 | 사용자 | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait를 걷어내고 새 읽기를 펼친 뒤 divergence를 먼저 보고합니다 | 방향 하나 | 사용자 | ✔ |
+| ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | 결정을 위해 제출된 자료를 추적하고 점검할 수 있는 도구로 바꾸며, 판정은 결정자 자신의 답으로 계산합니다. 결과를 권하지 않습니다 | 결정을 위해 제출된 자료 | 사용자 | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 방금 내린 결정을 설명할 수 있을 때까지 밀어붙이고, 안 되면 그 빈틈을 드러냅니다 | 결정 하나 | 사용자 | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 안전하지 않은 스코프를 앞에서 도려내고, 안전한 나머지는 전력으로 실행한 뒤 descope를 기록합니다 | 작업 하나 | 모델 | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | 코드 스타일, 관례, 일관성을 확인합니다. 기본 결과는 수정 없이 짧은 보고서입니다 | 리뷰 중인 변경 하나 | 모델 | |
@@ -66,6 +67,7 @@
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | leakage가 있는지 audit합니다. 외부 ground truth가 실제로 들어오는가? | eval 하나 | 모델 | ✔ |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 변경 뒤마다 레포 자체의 clean-and-true 체크로 아웃풋을 맛봅니다 | 내 아웃풋 | 모델 | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 완료된 커밋 메시지를 날짜와 자리는 그대로 둔 채 다시 쓰고, 늦은 커밋은 한 줄 히스토리의 그 시각 자리에 넣어 `git log`만으로 handoff가 되게 합니다 | 커밋 하나 | 사용자 | |
+| 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | GitHub 저장소를 같은 트리의 서명된 커밋 하나로 다시 공개합니다: force push는 옛 커밋에 닿을 수 있게 남기므로 remote를 삭제하고 다시 만듭니다 | 저장소 하나 | 사용자 | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | shipping·releasing 체크리스트를 실행하고, 확인 후 태그·퍼블리시합니다 | 릴리스 하나 | 사용자 | |
 | 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | 기여를 리뷰하고 반영합니다: gate를 통과시키고, 작성자 크레딧을 유지하고, 닫기 전에 승인하고, 변경 사항을 설명합니다 | 기여 하나 | 사용자 | |
 
@@ -75,6 +77,8 @@
 |---|---|---|---|---|
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | 흩어진 곳을 감사한 뒤 한 집으로 모아 나머지가 그곳을 가리키게 합니다 | 팩트 하나, 여러 위치 | 모델 | |
 | 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | 중복 파일이나 디렉터리 트리를 커널이 관리하는 하나의 실체로 통합합니다: 하드링크, 심볼릭 링크, 정션 또는 바인드 마운트를 사용하며 되돌리는 절차도 검증합니다 | 같은 바이트, 여러 경로 | 모델 | |
+| 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | README와 AGENTS.md를 감사하고, 각 줄을 그 독자가 필요로 하는 파일로 옮깁니다 | 저장소 하나의 README와 AGENTS.md | 모델 | |
+| 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | 넘겨받은 자료를 그것을 소유한 기존 지식 베이스의 문서에, 그 베이스에서 읽은 규칙대로 놓고, 놓지 못한 것은 보고합니다 | 넘겨받은 자료와 지식 베이스 하나 | 사용자 | |
 | 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 한 번에 현재 전체 카탈로그로 올립니다: 이름 바뀐 건 정리, 새 건 추가, 전부 먼저 확인 | 내 스킬 설치 | 사용자 | |
 
 ### `coil/`

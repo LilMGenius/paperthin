@@ -53,6 +53,7 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | Verifica se um item cabe no escopo existente de um destino, lido das próprias fontes do destino, e indica o lar adequado quando não cabe | um item e o destino ao qual se juntaria | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Recusa ser gentil: a unica objecao que poderia matar o plano, mais o teste mais barato | um plano | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Remove o bait, abre leituras frescas e relata divergencia primeiro | uma direcao | user | ✔ |
+| ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | Transforma o material enviado para uma decisão em um instrumento rastreável e verificável cujo veredito é calculado a partir das próprias respostas de quem decide, sem nunca recomendar um resultado | material enviado para uma decisão | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Pressiona uma decisao recem-tomada ate poder explica-la, ou a lacuna e sinalizada | uma decisao | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Recorta o scope inseguro de antemao, executa o restante seguro com forca total e registra o descope | uma tarefa | model | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Verifica estilo, convenções e consistência do código; por padrão, zero edições e um relatório breve | uma alteração em revisão | model | |
@@ -66,6 +67,7 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Audita em busca de leakage: a ground truth externa realmente entra? | um eval | model | ✔ |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Depois de qualquer mudanca, prova seu output com os checks clean-and-true do proprio repo | seu output | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Reescreve a mensagem de um commit finalizado mantendo todas as datas e posicoes, e encaixa um commit atrasado no historico linear no seu horario, para que `git log` faca o handoff sozinho | um commit | user | |
+| 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | Republica um repositorio do GitHub como um unico commit assinado com a mesma arvore: apaga o remote e o recria, porque um force push deixa os commits antigos alcancaveis | um repositorio | user | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | Percorre o checklist de shipping e releasing, depois cria a tag e publica apos confirmacao | um release | user | |
 | 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | Revisa e integra uma contribuicao: faz o gate, preserva o credito do autor, aprova antes de fechar, explica qualquer mudanca | uma contribuicao | user | |
 
@@ -75,6 +77,8 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 |---|---|---|---|---|
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Audita a dispersao e consolida o fact em um unico lar, o resto aponta pra ele | um fact, muitos lugares | model | |
 | 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | Consolida arquivos ou árvores duplicados em uma identidade gerenciada pelo kernel: hardlink, link simbólico, junção ou montagem bind, com um caminho de reversão verificado | os mesmos bytes, muitos caminhos | model | |
+| 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | Audita um README e seu AGENTS.md e move cada linha para o arquivo cujo leitor precisa dela | README e AGENTS.md de um repositorio | model | |
+| 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | Coloca material recebido no documento de uma base de conhecimento existente que o possui, por regras lidas dessa base; informa o que nao pode ser colocado | material recebido e uma base de conhecimento | user | |
 | 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | Leva suas skills ao catálogo atual completo em um comando: aposenta o renomeado, adiciona o novo, tudo confirmado primeiro | sua instalação de skills | user | |
 
 ### `coil/`

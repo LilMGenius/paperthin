@@ -53,6 +53,7 @@
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | يتحقق مما إذا كان عنصر ما يقع ضمن النطاق القائم لهدف ما كما تحدده مصادر الهدف نفسه، ويسمي الموطن المناسب حين لا يقع | عنصر واحد والهدف الذي سينضم إليه | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | يرفض المجاملة: الاعتراض الوحيد الذي قد يقتل الخطة، وأرخص test | plan واحد | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | يزيل bait، يوزع قراءات جديدة، ويعرض divergence أولا | direction واحد | user | ✔ |
+| ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | يحوّل مادة مقدمة لاتخاذ قرار إلى أداة قابلة للتتبع والتحقق يُحسب حكمها من إجابات صاحب القرار نفسه، دون أن يوصي بنتيجة أبدا | مادة مقدمة لاتخاذ قرار | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | يضغط على قرار اتُّخذ للتو حتى تستطيع شرحه، أو تُعلَّم الفجوة | قرار واحد | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | يقطع scope غير الآمن مسبقا، يشغل الباقي الآمن بكامل القوة، ويسجل descope | task واحد | model | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | يتحقق من أسلوب الكود وأعرافه واتساقه؛ الافتراضي بلا تعديلات وتقرير قصير | تغيير واحد قيد المراجعة | model | |
@@ -66,6 +67,7 @@
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | يدقق بحثا عن leakage: هل تدخل ground truth خارجية فعلا؟ | eval واحد | model | ✔ |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | بعد أي تغيير، يتذوق output الخاص بك بفحوص clean-and-true الخاصة بالـ repo | output الخاص بك | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | يعيد كتابة رسالة commit مكتمل مع إبقاء كل التواريخ والمواضع، ويضع الـ commit المتأخر في السجل الخطي عند وقته، حتى يحمل `git log` وحده التسليم | commit واحد | user | |
+| 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | يعيد نشر مستودع GitHub كـ commit موقّع واحد بالشجرة نفسها: يحذف الـ remote ويعيد إنشاءه، لأن force push يترك الـ commits القديمة قابلة للوصول | مستودع واحد | user | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | يشغّل قائمة فحص shipping و releasing، ثم ينشئ tag وينشر بعد التأكيد | إصدار واحد | user | |
 | 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | يراجع مساهمة ويدمجها: يفحصها، يحفظ نسبة الفضل لصاحبها، يوافق قبل الإغلاق، ويشرح أي تغيير | مساهمة واحدة | user | |
 
@@ -75,6 +77,8 @@
 |---|---|---|---|---|
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | يدقق في التشتت، ثم يوحد fact في بيت واحد ويجعل الباقي يشير إليه | fact واحدة، أماكن كثيرة | model | |
 | 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | يوحّد الملفات أو الأشجار المكررة في هوية واحدة تديرها النواة: رابط صلب أو رابط رمزي أو وصلة دليل أو تركيب ربط، مع مسار تراجع متحقق منه | البايتات نفسها، مسارات كثيرة | model | |
+| 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | يدقق README و AGENTS.md ثم ينقل كل سطر إلى الملف الذي يحتاجه قارئه | README و AGENTS.md لمستودع واحد | model | |
+| 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | يضع المواد المسلّمة في مستند قاعدة معرفة قائمة تملكها، بقواعد تُقرأ من القاعدة نفسها، ويبلّغ عمّا تعذّر وضعه | مواد مسلّمة وقاعدة معرفة واحدة | user | |
 | 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | يرفع skills المثبتة إلى الكتالوج الحالي الكامل بأمر واحد: يتقاعد المُعاد تسميته، يضيف الجديد، كله بعد التأكيد أولا | تثبيت skills الخاص بك | user | |
 
 ### `coil/`

@@ -53,6 +53,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | Vérifie si un élément entre dans le périmètre existant d’une cible, lu dans les propres sources de la cible, et nomme le bon foyer sinon | un élément et la cible qu’il rejoindrait | modèle | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Refuse d'être gentil : l'objection unique qui peut tuer le plan, plus le test le moins cher | un plan | utilisateur | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Retire le bait, lance des lectures fraîches et signale d'abord la divergence | une direction | utilisateur | ✔ |
+| ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | Transforme un dossier soumis à décision en instrument traçable et vérifiable dont le verdict est calculé à partir des réponses mêmes du décideur, sans jamais recommander d’issue | dossier soumis à décision | utilisateur | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Presse une décision fraîchement prise jusqu'à pouvoir l'expliquer, sinon la lacune est signalée | une décision | utilisateur | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Découpe le périmètre dangereux en amont, exécute le reste sûr à pleine puissance, journalise le descope | une tâche | modèle | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Vérifie le style, les conventions et la cohérence du code ; par défaut, aucune modification et un bref rapport | un changement en revue | modèle | |
@@ -66,6 +67,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Audite les leakage : une ground truth externe entre-t-elle vraiment ? | un eval | modèle | ✔ |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Après chaque changement, goûte votre output avec les propres checks clean-and-true du dépôt | votre output | modèle | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Réécrit le message d'un commit terminé en gardant chaque date et chaque place, et insère un commit tardif dans l'historique linéaire à son heure, afin que `git log` fasse l'handoff à lui seul | un commit | utilisateur | |
+| 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | Republie un dépôt GitHub en un seul commit signé avec le même arbre : supprime le remote et le recrée, car un force push laisse les anciens commits accessibles | un dépôt | utilisateur | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | Parcourt la checklist de shipping et releasing, puis tag et publie une fois confirmé | une release | utilisateur | |
 | 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | Relit et intègre une contribution : la filtre, préserve le crédit de l'auteur, approuve avant de clore, explique chaque changement | une contribution | utilisateur | |
 
@@ -75,6 +77,8 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 |---|---|---|---|---|
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Audite la dispersion, puis consolide le fait dans un seul foyer et fait pointer le reste dessus | un fait, plusieurs endroits | modèle | |
 | 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | Consolide les fichiers ou arborescences en double en une identité gérée par le noyau : lien physique, lien symbolique, jonction ou montage bind, avec une procédure de retour vérifiée | mêmes octets, plusieurs chemins | modèle | |
+| 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | Audite un README et son AGENTS.md, puis déplace chaque ligne vers le fichier dont le lecteur en a besoin | README et AGENTS.md d'un dépôt | modèle | |
+| 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | Dépose le matériau transmis dans le document d'une base de connaissances existante qui le détient, selon des règles lues dans cette base ; signale ce qui ne peut pas être placé | matériau transmis et une base de connaissances | utilisateur | |
 | 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | Amène vos skills au catalogue actuel complet en une commande : retire ce qui a été renommé, ajoute les nouveautés, le tout confirmé au préalable | votre installation de skills | utilisateur | |
 
 ### `coil/`

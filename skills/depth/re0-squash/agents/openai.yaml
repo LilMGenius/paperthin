@@ -1,0 +1,5 @@
+interface:
+  display_name: "re0-squash"
+  short_description: "Republish a GitHub repo as one signed commit"
+policy:
+  allow_implicit_invocation: false

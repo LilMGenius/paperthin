@@ -1,0 +1,5 @@
+interface:
+  display_name: "re0-import"
+  short_description: "Land handed-over material where its base owns it"
+policy:
+  allow_implicit_invocation: false
