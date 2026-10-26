@@ -3,34 +3,37 @@ name: sip
 description: "After you create or change an artifact or skill, taste-test it with our own skills instead of trusting your in-session judgment. Use right after writing or editing anything, before calling it done, committing, or handing it off."
 ---
 
-Check each finished artifact with this suite's skills before handing it over.
+Taste-test what you just made with this suite's own clarity and truth checks before you call it done.
 
 ## Goal
 
-A reminder in documentation will not reliably trigger verification in a fresh session. `sip` triggers the suite's clarity and truth checks after each creation or change, so verification does not depend on the author's biased in-session judgment.
+Your judgment of a thing is most biased right after you make it. `sip` runs this suite's own clarity and truth checks on an artifact or skill you just created or changed, so its verification does not rest on that judgment. It fires on your own output, immediately after you produce it, when you are about to call it done, commit it, or hand it off. It exists because a written reminder to verify does not reliably fire in a fresh session; the skill is the trigger.
 
 ## Workflow
 
-1. Spot the trigger: you just created or changed an artifact or skill and are about to call it done, commit, or hand it off.
-2. **Cold-read it:** call the Skill tool with "shower" for a fresh reader's comprehension and handoff check.
-3. **Verify truth:** call the Skill tool with "factchk" for reality-grounded claims, and again with "mandela" for an eval, metric, or experiment. Skip when the artifact has neither.
-4. **Check consistency:** call the Skill tool with "ssotize" to audit the repository for anything the change duplicated or contradicted. Execute its consolidation plan only after approval.
-5. **Check portability claims:** call the Skill tool with "detool" only when the artifact claims portability, tool-neutrality, stack-agnostic durability, or cross-agent reuse. Skip provenance, operational notes, tool-targeted runbooks, and artifacts that do not claim portability.
-6. **Tidy:** call the Skill tool with "re0" for the changed docs so they read as a clean v0, without traces of patching.
-7. Apply the findings in the author session, then hand over the artifact.
+Run the steps in this order.
+
+1. **Cold read.** Call the Skill tool with "shower" for a fresh reader's comprehension and handoff check.
+2. **Truth.** Call the Skill tool with "factchk" for claims grounded in reality, and call it separately with "mandela" for an eval, metric, or experiment. Skip this step when the artifact has neither kind of content.
+3. **Consistency.** Call the Skill tool with "ssotize" to audit the repository for anything the change duplicated or contradicted. Execute its consolidation plan only after approval.
+4. **Portability.** Call the Skill tool with "detool" only when the artifact claims portability, tool-neutrality, stack-agnostic durability, or cross-agent reuse. Skip it for provenance, operational notes, runbooks aimed at a specific tool, and anything making no such claim.
+5. **Tidy.** Call the Skill tool with "re0" on the changed docs so they read as a clean v0 with no traces of patching.
+6. **Apply and hand over.** You return the findings to the author session, which applies each one or defers it with a reason, then hands the artifact over.
 
 ## Rules
 
-- Trigger on your **own output**, right after making it, when bias is highest and a check is cheapest.
-- Use the skills; do not reimplement them: `shower` for clarity, `factchk`/`mandela` for truth, `ssotize` for SSOT, `detool` for portability claims, and `re0` for cleanup. `sip` orchestrates them and returns findings to the author session for fixes.
-- Skip checks that plainly do not apply or whose skills are not installed. `factchk`/`mandela` require a claim or an eval; `detool` requires a claim of portability, tool-neutrality, stack-agnostic durability, or cross-agent reuse. A one-line prose tweak may need only a consistency check. State each skip and its reason.
-- Stop at the artifact. `sip` never touches git or makes commits.
-- Chain only model-invoked skills. Only a human may fire a user-invoked skill marked `disable-model-invocation`; `sip` must not call one.
+- Use the named skills; never reimplement their checks inline. `shower` covers clarity, `factchk` and `mandela` truth, `ssotize` single source of truth, `detool` portability claims, and `re0` cleanup.
+- `sip` orchestrates only: findings go back to the author session, which makes the fixes.
+- Skip any check that plainly does not apply, and any whose skill is not installed. `factchk` and `mandela` need a claim or an eval; `detool` needs one of the four portability claims in step 4. A one-line prose tweak may need only the consistency check.
+- State every skip with its reason.
+- Stop at the artifact: never touch git and never commit.
+- Call only model-invoked skills. A skill marked `disable-model-invocation` (user-invoked) can be fired only by a human, so `sip` never calls one.
+- The only approval gate is `ssotize`'s consolidation plan in step 3.
 
 ## Verification
 
-Before finishing:
+Before handing over, confirm:
 
-1. The relevant skills ran on the change; an informal inspection does not count.
-2. Findings were applied or deliberately deferred with a stated reason.
-3. The artifact changed as a result (a diff exists), or every skipped skill has a stated reason.
+1. The relevant skills actually ran on the change; an informal look does not count.
+2. The author session applied each finding, or deferred it on purpose with a stated reason.
+3. Either the artifact changed as a result (a diff exists), or every check that ran found nothing and every skipped skill has a stated reason; in that case the artifact is handed over unchanged with that list.

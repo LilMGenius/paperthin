@@ -3,44 +3,50 @@ name: re0-memo
 description: "Turn a finished, failed, or disappointing work cycle into portable lessons, anti-patterns, quality gates, and next-cycle vocabulary. Use after a build, QA pass, demo, user complaint or correction, a request the user had to repeat, or an abandoned attempt when the useful output is what the next pass must learn rather than the code itself."
 ---
 
-Turn a completed cycle into lessons the next cycle can use.
+Pull a work cycle's durable lessons into the docs the next pass starts from.
 
 ## Goal
 
-`re0-memo` extracts durable lessons from a work cycle without defending its artifact. A cycle can run and pass tests yet produce the wrong thing. Record what worked, what misled the build, and what gate the next pass must clear, with local evidence. Do not write a changelog or therapy note.
+`re0-memo` pulls durable lessons out of a work cycle without defending what the cycle built. A cycle can run and pass its tests while still building the wrong thing, so the tests are not the verdict. Record three things, each with local evidence: what worked, what misled the build, and which gate the next pass must clear. The output is neither a changelog nor a therapy note.
 
-Use `re0-memo` when the artifact is done, failed, disappointing, or ambiguous enough that the next agent needs the cycle's lessons more than its momentum.
+Use it when an artifact is done, failed, disappointing, or ambiguous enough that the next agent needs the cycle's lessons more than its momentum: after a build, a QA pass, a demo, a user complaint or correction, a request the user had to repeat, or an abandoned attempt.
+
+It calls no other skill. Its output feeds the next cycle, read by a fresh agent who never saw this one.
 
 ## Workflow
 
-1. Read the original objective, final artifact, QA evidence, user complaints, and any local planning notes.
-2. Separate assets that earned reuse (contracts, schemas, tests, services, vocabulary, and examples) from UI, panels, scaffolds, or abstractions that only looked productive.
-3. Generalize before recording: cluster specific complaints into their shared pattern before writing. Complaints across many items usually share one root gap. Record that root and its pattern family as the lesson, with the specifics beneath it as evidence rather than separate lessons.
-4. Name each failure as an anti-pattern, not a mood.
-5. Find the rule or gate that already owns each class. If one exists, it did not fire, so the lesson is the missing trigger, check, or step, never a second rule that would drift from the first.
-6. Convert repeated or high-impact failures into quality gates for the next pass.
-7. Convert vague user direction into architecture vocabulary a fresh agent can use.
-8. Write or refresh local docs for the cycle: a re0-memo for lessons and a plan for next-cycle contracts, gates, and vocabulary.
-9. Land a lesson in the artifact that owns its class by rewriting the passage as if the lesson had always been there. A new idea takes its own step or sentence; a neighboring sentence keeps its wording rather than carrying an appended clause.
-10. Verify that a from-scratch agent could avoid the same failure from those docs alone.
+Run the steps in order.
+
+1. Read the original objective, the final artifact, QA evidence, user complaints, and any local planning notes.
+2. Sort what earned reuse (contracts, schemas, tests, services, vocabulary, examples) apart from what only looked productive (UI, panels, scaffolds, abstractions).
+3. Generalize before writing anything. Cluster the specific complaints into the pattern they share; many complaints across many items usually trace to one root gap. The lesson is that root plus its pattern family, and the specifics sit under it as evidence, never as separate lessons.
+4. Name every failure as an anti-pattern, a concrete failure mode, never as a mood.
+5. For each class, find the rule or gate that already owns it. If one exists, it failed to fire, so the lesson is the missing trigger, check, or step, never a second rule that would drift from the first.
+6. Turn repeated or high-impact failures into quality gates for the next pass.
+7. Turn vague user direction into architecture vocabulary a fresh agent can work with.
+8. Write or refresh the cycle's local docs, kept beside the work the cycle produced: a `re0-memo` holding the lessons with their evidence, and a `plan` holding the next cycle's contracts, gates, and vocabulary.
+9. Land each lesson's rule in the artifact that owns its class, and leave the `re0-memo` entry as the evidence pointing to it, so the rule lives in one place. Rewrite that passage as though the lesson had always been there: a new idea gets its own step or sentence, and the neighboring sentence keeps its wording instead of gaining an appended clause.
+10. Check that an agent starting from scratch could avoid the same failure using those docs alone.
 
 ## Rules
 
-- Do not defend the artifact. If it missed the product, say what missed.
-- Do not write a changelog. File lists and effort summaries are not lessons.
-- Do not transcribe a specific complaint as a lesson. Fixing only the reported case leaves the same failure elsewhere for a human to find. Generalize each specific to a pattern that catches its whole class; the reporter's exact words are evidence, not the gate.
-- Preserve negative corpus. Failed paths are training data.
-- Prefer hard gates over advice.
-- Cite evidence from the cycle: objective, file facts, QA output, screenshots, transcripts, diffs, or user feedback.
-- If the next agent cannot act on it, it is not a lesson yet.
-- Keep provenance local; shipped artifacts should not narrate their scars.
+- Never defend the artifact. If it missed the product, say what missed.
+- No changelog: file lists and effort summaries are not lessons.
+- Never transcribe one specific complaint as a lesson. Fixing only the reported case leaves the same failure elsewhere for a human to find, so generalize each to a pattern that catches its whole class; the reporter's exact words are evidence, never the gate.
+- Preserve the negative corpus. Failed paths are training data, so cut means archive, never delete.
+- Prefer hard gates to advice.
+- Cite evidence from the cycle: the objective, file facts, QA output, screenshots, transcripts, diffs, or user feedback.
+- Something the next agent cannot act on is not a lesson yet.
+- Provenance stays local. The `re0-memo` and `plan` docs hold it; shipped artifacts do not narrate their scars.
 
 ## Verification
 
-Before finishing:
+Before finishing, confirm:
 
-1. Every lesson traces to observed cycle evidence.
+1. Every lesson traces to evidence observed in the cycle.
 2. Every anti-pattern names a concrete failure mode and the gate that catches it.
 3. Every lesson covers a class, with the reported specifics beneath it as evidence.
 4. Every edited owner reads as its clean current version, with no lesson bolted onto a neighboring sentence.
 5. A fresh agent can tell what to preserve, what to discard, and what to test first without reading the whole old session.
+
+Report the lessons written, the gates added, and each owner a lesson landed in.
