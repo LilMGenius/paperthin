@@ -1,6 +1,6 @@
 ---
 name: re0-loop
-description: "Run repeated build -> QA -> re0-memo -> re0-work cycles while preserving learning and letting code die. Use for long agentic projects where progress must be measured by quality-cleared templates, reusable modules, and eliminated anti-patterns rather than hours spent or features accumulated."
+description: "Run repeated cycles of build, QA, re0-memo and re0-work while preserving learning and letting code die. Use for long agentic projects where progress must be measured by quality-cleared templates, reusable modules, and eliminated anti-patterns rather than hours spent or features accumulated."
 ---
 
 Run the cycle so learning compounds and code accumulation does not masquerade as progress.
