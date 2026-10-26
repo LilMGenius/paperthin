@@ -53,6 +53,7 @@
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | लक्ष्य के अपने स्रोतों से पढ़कर जाँचता है कि कोई आइटम उसके मौजूदा दायरे में आता है या नहीं, और न आने पर सही घर बताता है | एक आइटम और वह लक्ष्य जिसमें वह जुड़ेगा | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | nice होने से इनकार करता है: plan को मार सकने वाली एक objection, और सबसे सस्ता test | एक plan | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait हटाता है, fresh reads fan out करता है, और divergence पहले report करता है | एक direction | user | ✔ |
+| ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | निर्णय के लिए सौंपी गई सामग्री को एक अनुरेखणीय, जाँचने योग्य साधन में बदलता है, जिसका निर्णय निर्णयकर्ता के अपने उत्तरों से गणना होता है, और कभी किसी परिणाम की सिफ़ारिश नहीं करता | निर्णय के लिए सौंपी गई सामग्री | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | अभी लिए गए decision को तब तक दबाता है जब तक आप उसे समझा न सकें, या gap flag हो जाए | एक decision | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | unsafe scope को upfront carve करता है, safe rest को full strength पर चलाता है, descope record करता है | एक task | model | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | code style, conventions और consistency जाँचता है; default में शून्य edits और एक छोटी report देता है | review में एक बदलाव | model | |
@@ -66,6 +67,7 @@
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | leakage audit करता है: क्या बाहर की ground truth सच में अंदर आती है? | एक eval | model | ✔ |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | हर change के बाद repo के अपने clean-and-true checks से आपके output को taste करता है | आपका output | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | finished commit message को हर तारीख और जगह बनाए रखते हुए rewrite करता है, और देर से आए commit को linear history में उसके समय पर रखता है, ताकि `git log` अकेले handoff दे सके | एक commit | user | |
+| 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | GitHub repository को उसी tree वाले एक signed commit के रूप में दोबारा प्रकाशित करता है: remote हटाकर फिर बनाता है, क्योंकि force push पुराने commits को पहुँच में छोड़ देता है | एक repository | user | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | shipping aur releasing checklist चलाता है, फिर confirm होने पर tag करके publish करता है | एक release | user | |
 | 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | किसी contribution को review करके land करता है: उसे gate करता है, author का credit बनाए रखता है, close करने से पहले approve करता है, और किसी भी change को explain करता है | एक contribution | user | |
 
@@ -75,6 +77,8 @@
 |---|---|---|---|---|
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | scatter audit करता है, फिर fact को एक home में consolidate करके बाकी को उसकी ओर इंगित करता है | एक fact, कई जगह | model | |
 | 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | दोहराई गई फ़ाइलों या डायरेक्टरी ट्री को कर्नेल द्वारा प्रबंधित एक पहचान में समेकित करता है: हार्डलिंक, सिमलिंक, जंक्शन या बाइंड माउंट, साथ में सत्यापित वापसी प्रक्रिया | वही बाइट्स, कई पथ | model | |
+| 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | README और उसकी AGENTS.md को audit करता है, फिर हर पंक्ति को उस फ़ाइल में ले जाता है जिसके पाठक को उसकी ज़रूरत है | एक repository की README और AGENTS.md | model | |
+| 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | सौंपी गई सामग्री को मौजूदा knowledge base के उस दस्तावेज़ में रखता है जो उसका मालिक है, उसी base से पढ़े नियमों के अनुसार; जो जगह न पा सके उसकी रिपोर्ट करता है | सौंपी गई सामग्री और एक knowledge base | user | |
 | 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | एक कमांड में पूरे मौजूदा catalog तक ले आता है: नाम बदले हटाता है, नए जोड़ता है, सब पहले पुष्टि | आपकी skill install | user | |
 
 ### `coil/`

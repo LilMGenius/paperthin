@@ -53,6 +53,7 @@
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | 依据目标自身的资料检查某项是否落在目标现有范围内，不在时指出合适的归属 | 一个条目及其将加入的目标 | 模型 | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 拒绝客气，给出一个足以杀死计划的反对意见和最便宜的测试 | 一个计划 | 用户 | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | 去掉 bait，展开新鲜读法，并优先报告 divergence | 一个方向 | 用户 | ✔ |
+| ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | 把提交待决的材料变成可追溯、可核查的工具，裁定由决策者自己的回答计算得出，绝不推荐结果 | 提交待决的材料 | 用户 | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 追问一个刚做出的决定，直到你能把它解释清楚，否则标记出缺口 | 一个决定 | 用户 | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 先切掉不安全 scope，让安全部分全速运行，并记录 descope | 一个任务 | 模型 | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | 检查代码风格、惯例和一致性；默认不做修改，只给出简短报告 | 一项待审查的变更 | 模型 | |
@@ -66,6 +67,7 @@
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | 审计是否 leakage：外部 ground truth 真的进入了吗？ | 一个 eval | 模型 | ✔ |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 每次变更后，用 repo 自己的 clean-and-true 检查品尝你的 output | 你的 output | 模型 | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 重写已完成 commit 的信息，日期和位置都不变，并把迟到的 commit 按时间放进线性历史，让 `git log` 本身就能完成交接 | 一个 commit | 用户 | |
+| 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | 把 GitHub 仓库以同一棵树的一个签名 commit 重新发布：删除 remote 并重建，因为 force push 会让旧 commit 仍可访问 | 一个仓库 | 用户 | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | 跑一遍 shipping 和 releasing 检查清单，确认后打 tag 并发布 | 一次 release | 用户 | |
 | 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | 审查并合入一份贡献：先把关，保留作者署名，关闭前先批准，并说明任何改动 | 一份贡献 | 用户 | |
 
@@ -75,6 +77,8 @@
 |---|---|---|---|---|
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | 审计散落位置，把 fact 合并到一个归宿并让其他位置指向它 | 一个 fact，多个位置 | 模型 | |
 | 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | 将重复的文件或目录树整合为由内核管理的同一实体：硬链接、符号链接、目录联接或绑定挂载，并提供经过验证的还原步骤 | 相同字节，多个路径 | 模型 | |
+| 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | 审计 README 及其 AGENTS.md，把每一行移到其读者需要的文件 | 一个仓库的 README 和 AGENTS.md | 模型 | |
+| 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | 把交来的材料放进拥有它的现有知识库文档，规则读自该知识库本身；放不下的如实报告 | 交来的材料和一个知识库 | 用户 | |
 | 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 用一条命令把已安装的 skill 升级到完整的当前目录：淘汰改名的，补齐新增的，全部先确认 | 你的 skill 安装 | 用户 | |
 
 ### `coil/`

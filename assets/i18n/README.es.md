@@ -53,6 +53,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | Comprueba si un elemento entra en el alcance existente de un destino, leído de las propias fuentes del destino, y nombra el hogar adecuado cuando no entra | un elemento y el destino al que se uniría | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Se niega a ser amable: la objecion unica que podria matar el plan, mas la prueba mas barata | un plan | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Quita el bait, abre lecturas frescas y reporta primero la divergencia | una direccion | user | ✔ |
+| ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | Convierte el material presentado para una decisión en un instrumento trazable y verificable cuyo veredicto se calcula a partir de las propias respuestas de quien decide, sin recomendar nunca un resultado | material presentado para una decisión | user | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Presiona una decision recien tomada hasta poder explicarla, o se marca el hueco | una decision | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Recorta el scope inseguro desde el principio, ejecuta el resto seguro a plena fuerza y registra el descope | una tarea | model | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Revisa estilo, convenciones y consistencia del código; por defecto, cero cambios y un informe breve | un cambio en revisión | model | |
@@ -66,6 +67,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Audita en busca de leakage: entra de verdad una ground truth externa? | un eval | model | ✔ |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Despues de cualquier cambio, prueba tu output con los checks clean-and-true del propio repo | tu output | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Reescribe el mensaje de un commit terminado conservando cada fecha y posicion, y coloca un commit tardio en el historial lineal a su hora, para que `git log` haga el handoff por si solo | un commit | user | |
+| 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | Republica un repositorio de GitHub como un solo commit firmado con el mismo arbol: borra el remote y lo recrea, porque un force push deja alcanzables los commits antiguos | un repositorio | user | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | Recorre la checklist de shipping y releasing, luego etiqueta y publica una vez confirmado | un release | user | |
 | 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | Revisa e integra una contribucion: pasala por el gate, conserva el credito del autor, aprueba antes de cerrar, explica cualquier cambio | una contribucion | user | |
 
@@ -75,6 +77,8 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 |---|---|---|---|---|
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | Audita la dispersion, consolida el fact en un solo hogar y apunta el resto ahi | un fact, muchos lugares | model | |
 | 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | Consolida archivos o árboles duplicados en una identidad gestionada por el núcleo: enlace duro, enlace simbólico, unión de directorios o montaje bind, con una vía de reversión verificada | los mismos bytes, muchas rutas | model | |
+| 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | Audita un README y su AGENTS.md, y mueve cada linea al archivo cuyo lector la necesita | README y AGENTS.md de un repositorio | model | |
+| 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | Coloca material entregado en el documento de una base de conocimiento existente que lo posee, segun reglas leidas de esa base; informa lo que no se puede ubicar | material entregado y una base de conocimiento | user | |
 | 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | Lleva tus skills al catálogo actual completo con un comando: retira lo renombrado, añade lo nuevo, todo confirmado primero | tu instalación de skills | user | |
 
 ### `coil/`

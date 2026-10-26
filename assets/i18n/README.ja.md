@@ -53,6 +53,7 @@
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | 対象自身の資料から読み取った既存の範囲に項目が収まるかを確かめ、収まらなければ合う置き場所を挙げる | 一つの項目と、それが加わる対象 | モデル | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 優しくしない。計画を殺せる一つの反論と、最も安いテストを返す | 計画一つ | ユーザー | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait を外し、新しい読みを fan out して、divergence を最初に報告する | direction 一つ | ユーザー | ✔ |
+| ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | 決定のために提出された資料を、追跡でき検証できる道具に変え、判定は決定者自身の回答から計算する。結果を推奨することはない | 決定のために提出された資料 | ユーザー | ✔ |
 | 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 下したばかりの決定を、説明できるまで問い詰め、できなければ隙間を指摘する | 決定一つ | ユーザー | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 危険な scope を先に切り出し、安全な残りを全力で走らせ、descope を記録する | タスク一つ | モデル | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | コードのスタイル・慣習・一貫性を確認する。デフォルトは編集ゼロと短いレポート | レビュー中の変更一つ | モデル | |
@@ -66,6 +67,7 @@
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | leakage を監査する。外部 ground truth は実際に入っているか？ | eval 一つ | モデル | ✔ |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 変更後、自分の output を repo 自身の clean-and-true checks で味見する | 自分の output | モデル | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 完了した commit message を日付も位置も変えずに書き直し、遅れた commit は一本道の履歴のその時刻に差し込んで、`git log` だけで引き継げるようにする | commit 一つ | ユーザー | |
+| 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | GitHub リポジトリを同じツリーの署名付き commit 一つとして公開し直す: force push では古い commit に到達できてしまうため、remote を削除して作り直す | リポジトリ一つ | ユーザー | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | shipping と releasing のチェックリストを実行し、確認後に tag して publish する | release 一つ | ユーザー | |
 | 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | 貢献を review し land する：gate をかけ、著者の credit を残し、閉じる前に approve し、あらゆる変更を説明する | 貢献 一つ | ユーザー | |
 
@@ -75,6 +77,8 @@
 |---|---|---|---|---|
 | 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | 散らばりを監査し、fact を一つの家に consolidate して残りをそこへ向ける | fact 一つ、多数の場所 | モデル | |
 | 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | 重複するファイルやディレクトリツリーをカーネルが管理する一つの実体に統合する: ハードリンク、シンボリックリンク、ジャンクション、バインドマウントを使い、元に戻す手順も検証する | 同じバイト列、多数のパス | モデル | |
+| 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | README とその AGENTS.md を監査し、各行をその読者が必要とするファイルへ移す | 一つのリポジトリの README と AGENTS.md | モデル | |
+| 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | 受け取った素材を、それを所有する既存の知識ベースの文書に、その知識ベースから読み取った規則で置く。置けないものは報告する | 受け取った素材と一つの知識ベース | ユーザー | |
 | 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 一つのコマンドで現在のフルカタログに引き上げる: 改名は整理、新規は追加、すべて事前に確認 | 自分の skill インストール | ユーザー | |
 
 ### `coil/`
