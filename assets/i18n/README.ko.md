@@ -57,7 +57,7 @@
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 안전하지 않은 스코프를 앞에서 도려내고, 안전한 나머지는 전력으로 실행한 뒤 descope를 기록합니다 | 작업 하나 | 모델 | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | 코드 스타일, 관례, 일관성을 확인합니다. 기본 결과는 수정 없이 짧은 보고서입니다 | 리뷰 중인 변경 하나 | 모델 | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 우연히 섞인 도구 이름을 그것이 뜻한 메커니즘으로 바꿉니다 | durable 아티팩트 하나 | 모델 | |
-| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | bloat된 아티팩트를 load-bearing한 밀도까지 압축합니다. 단어는 잘라내되, 규칙은 절대 잘라내지 않습니다 | 아티팩트 하나 | 모델 | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | bloat된 글이나 코드를 load-bearing한 밀도까지 압축합니다. 군더더기는 잘라내되, 규칙과 동작은 절대 잘라내지 않습니다 | 아티팩트 하나, 글 또는 코드 | 모델 | |
 | 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | drift된 목록을 하나의 명시된 원칙 아래 논리적 순서로 다시 맞춥니다. 항목만 옮기고, 표현은 바꾸지 않습니다 | 목록 하나 | 모델 | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash와 비슷한 tell을 지우고, 각 위치에 맞는 문장부호를 고릅니다 | 내 문장 | 사용자 | |
 | ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | 한국어의 열린 나열을 잇는 가운뎃점마다 이유와 함께 산문에는 쉼표나 연결어를, 라벨 행에는 띄어쓰기를 제안합니다. 허용된 세 용법과 보호 대상 문맥은 그대로 둡니다 | 글쓴이가 범위를 정한 한국어 산문이나 라벨 행 | 사용자 | ✔ |

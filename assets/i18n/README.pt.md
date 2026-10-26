@@ -57,7 +57,7 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Recorta o scope inseguro de antemao, executa o restante seguro com forca total e registra o descope | uma tarefa | model | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Verifica estilo, convenções e consistência do código; por padrão, zero edições e um relatório breve | uma alteração em revisão | model | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Troca nomes incidentais de stack pelo mecanismo que queriam dizer | um artifact duravel | model | |
-| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Comprime um artefato inchado ate sua densidade essencial; corta palavras, nunca uma regra | um artefato | model | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | Comprime prosa ou código inchado até sua densidade essencial; corta o excesso, nunca uma regra ou um comportamento | um artefato, prosa ou código | model | |
 | 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | Realinha uma listagem que derivou em uma ordem logica sob um unico principio declarado; apenas move itens, nao reescreve nada | uma listagem | model | |
 | ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | Remove em dashes e semelhantes, escolhendo a pontuacao que cada ponto precisa | sua prosa | user | |
 | ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | Propõe uma vírgula ou um conectivo na prosa, ou um espaço numa linha de rótulos, com uma razão para cada ponto médio que liga uma enumeração aberta em coreano; preserva os três usos admitidos e os contextos protegidos | prosa coreana ou linhas de rótulos delimitadas por quem escreve | user | ✔ |
