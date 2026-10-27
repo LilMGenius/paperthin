@@ -16,7 +16,7 @@ Catch a misread instruction before work starts on the wrong target. The requeste
 3. Check that restatement against the available context (the message, session history, project memory, files on disk, and conventions the Goal names) for contradictions, missing antecedents, or two plausible readings the context cannot settle.
 4. If the context settles it, proceed without saying anything. Do not ask the requester to confirm what the context already answered.
 5. If a fork survives, ask one specific clarifying question that is tied to your restated understanding and names the choice, never a vague "does this look right?". The requester decides: wait for the answer before the shape-changing work proceeds.
-6. Before substantial work, record one durable line beginning `understood as: ` with the confirmed read, kept with the work, so a later reader can check the work against it.
+6. Before substantial work, record one durable line beginning `understood as: ` with the confirmed read, so a later reader can check the work against it. Keep it in the plan or task file the work already has; with none, put it in the commit message or pull request body that delivers the work.
 
 ## Rules
 
