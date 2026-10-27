@@ -9,7 +9,7 @@
  * The roster mirrors re0-upgrade's "Current catalog" (the human/doc SSOT). Physical single
  * sourcing across the SKILL.md and this module is blocked by paperthin's self-containment + no-build-step
  * invariants, so scripts/gates/catalog.cjs asserting this array equals re0-upgrade's Current
- * catalog is the enforcement of record. See .re0/iteration/v0.13.0-session-notice/.
+ * catalog is the enforcement of record. See .re0/iteration/completed/v0.13.0-session-notice/.
  */
 
 const fs = require('fs');
@@ -34,7 +34,7 @@ const SKILL_DIRS = [
 // Deploy home for runtime state (the throttle stamp). SSOT for the path: both adapters import it,
 // so a rename is one edit here, not five. `~/.re0/` since v0.16.2. No legacy fallback by design:
 // pre-rename installs keep their own self-contained runtime until reinstalled; we do not drag them
-// forward (see .re0/iteration/v0.16.2-re0-home for the decision).
+// forward (see .re0/iteration/completed/v0.16.2-re0-home for the decision).
 const STATE_DIR = path.join(HOME, '.re0');
 const NOTICE_STAMP = path.join(STATE_DIR, 'last-notice.json');
 

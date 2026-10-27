@@ -37,7 +37,7 @@ It is **user-invoked**: shipping is a deliberate human action, so only the human
 8. **Second confirmation.** Ask the human again, separately, before tagging and pushing, because this step goes public. After it, sign the tag with `git tag -s vX.Y.Z -F .re0/release/RELEASE_NOTES.local.md --cleanup=verbatim`, confirm `git tag -v vX.Y.Z` reports a good signature, push `main`, then push the tag.
 9. **Watch the workflow.** Follow the release workflow the tag triggered to completion and report success or the actual failure; never assume it landed. `gh run list --workflow release.yml --branch vX.Y.Z` finds the run, `gh run watch <run-id> --exit-status` follows it, and `gh release view vX.Y.Z` shows whether the notes landed. If it fails, fix the cause and rerun the failed jobs (`gh run rerun <run-id> --failed`); a cause inside the tagged commit means the tag was cut at the wrong target. A tag the author cut wrong (message, signature or target) is deleted and re-cut at the same version, not rolled forward; the version moves on only when a published artifact is wrong. Never finish the workflow's work by hand.
 10. **Close out contributions.** After confirmed success, close each external contribution the release landed: whoever reviewed it approves the PR, then closes it with a comment carrying the release notes' credit. A contribution squashed or rebuilt into the release is closed, not merged, so the approval records acceptance rather than rejection. Any collaborator or maintainer with review access may do this.
-11. **Retire the cycle**, only after the release workflow succeeded. Move `.re0/iteration/<version>-<workname>/` into `.re0/iteration/completed/<version>-<workname>/`, unrenamed. `.re0/` is gitignored and untracked, so use `mv` (filesystem move), never `git mv`, which fails on an untracked path. Skip this only when the cycle was never planned with `re0-plan` and has no matching iteration folder.
+11. **Retire the cycle**, only after the release workflow succeeded. Move `.re0/iteration/active/<version>-<workname>/` into `.re0/iteration/completed/<version>-<workname>/`, unrenamed. `.re0/` is gitignored and untracked, so use `mv` (filesystem move), never `git mv`, which fails on an untracked path. Skip this only when the cycle was never planned with `re0-plan` and has no matching iteration folder.
 
 ## Rules
 
@@ -58,5 +58,5 @@ Before finishing, confirm and report:
 4. The workflow the pushed tag triggered completed successfully, confirmed.
 5. No workflow-owned step ran by hand, including to rescue a failed run.
 6. Each landed external contribution had its PR approved before closing, with the credit comment.
-7. The shipped cycle's iteration folder was retired into `.re0/iteration/completed/`, or correctly skipped because none existed.
+7. The shipped cycle's iteration folder was moved from `active/` into `.re0/iteration/completed/`, or correctly skipped because none existed.
 8. Any skipped step or unresolved gap is reported.
