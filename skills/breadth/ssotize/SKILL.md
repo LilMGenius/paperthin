@@ -14,7 +14,7 @@ The skill starts as a read-only audit that names the truth, finds every copy, ch
 ## Workflow
 
 1. **Name the truth** in scope: the specific fact, value, spec, decision, status, or definition being tracked, not the whole document.
-2. **Audit read-only.** List every occurrence across the given artifacts and platforms. For each candidate occurrence that is a file, record path, mtime, size, and sha256 with host commands: `stat` or `Get-Item` (mtime and size), `sha256sum` or `Get-FileHash` (digest). Report that table.
+2. **Audit read-only.** List every occurrence across the given artifacts and platforms. For the candidate occurrences that are files, run `node scripts/snapshot-candidates.mjs [--json] <path>...` from this skill's folder: it prints path, mtime, size and sha256 per file (directories walked) as a Markdown table, or JSON with `--json`, and exits 2 on a usage error or an unreadable path. Report that table.
 3. **Enumerate again by a second method** (another search term, a synonym, or another tool) and confirm it finds nothing the first pass missed.
 4. **Classify** each occurrence by kind: exact copy, paraphrase, partial, stale, contradictory.
 5. **Choose the canonical home**: the most authoritative and most maintained location, closest to where the fact changes. Never promote a weak copy for convenience; when no location qualifies, extract a new canonical home.
@@ -24,7 +24,7 @@ The skill starts as a read-only audit that names the truth, finds every copy, ch
    - **reconcile**: the occurrence disagrees and needs a human call.
 7. **Report before any edit**, in the reply to the user: an occurrence table (location, kind, action); the proposed canonical home with a one-line justification; unique details that must be folded into it; contradictions needing a decision; the exact mutation plan.
 8. **Ask the user for explicit approval** of the mutation plan. Without approval, stop after the read-only report.
-9. **Re-check, then build the home.** Immediately before the first write, re-read path, mtime, size, and sha256 of every candidate file. If any changed since the audit, stop before writing and report the file, each changed field, and its old and new values; report missing or unreadable files too. A stopped run reports and re-audits rather than writing. Otherwise, make or extract a complete, current canonical home that folds in every unique detail from the copies.
+9. **Re-check, then build the home.** Immediately before the first write, run the same script on every candidate file and compare its path, mtime, size, and sha256 with the audit table. If any changed since the audit, stop before writing and report the file, each changed field, and its old and new values; report missing or unreadable files too. A stopped run reports and re-audits rather than writing. Otherwise, make or extract a complete, current canonical home that folds in every unique detail from the copies.
 10. **Reconcile contradictions** in the canonical home first. When the right value is ambiguous, have the user confirm it before replacing anything.
 11. **Replace each duplicate with a live reference.** Docs use a link, a "see <home>", a quote with link, or a transclude where supported; code imports, sources, or includes the shared home; config reads the one maintained file.
 12. **Remove the now-redundant copies.** Where removal would orphan a reader, leave a one-line pointer instead of deleting outright.
