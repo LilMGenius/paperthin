@@ -19,7 +19,7 @@ Make the artifact lighter, more current, and more accurate. It should read as a 
 6. Rewrite instead of appending when appending would preserve noise.
 7. Preserve useful voice and structure; simplify everything else.
 8. Smooth prose: give an interrupting parenthetical its own clause or cut it, keep nearby repeated words or points once, and remove padding that adds no meaning.
-9. Smooth source text: unwrap breaks that split sentences so each paragraph or list item occupies one source line, matching sibling formatting. Make pointers to named sections or files followable, using links where supported. Preserve formatting in code, tables, and quoted material.
+9. Smooth source text: decide whether the artifact's paragraphs and list items should each sit on one source line, matching sibling formatting. Where they should, run `node scripts/unwrap.mjs <paths...> [--json] [--write]` from this skill's folder: it lists each hard-wrapped paragraph or list item (file, start line, line count), exits 3 when it finds any, and with `--write` joins them only after proving the words and every fenced block unchanged. Make pointers to named sections or files followable, using links where supported.
 10. Re-read the result and cut again.
 
 ## Rules
