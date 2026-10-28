@@ -12,7 +12,7 @@ Replace each unwanted em-dash with the punctuation or wording its clause needs. 
 
 ## Workflow
 
-1. **FIND**: Take the exact scope from the user. Locate every dash that sets off an aside, appositive, abrupt turn, or missing conjunction; judge its role in the sentence, not its codepoint. Count the em-dash (U+2014), horizontal bar (U+2015), and two- and three-em dashes (U+2E3A, U+2E3B). Count an en-dash (U+2013) when it joins clauses where an em-dash would fit; keep it between numeric or other range endpoints (`1990–2020`, the `London–Paris` route). Keep hyphens, minus signs, and ranges doing their own jobs. Surface ambiguity as a judgment call.
+1. **FIND**: Take the exact scope from the user. From this skill's folder run `node scripts/find.mjs <paths...> [--json]` over it. It prints each candidate dash with its file, line, column, code point and line text; `--json` prints one JSON object. Exit codes: 0 no dash, 3 dashes found, 2 a usage error, which is a broken run: fix the command and run again. The script lists the em-dash, horizontal bar, two- and three-em dashes, and every en-dash between two words, and skips fenced and inline code, URLs and numeric ranges. Judge each hit's role in the sentence, not its codepoint: an en-dash that joins clauses where an em-dash would fit is a dash to replace, while a range endpoint pair such as the `London–Paris` route is kept. Keep hyphens, minus signs, and ranges doing their own jobs. Surface ambiguity as a judgment call.
 2. **REPLACE per role**: Choose per occurrence by grammatical role:
    - *Parenthetical aside*: commas or parentheses when the dashed material can be lifted out of the sentence.
    - *Appositive*: a colon or comma when the dashed material renames, defines, or expands the noun before it.
