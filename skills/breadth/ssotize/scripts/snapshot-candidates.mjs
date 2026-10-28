@@ -7,7 +7,7 @@
  * Mechanisms only, no source copied: the former is proprietary; no license
  * was found for the latter. Use Node APIs with recursive exclusions, SHA-256,
  * cwd-relative sorting, and Markdown/JSON output for candidate-file audits.
- * Usage: node skills/breadth/ssotize/scripts/snapshot-candidates.mjs [--json] <path>...
+ * Usage: node scripts/snapshot-candidates.mjs [--json] <path>...
  */
 import { readdirSync, readFileSync, realpathSync, statSync } from 'node:fs';
 import { relative, resolve, sep, join } from 'node:path';
@@ -43,7 +43,7 @@ function visit(path) {
 }
 
 try {
-  if (!paths.length) throw new Error('usage: node skills/breadth/ssotize/scripts/snapshot-candidates.mjs [--json] <path>...');
+  if (!paths.length) throw new Error('usage: node scripts/snapshot-candidates.mjs [--json] <path>...');
   for (const path of paths) visit(resolve(path));
   const rows = [...files.values()].sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
   if (json) {
