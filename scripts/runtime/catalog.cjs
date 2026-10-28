@@ -18,7 +18,7 @@ const os = require('os');
 
 const CATALOG = [
   're0', 'readback', 'aim', 'modelchk', 'elon', 'scopechk', 'hate', 'macrothink', 're0-decide', 'feynman', 'autobahn', 're0-style', 'detool',
-  'debloat', 're0-order', 'dedash', 'dedot', 'shower', 'factchk', 'mandela', 'sip', 're0-git', 're0-squash', 're0-release', 're0-merge',
+  'debloat', 're0-order', 'dedash', 'dedot', 'shower', 'factchk', 'mandela', 'demock', 'sip', 're0-git', 're0-squash', 're0-release', 're0-merge',
   'ssotize', 'ssotize-local', 're0-readme', 're0-import', 're0-upgrade', 're0-plan', 're0-loop', 're0-watch', 're0-memo', 're0-work', 'catchup', 'nba',
   're0-workflow', 're0-tutorial', 'prism', 'multithink',
 ];
