@@ -65,6 +65,7 @@
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 新鮮でゼロコンテキストの目で冷たく読む。これ単体で成立するか？ | artifact 一つ | モデル | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 主張されたことを source に両方向で照合する。ばかげたことが本当で、当然に見えることが偽かもしれないか？ | claim 一つ | モデル | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | leakage を監査する。外部 ground truth は実際に入っているか？ | eval 一つ | モデル | ✔ |
+| 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | 実際のコード経路にある mock、stub、fake、黙った fallback を見つける。そこでは何も実際に動いていないので成功の報告が偽になる。本物の依存か正直な失敗を提案する | 指定したファイル、ディレクトリ、diff | モデル | |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 変更後、自分の output を repo 自身の clean-and-true checks で味見する | 自分の output | モデル | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 完了した commit message を日付も位置も変えずに書き直し、遅れた commit は一本道の履歴のその時刻に差し込んで、`git log` だけで引き継げるようにする | commit 一つ | ユーザー | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | GitHub リポジトリを同じツリーの署名付き commit 一つとして公開し直す: force push では古い commit に到達できてしまうため、remote を削除して作り直す | リポジトリ一つ | ユーザー | |

@@ -1,0 +1,3 @@
+interface:
+  display_name: "demock"
+  short_description: "Find fakes and false successes on real code paths"

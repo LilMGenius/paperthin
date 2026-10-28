@@ -65,6 +65,7 @@
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Cold-read свежими глазами без контекста: держится ли артефакт сам по себе? | один артефакт | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Проверяет утверждаемое по sources в обе стороны: может ли абсурд быть реальным, а очевидное ложным? | один claim | model | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Аудитит на leakage: действительно ли внутрь входит внешняя ground truth? | один eval | model | ✔ |
+| 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | Находит моки, стабы, фейки и молчаливые запасные ветки на реальном пути кода, где отчёт об успехе ложен, потому что ничего настоящего не выполнялось; предлагает настоящую зависимость или честный отказ | указанные файлы, каталог или diff | model | |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | После любого изменения пробует output через собственные clean-and-true checks репозитория | ваш output | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Переписывает message готового commit, сохраняя все даты и места, и ставит запоздавший commit в линейную историю на его время, чтобы один `git log` нес handoff | один commit | user | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | Публикует репозиторий GitHub заново одним подписанным commit с тем же деревом: удаляет remote и создаёт снова, потому что force push оставляет старые commits доступными | один репозиторий | user | |

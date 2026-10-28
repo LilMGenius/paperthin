@@ -62,6 +62,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read it with fresh, zero-context eyes: does it stand alone? | one artifact | model | ✔ |
 | 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify what's asserted against sources both ways: could the absurd be real, the obvious false? | one claim | model | |
 | 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit for leakage: does outside ground-truth actually enter? | one eval | model | ✔ |
+| 🎭 **[demock](./skills/depth/demock/SKILL.md)** | Find mocks, stubs, fakes and silent fallbacks on the real code path, where a success report is false because nothing real ran; propose the real dependency or an honest failure | a named file set, directory or diff | model | |
 | 🥄 **[sip](./skills/depth/sip/SKILL.md)** | After any change, taste it with the repo's own clean-and-true checks | your output | model | |
 | 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrite a finished commit's message with every date and position kept, and slot a late commit into the linear log at its time, so `git log` alone hands off | one commit | user | |
 | 🧨 **[re0-squash](./skills/depth/re0-squash/SKILL.md)** | Republish a GitHub repository as one signed commit with the same tree: delete the remote and recreate it, since a force push leaves old commits reachable | one repository | user | |

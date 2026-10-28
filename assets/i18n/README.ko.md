@@ -65,6 +65,7 @@
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 맥락 없는 새 눈으로 차갑게 읽습니다. 이것이 혼자서도 서는가? | 아티팩트 하나 | 모델 | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 주장된 것을 양방향으로 소스에 대조합니다. 말도 안 되는 것이 팩트일 수 있고, 당연한 것이 거짓일 수 있는가? | 클레임 하나 | 모델 | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | leakage가 있는지 audit합니다. 외부 ground truth가 실제로 들어오는가? | eval 하나 | 모델 | ✔ |
+| 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | 실제 코드 경로에 선 mock, stub, fake, 숨은 fallback을 찾습니다. 아무것도 실제로 돌지 않아 성공 보고가 거짓이 되는 자리입니다. 진짜 의존성이나 정직한 실패를 제안합니다 | 이름 붙인 파일, 디렉터리, diff | 모델 | |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 변경 뒤마다 레포 자체의 clean-and-true 체크로 아웃풋을 맛봅니다 | 내 아웃풋 | 모델 | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 완료된 커밋 메시지를 날짜와 자리는 그대로 둔 채 다시 쓰고, 늦은 커밋은 한 줄 히스토리의 그 시각 자리에 넣어 `git log`만으로 handoff가 되게 합니다 | 커밋 하나 | 사용자 | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | GitHub 저장소를 같은 트리의 서명된 커밋 하나로 다시 공개합니다: force push는 옛 커밋에 닿을 수 있게 남기므로 remote를 삭제하고 다시 만듭니다 | 저장소 하나 | 사용자 | |
