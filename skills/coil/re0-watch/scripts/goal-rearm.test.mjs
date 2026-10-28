@@ -1,6 +1,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { check, plan, verify, watchIds } from './goal-rearm.mjs';
+import { mkdtempSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { dirname, join } from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 const prose = 'Keep these answered until merged or closed: oven-sh/bun #43901, router-for-me/CLIProxyAPI #6124 and issue #6250, lidge-jun/opencodex #6262, #6269 and #6274. Each continuation runs node C:/Users/x/stallwatch.mjs --repo oven-sh/bun --once.';
 const goal = (objective, status = 'active') => ({ goal: { objective, status } });
@@ -54,4 +59,62 @@ test('check reports a registration that stopped waking the session', () => {
   assert.match(check(goal('Watch ids: a/b#1', 'budgetLimited')), /budgetLimited/);
   assert.match(check(goal('no ids here')), /no watch id/);
   assert.match(check({ goal: null }), /no goal/);
+});
+
+// The CLI is called through a link to the skill folder, the way an installed skill is reached.
+const skillDir = dirname(dirname(fileURLToPath(import.meta.url)));
+const scratchDir = mkdtempSync(join(tmpdir(), 'goal-rearm-'));
+const linkDir = join(scratchDir, 're0-watch');
+symlinkSync(skillDir, linkDir, process.platform === 'win32' ? 'junction' : 'dir');
+test.after(() => rmSync(scratchDir, { recursive: true, force: true }));
+
+function cli(...args) {
+  const run = spawnSync(process.execPath, [join(linkDir, 'scripts', 'goal-rearm.mjs'), ...args], { encoding: 'utf8' });
+  return { status: run.status, stdout: run.stdout, stderr: run.stderr };
+}
+function file(name, body) {
+  const path = join(scratchDir, name);
+  writeFileSync(path, typeof body === 'string' ? body : JSON.stringify(body));
+  return path;
+}
+
+test('CLI check prints LIVE for an active goal and LAPSED with exit 2 for a blocked one', () => {
+  const live = cli('check', '--current', file('live.json', goal('Watch ids: a/b#1')));
+  assert.equal(live.status, 0);
+  assert.equal(live.stdout.trim(), 'LIVE');
+  const lapsed = cli('check', '--current', file('blocked.json', goal('Watch ids: a/b#1', 'blocked')));
+  assert.equal(lapsed.status, 2);
+  assert.match(lapsed.stdout, /^LAPSED: the goal is blocked/);
+});
+
+test('CLI plan prints the planned JSON for a valid objective and exits 2 when it names no watch id', () => {
+  const current = file('none.json', { goal: null });
+  const ok = cli('plan', '--current', current, '--objective', file('ok.txt', 'Watch.\nWatch ids: a/b#1'));
+  assert.equal(ok.status, 0);
+  const planned = JSON.parse(ok.stdout);
+  assert.equal(planned.action, 'create');
+  assert.deepEqual(planned.ids, ['a/b#1']);
+  const refused = cli('plan', '--current', current, '--objective', file('bad.txt', 'keep watching'));
+  assert.equal(refused.status, 2);
+  assert.match(JSON.parse(refused.stdout).refused, /no watch id/);
+});
+
+test('CLI verify accepts the readback of its own plan and rejects a different one', () => {
+  const current = file('none2.json', { goal: null });
+  const planned = cli('plan', '--current', current, '--objective', file('o.txt', 'Watch ids: a/b#1'));
+  const planFile = file('plan.json', planned.stdout);
+  const armed = cli('verify', '--plan', planFile, '--readback', file('r1.json', goal(JSON.parse(planned.stdout).objective)));
+  assert.equal(armed.status, 0);
+  assert.equal(armed.stdout.trim(), 'ARMED');
+  const mismatch = cli('verify', '--plan', planFile, '--readback', file('r2.json', goal('Watch ids: a/b#2')));
+  assert.equal(mismatch.status, 2);
+  assert.match(mismatch.stdout, /^MISMATCH: .*differs/);
+});
+
+test('CLI without a subcommand or its required options is a usage error and exits 1', () => {
+  assert.equal(cli().status, 1);
+  const missing = cli('plan', '--current', file('c.json', { goal: null }));
+  assert.equal(missing.status, 1);
+  assert.match(missing.stderr, /^Name plan, verify or check/);
+  assert.equal(cli('--help').status, 0);
 });
