@@ -65,6 +65,7 @@
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | fresh, zero-context eyes से cold-read करता है: क्या यह अपने दम पर समझ आता है? | एक artifact | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | sources के against जो दावा किया गया उसे दोनों दिशाओं में verify करता है: क्या absurd सच हो सकता है, और obvious झूठ? | एक claim | model | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | leakage audit करता है: क्या बाहर की ground truth सच में अंदर आती है? | एक eval | model | ✔ |
+| 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | असली कोड पथ पर खड़े mock, stub, fake और चुपचाप fallback खोजता है, जहाँ सफलता की रिपोर्ट झूठी है क्योंकि कुछ असली चला ही नहीं; असली निर्भरता या ईमानदार विफलता सुझाता है | नामित फ़ाइलें, निर्देशिका या diff | model | |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | हर change के बाद repo के अपने clean-and-true checks से आपके output को taste करता है | आपका output | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | finished commit message को हर तारीख और जगह बनाए रखते हुए rewrite करता है, और देर से आए commit को linear history में उसके समय पर रखता है, ताकि `git log` अकेले handoff दे सके | एक commit | user | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | GitHub repository को उसी tree वाले एक signed commit के रूप में दोबारा प्रकाशित करता है: remote हटाकर फिर बनाता है, क्योंकि force push पुराने commits को पहुँच में छोड़ देता है | एक repository | user | |

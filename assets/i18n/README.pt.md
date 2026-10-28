@@ -65,6 +65,7 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | Faz uma leitura fria, com olhos novos e zero contexto: isso se sustenta sozinho? | um artifact | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Verifica o que se afirma contra sources, nas duas direcoes: o absurdo poderia ser real, o obvio falso? | uma claim | model | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Audita em busca de leakage: a ground truth externa realmente entra? | um eval | model | ✔ |
+| 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | Encontra mocks, stubs, fakes e fallbacks silenciosos no caminho de código real, onde um relatório de sucesso é falso porque nada real rodou; propõe a dependência real ou uma falha honesta | arquivos, um diretório ou um diff indicados | model | |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Depois de qualquer mudanca, prova seu output com os checks clean-and-true do proprio repo | seu output | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Reescreve a mensagem de um commit finalizado mantendo todas as datas e posicoes, e encaixa um commit atrasado no historico linear no seu horario, para que `git log` faca o handoff sozinho | um commit | user | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | Republica um repositorio do GitHub como um unico commit assinado com a mesma arvore: apaga o remote e o recria, porque um force push deixa os commits antigos alcancaveis | um repositorio | user | |

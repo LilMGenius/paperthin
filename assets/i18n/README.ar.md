@@ -65,6 +65,7 @@
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | يقرأه قراءة باردة بعين جديدة وبدون سياق: هل يقف وحده؟ | artifact واحد | model | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | يتحقق مما يُدّعى مقابل sources في الاتجاهين: هل يمكن أن يكون العبث صحيحا، والواضح خاطئا؟ | claim واحد | model | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | يدقق بحثا عن leakage: هل تدخل ground truth خارجية فعلا؟ | eval واحد | model | ✔ |
+| 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | يجد المحاكيات والبدائل الوهمية والارتدادات الصامتة على مسار الشيفرة الحقيقي، حيث يكون تقرير النجاح كاذبا لأن شيئا حقيقيا لم يعمل؛ ويقترح الاعتماد الحقيقي أو فشلا صريحا | مجموعة ملفات أو مجلد أو diff محدد | model | |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | بعد أي تغيير، يتذوق output الخاص بك بفحوص clean-and-true الخاصة بالـ repo | output الخاص بك | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | يعيد كتابة رسالة commit مكتمل مع إبقاء كل التواريخ والمواضع، ويضع الـ commit المتأخر في السجل الخطي عند وقته، حتى يحمل `git log` وحده التسليم | commit واحد | user | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | يعيد نشر مستودع GitHub كـ commit موقّع واحد بالشجرة نفسها: يحذف الـ remote ويعيد إنشاءه، لأن force push يترك الـ commits القديمة قابلة للوصول | مستودع واحد | user | |
