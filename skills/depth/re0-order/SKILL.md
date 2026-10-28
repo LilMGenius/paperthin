@@ -31,6 +31,6 @@ A listing carries meaning when related items sit together along one clear axis; 
 Before finishing, confirm:
 
 1. A reader can name the ordering principle from the result alone.
-2. Every original item remains; only positions changed; nothing was reworded, added, or removed.
+2. Every original item remains; only positions changed; nothing was reworded, added, or removed. Save the listing before the move and run `node scripts/same-set.mjs <before-file> <after-file> [--json]`: each non-blank line is an item, exit 0 means the same multiset, exit 1 names the added, removed or changed items, exit 2 is a usage error.
 3. Kin are adjacent and the sequence follows the one principle end to end.
-4. Every mirrored copy carries the identical order.
+4. Every mirrored copy carries the identical order. Run the same script with `--mirror <file>` once per copy: it compares the items the copy shares with the after file and, on exit 1, names the first divergence.
