@@ -90,6 +90,7 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Executa o loop build → QA → re0-memo → re0-work para que o aprendizado componha, nao o codigo | o loop inteiro | model | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | Monitora uma tarefa longa de um agente para detectar travamentos e alerta por padrão; a recuperação é apenas uma proposta sujeita à aprovação humana | uma tarefa em execução | user | |
 | 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Extrai licoes e anti-padroes de um cycle concluido ou falho | um cycle concluido | model | |
+| 🗂️ **[re0-flex](../../skills/coil/re0-flex/SKILL.md)** | Lê uma vez o histórico git, as sessões de agentes e as regras de um repositório, depois só o que mudou, e os transforma em fichas de procedimento com suas evidências e um pacote curto por pedido; o trabalho determinístico repetido vai para ferramentas e o julgamento fica com a pessoa | um repositório e suas sessões de agentes | model | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Recomeça da v0, mantendo apenas as licoes que mereceram reuso | um reinicio | model | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Reconstroi o contexto perdido a partir do estado ao vivo: o que precisa dele, o que mudou, o que as novas palavras significam | uma reentrada | model | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Le o estado vivo do cycle e retorna uma unica proxima melhor acao, nao um menu | o cycle vivo | model | ✔ |

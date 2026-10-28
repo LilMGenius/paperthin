@@ -87,6 +87,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🌀 **[re0-loop](./skills/coil/re0-loop/SKILL.md)** | Run the build → QA → re0-memo → re0-work loop so learning compounds, not code | the whole loop | model | |
 | 👁️ **[re0-watch](./skills/coil/re0-watch/SKILL.md)** | Watch a long-running agent job for stalls and alert by default; recovery is only a proposal a human approves | one running job | user | |
 | 🧭 **[re0-memo](./skills/coil/re0-memo/SKILL.md)** | Pull the lessons and anti-patterns from a finished or failed cycle | one finished cycle | model | |
+| 🗂️ **[re0-flex](./skills/coil/re0-flex/SKILL.md)** | Read a repository's git log, agent sessions and rules once, then only what changed, into procedure cards with their evidence and a short bundle per request; repeated deterministic work goes to tools, judgment stays with the human | one repository and its agent sessions | model | |
 | 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Start over from v0, keeping only the lessons that earned reuse | one restart | model | |
 | 🗺️ **[catchup](./skills/coil/catchup/SKILL.md)** | Rebuild lost context from live state: what needs them, what changed, what new words mean | one re-entry | model | ✔ |
 | 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Read the live cycle state and return the single next best action, not a menu | the live cycle | model | ✔ |

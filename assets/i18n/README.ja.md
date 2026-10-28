@@ -90,6 +90,7 @@
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | build → QA → re0-memo → re0-work ループを回し、コードではなく学習を複利化する | ループ全体 | モデル | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | 長時間動くエージェントのジョブの停滞を監視し、既定では通知だけを行います。復旧は人間の承認を求める提案にとどめます | 実行中のジョブ一つ | ユーザー | |
 | 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 完了または失敗した cycle から教訓と anti-pattern を抽出する | 完了した cycle 一つ | モデル | |
+| 🗂️ **[re0-flex](../../skills/coil/re0-flex/SKILL.md)** | リポジトリの git ログ、エージェントのセッション、ルールを一度だけ通読し、その後は変更分だけを読んで、根拠付きの手順カードと依頼ごとの短い実行束にする。繰り返す決定的な作業は道具へ移し、判断は人に残す | 一つのリポジトリとそのエージェントセッション | モデル | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 再利用に値した教訓だけを残して v0 からやり直す | やり直し一つ | モデル | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | ライブ state から失った context を再構築する: 何が必要か、何が変わったか、新しい言葉が何を意味するか | re-entry 一つ | モデル | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | live cycle state を読み、メニューではなく一つの next best action を返す | 現在の cycle | モデル | ✔ |

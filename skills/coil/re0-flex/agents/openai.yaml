@@ -1,0 +1,3 @@
+interface:
+  display_name: "re0-flex"
+  short_description: "Turn a repo's history into cited procedure cards"

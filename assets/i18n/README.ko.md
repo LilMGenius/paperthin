@@ -90,6 +90,7 @@
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | build → QA → re0-memo → re0-work 루프를 돌려 배움이 코드가 아니라 축적되게 합니다 | 전체 루프 | 모델 | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | 장시간 실행되는 에이전트 작업의 정체를 감시하고 기본적으로 알림만 보냅니다. 복구는 사람이 승인할 제안으로만 제시합니다 | 실행 중인 작업 하나 | 사용자 | |
 | 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 끝났거나 실패한 사이클에서 교훈과 anti-pattern을 뽑아냅니다 | 완료된 사이클 하나 | 모델 | |
+| 🗂️ **[re0-flex](../../skills/coil/re0-flex/SKILL.md)** | 저장소의 git 로그, 에이전트 세션, 규칙을 처음 한 번만 다 읽고 이후에는 바뀐 것만 읽어, 근거가 붙은 절차 카드와 요청마다 짧은 실행 묶음을 만듭니다. 반복되는 결정론적 작업은 도구로 옮기고 판단은 사람에게 남깁니다 | 저장소 하나와 그 에이전트 세션 | 모델 | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 재사용할 자격을 얻은 교훈만 남기고 v0에서 다시 시작합니다 | 재시작 하나 | 모델 | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 실시간 state에서 잃어버린 context를 재구성합니다: 누구에게 필요한지, 무엇이 바뀌었는지, 새 단어가 무엇을 뜻하는지 | 재진입 하나 | 모델 | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 살아 있는 사이클 state를 읽고 메뉴가 아니라 단 하나의 다음 최선 행동을 돌려줍니다 | 현재 사이클 | 모델 | ✔ |

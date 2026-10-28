@@ -90,6 +90,7 @@
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | build → QA → re0-memo → re0-work loop चलाता है ताकि learning compound करे, code नहीं | पूरा loop | model | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | लंबे समय तक चलने वाले एजेंट कार्य में रुकावट पर नज़र रखता है और डिफ़ॉल्ट रूप से चेतावनी देता है; रिकवरी केवल मानव की स्वीकृति के लिए प्रस्ताव है | एक चालू कार्य | user | |
 | 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | finished या failed cycle से lessons और anti-patterns निकालता है | एक finished cycle | model | |
+| 🗂️ **[re0-flex](../../skills/coil/re0-flex/SKILL.md)** | किसी रिपॉज़िटरी का git लॉग, एजेंट सत्र और नियम एक बार पूरे पढ़ता है, फिर केवल बदलाव, और उनसे साक्ष्य सहित प्रक्रिया कार्ड और हर अनुरोध के लिए छोटा बंडल बनाता है; दोहराया जाने वाला निर्धारक काम उपकरणों को जाता है, निर्णय मनुष्य के पास रहता है | एक रिपॉज़िटरी और उसके एजेंट सत्र | model | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | सिर्फ reuse कमाने वाले lessons रखते हुए v0 से restart करता है | एक restart | model | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | live state से खोया हुआ context फिर से बनाता है: उसे क्या चाहिए, क्या बदला, नए शब्दों का मतलब क्या है | एक re-entry | model | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | live cycle state पढ़कर menu नहीं, single next best action देता है | live cycle | model | ✔ |
