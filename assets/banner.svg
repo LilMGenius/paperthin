@@ -50,7 +50,7 @@
           stroke="url(#edge)" stroke-width="3.5" stroke-linecap="round" filter="url(#glow)"/>
   </g>
 
-  <!-- wordmark: "thin" drawn as hairline outline — thinness made literal, font-weight independent -->
+  <!-- wordmark: "thin" drawn as hairline outline, thinness made literal and independent of font weight -->
   <text x="568" y="206" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
         font-size="94" letter-spacing="0.5">
     <tspan font-weight="500" fill="#EEF3F8">Paper</tspan><tspan dx="3"
