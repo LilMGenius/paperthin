@@ -31,6 +31,16 @@ test('an Invoker cell off its lane fails in any language', (t) => {
   assert.match(problems.join(), /README\.ko\.md: the Invoker column uses "모델" for both lanes/);
 });
 
+test('a Problem list missing a skill, naming a retired or unknown one, or out of catalog order fails in any README', (t) => {
+  const ko = 'assets/i18n/README.ko.md';
+  assert.match(run(t, edit(ko, (text) => text.replace('- \x60re0-upgrade\x60 removes another.\n', ''))).join(), /README\.ko\.md: the Problem list does not name re0-upgrade/);
+  assert.match(run(t, edit('README.md', (text) => text.replace('- \x60foo\x60', '- \x60bar\x60'))).join(), /README\.md:\d+: the Problem list names \x60bar\x60, retired as \x60foo\x60/);
+  assert.match(run(t, edit('README.md', (text) => text.replace('removes another.', 'removes another.\n- \x60baz\x60 too.'))).join(), /README\.md:\d+: the Problem list names \x60baz\x60, which is no catalog skill/);
+  const swapped = (text) => text.replace('- \x60foo\x60 removes one thing,\n- \x60re0-upgrade\x60 removes another.', '- \x60re0-upgrade\x60 removes another,\n- \x60foo\x60 removes one thing.');
+  assert.match(run(t, edit(ko, swapped)).join(), /README\.ko\.md: the Problem list names the skills as \[re0-upgrade, foo\], out of catalog order/);
+  assert.match(run(t, edit(ko, (text) => text.replace('<a id="the-problem"></a>', ''))).join(), /README\.ko\.md: has no Problem section/);
+});
+
 test('a brand line that differs and an .npmignore fail', (t) => {
   const problems = run(t, { 'package.json': JSON.stringify({ description: 'Other.' }), '.npmignore': 'x\n' });
   assert.match(problems.join(), /description differs from package\.json/);
