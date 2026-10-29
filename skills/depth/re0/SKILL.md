@@ -31,7 +31,7 @@ Make the artifact lighter, more current, and more accurate. It should read as a 
 - Keep only details that improve future execution, accuracy, or recall.
 - Do not leave old/new traces unless the artifact is explicitly a changelog.
 - Fix machine-clear residue and surface judgment calls. Never auto-resolve ambiguity or "fix" a deliberate look-alike.
-- Repair from the canonical or sibling source of truth, not the damaged surface. Edit safely: assert the target exists and report a MISS rather than a silent no-op; edit unicode-safe (`PYTHONUTF8=1`), replace positional targets per occurrence rather than by blanket sweep, and script large structural moves.
+- Repair from the canonical or sibling source of truth, not the damaged surface. Edit safely: assert the target exists and report a MISS rather than a silent no-op; read and write files as UTF-8 (`PYTHONUTF8=1` for Python), replace positional targets per occurrence rather than by blanket sweep, and script large structural moves.
 - Do not create extra files unless the user asks.
 
 ## Verification
