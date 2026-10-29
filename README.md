@@ -57,7 +57,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🧰 **[detool](./skills/depth/detool/SKILL.md)** | Replace incidental stack nouns with the mechanism they mean | one durable artifact | model | |
 | 🗜️ **[debloat](./skills/depth/debloat/SKILL.md)** | Compress bloated prose or code to its load-bearing density; cut the excess, never a rule or a behavior | one artifact, prose or code | model | |
 | 🔃 **[re0-order](./skills/depth/re0-order/SKILL.md)** | Realign a drifted listing into a logical order under one stated principle; move items only, reword nothing | one listing | model | |
-| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove em-dashes and look-alikes, picking the punctuation each spot needs | your prose | user | |
+| ✂️ **[dedash](./skills/depth/dedash/SKILL.md)** | Remove the em and en dashes standing in for other punctuation inside sentences; keep hyphens, ranges and label separators | your prose | user | |
 | ⸱ **[dedot](./skills/depth/dedot/SKILL.md)** | Propose a comma or connective in prose, or spacing in a label row, with a reason for each middle dot joining an open enumeration in Korean; preserve the three sanctioned uses and protected contexts | Korean prose or label rows the writer scopes | user | ✔ |
 | 🚿 **[shower](./skills/depth/shower/SKILL.md)** | Cold-read it with fresh, zero-context eyes: does it stand alone? | one artifact | model | ✔ |
 | 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify what's asserted against sources both ways: could the absurd be real, the obvious false? | one claim | model | |
@@ -107,12 +107,12 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 
 **Most agent skills are slop.**
 
-Point an agent at a goal and it **adds** — more files, more options, more "helpful" boilerplate. Adding looks like progress, and nothing ever makes it go back and delete.
+Point an agent at a goal and it **adds**: more files, more options, more "helpful" boilerplate. Adding looks like progress, and nothing ever makes it go back and delete.
 
 > [!WARNING]
 > Repeat that across a project and you get the familiar AI-generated toolkit: near-duplicate skills, dead settings, a README that says the same thing three times. Plausible, busy, and quietly unmaintainable.
 
-These skills bet the other way — **every one of them removes:**
+These skills bet the other way. **Every one of them removes:**
 
 - `re0` rewrites a draft into a clean v0 instead of patching it,
 - `readback` restates the request and asks only when a real fork survives,
@@ -159,11 +159,11 @@ These skills bet the other way — **every one of them removes:**
 - `multithink` classes independent reads by cited evidence, never by count.
 
 > [!TIP]
-> The hard part isn't adding features — it's restraint. A pass that finds nothing to improve changes nothing. **That restraint is the product.**
+> The hard part isn't adding features; it's restraint. A pass that finds nothing to improve changes nothing. **That restraint is the product.**
 
 ## The Fixes
 
-<!-- Fixes lead with re0 — the founding thesis every other fix serves — then follow the lifecycle of a piece of work: understand the ask, challenge the approach, carve unsafe scope, clean the artifact, check truth, then keep the loop learning. Slot any new fix by where it acts in that arc. -->
+<!-- Fixes lead with re0, the founding thesis every other fix serves, then follow the lifecycle of a piece of work: understand the ask, challenge the approach, carve unsafe scope, clean the artifact, check truth, then keep the loop learning. Slot any new fix by where it acts in that arc. -->
 
 **Each is a well-worn principle, made automatic.**
 
@@ -172,7 +172,7 @@ Edit a doc one piece at a time across a session and it bloats: stale deltas, dup
 
 **The fix → `re0`:** rewrite the artifact as a clean v0, as if it were the first version.
 
-> *Prior art: the Boy Scout Rule — "leave it cleaner than you found it" (Robert C. Martin, [Clean Code](https://www.informit.com/articles/article.aspx?p=1235624&seqNum=6), 2008). `re0` goes further: rewrite, don't just tidy.*
+> *Prior art: the Boy Scout Rule: "leave it cleaner than you found it" (Robert C. Martin, [Clean Code](https://www.informit.com/articles/article.aspx?p=1235624&seqNum=6), 2008). `re0` goes further: rewrite, don't just tidy.*
 
 <details>
 <summary><b>[PROOF]</b></summary>
@@ -198,7 +198,7 @@ A long or bundled instruction has enough surface area for a subtle misread: the 
 ### #3 — Sizing the run becomes guesswork
 Some work is run with too much horsepower because "stronger" feels safer; some is run too cheaply until the failure costs more than the saved tokens. The same guessing hits the reasoning-effort dial: max it on everything and burn tokens, or skim a task that needed real deliberation. All of it is guessing wearing operational clothing.
 
-**The fix → `modelchk`:** from one risk read, recommend two coordinates — the cheapest sufficient capability tier (`fast`, `standard`, `frontier`) and the reasoning effort within it (`glance` to `exhaustive`), each on a neutral scale. It advises; it never routes, pins, or names a concrete model or level.
+**The fix → `modelchk`:** from one risk read, recommend two coordinates: the cheapest sufficient capability tier (`fast`, `standard`, `frontier`) and the reasoning effort within it (`glance` to `exhaustive`), each on a neutral scale. It advises; it never routes, pins, or names a concrete model or level.
 
 <details>
 <summary><b>[PROOF]</b></summary>
@@ -211,9 +211,9 @@ Some work is run with too much horsepower because "stronger" feels safer; some i
 ### #4 — You can't kill your own plan
 You built it, so you defend it. The questions that would break it are exactly the ones you won't ask.
 
-**The fix → `hate`:** refuse to be nice to the plan — return the one load-bearing objection that could kill it and the cheapest experiment that would prove it matters. User-invoked: you point it at a plan deliberately.
+**The fix → `hate`:** refuse to be nice to the plan and return the one load-bearing objection that could kill it and the cheapest experiment that would prove it matters. User-invoked: you point it at a plan deliberately.
 
-> *Prior art: [egoless programming](https://en.wikipedia.org/wiki/Egoless_programming) (Weinberg, 1971 — the same root `shower` cites), hostile review, and fail-fast.*
+> *Prior art: [egoless programming](https://en.wikipedia.org/wiki/Egoless_programming) (Weinberg, 1971; the same root `shower` cites), hostile review, and fail-fast.*
 
 <details>
 <summary><b>[PROOF]</b></summary>
@@ -237,11 +237,11 @@ Examples, names, and first plausible answers can trap a session before the plan 
 </details>
 
 ### #6 — Risk-adjacent work comes back hedged
-Point an agent at a task that brushes guardrails — scraping, licensing, privacy, security — and you get the worst of both worlds: the risky sliver triggers refusals and retries, while the safe 90% comes back hedged, diluted, or quietly missing.
+Point an agent at a task that brushes guardrails (scraping, licensing, privacy, security) and you get the worst of both worlds: the risky sliver triggers refusals and retries, while the safe 90% comes back hedged, diluted, or quietly missing.
 
 **The fix → `autobahn`:** carve guardrail-adjacent items out of scope before execution, each with a safe alternative and an archive entry; run the remaining scope at full strength in a fresh subagent that only ever sees the carved prompt, not the risky input; ship a descope ledger so every exclusion is a visible decision, not a silent gap. It removes the ask rather than slipping it past. The autobahn has no speed limit *because* entry discipline is strict.
 
-> *Prior art, from this very summer: the US [suspended Fable 5 and Mythos 5](https://www.anthropic.com/news/fable-mythos-access) over one jailbroken safeguard (Anthropic, 2026), and OpenAI shipped [GPT-5.6](https://openai.com/index/previewing-gpt-5-6-sol/) safety-stack-first to trusted partners (OpenAI, 2026) — at the frontier, the fast lane stays open only as far as entry discipline holds.*
+> *Prior art, from this very summer: the US [suspended Fable 5 and Mythos 5](https://www.anthropic.com/news/fable-mythos-access) over one jailbroken safeguard (Anthropic, 2026), and OpenAI shipped [GPT-5.6](https://openai.com/index/previewing-gpt-5-6-sol/) safety-stack-first to trusted partners (OpenAI, 2026). At the frontier, the fast lane stays open only as far as entry discipline holds.*
 
 <details>
 <summary><b>[PROOF]</b></summary>
@@ -269,7 +269,7 @@ After a long session you're the one person who *can't* read your own work straig
 
 **The fix → `shower`:** hand a stranger who never saw your session only the artifact, and ask "does this actually make sense?"
 
-> *Prior art: [egoless programming](https://en.wikipedia.org/wiki/Egoless_programming) — you can't review your own work objectively; someone else must (Gerald Weinberg, 1971). Here, that someone is a context-free sub-session.*
+> *Prior art: [egoless programming](https://en.wikipedia.org/wiki/Egoless_programming): you can't review your own work objectively; someone else must (Gerald Weinberg, 1971). Here, that someone is a context-free sub-session.*
 
 <details>
 <summary><b>[PROOF]</b></summary>
@@ -283,11 +283,11 @@ After a long session you're the one person who *can't* read your own work straig
 </details>
 
 ### #9 — The same fact ends up everywhere
-A timeout value, a decision, a status — copied into a README, a doc, a ticket, and a Slack thread. The copies drift, and now no one knows which is true.
+A timeout value, a decision, a status, copied into a README, a doc, a ticket, and a Slack thread. The copies drift, and now no one knows which is true.
 
 **The fix → `ssotize`:** find the scatter, name the canonical source, ask approval for the mutation plan, then consolidate and point the rest at it.
 
-> *Prior art: [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) — one fact, one authoritative home (Hunt & Thomas, The Pragmatic Programmer, 1999).*
+> *Prior art: [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself): one fact, one authoritative home (Hunt & Thomas, The Pragmatic Programmer, 1999).*
 
 <details>
 <summary><b>[PROOF]</b></summary>
@@ -300,7 +300,7 @@ A timeout value, a decision, a status — copied into a README, a doc, a ticket,
 ### #10 — A list's order stops meaning anything
 Items get appended where they were typed, not where they belong. Kin drift apart, the sequence follows no axis a reader can feel, and an order that was information now says nothing.
 
-**The fix → `re0-order`:** realign the listing under one nameable principle, moving items only — nothing reworded, added, or removed.
+**The fix → `re0-order`:** realign the listing under one nameable principle, moving items only, with nothing reworded, added, or removed.
 
 <details>
 <summary><b>[PROOF]</b></summary>
@@ -311,11 +311,11 @@ Items get appended where they were typed, not where they belong. Kin drift apart
 </details>
 
 ### #11 — Your gut isn't a source
-"Plausible," "absurd," "novel" — the least reliable line in any artifact. Human priors fail **both ways**: they exclude the real (desert frogs exist) and normalize the impossible (weightless crates).
+"Plausible," "absurd," "novel": the least reliable line in any artifact. Human priors fail **both ways**: they exclude the real (desert frogs exist) and normalize the impossible (weightless crates).
 
-**The fix → `factchk`:** verify any reality-grounded claim against external sources, in both directions, before it ships — and flag, don't guess, when you can't reach one.
+**The fix → `factchk`:** verify any reality-grounded claim against external sources, in both directions, before it ships, and flag rather than guess when you can't reach one.
 
-> *Prior art: [WEIRD bias](https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/abs/weirdest-people-in-the-world/BF84F7517D56AFF7B7EB58411A554C17) (Henrich, Heine & Norenzayan, 2010) and the [naive-physics / impetus error](https://www.science.org/doi/10.1126/science.210.4474.1139) (McCloskey, Caramazza & Green, 1980) — intuition misjudges reality in both directions.*
+> *Prior art: [WEIRD bias](https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/abs/weirdest-people-in-the-world/BF84F7517D56AFF7B7EB58411A554C17) (Henrich, Heine & Norenzayan, 2010) and the [naive-physics / impetus error](https://www.science.org/doi/10.1126/science.210.4474.1139) (McCloskey, Caramazza & Green, 1980): intuition misjudges reality in both directions.*
 
 <details>
 <summary><b>[PROOF]</b></summary>
@@ -326,11 +326,11 @@ Items get appended where they were typed, not where they belong. Kin drift apart
 </details>
 
 ### #12 — The eval confirms itself
-A model, a scorer, and a designer can all agree a result is real while no outside ground-truth ever entered the loop — a whole room confidently remembering something that never independently happened.
+A model, a scorer, and a designer can all agree a result is real while no outside ground-truth ever entered the loop: a whole room confidently remembering something that never independently happened.
 
-**The fix → `mandela`:** audit any eval, metric, or experiment against an 8-pattern leakage taxonomy — does external ground-truth enter independently, or is the verifier the designer?
+**The fix → `mandela`:** audit any eval, metric, or experiment against an 8-pattern leakage taxonomy. Does external ground-truth enter independently, or is the verifier the designer?
 
-> *Prior art: [Goodhart's law](https://en.wikipedia.org/wiki/Goodhart%27s_law), [data leakage](https://dl.acm.org/doi/10.1145/2382577.2382579) (Kaufman et al., 2012), and [circular analysis](https://www.nature.com/articles/nn.2303) — "double dipping" (Kriegeskorte et al., 2009).*
+> *Prior art: [Goodhart's law](https://en.wikipedia.org/wiki/Goodhart%27s_law), [data leakage](https://dl.acm.org/doi/10.1145/2382577.2382579) (Kaufman et al., 2012), and [circular analysis](https://www.nature.com/articles/nn.2303), or "double dipping" (Kriegeskorte et al., 2009).*
 
 <details>
 <summary><b>[PROOF]</b></summary>
@@ -341,11 +341,11 @@ A model, a scorer, and a designer can all agree a result is real while no outsid
 </details>
 
 ### #13 — "Remember to verify" never fires
-A guideline buried in docs won't trigger in a brand-new session — exactly when author bias is highest.
+A guideline buried in docs won't trigger in a brand-new session, exactly when author bias is highest.
 
 **The fix → `sip`:** the moment you finish something, it runs the clean checks (`shower`, `ssotize`, `re0`) on your output, the true ones (`factchk`, `mandela`) when there's a claim or an eval, and `detool` when the output claims to be portable.
 
-> *Prior art: [dogfooding](https://en.wikipedia.org/wiki/Eating_your_own_dog_food) — eat your own dog food (Microsoft, 1988). Taste your own cooking before you serve it.*
+> *Prior art: [dogfooding](https://en.wikipedia.org/wiki/Eating_your_own_dog_food): eat your own dog food (Microsoft, 1988). Taste your own cooking before you serve it.*
 
 <details>
 <summary><b>[PROOF]</b></summary>
@@ -356,9 +356,9 @@ A guideline buried in docs won't trigger in a brand-new session — exactly when
 </details>
 
 ### #14 — Your session doesn't travel; the git log does
-Your session is stuck where it ran — this agent, this account, this machine. A teammate or another agent can't load the context your work happened in.
+Your session is stuck where it ran: this agent, this account, this machine. A teammate or another agent can't load the context your work happened in.
 
-**The fix → `re0-git`:** clean a finished commit's message so `git log` — the one thing every environment shares — carries the handoff, and anyone picks up from the log alone.
+**The fix → `re0-git`:** clean a finished commit's message so `git log`, the one thing every environment shares, carries the handoff, and anyone picks up from the log alone.
 
 <details>
 <summary><b>[PROOF]</b></summary>
@@ -371,7 +371,7 @@ Your session is stuck where it ran — this agent, this account, this machine. A
 </details>
 
 ### #15 — Long cycles lose the build, and the builder
-Long agentic cycles produce many working parts — panels, routes, tests, screenshots — that prove activity more than value, and the sunk cost tempts you to carry the architecture forward. The same cycles coin vocabulary, rename files, and make calls faster than the human owner can follow, so even a correct next action arrives unreadable: phrased in words invented while they were away.
+Long agentic cycles produce many working parts (panels, routes, tests, screenshots) that prove activity more than value, and the sunk cost tempts you to carry the architecture forward. The same cycles coin vocabulary, rename files, and make calls faster than the human owner can follow, so even a correct next action arrives unreadable: phrased in words invented while they were away.
 
 **The fix → `re0-memo` + `re0-work` + `re0-loop` + `catchup` + `nba`:** extract the lesson, anti-pattern, and next gate; restart from a clean v0 when the foundation is wrong; run the build → QA → re0-memo → re0-work loop. When the owner's mental model has gone stale, `catchup` rebuilds it first from live state, not conversation memory: what needs them, what changed, what new words mean. Only then does `nba` read the live cycle and return the single next best action. Keep only what earned reuse.
 
@@ -385,7 +385,7 @@ Long agentic cycles produce many working parts — panels, routes, tests, screen
 
 ## Credits
 
-- **Built on** [mattpocock/skills](https://github.com/mattpocock/skills) (MIT) — its architecture and philosophy.
+- **Built on** [mattpocock/skills](https://github.com/mattpocock/skills) (MIT): its architecture and philosophy.
 - **Not a fork** — these are [LilMGenius](https://github.com/LilMGenius)'s own, non-overlapping workflows.
 - **Vendored verbatim** — a few shared building blocks, kept as-is with per-source attribution in [NOTICE](./NOTICE).
 - **Authoring guide** — conventions and philosophy live in [AGENTS.md](./AGENTS.md).

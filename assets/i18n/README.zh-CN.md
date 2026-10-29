@@ -60,7 +60,7 @@
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 把偶然绑定的工具名替换成它真正表达的机制 | 一个 durable artifact | 模型 | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | 把臃肿的文字或代码压缩到承重的密度；只删多余，绝不删规则或行为 | 一件产物，文字或代码 | 模型 | |
 | 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | 在一条明确的原则下，把漂移的列表重新排成合理顺序；只移动条目，不改动文字 | 一个列表 | 模型 | |
-| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | 移除 em dash 及其相似痕迹，并为每处选择真正需要的标点 | 你的文字 | 用户 | |
+| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | 移除句子里代替其他标点的 em dash 和 en dash，保留连字符、范围和标签分隔符 | 你的文字 | 用户 | |
 | ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | 对韩语中连接开放式列举的每个中点附上理由，在散文中建议改用逗号或连接词，在标签行中建议改用空格；保留三种允许的用法和受保护的语境 | 作者指定范围的韩语散文或标签行 | 用户 | ✔ |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 用全新、零上下文的眼睛冷读它，判断它能不能独自站住 | 一个 artifact | 模型 | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 双向对照 source 核验所主张的：荒谬的可能真实吗，显然的可能是假的吗？ | 一个 claim | 模型 | |

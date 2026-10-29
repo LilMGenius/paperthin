@@ -1,8 +1,13 @@
 'use strict';
-// Line rules over tracked text: no em-dash, one spelling of the skills CLI, generic examples in durable docs, backticked names that resolve, and the install command every README copies.
+// Line rules over tracked text: no em-dash, no in-sentence dash in the READMEs and brand surfaces, one spelling of the skills CLI, generic examples in durable docs, backticked names that resolve, and the install command every README copies.
+const path = require('node:path');
 const { listFiles, read, problem } = require('./repo.cjs');
+// dedash owns the one classifier of em and en dashes by slot; the gate loads it rather than keeping a second copy.
+const { findText, isProse } = require(path.join(__dirname, '..', '..', 'skills', 'depth', 'dedash', 'scripts', 'find.mjs'));
 
 const EM_DASH_SCOPE = ['skills', '.agents', 'AGENTS.md', 'scripts', '.github'];
+// Where a dash may stand as a label separator: only one inside a sentence fails.
+const SENTENCE_DASH_SCOPE = ['README.md', 'assets', 'package.json', '.claude-plugin'];
 const INSTALL_BLOCK = '.agents/install-block.md';
 
 // A real PR number, handle or SHA in a durable doc ages into residue a later reader takes for current fact; (#123, @handle) is the generic form.
@@ -24,6 +29,13 @@ function check(root) {
     read(root, file).split('\n').forEach((line, i) => {
       if (line.includes('\u2014')) problems.push(problem(file, i + 1, 'em-dash; rewrite the sentence with the punctuation it wants'));
     });
+  }
+  for (const file of listFiles(root, ...SENTENCE_DASH_SCOPE)) {
+    const text = read(root, file);
+    if (text.includes('\0')) continue;
+    for (const dash of findText(text, { prose: isProse(file) }).filter((d) => d.slot === 'sentence')) {
+      problems.push(problem(file, dash.line, 'in-sentence ' + dash.codepoint + ' at column ' + dash.column + '; rewrite it with the punctuation the sentence wants, keeping a dash only as a label separator'));
+    }
   }
   for (const file of listFiles(root, '*.md')) {
     read(root, file).split('\n').forEach((line, i) => {
