@@ -122,19 +122,45 @@ Agent को goal दें और वह **add** करता है: और fi
 - `readback` request को दोबारा restate करता है और तभी पूछता है जब असली fork बचता है।
 - `aim` handed-over data drop पढ़ता है और intent मांगने के बजाय confirm करने के लिए propose करता है।
 - `modelchk` काम शुरू होने से पहले सबसे सस्ता पर्याप्त tier और reasoning effort तय करता है।
+- `elon` केवल आदत से बचे requirements को हटाने का प्रस्ताव उनके source और evidence के साथ देता है, और किसी external mandate को कभी नहीं छूता।
+- `scopechk` किसी item को target के अपने लिखे scope से मिलाता है, इससे पहले कि वह गलत जगह पहुँच जाए।
+- `hate` नरमी से इनकार करता है और plan को मार सकने वाली एक आपत्ति सबसे सस्ते test के साथ लौटाता है।
 - `macrothink` fresh reads फैलाता है और convergence को proof मानने से पहले divergence report करता है।
+- `re0-decide` decision के लिए दिए गए material को एक जाँचने योग्य instrument में बदलता है, जिसका verdict निर्णयकर्ता के अपने जवाबों से निकलता है।
 - `feynman` अभी-अभी लिए गए decision को तब तक दबाता है जब तक आप उसे किसी skeptic को समझा न सकें, या जिस gap को आप नहीं समझा सकते उसे नाम देता है।
-- `prism` एक artifact को independent lenses में बाँटता है और वे जहाँ टकराते हैं वह लौटाता है, कभी उनका average नहीं।
 - `autobahn` unsafe scope upfront carve करता है, ताकि safe remainder पूरी speed से चले।
+- `re0-style` किसी change को codebase की अपनी conventions से मिलाता है और default रूप से कुछ edit नहीं करता।
 - `detool` portable content के incidental tool नामों को उनके असल mechanism से बदलता है।
-- `dedash` em-dash tell और उसके look-alikes तक हटाता है, एक-एक occurrence judge करके।
 - `debloat` bloated artifact को उसकी load-bearing density तक compress करता है, words काटता है पर कभी कोई rule नहीं।
-- `shower` वह काटता है जिसे कोई stranger follow नहीं कर सकता।
-- `ssotize` files में फैले facts को audit करता है, approval मांगता है, फिर उन्हें एक home में collapse करता है।
 - `re0-order` drifted listing को एक principle के तहत फिर align करता है, items हिलाता है और कुछ भी reword नहीं करता।
-- `sip` यह सब अपने output पर automatically चलाता है।
-- `re0-memo` / `re0-work` / `re0-loop` lesson बचाते हैं, गलत build को मरने देते हैं, और loop चलाए रखते हैं।
-- `catchup` / `nba` live state से इंसान का map फिर बनाते हैं, फिर एक ही अगला move लौटाते हैं।
+- `dedash` agent द्वारा वाक्यों के बीच डाले गए em dash और en dash हर occurrence को परखकर हटाता है, और label अलग करने वाले dash रहने देता है।
+- `dedot` कोरियाई में खुली enumeration जोड़ने वाले हर middle dot के लिए कारण सहित comma या connective सुझाता है।
+- `shower` वह काटता है जिसे कोई stranger follow नहीं कर सकता।
+- `factchk` दावों को दोनों दिशाओं में sources से जाँचता है, ताकि अंदाज़ा fact बनकर ship न हो।
+- `mandela` eval में leakage audit करता है, ताकि जिस result को किसी बाहरी सच ने पैदा नहीं किया वह असली न माना जाए।
+- `demock` असली code path पर बैठे mocks, stubs और silent fallbacks ढूँढता है और असली dependency या ईमानदार failure सुझाता है।
+- `sip` आपके अपने output पर `shower`, `ssotize` और `re0` चलाता है, और जहाँ लागू हों वहाँ `factchk`, `mandela` या `detool` भी।
+- `re0-git` finished commit का message हर date बनाए रखते हुए फिर से लिखता है, ताकि अकेला `git log` handoff कर दे।
+- `re0-squash` repository को उसी tree वाले एक signed commit के रूप में फिर publish करता है, कोई पुराना commit reachable नहीं छोड़ता।
+- `re0-release` कुछ भी tag और publish होने से पहले shipping checklist चलाता है।
+- `re0-merge` contribution को review करके author का credit बनाए रखते हुए land करता है।
+- `ssotize` files में फैले facts को audit करता है, approval मांगता है, फिर उन्हें एक home में collapse करता है।
+- `ssotize-local` duplicate files या trees को verified वापसी रास्ते के साथ एक filesystem identity में समेटता है।
+- `re0-readme` README और उसकी AGENTS.md की हर line को उस file में ले जाता है जिसके reader को उसकी ज़रूरत है।
+- `re0-import` handed-over material को उस knowledge base document में रखता है जिसका वह है, और जिसकी कोई जगह नहीं उसे report करता है।
+- `re0-upgrade` renamed skills को retire करता है और नए skills एक confirmed step में जोड़ता है।
+- `re0-plan` cycle के पहले turn से पहले उसकी design, workflow और evidence files खोलता है।
+- `re0-loop` build, QA, re0-memo और re0-work cycle को चलाता रहता है ताकि code की जगह learning जमा हो।
+- `re0-watch` लंबे चलने वाले job में stall पर नज़र रखता है और recovery सिर्फ़ उस proposal के रूप में देता है जिसे इंसान approve करे।
+- `re0-memo` finished या failed cycle से lessons और anti-patterns निकालता है।
+- `re0-flex` repository की history, sessions और rules एक बार पढ़कर procedure cards बनाता है, फिर सिर्फ़ बदलाव पढ़ता है।
+- `re0-work` v0 से फिर शुरू करता है और गलत build को मरने देता है, केवल reuse कमा चुके lessons रखता है।
+- `catchup` live state से इंसान का map फिर बनाता है: किसे उनकी ज़रूरत है, क्या बदला, नए शब्दों का क्या मतलब है।
+- `nba` live cycle पढ़कर सिर्फ़ एक अगली चाल लौटाता है, कभी menu नहीं।
+- `re0-workflow` एक घोषित intent के लिए skills का ordered graph सुझाता है, उन्हें invoke किए बिना।
+- `re0-tutorial` एक skill को तीन graded levels में सिखाता है जो learner की अपनी submission पर टिके हैं।
+- `prism` एक artifact को independent lenses में बाँटता है और वे जहाँ टकराते हैं वह लौटाता है, कभी उनका average नहीं।
+- `multithink` independent reads को cited evidence से वर्गीकृत करता है, गिनती से कभी नहीं।
 
 > [!TIP]
 > मुश्किल हिस्सा features add करना नहीं, restraint है। कोई pass अगर improve करने लायक कुछ नहीं पाता, तो कुछ नहीं बदलता। **वही restraint product है।**

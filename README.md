@@ -118,19 +118,45 @@ These skills bet the other way — **every one of them removes:**
 - `readback` restates the request and asks only when a real fork survives,
 - `aim` reads a handed-over data drop and proposes the intent to confirm, instead of asking for it,
 - `modelchk` sizes the cheapest sufficient capability tier and reasoning effort before the work starts,
+- `elon` proposes removing requirements kept only by inertia, with their source and evidence, and never touches an external mandate,
+- `scopechk` checks an item against a target's own written scope before it lands where it does not belong,
+- `hate` refuses to be nice and returns the one objection that could kill a plan, with the cheapest test,
 - `macrothink` fans out fresh reads and reports divergence before convergence reads as proof,
+- `re0-decide` turns material submitted for a decision into a checkable instrument whose verdict comes from the decider's own answers,
 - `feynman` presses a just-made decision until you can explain it to a skeptic, or names the gap you can't,
-- `prism` splits one artifact across independent lenses and returns where they clash, never their average,
 - `autobahn` carves unsafe scope out up front, so the safe remainder runs at full speed,
+- `re0-style` checks a change against the codebase's own conventions and defaults to zero edits,
 - `detool` strips incidental stack nouns from portable content, leaving the mechanism they meant,
-- `dedash` removes even the em-dash tell and its look-alikes, one judged occurrence at a time,
 - `debloat` compresses a bloated artifact to its load-bearing density, cutting words but never a rule,
-- `shower` cuts whatever a stranger can't follow,
-- `ssotize` audits scattered facts, asks approval, then folds them into one home,
 - `re0-order` realigns a drifted listing under one principle, moving items and rewording nothing,
-- `sip` runs all of it on your own output, automatically,
-- `re0-memo` / `re0-work` / `re0-loop` preserve the lesson, let the wrong build die, and keep the cycle running,
-- `catchup` / `nba` reload the human's map from live state, then return the one next move.
+- `dedash` removes the em and en dashes an agent drops into sentences, one judged occurrence at a time, and keeps the ones that separate a label,
+- `dedot` proposes a comma or connective, with a reason, for each middle dot joining an open enumeration in Korean,
+- `shower` cuts whatever a stranger can't follow,
+- `factchk` checks what's asserted against sources in both directions, so a gut call never ships as fact,
+- `mandela` audits an eval for leakage, so a result no outside truth produced is not taken as real,
+- `demock` finds mocks, stubs and silent fallbacks on the real code path and proposes the real dependency or an honest failure,
+- `sip` runs `shower`, `ssotize` and `re0` on your own output, with `factchk`, `mandela` or `detool` where they apply,
+- `re0-git` rewrites a finished commit's message with every date kept, so `git log` alone hands off,
+- `re0-squash` republishes a repository as one signed commit with the same tree, leaving no old commit reachable,
+- `re0-release` runs the shipping checklist before anything is tagged and published,
+- `re0-merge` reviews and lands a contribution with its author's credit kept,
+- `ssotize` audits scattered facts, asks approval, then folds them into one home,
+- `ssotize-local` folds duplicate files or trees into one filesystem identity with a verified way back,
+- `re0-readme` moves each line of a README and its AGENTS.md to the file whose reader needs it,
+- `re0-import` lands handed-over material in the knowledge-base document that owns it and reports what has no home,
+- `re0-upgrade` retires renamed skills and adds new ones in one confirmed step,
+- `re0-plan` opens a cycle's design, workflow and evidence files before its first turn,
+- `re0-loop` keeps the build, QA, re0-memo and re0-work cycle running so learning compounds instead of code,
+- `re0-watch` watches a long-running job for stalls and offers recovery only as a proposal a human approves,
+- `re0-memo` pulls the lessons and anti-patterns out of a finished or failed cycle,
+- `re0-flex` reads a repository's history, sessions and rules once into procedure cards, then only what changed,
+- `re0-work` restarts from v0 and lets the wrong build die, keeping only the lessons that earned reuse,
+- `catchup` rebuilds the human's map from live state: what needs them, what changed, what new words mean,
+- `nba` reads the live cycle and returns the one next move, never a menu,
+- `re0-workflow` recommends an ordered graph of skills for one stated intent without invoking them,
+- `re0-tutorial` teaches one skill in three graded levels that rest on the learner's own submission,
+- `prism` splits one artifact across independent lenses and returns where they clash, never their average,
+- `multithink` classes independent reads by cited evidence, never by count.
 
 > [!TIP]
 > The hard part isn't adding features — it's restraint. A pass that finds nothing to improve changes nothing. **That restraint is the product.**
@@ -317,7 +343,7 @@ A model, a scorer, and a designer can all agree a result is real while no outsid
 ### #13 — "Remember to verify" never fires
 A guideline buried in docs won't trigger in a brand-new session — exactly when author bias is highest.
 
-**The fix → `sip`:** the moment you finish something, it runs the clean checks (`shower`, `ssotize`, `re0`) and, when there's a claim or an eval, the true ones (`factchk`, `mandela`) on your output, automatically.
+**The fix → `sip`:** the moment you finish something, it runs the clean checks (`shower`, `ssotize`, `re0`) on your output, the true ones (`factchk`, `mandela`) when there's a claim or an eval, and `detool` when the output claims to be portable.
 
 > *Prior art: [dogfooding](https://en.wikipedia.org/wiki/Eating_your_own_dog_food) — eat your own dog food (Microsoft, 1988). Taste your own cooking before you serve it.*
 

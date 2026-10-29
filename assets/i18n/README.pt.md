@@ -122,19 +122,45 @@ Essas skills apostam no outro lado. **Cada uma remove algo:**
 - `readback` reformula o pedido e so pergunta quando sobrevive uma bifurcacao real.
 - `aim` le um data drop entregue e propoe a intencao a confirmar, em vez de pedi-la.
 - `modelchk` escolhe o tier mais barato suficiente e o esforco de raciocinio antes de o trabalho comecar.
+- `elon` propoe remover requisitos mantidos so pela inercia, com a fonte e a evidencia, e nunca toca uma exigencia externa.
+- `scopechk` confere um item contra o escopo que o proprio alvo deixa escrito, antes que ele caia onde nao pertence.
+- `hate` se recusa a ser gentil e devolve a unica objecao que poderia matar um plano, com o teste mais barato.
 - `macrothink` espalha leituras novas e reporta a divergencia antes que a convergencia pareca prova.
+- `re0-decide` transforma o material enviado para uma decisao em um instrumento verificavel cujo veredito vem das proprias respostas de quem decide.
 - `feynman` pressiona uma decisao recem-tomada ate voce conseguir explica-la a um cetico, ou nomeia a lacuna que voce nao consegue.
-- `prism` divide um artefato em lentes independentes e devolve onde elas colidem, nunca a media delas.
 - `autobahn` recorta o scope inseguro de antemao, para que o restante seguro rode em velocidade total.
+- `re0-style` confere uma mudanca contra as convencoes do proprio codebase e por padrao nao edita nada.
 - `detool` troca nomes de ferramentas incidentais em conteudo portavel pelo mecanismo que eles significam.
-- `dedash` remove ate o sinal do em dash e seus parecidos, uma ocorrencia julgada de cada vez.
 - `debloat` comprime um artefato inchado ate sua densidade essencial, cortando palavras mas nunca uma regra.
-- `shower` corta o que um estranho nao consegue acompanhar.
-- `ssotize` audita facts espalhados, pede aprovacao e entao os colapsa em um unico lar.
 - `re0-order` realinha uma listagem que derivou sob um unico principio, movendo itens e sem reescrever nada.
-- `sip` executa tudo isso automaticamente sobre o seu proprio output.
-- `re0-memo` / `re0-work` / `re0-loop` preservam a licao, deixam o build errado morrer e mantem o loop rodando.
-- `catchup` / `nba` reconstroem o mapa do humano a partir do estado ao vivo, e devolvem o unico proximo passo.
+- `dedash` remove os em dash e en dash que um agente enfia dentro das frases, uma ocorrencia julgada por vez, e mantem os que separam um rotulo.
+- `dedot` propoe uma virgula ou um conectivo, com o motivo, para cada ponto medio que une uma enumeracao aberta em coreano.
+- `shower` corta o que um estranho nao consegue acompanhar.
+- `factchk` confronta o que foi afirmado com fontes nas duas direcoes, para que um palpite nunca seja publicado como fato.
+- `mandela` audita um eval em busca de leakage, para que um resultado que nenhuma verdade externa produziu nao seja tomado como real.
+- `demock` encontra mocks, stubs e fallbacks silenciosos no caminho real do codigo e propoe a dependencia real ou uma falha honesta.
+- `sip` executa `shower`, `ssotize` e `re0` sobre o seu proprio output, e `factchk`, `mandela` ou `detool` onde se aplicam.
+- `re0-git` reescreve a mensagem de um commit concluido mantendo cada data, para que o `git log` sozinho faca a passagem.
+- `re0-squash` republica um repositorio como um unico commit assinado com a mesma arvore, sem deixar nenhum commit antigo alcancavel.
+- `re0-release` executa o checklist de shipping antes de qualquer tag ou publicacao.
+- `re0-merge` revisa e integra uma contribuicao mantendo o credito do autor.
+- `ssotize` audita facts espalhados, pede aprovacao e entao os colapsa em um unico lar.
+- `ssotize-local` colapsa arquivos ou arvores duplicados em uma unica identidade do sistema de arquivos, com um caminho de volta verificado.
+- `re0-readme` move cada linha de um README e do seu AGENTS.md para o arquivo cujo leitor precisa dela.
+- `re0-import` coloca o material entregue no documento da base de conhecimento que o possui e reporta o que nao tem lugar.
+- `re0-upgrade` aposenta os skills renomeados e adiciona os novos em um unico passo confirmado.
+- `re0-plan` abre os arquivos de design, workflow e evidence de um ciclo antes do primeiro turno.
+- `re0-loop` mantem o ciclo build, QA, re0-memo e re0-work rodando para que o aprendizado se acumule em vez do codigo.
+- `re0-watch` vigia um trabalho longo em busca de travamentos e oferece a recuperacao so como proposta que um humano aprova.
+- `re0-memo` extrai as licoes e anti-patterns de um ciclo concluido ou fracassado.
+- `re0-flex` le uma vez o historico, as sessoes e as regras de um repositorio em cartoes de procedimento, e depois so o que mudou.
+- `re0-work` recomeca da v0 e deixa o build errado morrer, mantendo so as licoes que conquistaram reuso.
+- `catchup` reconstroi o mapa do humano a partir do estado ao vivo: o que precisa dele, o que mudou, o que as palavras novas significam.
+- `nba` le o ciclo ao vivo e devolve a unica proxima jogada, nunca um menu.
+- `re0-workflow` recomenda um grafo ordenado de skills para uma intencao declarada sem invoca-los.
+- `re0-tutorial` ensina um skill em tres niveis avaliados que se apoiam na entrega do proprio aprendiz.
+- `prism` divide um artefato em lentes independentes e devolve onde elas colidem, nunca a media delas.
+- `multithink` classifica leituras independentes pela evidencia citada, nunca por contagem.
 
 > [!TIP]
 > A parte dificil nao e adicionar recursos; e contencao. Uma pass que nao encontra nada a melhorar nao muda nada. **Essa contencao e o produto.**

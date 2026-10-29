@@ -122,19 +122,45 @@ Diese Skills wetten in die andere Richtung. **Jeder einzelne entfernt etwas:**
 - `readback` formuliert die Anfrage neu und fragt nur, wenn eine echte Weiche übrig bleibt.
 - `aim` liest einen übergebenen Daten-Drop und schlägt die zu bestätigende Absicht vor, statt danach zu fragen.
 - `modelchk` bestimmt die billigste ausreichende Tier und den reasoning effort, bevor die Arbeit beginnt.
+- `elon` schlägt vor, Anforderungen zu streichen, die nur die Trägheit hält, mit Quelle und Beleg, und rührt nie eine externe Vorgabe an.
+- `scopechk` prüft ein Element gegen den Umfang, den das Ziel selbst schriftlich festhält, bevor es dort landet, wo es nicht hingehört.
+- `hate` weigert sich, nett zu sein, und liefert den einen Einwand, der einen Plan töten könnte, samt billigstem Test.
 - `macrothink` fächert frische Lesarten auf und meldet Divergenz, bevor Konvergenz wie ein Beweis aussieht.
+- `re0-decide` macht aus Material, das zur Entscheidung vorliegt, ein prüfbares Instrument, dessen Urteil aus den eigenen Antworten der Entscheidenden folgt.
 - `feynman` bohrt bei einer gerade getroffenen Entscheidung nach, bis du sie einem Skeptiker erklären kannst, oder benennt die Lücke, die du nicht erklären kannst.
-- `prism` teilt ein Artefakt auf unabhängige Linsen auf und gibt zurück, wo sie kollidieren, nie ihren Durchschnitt.
 - `autobahn` schneidet unsicheren Scope vorab heraus, damit der sichere Rest mit voller Geschwindigkeit läuft.
+- `re0-style` prüft eine Änderung gegen die eigenen Konventionen der Codebasis und ändert standardmäßig nichts.
 - `detool` ersetzt beiläufige Werkzeugnamen in portablen Inhalten durch den gemeinten Mechanismus.
-- `dedash` entfernt sogar den Gedankenstrich-Tell und seine Doppelgänger, Stelle für Stelle beurteilt.
 - `debloat` verdichtet ein aufgeblähtes Artefakt auf seine tragende Dichte, streicht Wörter, aber niemals eine Regel.
-- `shower` schneidet weg, was ein Fremder nicht verfolgen kann.
-- `ssotize` prüft verstreute Facts, fragt nach Freigabe und faltet sie dann an einem Ort zusammen.
 - `re0-order` richtet eine verdriftete Auflistung an einem Prinzip neu aus, verschiebt Einträge und formuliert nichts um.
-- `sip` führt all das automatisch auf deinem eigenen Output aus.
-- `re0-memo` / `re0-work` / `re0-loop` bewahren die Lektion, lassen den falschen Build sterben und halten die Schleife am Laufen.
-- `catchup` / `nba` bauen die Landkarte des Menschen aus dem Live-Zustand neu auf und geben dann den einen nächsten Zug zurück.
+- `dedash` entfernt die Gedankenstriche (em dash und en dash), die ein Agent in Sätze streut, jede Stelle einzeln abgewogen, und lässt die stehen, die ein Label abtrennen.
+- `dedot` schlägt für jeden Mittelpunkt, der im Koreanischen eine offene Aufzählung verbindet, ein Komma oder ein Bindewort mit Begründung vor.
+- `shower` schneidet weg, was ein Fremder nicht verfolgen kann.
+- `factchk` prüft Behauptungen in beide Richtungen gegen Quellen, damit kein Bauchgefühl als Fakt ausgeliefert wird.
+- `mandela` prüft ein Eval auf Leakage, damit kein Ergebnis, das keine äußere Wahrheit erzeugt hat, als echt gilt.
+- `demock` findet Mocks, Stubs und stille Fallbacks auf dem echten Codepfad und schlägt die echte Abhängigkeit oder ein ehrliches Scheitern vor.
+- `sip` führt `shower`, `ssotize` und `re0` auf deinem eigenen Output aus, dazu `factchk`, `mandela` oder `detool`, wo sie greifen.
+- `re0-git` schreibt die Message eines fertigen Commits neu und behält jedes Datum, damit `git log` allein die Übergabe trägt.
+- `re0-squash` veröffentlicht ein Repository als einen einzigen signierten Commit mit demselben Baum neu und lässt keinen alten Commit erreichbar.
+- `re0-release` arbeitet die Shipping-Checkliste ab, bevor etwas getaggt und veröffentlicht wird.
+- `re0-merge` reviewt und übernimmt einen Beitrag und behält die Nennung seines Autors.
+- `ssotize` prüft verstreute Facts, fragt nach Freigabe und faltet sie dann an einem Ort zusammen.
+- `ssotize-local` faltet doppelte Dateien oder Bäume zu einer einzigen Dateisystem-Identität mit geprüftem Rückweg.
+- `re0-readme` verschiebt jede Zeile einer README und ihrer AGENTS.md in die Datei, deren Leser sie braucht.
+- `re0-import` legt übergebenes Material in das Dokument der Wissensbasis, dem es gehört, und meldet, was keinen Platz hat.
+- `re0-upgrade` räumt umbenannte Skills ab und fügt neue in einem bestätigten Schritt hinzu.
+- `re0-plan` öffnet die Design-, Workflow- und Evidence-Dateien eines Zyklus vor seiner ersten Runde.
+- `re0-loop` hält den Zyklus aus Build, QA, re0-memo und re0-work am Laufen, damit sich Lernen statt Code anhäuft.
+- `re0-watch` überwacht einen lange laufenden Job auf Stillstand und bietet eine Wiederherstellung nur als Vorschlag an, den ein Mensch freigibt.
+- `re0-memo` zieht die Lektionen und Anti-Patterns aus einem abgeschlossenen oder gescheiterten Zyklus.
+- `re0-flex` liest Historie, Sessions und Regeln eines Repositorys einmal in Ablaufkarten ein und danach nur, was sich geändert hat.
+- `re0-work` startet neu ab v0, lässt den falschen Build sterben und behält nur die Lektionen, die sich ihre Wiederverwendung verdient haben.
+- `catchup` baut die Landkarte des Menschen aus dem Live-Zustand neu auf: was ihn braucht, was sich geändert hat, was neue Wörter bedeuten.
+- `nba` liest den laufenden Zyklus und gibt den einen nächsten Zug zurück, nie ein Menü.
+- `re0-workflow` empfiehlt für eine erklärte Absicht einen geordneten Graphen aus Skills, ohne sie aufzurufen.
+- `re0-tutorial` lehrt einen Skill in drei bewerteten Stufen, die auf der eigenen Abgabe des Lernenden beruhen.
+- `prism` teilt ein Artefakt auf unabhängige Linsen auf und gibt zurück, wo sie kollidieren, nie ihren Durchschnitt.
+- `multithink` ordnet unabhängige Lesarten nach zitierten Belegen, nie nach ihrer Anzahl.
 
 > [!TIP]
 > Das Schwere ist nicht, Features hinzuzufügen, sondern Zurückhaltung. Ein pass, der nichts zu verbessern findet, ändert nichts. **Diese Zurückhaltung ist das Produkt.**

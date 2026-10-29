@@ -7,11 +7,12 @@ const { execFileSync } = require('node:child_process');
 
 const INSTALL = "npx skills@latest add LilMGenius/paperthin --global --agent '*'";
 const skill = (name, description, extra = '') => '---\nname: ' + name + '\ndescription: "' + description + '"\n' + extra + '---\n\nOne line.\n\n## Goal\n\n## Workflow\n\n## Rules\n\n## Verification\n';
-const readme = (switcher, up, model, user) => [
+const readme = (switcher, up, model, user, problem) => [
   '# Paperthin', '', '<sub>Read in: ' + switcher + '</sub>', '', '## Quickstart', '', '\x60\x60\x60bash', INSTALL, '\x60\x60\x60', '', 'Then run \x60/re0-upgrade\x60.', '',
   '## The Index', '', '| Skill | What | Scope | Invoker | Read-only |', '|---|---|---|---|---|',
   '| **[foo](' + up + 'skills/depth/foo/SKILL.md)** | x | one | ' + model + ' | |',
   '| **[re0-upgrade](' + up + 'skills/breadth/re0-upgrade/SKILL.md)** | x | all | ' + user + ' | |', '',
+  ...problem, '', '- \x60foo\x60 removes one thing,', '- \x60re0-upgrade\x60 removes another.', '',
 ].join('\n');
 
 const BASE = {
@@ -21,11 +22,11 @@ const BASE = {
   'scripts/runtime/catalog.cjs': "module.exports = { CATALOG: ['foo', 're0-upgrade'] };\n",
   'skills/depth/foo/SKILL.md': skill('foo', 'Do foo. Use when foo is due.'),
   'skills/depth/foo/agents/openai.yaml': 'interface:\n  display_name: "foo"\n  short_description: "Do foo"\n',
-  'skills/breadth/re0-upgrade/SKILL.md': skill('re0-upgrade', 'Install the current catalog.', 'disable-model-invocation: true\n') + '\n## Current catalog\n\n\x60foo\x60, \x60re0-upgrade\x60\n',
+  'skills/breadth/re0-upgrade/SKILL.md': skill('re0-upgrade', 'Install the current catalog.', 'disable-model-invocation: true\n') + '\n## Deprecations\n\n| Deprecated | Renamed to | Since |\n| --- | --- | --- |\n| \x60bar\x60 | \x60foo\x60 | 0.1.0 |\n\n## Current catalog\n\n\x60foo\x60, \x60re0-upgrade\x60\n',
   'skills/breadth/re0-upgrade/agents/openai.yaml': 'interface:\n  display_name: "re0-upgrade"\n  short_description: "Install the catalog"\npolicy:\n  allow_implicit_invocation: false\n',
   '.agents/install-block.md': '<canonical-block name="install">\n\n\x60\x60\x60bash\n' + INSTALL + '\n\x60\x60\x60\n\n</canonical-block>\n',
-  'README.md': readme('English · [한국어](./assets/i18n/README.ko.md)', './', 'model', 'user'),
-  'assets/i18n/README.ko.md': readme('[English](../../README.md) · 한국어', '../../', '모델', '사용자'),
+  'README.md': readme('English · [한국어](./assets/i18n/README.ko.md)', './', 'model', 'user', ['## The Problem']),
+  'assets/i18n/README.ko.md': readme('[English](../../README.md) · 한국어', '../../', '모델', '사용자', ['<a id="the-problem"></a>', '## 문제']),
 };
 
 function fixture(t, files = {}) {
