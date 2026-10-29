@@ -32,53 +32,96 @@ function cli(cwd, ...args) {
   const run = spawnSync(process.execPath, [join(link, 'scripts', 'find.mjs'), ...args], { cwd, encoding: 'utf8' });
   return { status: run.status, stdout: run.stdout, stderr: run.stderr, json: () => JSON.parse(run.stdout) };
 }
-const spots = (run) => run.json().dashes.map((d) => d.file + ':' + d.line + ':' + d.column + ':' + d.codepoint);
+const slots = (run) => run.json().dashes.map((d) => d.line + ':' + d.column + ':' + d.codepoint + ':' + d.slot);
+const scan = (body, name = 'a.md') => cli(repo({ [name]: body }), name, '--json');
 
 test.after(() => {
   for (const dir of temps) rmSync(dir, { recursive: true, force: true });
 });
 
-test('an em dash in prose is found with its line, column and code point', () => {
-  const root = repo({ 'a.md': 'First line.\nIt works ' + EM + ' mostly.\n' });
-  const run = cli(root, 'a.md', '--json');
+test('an em dash inside a sentence is an in-sentence finding, and the same dash after a bold lead is a label', () => {
+  const run = scan('First line.\nIt works ' + EM + ' mostly.\n');
   assert.equal(run.status, 3);
-  assert.deepEqual(spots(run), ['a.md:2:10:U+2014']);
+  assert.deepEqual(slots(run), ['2:10:U+2014:sentence']);
   assert.equal(run.json().dashes[0].text, 'It works ' + EM + ' mostly.');
+  const lead = scan('- **Setup** ' + EM + ' we asked.\n');
+  assert.equal(lead.status, 0);
+  assert.deepEqual(slots(lead), ['1:13:U+2014:label']);
 });
 
-test('the horizontal bar and the two- and three-em dashes are found', () => {
-  const root = repo({ 'a.md': 'a\u2015b c\u2E3Ad e\u2E3Bf\n' });
-  assert.deepEqual(spots(cli(root, 'a.md', '--json')), ['a.md:1:2:U+2015', 'a.md:1:6:U+2E3A', 'a.md:1:10:U+2E3B']);
+test('an en dash standing in for an em dash is an in-sentence finding, and a spaced one between numbers is a range', () => {
+  const run = scan('The plan ' + EN + ' as written ' + EN + 'fails.\n');
+  assert.equal(run.status, 3);
+  assert.deepEqual(slots(run), ['1:10:U+2013:sentence', '1:23:U+2013:sentence']);
+  const range = scan('Pages 3 ' + EN + ' 5 apply.\n');
+  assert.equal(range.status, 0);
+  assert.deepEqual(slots(range), ['1:9:U+2013:range']);
 });
 
-test('an en dash between two words is found', () => {
-  const root = repo({ 'a.md': 'The plan ' + EN + ' as written ' + EN + 'fails.\n' });
-  assert.deepEqual(spots(cli(root, 'a.md', '--json')), ['a.md:1:10:U+2013', 'a.md:1:23:U+2013']);
-});
-
-test('an en dash in a number range is left alone', () => {
-  const root = repo({ 'a.md': 'Years 1990' + EN + '2020 and pages 3 ' + EN + ' 5 and 3' + EN + '5.\n' });
-  const run = cli(root, 'a.md');
-  assert.equal(run.status, 0);
-  assert.match(run.stdout, /^0 dash\(es\) in 1 file\(s\)/m);
-});
-
-test('dashes inside a code fence, inline code or a URL are left alone', () => {
+test('label slots: list and numbered leads, a table cell lead, a heading number and a name before its tagline', () => {
   const body = [
-    'Prose ' + TICK + 'a ' + EM + ' b' + TICK + ' and see https://example.com/a' + EM + 'b' + EN + 'c now.',
+    '3. **Stay current** ' + EM + ' run it.',
+    '| **Built on** ' + EM + ' its design |',
+    '### #1 ' + EM + ' Artifacts rot',
+    '<img alt="Paperthin ' + EM + ' Trust the artifact." src="x.svg">',
+    '<svg aria-label="Paperthin ' + EM + ' Trust the artifact.">',
+    '![Paperthin ' + EM + ' a tagline](x.svg)',
+    '',
+  ].join('\n');
+  const run = scan(body);
+  assert.equal(run.status, 0);
+  assert.deepEqual(run.json().dashes.map((d) => d.slot), ['label', 'label', 'label', 'label', 'label', 'label']);
+});
+
+test('the same dashes leave their label slot when the text before them is a sentence', () => {
+  const body = [
+    'It **adds** ' + EM + ' more files.',
+    '### #1 ' + EM + ' Artifacts rot ' + EM + ' slowly',
+    '<img alt="The map, drawn by hand ' + EM + ' four regions." src="x.svg">',
+    '',
+  ].join('\n');
+  assert.deepEqual(slots(scan(body)), ['1:13:U+2014:sentence', '2:8:U+2014:label', '2:24:U+2014:sentence', '3:34:U+2014:sentence']);
+});
+
+test('a hyphen is never a candidate, wherever it stands', () => {
+  const run = scan('- **Setup** - we asked.\nA plain - aside and a well-known compound.\n');
+  assert.equal(run.status, 0);
+  assert.deepEqual(run.json().dashes, []);
+  assert.match(cli(repo({ 'a.md': 'clean - text\n' }), 'a.md').stdout, /^0 dash\(es\) in 1 file\(s\): 0 sentence, 0 label, 0 range, 0 protected/m);
+  assert.equal(scan('A plain ' + EM + ' aside.\n').json().dashes.length, 1);
+});
+
+test('a range en dash stays: numbers with or without spaces and an unspaced word pair', () => {
+  const run = scan('Years 1990' + EN + '2000, pages 3 ' + EN + ' 5 and the London' + EN + 'Paris route.\n');
+  assert.equal(run.status, 0);
+  assert.deepEqual(run.json().dashes.map((d) => d.slot), ['range', 'range', 'range']);
+  assert.deepEqual(slots(scan('the London ' + EN + ' Paris route\n')), ['1:12:U+2013:sentence']);
+});
+
+test('code, URLs, other attributes and quotations in prose are protected, and a JSON string is prose to check', () => {
+  const body = [
+    'Prose ' + TICK + 'a ' + EM + ' b' + TICK + ' and https://example.com/a' + EM + 'b now.',
     TICK.repeat(3) + 'js',
     'const s = "x ' + EM + ' y";',
     TICK.repeat(3),
+    'He said "wait ' + EM + ' no" and <a href="x' + EM + 'y">left</a>.',
     'Outside ' + EM + ' fence.',
     '',
   ].join('\n');
-  const root = repo({ 'a.md': body });
-  assert.deepEqual(spots(cli(root, 'a.md', '--json')), ['a.md:5:9:U+2014']);
+  assert.deepEqual(scan(body).json().dashes.map((d) => d.line + ':' + d.slot), ['1:protected', '1:protected', '3:protected', '5:protected', '5:protected', '6:sentence']);
+  assert.deepEqual(slots(scan('{ "description": "on its own' + EM + 'on any agent." }\n', 'package.json')), ['1:29:U+2014:sentence']);
+});
+
+test('the per-slot counts sum to every dash found', () => {
+  const run = scan('- **A** ' + EM + ' x ' + EM + ' y, 1' + EN + '2, ' + TICK + EM + TICK + '\n');
+  const { counts, dashes } = run.json();
+  assert.deepEqual(counts, { sentence: 1, label: 1, range: 1, protected: 1 });
+  assert.equal(Object.values(counts).reduce((a, b) => a + b, 0), dashes.length);
 });
 
 test('a directory is walked and .git and node_modules are skipped', () => {
   const root = repo({ 'docs/a.md': 'x ' + EM + ' y\n', 'node_modules/p/b.md': 'x ' + EM + ' y\n', '.git/c.md': 'x ' + EM + ' y\n' });
-  assert.deepEqual(spots(cli(root, '.', '--json')), ['docs/a.md:1:3:U+2014']);
+  assert.deepEqual(cli(root, '.', '--json').json().dashes.map((d) => d.file + ':' + d.slot), ['docs/a.md:sentence']);
 });
 
 test('a bad flag, no path or a missing path is a usage error and exits 2', () => {
