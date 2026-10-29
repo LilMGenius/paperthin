@@ -21,7 +21,7 @@ Run the steps in this order.
 
 1. **Frame.** Write the thesis and the quality gates the lap will be judged against.
 2. **Build.** Build one complete vertical slice.
-3. **Drive.** Drive the slice through its real surface, picked by artifact: a browser for web apps, HTTP for API contracts, computer-use for desktop apps, and the CLI only for data-shaped artifacts. Capture what the drive shows as the lap's evidence.
+3. **Drive.** Drive the slice through its real surface, picked by artifact: a browser for web apps, HTTP for API contracts, desktop UI automation for desktop apps, and the CLI only for data-shaped artifacts. Capture what the drive shows as the lap's evidence.
 4. **Memo.** Call the Skill tool with "re0-memo" to extract lessons, anti-patterns, and next-cycle gates from the lap. The memo lands where that skill's own contract puts it.
 5. **Decide.** You decide whether the next pass iterates in place or restarts, and you state the choice as keep, iterate, or re0-work. For a restart, call the Skill tool with "re0-work". When that call, or the next move, is unclear, call the Skill tool with "nba", which reads cycle state and returns the single next action.
 6. **Kill the plan.** Attack the next plan before building it. Use the project's adversarial review skill. When that skill is user-invoked only, as `hate` is, the attack is the human's to fire: tell the human to run it, and never call it yourself.

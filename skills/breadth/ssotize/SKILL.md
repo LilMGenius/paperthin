@@ -37,7 +37,7 @@ The skill starts as a read-only audit that names the truth, finds every copy, ch
 - Keep contradictions apart from plain duplicates, and never silently decide which conflicting value is true.
 - Flag any detail found only in a non-canonical copy and fold it into the canonical home before cutting that copy.
 - Never consolidate across a trust or permission boundary (private to public, customer-facing to internal) without the user's explicit confirmation.
-- Edit safely: assert each replace target exists before touching it and report a MISS, never a silent no-op; edit unicode-safe (`PYTHONUTF8=1`); act per occurrence, never by blanket sweep; make structural code moves with language-aware tools or scripted AST or parser edits, never scripted text rewrites.
+- Edit safely: assert each replace target exists before touching it and report a MISS, never a silent no-op; read and write files as UTF-8 (`PYTHONUTF8=1` for Python); act per occurrence, never by blanket sweep; make structural code moves with language-aware tools or scripted AST or parser edits, never scripted text rewrites.
 - Be platform-aware: transclude where possible, otherwise link to a stable anchor the reader can follow. Where a platform cannot link back, prefer a reference over hard deletion.
 - When one project fact is split between a read-only audit artifact and a mutating artifact, and the audit has no independent durable use, treat that as SSOT scatter: propose folding the audit into the mutating artifact, and do it only after approval.
 

@@ -36,7 +36,7 @@ Correct, current work accumulates excess. Prose gathers qualifiers, repeated rul
 - Respect intended richness: prose that teaches or orients, such as a quickstart or worked example, earns its length. Cut bloat while preserving accessibility.
 - A pass that finds nothing genuinely bloated changes nothing.
 - Compress only inside the scope a human named: the artifact, section, file list, or diff they pointed at, or the scope a pipeline they invoked passes on. Never widen it or choose a target yourself; how tight to cut is the human's call, and a compress reflex that picks its own target over-compresses.
-- Edit safely: assert each target exists and report a MISS rather than a silent no-op; edit unicode-safe (`PYTHONUTF8=1`), replace per occurrence, and script large structural moves.
+- Edit safely: assert each target exists and report a MISS rather than a silent no-op; read and write files as UTF-8 (`PYTHONUTF8=1` for Python), replace per occurrence, and script large structural moves.
 
 ## Verification
 
