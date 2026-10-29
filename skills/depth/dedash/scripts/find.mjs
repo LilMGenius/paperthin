@@ -1,9 +1,12 @@
 #!/usr/bin/env node
-// List every dash dedash may need to replace: U+2014, U+2015, U+2E3A, U+2E3B, and a U+2013 standing between two words.
-// A hit is a lead for a reader, never a verdict: the skill judges its grammatical role and chooses the replacement.
-// Protected contexts (fenced code, inline code, URLs, a U+2013 between digits) are masked before matching, as the skill's LEAVE-ALONE step defines them.
+// List every em dash (U+2014 and its look-alikes U+2015, U+2E3A, U+2E3B) and en dash (U+2013) and label each one by the slot it sits in.
+// sentence: a dash inside running prose standing in for a comma, colon, parentheses or a sentence break, the only kind dedash replaces.
+// label: a typographic separator in a fixed slot (after a bold lead in a list item or table cell, after a heading's first segment, between a name and its tagline in alt, title or aria-label text).
+// range: an en dash between two numbers, or unspaced between two words (1990 to 2000 written with U+2013, or a London to Paris route).
+// protected: inside fenced or inline code, a URL, another HTML attribute value, or a double-quoted span in a prose file.
+// A hyphen (U+002D) is never a candidate. Every dash found is listed, so the per-slot counts sum to the total.
 // Usage: node find.mjs <paths...> [--json]
-// Exit codes: 0 no dash; 3 one or more dashes; 2 usage or an unreadable input.
+// Exit codes: 0 no in-sentence dash; 3 one or more in-sentence dashes; 2 usage or an unreadable input.
 import { existsSync, readFileSync, readdirSync, realpathSync, statSync } from 'node:fs';
 import { resolve, relative, isAbsolute, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -13,55 +16,105 @@ const USAGE = 'usage: node find.mjs <paths...> [--json]';
 
 export class InputError extends Error {}
 
+export const SLOTS = ['sentence', 'label', 'range', 'protected'];
 const SKIP_DIRS = new Set(['.git', 'node_modules']);
-const ALWAYS = new Set([0x2014, 0x2015, 0x2e3a, 0x2e3b]);
-const EN = 0x2013;
+const DASH = /[\u2013\u2014\u2015\u2E3A\u2E3B]/g;
+const HAS_DASH = /[\u2013\u2014\u2015\u2E3A\u2E3B]/;
+const EN = '\u2013';
 const FENCE = /^\s*(\x60{3,}|~{3,})/;
 const INLINE_CODE = /(\x60+)(?:(?!\1).)+?\1/g;
-const URL = /\b[a-z][a-z0-9+.-]*:\/\/\S+/gi;
+const URL = /\b[a-z][a-z0-9+.-]*:\/\/[^\s)"'>]+/gi;
+const ATTRIBUTE = /([A-Za-z][\w:-]*)\s*=\s*"([^"]*)"/g;
+const TEXT_ATTRIBUTES = new Set(['alt', 'title', 'aria-label']);
+const IMAGE_ALT = /!\[([^\]]*)\]/g;
+const QUOTED = /"[^"]*"|\u201C[^\u201D]*\u201D/g;
+const HEADING = /^\s{0,3}#{1,6}\s/;
+// A lead: optional blockquote and list or table-cell markers, then one bold term and nothing else before the dash.
+const LEAD = /^\s*(?:>\s*)*(?:\|(?:[^|]*\|)*\s*)?(?:(?:[-*+]|\d+[.)])\s+)?(?:\*\*[^*]+\*\*|__[^_]+__|<(b|strong)>.+?<\/\1>)\s*$/;
+// A name before a tagline: a few words with no sentence punctuation.
+const NAME = /^\s*[^.,;:!?]+?\s*$/;
 
-const mask = (text, re) => text.replace(re, (m) => ' '.repeat(m.length));
 const isDigit = (c) => c !== undefined && /\p{Nd}/u.test(c);
 const isWordChar = (c) => c !== undefined && /[\p{L}\p{N}]/u.test(c);
 
-// Returns the dash hits of one line whose inline code and URLs are already blanked out.
-function lineHits(raw, masked) {
-  const hits = [];
-  const chars = Array.from(masked);
-  const rawChars = Array.from(raw);
-  let offset = 0;
-  for (let i = 0; i < chars.length; i++) {
-    const cp = chars[i].codePointAt(0);
-    if (ALWAYS.has(cp)) hits.push(i);
-    else if (cp === EN) {
-      let l = i - 1;
-      let r = i + 1;
-      while (chars[l] === ' ' || chars[l] === '\t') l--;
-      while (chars[r] === ' ' || chars[r] === '\t') r++;
-      const rangeOfNumbers = isDigit(chars[l]) && isDigit(chars[r]);
-      if (!rangeOfNumbers && isWordChar(chars[l]) && isWordChar(chars[r])) hits.push(i);
-    }
+const spans = (line, re) => [...line.matchAll(re)].map((m) => ({ start: m.index, end: m.index + m[0].length }));
+const inside = (list, i) => list.find((s) => i >= s.start && i < s.end);
+
+// Labels each dash of one line outside a code fence. prose turns on quotation protection, which only a prose file has.
+export function classifyLine(line, { prose = true } = {}) {
+  const code = [...spans(line, INLINE_CODE), ...spans(line, URL)];
+  const attributes = [];
+  for (const m of line.matchAll(ATTRIBUTE)) {
+    const start = m.index + m[0].lastIndexOf('"' + m[2] + '"') + 1;
+    attributes.push({ start, end: start + m[2].length, text: TEXT_ATTRIBUTES.has(m[1].toLowerCase()) });
   }
-  return hits.map((i) => ({ column: i + 1 + offset, codepoint: 'U+' + rawChars[i].codePointAt(0).toString(16).toUpperCase().padStart(4, '0') }));
+  for (const m of line.matchAll(IMAGE_ALT)) attributes.push({ start: m.index + 2, end: m.index + 2 + m[1].length, text: true });
+  let blanked = line;
+  if (prose) {
+    for (const s of [...code, ...attributes]) blanked = blanked.slice(0, s.start) + ' '.repeat(s.end - s.start) + blanked.slice(s.end);
+  }
+  const quotes = prose ? spans(blanked, QUOTED).map((s) => ({ start: s.start + 1, end: s.end - 1 })) : [];
+  const dashes = [...line.matchAll(DASH)].map((m) => m.index);
+  const firstOutside = dashes.find((i) => !inside(code, i) && !inside(attributes, i));
+  return dashes.map((i) => {
+    const ch = line[i];
+    let slot;
+    const attribute = inside(attributes, i);
+    if (inside(code, i)) slot = 'protected';
+    else if (attribute && !attribute.text) slot = 'protected';
+    else if (attribute) {
+      const head = line.slice(attribute.start, i);
+      const first = !HAS_DASH.test(head);
+      slot = first && NAME.test(head) && head.trim().split(/\s+/).length <= 5 ? 'label' : rangeOrSentence(line, i, ch);
+    } else if (inside(quotes, i)) slot = 'protected';
+    else if (ch === EN && rangeOrSentence(line, i, ch) === 'range') slot = 'range';
+    else if (HEADING.test(line) && i === firstOutside) slot = 'label';
+    else if (LEAD.test(line.slice(0, i))) slot = 'label';
+    else slot = 'sentence';
+    return { index: i, column: Array.from(line.slice(0, i)).length + 1, codepoint: 'U+' + ch.codePointAt(0).toString(16).toUpperCase().padStart(4, '0'), slot };
+  });
 }
 
-export function findText(text) {
+function rangeOrSentence(line, i, ch) {
+  if (ch !== EN) return 'sentence';
+  let l = i - 1;
+  let r = i + 1;
+  while (line[l] === ' ' || line[l] === '\t') l--;
+  while (line[r] === ' ' || line[r] === '\t') r++;
+  if (isDigit(line[l]) && isDigit(line[r])) return 'range';
+  if (isWordChar(line[i - 1]) && isWordChar(line[i + 1])) return 'range';
+  return 'sentence';
+}
+
+export function findText(text, { prose = true } = {}) {
   const found = [];
   let fence = null;
   text.split(/\r?\n/).forEach((raw, index) => {
     const open = FENCE.exec(raw);
+    const fenced = () => {
+      for (const m of raw.matchAll(DASH)) found.push({ line: index + 1, column: Array.from(raw.slice(0, m.index)).length + 1, codepoint: 'U+' + m[0].codePointAt(0).toString(16).toUpperCase().padStart(4, '0'), slot: 'protected', text: raw });
+    };
     if (fence) {
+      fenced();
       if (open && open[1][0] === fence.char && open[1].length >= fence.length && raw.trim() === open[1]) fence = null;
       return;
     }
     if (open) {
       fence = { char: open[1][0], length: open[1].length };
+      fenced();
       return;
     }
-    const masked = mask(mask(raw, URL), INLINE_CODE);
-    for (const hit of lineHits(raw, masked)) found.push({ line: index + 1, ...hit, text: raw });
+    for (const { index: _i, ...hit } of classifyLine(raw, { prose })) found.push({ line: index + 1, ...hit, text: raw });
   });
   return found;
+}
+
+export const isProse = (file) => /\.(md|markdown|mdx|txt)$/i.test(file);
+
+export function count(dashes) {
+  const counts = Object.fromEntries(SLOTS.map((slot) => [slot, 0]));
+  for (const d of dashes) counts[d.slot]++;
+  return counts;
 }
 
 const toPosix = (path) => path.split(sep).join('/');
@@ -93,15 +146,16 @@ export function find(paths) {
       const buffer = readFileSync(file);
       if (buffer.includes(0)) continue;
       scanned++;
-      for (const hit of findText(buffer.toString('utf8'))) dashes.push({ file: display(file), ...hit });
+      for (const hit of findText(buffer.toString('utf8'), { prose: isProse(file) })) dashes.push({ file: display(file), ...hit });
     }
   }
-  return { scanned, dashes };
+  return { scanned, counts: count(dashes), dashes };
 }
 
 export function format(result) {
-  const out = result.dashes.map((d) => d.file + ':' + d.line + ':' + d.column + '  ' + d.codepoint + '  ' + d.text.trim());
-  out.push(result.dashes.length + ' dash(es) in ' + result.scanned + ' file(s)');
+  const out = result.dashes.map((d) => d.file + ':' + d.line + ':' + d.column + '  ' + d.codepoint + '  ' + d.slot + '  ' + d.text.trim());
+  const c = result.counts;
+  out.push(result.dashes.length + ' dash(es) in ' + result.scanned + ' file(s): ' + c.sentence + ' sentence, ' + c.label + ' label, ' + c.range + ' range, ' + c.protected + ' protected');
   return out.join('\n');
 }
 
@@ -136,7 +190,7 @@ export function main(argv) {
     throw error;
   }
   console.log(values.json ? JSON.stringify(result) : format(result));
-  return result.dashes.length ? 3 : 0;
+  return result.counts.sentence ? 3 : 0;
 }
 
 // An installed skill is often a link to its source folder; Node resolves import.meta.url through the link while argv keeps
