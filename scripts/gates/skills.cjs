@@ -93,16 +93,36 @@ function checkSkill(root, file, problems) {
   return { name, userInvoked, lines };
 }
 
-// A user-invoked skill is out of every skill's reach, so no Skill tool call may name one.
-function checkCalls(skill, file, invocation, problems) {
+// A user-invoked skill is out of every skill's reach, so no Skill tool call may name one. Each call that may stand becomes an edge for the cycle check.
+function checkCalls(skill, file, invocation, problems, edges) {
   skill.lines.forEach((line, i) => {
     for (const call of line.matchAll(/Call the Skill tool\b[^.]*/g)) {
       for (const [, target] of call[0].matchAll(/"([a-z0-9-]+)"/g)) {
         if (!invocation.has(target)) problems.push(problem(file, i + 1, 'calls the Skill tool with "' + target + '", which is not a shipped skill'));
         else if (invocation.get(target)) problems.push(problem(file, i + 1, 'calls the Skill tool with "' + target + '", which is user-invoked; tell the human to run /' + target + ' instead'));
+        else edges.push({ from: skill.name, to: target, file, line: i + 1 });
       }
     }
   });
+}
+
+// A skill whose procedure calls another, directly or through others, must never be called back by it: walk the calls depth-first in file order and fail each call that closes a cycle, once.
+function checkCycles(skills, edges, problems) {
+  const calls = new Map();
+  for (const edge of edges) calls.set(edge.from, [...(calls.get(edge.from) || []), edge]);
+  const done = new Set();
+  const path = [];
+  const visit = (name) => {
+    path.push(name);
+    for (const edge of calls.get(name) || []) {
+      const open = path.indexOf(edge.to);
+      if (open >= 0) problems.push(problem(edge.file, edge.line, 'calls the Skill tool with "' + edge.to + '", which closes the cycle ' + [...path.slice(open), edge.to].join(' -> ') + '; a skill never depends on one that depends on it'));
+      else if (!done.has(edge.to)) visit(edge.to);
+    }
+    path.pop();
+    done.add(name);
+  };
+  for (const skill of skills) if (!done.has(skill.name)) visit(skill.name);
 }
 
 function check(root) {
@@ -114,7 +134,9 @@ function check(root) {
     if (skill) skills.set(file, skill);
   }
   const invocation = new Map([...skills.values()].map((skill) => [skill.name, skill.userInvoked]));
-  for (const [file, skill] of skills) checkCalls(skill, file, invocation, problems);
+  const edges = [];
+  for (const [file, skill] of skills) checkCalls(skill, file, invocation, problems, edges);
+  checkCycles(skills.values(), edges, problems);
 
   for (const script of listFiles(root, 'skills').filter((file) => /\/scripts\/.+\.(c|m)?js$/.test(file))) {
     const run = spawnSync(process.execPath, ['--check', script], { cwd: root, encoding: 'utf8' });

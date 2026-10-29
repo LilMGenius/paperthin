@@ -6,9 +6,17 @@ const os = require('node:os');
 const path = require('node:path');
 const { test } = require('node:test');
 const { check } = require('./skills.cjs');
-const { fixture, edit, messages, skill } = require('./fixture.cjs');
+const { fixture, edit, messages, skill, BASE } = require('./fixture.cjs');
 
 const run = (t, files) => messages(check(fixture(t, files)));
+// A second model-invoked skill, so one skill can call another without calling itself.
+const BAR = {
+  'skills/depth/bar/SKILL.md': skill('bar', 'Do bar. Use when bar is due.'),
+  'skills/depth/bar/agents/openai.yaml': 'interface:\n  display_name: "bar"\n  short_description: "Do bar"\n',
+};
+const calling = (rel, files, name) => ({ ...files, [rel]: files[rel].replace('## Workflow\n', '## Workflow\n\n1. Call the Skill tool with "' + name + '".\n') });
+const fooCalls = (name) => calling('skills/depth/foo/SKILL.md', BASE, name);
+const barCalls = (name) => calling('skills/depth/bar/SKILL.md', BAR, name);
 
 test('a valid catalog passes', (t) => {
   assert.deepEqual(run(t), []);
@@ -38,9 +46,13 @@ test('a user-invoked description with "Use when" triggers fails', (t) => {
 });
 
 test('a Skill tool call naming a user-invoked skill fails, and one naming a model-invoked skill passes', (t) => {
-  const call = (name) => edit('skills/depth/foo/SKILL.md', (text) => text.replace('## Workflow\n', '## Workflow\n\n1. Call the Skill tool with "' + name + '".\n'));
-  assert.match(run(t, call('re0-upgrade')).join(), /SKILL\.md:\d+: calls the Skill tool with "re0-upgrade", which is user-invoked/);
-  assert.deepEqual(run(t, call('foo')), []);
+  assert.match(run(t, fooCalls('re0-upgrade')).join(), /SKILL\.md:\d+: calls the Skill tool with "re0-upgrade", which is user-invoked/);
+  assert.deepEqual(run(t, { ...fooCalls('bar'), ...BAR }), []);
+});
+
+test('a cycle of Skill tool calls fails once, at the call that closes it', (t) => {
+  assert.deepEqual(run(t, { ...fooCalls('bar'), ...barCalls('foo') }), ['skills/depth/foo/SKILL.md:12: calls the Skill tool with "bar", which closes the cycle bar -> foo -> bar; a skill never depends on one that depends on it']);
+  assert.deepEqual(run(t, fooCalls('foo')), ['skills/depth/foo/SKILL.md:12: calls the Skill tool with "foo", which closes the cycle foo -> foo; a skill never depends on one that depends on it']);
 });
 
 test('a ../ link out of a skill fails', (t) => {
