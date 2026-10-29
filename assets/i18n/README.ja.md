@@ -60,7 +60,7 @@
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 紛れた incidental な stack 名を、意図した mechanism に置き換える | durable artifact 一つ | モデル | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | 肥大化した文章やコードを、意味と振る舞いを支える密度まで圧縮する。余分を削るだけで、rule や振る舞いは決して削らない | artifact 一つ、文章かコード | モデル | |
 | 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | 一つの原則のもとで、drift した listing を論理的な順序に整え直す。項目を動かすだけで、文言は変えない | listing 一つ | モデル | |
-| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | em dash とその類似物を取り除き、各場所に必要な句読点を選ぶ | 自分の文章 | ユーザー | |
+| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | 文の中で他の句読点の代わりに使われた em dash と en dash を取り除き、ハイフン、範囲、ラベルの区切りは残す | 自分の文章 | ユーザー | |
 | ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | 韓国語で開かれた列挙をつなぐ中点ごとに、理由を添えて、文章ならコンマか接続語、ラベル行なら空白を提案する。認められた3つの用法と保護対象の文脈はそのまま残す | 書き手が範囲を指定した韓国語の文章やラベル行 | ユーザー | ✔ |
 | 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 新鮮でゼロコンテキストの目で冷たく読む。これ単体で成立するか？ | artifact 一つ | モデル | ✔ |
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 主張されたことを source に両方向で照合する。ばかげたことが本当で、当然に見えることが偽かもしれないか？ | claim 一つ | モデル | |

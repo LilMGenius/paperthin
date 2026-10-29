@@ -10,6 +10,10 @@ function gate(t, files) {
   const root = fixture(t, files);
   fs.mkdirSync(path.join(root, 'scripts', 'gates'), { recursive: true });
   for (const name of fs.readdirSync(__dirname).filter((name) => !name.endsWith('.test.cjs'))) fs.copyFileSync(path.join(__dirname, name), path.join(root, 'scripts', 'gates', name));
+  // The prose gate classifies dashes with dedash's own script, so the copy carries it.
+  const classifier = path.join('skills', 'depth', 'dedash', 'scripts', 'find.mjs');
+  fs.mkdirSync(path.dirname(path.join(root, classifier)), { recursive: true });
+  fs.copyFileSync(path.join(__dirname, '..', '..', classifier), path.join(root, classifier));
   return spawnSync(process.execPath, ['scripts/gates/check.cjs'], { cwd: root, encoding: 'utf8', env: { ...process.env, GITHUB_ACTIONS: '' } });
 }
 
