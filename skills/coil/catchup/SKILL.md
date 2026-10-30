@@ -17,8 +17,9 @@ Brief the human in plain language from live project state.
    - **Needs you**: decisions, judgments, or inputs only the human can give, each actionable without opening another file.
    - **Changed while you were away**: outcomes, not process. "The plan's scoring rule was replaced" beats "I ran three analysis passes."
    - **New words**: every term coined or repurposed since their last touch, one line each, with where it lives. Skip terms they already used themselves.
-4. Explain each project-specific term in plain language inline on first use, even if a glossary follows.
-5. Keep the default to a screen or less. End with offers to expand each section rather than expanding everything.
+4. Explain each project-specific term in plain language inline on first use, even if a glossary follows. Name a thing by what it is: a label coined only inside the run (a branch nickname, a phase or criterion id) is replaced by what it stands for, or marked unknown when no artifact says, and a decision names where each option lands, the file or system it would change or that it changes nothing.
+5. Open any item about work the human did not ask for with how it came up: the step that found it, what was found, and why it reaches past what they asked. Without that, the item reads as invented scope.
+6. Keep the default to a screen or less. End with offers to expand each section rather than expanding everything.
 
 ## Rules
 
