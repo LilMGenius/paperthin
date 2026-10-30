@@ -20,6 +20,7 @@ The author's judgment of what is plausible, absurd, or novel is the least reliab
 
 - Target claims asserted **as reality-grounded**, never deliberate fiction ("in our world, boxes float" is a declared choice). If it is unclear whether a claim is an in-world choice or a real-world assertion, **flag, don't fix**.
 - Flagging only the unrealistic catches half the errors.
+- A claim about a person (a title, a past role, a school, an age) is read from that person's own profile or record, and where the source allows two values the artifact states the one that cannot overstate, such as the younger age when a birthday is unknown.
 - **Metacognitive doubt** triggers the check. You cannot know every domain; when you are about to assert a checkable fact from a feeling, verify it.
 - A pass that finds nothing changes nothing.
 
