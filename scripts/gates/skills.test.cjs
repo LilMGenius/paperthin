@@ -62,6 +62,13 @@ test('a ../ link out of a skill fails', (t) => {
 test('a bundled script that does not parse fails', (t) => {
   assert.match(run(t, { 'skills/depth/foo/scripts/x.mjs': 'export const = 1;\n' }).join(), /scripts\/x\.mjs: does not parse/);
 });
+
+test('a script entry check comparing argv as typed fails, and one comparing real paths passes', (t) => {
+  const typed = "import { fileURLToPath } from 'node:url';\nconst main = () => 0;\nif (process.argv[1] === fileURLToPath(import.meta.url)) main();\n";
+  const real = "import { realpathSync } from 'node:fs';\nimport { fileURLToPath } from 'node:url';\nconst main = () => 0;\nif (process.argv[1] && realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url))) main();\n";
+  assert.match(run(t, { 'skills/depth/foo/scripts/x.mjs': typed }).join(), /scripts\/x\.mjs:3: .*realpathSync/);
+  assert.deepEqual(run(t, { 'skills/depth/foo/scripts/x.mjs': real }), []);
+});
 // The Codex rules in skills.cjs were ported from this file; a different installed copy means the host changed them, so re-read it, port the change, then move the pin.
 const QUICK_VALIDATE = path.join(os.homedir(), '.codex', 'skills', '.system', 'skill-creator', 'scripts', 'quick_validate.py');
 const QUICK_VALIDATE_SHA256 = '6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806';

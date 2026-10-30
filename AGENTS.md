@@ -60,6 +60,8 @@ description: "<trigger-rich one-liner>"
 
 *(checked: the frontmatter parses as YAML 1.1 and 1.2, so quote every description; `name` matches the directory; the four sections exist; and the frontmatter passes the rules of Codex's `quick_validate.py`)*
 
+A bundled script under `scripts/` runs from wherever its skill is linked (an `.agents/skills` folder, a junction in a home directory), while Node loads a module from its real path, so an entry check compares `realpathSync(process.argv[1])` with the real path of `import.meta.url`; compared as typed, a call through the link exits 0 having done nothing. *(checked)* Its tests call the CLI through a junction or symlink to the skill folder.
+
 ## Invocation
 
 Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `policy.allow_implicit_invocation: false` in `agents/openai.yaml`, reachable only by the human) or model-invoked (model- or user-reachable). Default to model-invoked; make a skill user-invoked only when the model should never reach it on its own, because its trigger is a deliberate human action (commit, push, publish, deploy) or its mere presence in reach would bias the agent. Each user-invoked skill states its reason in its own body. *(checked: the two flags pair, a user-invoked description drops its "Use when" triggers, and no Skill tool call names a user-invoked skill)* The description conventions, the Codex pairing, and how one skill calls another live in [.agents/invocation.md](./.agents/invocation.md).
