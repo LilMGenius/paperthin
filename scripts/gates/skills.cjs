@@ -141,6 +141,10 @@ function check(root) {
   for (const script of listFiles(root, 'skills').filter((file) => /\/scripts\/.+\.(c|m)?js$/.test(file))) {
     const run = spawnSync(process.execPath, ['--check', script], { cwd: root, encoding: 'utf8' });
     if (run.status !== 0) problems.push(problem(script, 0, 'does not parse: ' + (run.stderr.split('\n').find((line) => /Error/.test(line)) || 'node --check failed')));
+    // A skill runs through a link (.agents/skills, a junction), where argv keeps the link path while import.meta.url names the real file.
+    const lines = read(root, script).split('\n');
+    const entry = lines.findIndex((line) => line.includes('process.argv[1]') && line.includes('import.meta.url'));
+    if (entry >= 0 && !lines[entry].includes('realpathSync(process.argv[1])')) problems.push(problem(script, entry + 1, 'its entry check compares process.argv[1] with import.meta.url as typed; compare realpathSync of both, or the script does nothing when run through a link'));
   }
   return problems;
 }
