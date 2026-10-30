@@ -17,7 +17,7 @@ The skill starts as a read-only audit that names the truth, finds every copy, ch
 2. **Audit read-only.** List every occurrence across the given artifacts and platforms. For the candidate occurrences that are files, run `node scripts/snapshot-candidates.mjs [--json] <path>...` from this skill's folder: it prints path, mtime, size and sha256 per file (directories walked) as a Markdown table, or JSON with `--json`, and exits 2 on a usage error or an unreadable path. Report that table.
 3. **Enumerate again by a second method** (another search term, a synonym, or another tool) and confirm it finds nothing the first pass missed.
 4. **Classify** each occurrence by kind: exact copy, paraphrase, partial, stale, contradictory.
-5. **Choose the canonical home**: the most authoritative and most maintained location, closest to where the fact changes. Never promote a weak copy for convenience; when no location qualifies, extract a new canonical home.
+5. **Choose the canonical home**: the most authoritative and most maintained location, closest to where the fact changes. Never promote a weak copy for convenience; when no location qualifies, extract a new canonical home. A figure another system already answers (a count, a release, a price, a date) has that system as its home: every occurrence becomes a read from it when the artifact is built or served, and where the system cannot answer, the sentence is hidden rather than filled from memory, since a typed copy starts going stale the day it ships.
 6. **Choose an action** for each non-canonical occurrence:
    - **dedupe**: a redundant copy.
    - **reference**: docs link to the canonical home, code imports, sources, or includes it, and config reads a shared file.
