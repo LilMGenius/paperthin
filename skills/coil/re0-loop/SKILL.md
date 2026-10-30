@@ -34,6 +34,7 @@ Run the steps in this order.
 - Generated variety is not structural variety: if many outputs converge on one shape, the cycle failed the variety gate.
 - Preserve negative corpus so later cycles can prove an anti-pattern is gone.
 - Let code die: a restart that keeps the right lessons counts as progress.
+- A request the human makes while a lap runs goes onto the live plan the moment it arrives, beside earlier ones rather than over them, and leaves it only when it is done or the human drops it. A summary written when the context is compacted or handed to a new session lists every request still open, started or not, because a request held only in the conversation is lost with it.
 - Outside truth is evidence the lap did not produce about itself: a real-surface drive, a user's reaction, data from outside the build. A lap with none stops; add such evidence before running another pass rather than looping on itself.
 - Through the Skill tool, call only the model-invoked "re0-memo", "re0-work", and "nba". Route the plan attack to the project's adversarial skill, or to the human when that skill is user-invoked; never call a user-invoked skill.
 
