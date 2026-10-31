@@ -66,6 +66,7 @@
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 主張されたことを source に両方向で照合する。ばかげたことが本当で、当然に見えることが偽かもしれないか？ | claim 一つ | モデル | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | leakage を監査する。外部 ground truth は実際に入っているか？ | eval 一つ | モデル | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | 実際のコード経路にある mock、stub、fake、黙った fallback を見つける。そこでは何も実際に動いていないので成功の報告が偽になる。本物の依存か正直な失敗を提案する | 指定したファイル、ディレクトリ、diff | モデル | |
+| 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | 共有リポジトリや成果物に漏れた、ひとりの持ち主の個人情報や事業情報を見つけ、各ヒットをそれが担う役割に置き換え、まだそれを抱えているコミットを一覧にする | 指定した成果物ひとつと持ち主ひとり | モデル | |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 変更後、自分の output を repo 自身の clean-and-true checks で味見する | 自分の output | モデル | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 完了した commit message を日付も位置も変えずに書き直し、遅れた commit は一本道の履歴のその時刻に差し込んで、`git log` だけで引き継げるようにする | commit 一つ | ユーザー | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | GitHub リポジトリを同じツリーの署名付き commit 一つとして公開し直す: force push では古い commit に到達できてしまうため、remote を削除して作り直す | リポジトリ一つ | ユーザー | |
@@ -137,6 +138,7 @@ agent に目標を渡すと、agent は**足します**。ファイルを増や�
 - `factchk` は主張を source と両方向で照合し、直感が事実として出荷されないようにします。
 - `mandela` は eval の leakage を監査し、外部の真実が生んでいない結果を本物と見なさないようにします。
 - `demock` は実際のコード経路にある mock、stub、黙った fallback を見つけ、本物の依存か正直な失敗を提案します。
+- `deid` は共有された成果物にある持ち主ひとりのデータを見つけ、それが担う役割に置き換え、履歴でまだそれを抱えているコミットを一覧にします。
 - `sip` は自分の output に `shower`、`ssotize`、`re0` を実行し、当てはまるときは `factchk`、`mandela`、`detool` も実行します。
 - `re0-git` は完了した commit message を日付を変えずに書き直し、`git log` だけで引き継げるようにします。
 - `re0-squash` はリポジトリを同じツリーの署名付き commit 一つとして公開し直し、古い commit に到達できる状態を残しません。

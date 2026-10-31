@@ -32,6 +32,7 @@
     "./skills/depth/factchk",
     "./skills/depth/mandela",
     "./skills/depth/demock",
+    "./skills/depth/deid",
     "./skills/depth/sip",
     "./skills/depth/re0-git",
     "./skills/depth/re0-squash",

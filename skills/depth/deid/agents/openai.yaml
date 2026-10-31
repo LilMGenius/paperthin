@@ -1,0 +1,4 @@
+interface:
+  display_name: "deid"
+  short_description: "Find and replace one owner's data in a shared repo"
+  default_prompt: "Use $deid to find and replace my data in this repository."
