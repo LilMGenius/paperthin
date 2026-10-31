@@ -29,12 +29,13 @@ This section owns every rename and retirement, in release order; a future one ap
 | `ppt-release` | `re0-release` | 0.11.0 |
 | `readchk` | `readback` | 1.0.0 |
 | `reorder` | `re0-order` | 1.0.0 |
+| `prism` | retired | 1.0.0 |
 
 ## Current catalog
 
 Install every skill listed here in the chosen scope, except any the user declines at confirmation. This roster is also how the list output and the installed directories tell current names from unknown ones.
 
-`re0`, `readback`, `aim`, `modelchk`, `elon`, `scopechk`, `hate`, `macrothink`, `re0-decide`, `feynman`, `autobahn`, `re0-style`, `detool`, `debloat`, `re0-order`, `dedash`, `dedot`, `shower`, `factchk`, `mandela`, `demock`, `sip`, `re0-git`, `re0-squash`, `re0-release`, `re0-merge`, `ssotize`, `ssotize-local`, `re0-readme`, `re0-import`, `re0-upgrade`, `re0-plan`, `re0-loop`, `re0-watch`, `re0-memo`, `re0-work`, `catchup`, `nba`, `re0-workflow`, `re0-tutorial`, `prism`, `multithink`
+`re0`, `readback`, `aim`, `modelchk`, `elon`, `scopechk`, `hate`, `macrothink`, `re0-decide`, `feynman`, `autobahn`, `re0-style`, `detool`, `debloat`, `re0-order`, `dedash`, `dedot`, `shower`, `factchk`, `mandela`, `demock`, `sip`, `re0-git`, `re0-squash`, `re0-release`, `re0-merge`, `ssotize`, `ssotize-local`, `re0-readme`, `re0-import`, `re0-upgrade`, `re0-plan`, `re0-loop`, `re0-watch`, `re0-memo`, `re0-work`, `catchup`, `nba`, `re0-workflow`, `re0-tutorial`, `multithink`
 
 ## Workflow
 

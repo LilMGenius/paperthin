@@ -100,7 +100,6 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 
 | Skill | Was er tut | Scope | Invoker | Nur Lesen |
 |---|---|---|---|---|
-| 🔺 **[prism](../../skills/mesh/prism/SKILL.md)** | Teilt ein Artifact auf unabhängige Blickwinkel auf und gibt zurück, wo sie kollidieren und welche Frage das auflöst | ein Artifact | Nutzer | ✔ |
 | 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | Führt bereits gesammelte unabhängige Lesarten zu Befunden zusammen, die nach zitierten Belegen klassifiziert werden, nie nach ihrer Anzahl; eine optionale Austauschrunde gibt nur strittige Belegstellen weiter und hält jede durch Belege bewirkte Revision fest. | viele Lesarten eines Artifacts oder einer Frage | Nutzer | ✔ |
 
 *Mehr zur Invocation: [.agents/invocation.md](../../.agents/invocation.md).*
@@ -157,7 +156,6 @@ Diese Skills wetten in die andere Richtung. **Jeder einzelne entfernt etwas:**
 - `nba` liest den laufenden Zyklus und gibt den einen nächsten Zug zurück, nie ein Menü.
 - `re0-workflow` empfiehlt für eine erklärte Absicht einen geordneten Graphen aus Skills, ohne sie aufzurufen.
 - `re0-tutorial` lehrt einen Skill in drei bewerteten Stufen, die auf der eigenen Abgabe des Lernenden beruhen.
-- `prism` teilt ein Artefakt auf unabhängige Linsen auf und gibt zurück, wo sie kollidieren, nie ihren Durchschnitt.
 - `multithink` ordnet unabhängige Lesarten nach zitierten Belegen, nie nach ihrer Anzahl.
 
 > [!TIP]
