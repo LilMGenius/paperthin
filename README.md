@@ -97,7 +97,6 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 
 | Skill | What it does | Scope | Invoker | Read-only |
 |---|---|---|---|---|
-| 🔺 **[prism](./skills/mesh/prism/SKILL.md)** | Split one artifact across independent lenses; return where they clash and the question that resolves it | one artifact | user | ✔ |
 | 🕸️ **[multithink](./skills/mesh/multithink/SKILL.md)** | Adjudicate already-collected independent reads into findings classified by cited evidence, never by count; one optional exchange circulates only disputed citations and records each evidence-caused revision. | many reads of one artifact or question | user | ✔ |
 
 *More on invocation: [.agents/invocation.md](./.agents/invocation.md)*
@@ -153,7 +152,6 @@ These skills bet the other way. **Every one of them removes:**
 - `nba` reads the live cycle and returns the one next move, never a menu,
 - `re0-workflow` recommends an ordered graph of skills for one stated intent without invoking them,
 - `re0-tutorial` teaches one skill in three graded levels that rest on the learner's own submission,
-- `prism` splits one artifact across independent lenses and returns where they clash, never their average,
 - `multithink` classes independent reads by cited evidence, never by count.
 
 > [!TIP]

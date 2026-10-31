@@ -100,7 +100,6 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 
 | Skill | O que faz | Escopo | Invocador | Somente leitura |
 |---|---|---|---|---|
-| 🔺 **[prism](../../skills/mesh/prism/SKILL.md)** | Divide um artifact em lentes independentes; retorna onde elas divergem e a pergunta que resolve isso | um artifact | user | ✔ |
 | 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | Avalia leituras independentes já coletadas e as transforma em achados classificados pelas evidências citadas, nunca pela contagem; uma rodada opcional de troca faz circular apenas as citações em disputa e registra cada revisão causada pelas evidências. | muitas leituras de um artifact ou uma pergunta | user | ✔ |
 
 *Mais sobre invocacao: [.agents/invocation.md](../../.agents/invocation.md).*
@@ -157,7 +156,6 @@ Essas skills apostam no outro lado. **Cada uma remove algo:**
 - `nba` le o ciclo ao vivo e devolve a unica proxima jogada, nunca um menu.
 - `re0-workflow` recomenda um grafo ordenado de skills para uma intencao declarada sem invoca-los.
 - `re0-tutorial` ensina um skill em tres niveis avaliados que se apoiam na entrega do proprio aprendiz.
-- `prism` divide um artefato em lentes independentes e devolve onde elas colidem, nunca a media delas.
 - `multithink` classifica leituras independentes pela evidencia citada, nunca por contagem.
 
 > [!TIP]
