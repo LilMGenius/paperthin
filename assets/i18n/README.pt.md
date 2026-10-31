@@ -54,7 +54,7 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Recusa ser gentil: a unica objecao que poderia matar o plano, mais o teste mais barato | um plano | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Remove o bait, abre leituras frescas e relata divergencia primeiro | uma direcao | user | ✔ |
 | ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | Transforma o material enviado para uma decisão em um instrumento rastreável e verificável cujo veredito é calculado a partir das próprias respostas de quem decide, sem nunca recomendar um resultado | material enviado para uma decisão | user | ✔ |
-| 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Pressiona uma decisao recem-tomada ate poder explica-la, ou a lacuna e sinalizada | uma decisao | user | ✔ |
+| 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | Pressiona uma decisao recem-tomada ate poder explica-la, ou a lacuna e sinalizada | uma decisao | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Recorta o scope inseguro de antemao, executa o restante seguro com forca total e registra o descope | uma tarefa | model | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Verifica estilo, convenções e consistência do código; por padrão, zero edições e um relatório breve | uma alteração em revisão | model | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Troca nomes incidentais de stack pelo mecanismo que queriam dizer | um artifact duravel | model | |
@@ -125,7 +125,7 @@ Essas skills apostam no outro lado. **Cada uma remove algo:**
 - `hate` se recusa a ser gentil e devolve a unica objecao que poderia matar um plano, com o teste mais barato.
 - `macrothink` espalha leituras novas e reporta a divergencia antes que a convergencia pareca prova.
 - `re0-decide` transforma o material enviado para uma decisao em um instrumento verificavel cujo veredito vem das proprias respostas de quem decide.
-- `feynman` pressiona uma decisao recem-tomada ate voce conseguir explica-la a um cetico, ou nomeia a lacuna que voce nao consegue.
+- `whychk` pressiona uma decisao recem-tomada ate voce conseguir explica-la a um cetico, ou nomeia a lacuna que voce nao consegue.
 - `autobahn` recorta o scope inseguro de antemao, para que o restante seguro rode em velocidade total.
 - `re0-style` confere uma mudanca contra as convencoes do proprio codebase e por padrao nao edita nada.
 - `detool` troca nomes de ferramentas incidentais em conteudo portavel pelo mecanismo que eles significam.

@@ -54,7 +54,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Weigert sich, nett zu sein: der eine Einwand, der den Plan töten könnte, plus der billigste Test | ein Plan | Nutzer | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Entfernt den Bait, fächert frische Lesarten auf, meldet Divergenz zuerst | eine Richtung | Nutzer | ✔ |
 | ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | Macht aus Material, das zur Entscheidung vorgelegt wird, ein nachvollziehbares, prüfbares Instrument, dessen Urteil aus den eigenen Antworten der entscheidenden Person berechnet wird, ohne je ein Ergebnis zu empfehlen | zur Entscheidung vorgelegtes Material | Nutzer | ✔ |
-| 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Bohrt bei einer gerade getroffenen Entscheidung nach, bis du sie erklären kannst oder die Lücke markiert ist | eine Entscheidung | Nutzer | ✔ |
+| 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | Bohrt bei einer gerade getroffenen Entscheidung nach, bis du sie erklären kannst oder die Lücke markiert ist | eine Entscheidung | Nutzer | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Schneidet unsicheren Scope vorab heraus, fährt den sicheren Rest mit voller Leistung, protokolliert den Descope | eine Aufgabe | Modell | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Prüft Codestil, Konventionen und Konsistenz; standardmäßig keine Änderungen und ein kurzer Bericht | eine Änderung im Review | Modell | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Ersetzt beiläufige Stack-Nomen durch den gemeinten Mechanismus | ein dauerhaftes Artifact | Modell | |
@@ -125,7 +125,7 @@ Diese Skills wetten in die andere Richtung. **Jeder einzelne entfernt etwas:**
 - `hate` weigert sich, nett zu sein, und liefert den einen Einwand, der einen Plan töten könnte, samt billigstem Test.
 - `macrothink` fächert frische Lesarten auf und meldet Divergenz, bevor Konvergenz wie ein Beweis aussieht.
 - `re0-decide` macht aus Material, das zur Entscheidung vorliegt, ein prüfbares Instrument, dessen Urteil aus den eigenen Antworten der Entscheidenden folgt.
-- `feynman` bohrt bei einer gerade getroffenen Entscheidung nach, bis du sie einem Skeptiker erklären kannst, oder benennt die Lücke, die du nicht erklären kannst.
+- `whychk` bohrt bei einer gerade getroffenen Entscheidung nach, bis du sie einem Skeptiker erklären kannst, oder benennt die Lücke, die du nicht erklären kannst.
 - `autobahn` schneidet unsicheren Scope vorab heraus, damit der sichere Rest mit voller Geschwindigkeit läuft.
 - `re0-style` prüft eine Änderung gegen die eigenen Konventionen der Codebasis und ändert standardmäßig nichts.
 - `detool` ersetzt beiläufige Werkzeugnamen in portablen Inhalten durch den gemeinten Mechanismus.

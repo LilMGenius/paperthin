@@ -54,7 +54,7 @@
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | nice होने से इनकार करता है: plan को मार सकने वाली एक objection, और सबसे सस्ता test | एक plan | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait हटाता है, fresh reads fan out करता है, और divergence पहले report करता है | एक direction | user | ✔ |
 | ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | निर्णय के लिए सौंपी गई सामग्री को एक अनुरेखणीय, जाँचने योग्य साधन में बदलता है, जिसका निर्णय निर्णयकर्ता के अपने उत्तरों से गणना होता है, और कभी किसी परिणाम की सिफ़ारिश नहीं करता | निर्णय के लिए सौंपी गई सामग्री | user | ✔ |
-| 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | अभी लिए गए decision को तब तक दबाता है जब तक आप उसे समझा न सकें, या gap flag हो जाए | एक decision | user | ✔ |
+| 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | अभी लिए गए decision को तब तक दबाता है जब तक आप उसे समझा न सकें, या gap flag हो जाए | एक decision | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | unsafe scope को upfront carve करता है, safe rest को full strength पर चलाता है, descope record करता है | एक task | model | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | code style, conventions और consistency जाँचता है; default में शून्य edits और एक छोटी report देता है | review में एक बदलाव | model | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | incidental stack nouns को उनके mechanism से बदलता है | एक durable artifact | model | |
@@ -125,7 +125,7 @@ Agent को goal दें और वह **add** करता है: और fi
 - `hate` नरमी से इनकार करता है और plan को मार सकने वाली एक आपत्ति सबसे सस्ते test के साथ लौटाता है।
 - `macrothink` fresh reads फैलाता है और convergence को proof मानने से पहले divergence report करता है।
 - `re0-decide` decision के लिए दिए गए material को एक जाँचने योग्य instrument में बदलता है, जिसका verdict निर्णयकर्ता के अपने जवाबों से निकलता है।
-- `feynman` अभी-अभी लिए गए decision को तब तक दबाता है जब तक आप उसे किसी skeptic को समझा न सकें, या जिस gap को आप नहीं समझा सकते उसे नाम देता है।
+- `whychk` अभी-अभी लिए गए decision को तब तक दबाता है जब तक आप उसे किसी skeptic को समझा न सकें, या जिस gap को आप नहीं समझा सकते उसे नाम देता है।
 - `autobahn` unsafe scope upfront carve करता है, ताकि safe remainder पूरी speed से चले।
 - `re0-style` किसी change को codebase की अपनी conventions से मिलाता है और default रूप से कुछ edit नहीं करता।
 - `detool` portable content के incidental tool नामों को उनके असल mechanism से बदलता है।
