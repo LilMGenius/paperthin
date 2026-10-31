@@ -12,10 +12,11 @@ Brief the human in plain language from live project state.
 ## Workflow
 
 1. Read live state only: recent file modification times, version-control history and diffs, plan and state docs, re0-memo notes, and task boards. Never brief from conversation memory alone; memory is what drifted.
-2. Anchor on the human's last message, judgment, or commit. Cover changes after that point; assume earlier material is known and leave it out.
+2. Anchor on the human's last message, judgment, or commit. Cover changes after that point; assume earlier material is known and leave it out. When the human asks where the work stands against a goal (a thread goal, an objective in the plan, an OKR file), read that goal too, and take each item's measured standing from the records that measure it, such as the latest re0-memo; an item no record measures is reported as not measured, never estimated, and a standing carries the date its record measured it, so an old measurement reads as old.
 3. Compose in decision order, not chronological order:
    - **Needs you**: decisions, judgments, or inputs only the human can give, each actionable without opening another file.
    - **Changed while you were away**: outcomes, not process. "The plan's scoring rule was replaced" beats "I ran three analysis passes."
+   - **Against the goal**, only when step 2 read one: one line per goal item with its standing and the record behind it, the gaps first.
    - **New words**: every term coined or repurposed since their last touch, one line each, with where it lives. Skip terms they already used themselves.
 4. Explain each project-specific term in plain language inline on first use, even if a glossary follows. Name a thing by what it is: a label coined only inside the run (a branch nickname, a phase or criterion id) is replaced by what it stands for, or marked unknown when no artifact says, and a decision names where each option lands, the file or system it would change or that it changes nothing.
 5. Open any item about work the human did not ask for with how it came up: the step that found it, what was found, and why it reaches past what they asked. Without that, the item reads as invented scope.
@@ -37,5 +38,5 @@ Before finishing:
 
 1. Cold-read the briefing: no sentence requires pre-gap memory or an unglossed coined term to parse.
 2. The "needs you" items are each actionable without opening another file.
-3. Every claim has a checkable source (file, commit, artifact path).
+3. Every claim has a checkable source (file, commit, artifact path); every goal item's standing names the record that measured it, or says it is not measured.
 4. It fits on a screen, with expansion offered rather than delivered.
