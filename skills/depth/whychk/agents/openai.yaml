@@ -1,0 +1,7 @@
+interface:
+  display_name: "whychk"
+  short_description: "Explain the why behind a decision you made"
+  default_prompt: "Use $whychk on the decision I just made."
+
+policy:
+  allow_implicit_invocation: false

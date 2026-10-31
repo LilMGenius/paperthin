@@ -54,7 +54,7 @@
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 優しくしない。計画を殺せる一つの反論と、最も安いテストを返す | 計画一つ | ユーザー | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait を外し、新しい読みを fan out して、divergence を最初に報告する | direction 一つ | ユーザー | ✔ |
 | ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | 決定のために提出された資料を、追跡でき検証できる道具に変え、判定は決定者自身の回答から計算する。結果を推奨することはない | 決定のために提出された資料 | ユーザー | ✔ |
-| 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 下したばかりの決定を、説明できるまで問い詰め、できなければ隙間を指摘する | 決定一つ | ユーザー | ✔ |
+| 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | 下したばかりの決定を、説明できるまで問い詰め、できなければ隙間を指摘する | 決定一つ | ユーザー | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 危険な scope を先に切り出し、安全な残りを全力で走らせ、descope を記録する | タスク一つ | モデル | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | コードのスタイル・慣習・一貫性を確認する。デフォルトは編集ゼロと短いレポート | レビュー中の変更一つ | モデル | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 紛れた incidental な stack 名を、意図した mechanism に置き換える | durable artifact 一つ | モデル | |
@@ -125,7 +125,7 @@ agent に目標を渡すと、agent は**足します**。ファイルを増や�
 - `hate` は優しくせず、計画を殺せる一つの反論と最も安いテストを返します。
 - `macrothink` は新しい読みを展開し、収束が証拠に見える前に divergence を報告します。
 - `re0-decide` は決定のために提出された資料を検証できる道具に変え、判定は決定者自身の回答から計算します。
-- `feynman` は下したばかりの決定を、懐疑的な相手に説明できるまで問い詰め、できなければその gap を名指しします。
+- `whychk` は下したばかりの決定を、懐疑的な相手に説明できるまで問い詰め、できなければその gap を名指しします。
 - `autobahn` は危険な scope を先に切り、安全な残りが全速力で走れるようにします。
 - `re0-style` は変更をコードベース自身の慣習に照らし、既定では何も編集しません。
 - `detool` は portable なコンテンツにある偶発的なツール名を、意味する mechanism に置き換えます。

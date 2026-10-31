@@ -54,7 +54,7 @@
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 拒绝客气，给出一个足以杀死计划的反对意见和最便宜的测试 | 一个计划 | 用户 | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | 去掉 bait，展开新鲜读法，并优先报告 divergence | 一个方向 | 用户 | ✔ |
 | ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | 把提交待决的材料变成可追溯、可核查的工具，裁定由决策者自己的回答计算得出，绝不推荐结果 | 提交待决的材料 | 用户 | ✔ |
-| 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | 追问一个刚做出的决定，直到你能把它解释清楚，否则标记出缺口 | 一个决定 | 用户 | ✔ |
+| 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | 追问一个刚做出的决定，直到你能把它解释清楚，否则标记出缺口 | 一个决定 | 用户 | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 先切掉不安全 scope，让安全部分全速运行，并记录 descope | 一个任务 | 模型 | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | 检查代码风格、惯例和一致性；默认不做修改，只给出简短报告 | 一项待审查的变更 | 模型 | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 把偶然绑定的工具名替换成它真正表达的机制 | 一个 durable artifact | 模型 | |
@@ -125,7 +125,7 @@
 - `hate` 拒绝客气，返回一个足以杀死计划的反对意见和最便宜的测试。
 - `macrothink` 展开新的解读，先报告分歧，再让收敛看起来像证据。
 - `re0-decide` 把提交待决的材料变成可核查的工具，裁定由决策者自己的回答计算得出。
-- `feynman` 逼问一个刚做出的决定，直到你能把它讲给怀疑者听，或者点出你讲不清的那处缺口。
+- `whychk` 逼问一个刚做出的决定，直到你能把它讲给怀疑者听，或者点出你讲不清的那处缺口。
 - `autobahn` 先切掉不安全 scope，让安全剩余部分全速运行。
 - `re0-style` 按代码库自身的惯例检查一次变更，默认不做任何修改。
 - `detool` 把可移植内容里偶然带上的工具名换成它们真正指代的机制。

@@ -54,7 +54,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Refuse d'être gentil : l'objection unique qui peut tuer le plan, plus le test le moins cher | un plan | utilisateur | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Retire le bait, lance des lectures fraîches et signale d'abord la divergence | une direction | utilisateur | ✔ |
 | ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | Transforme un dossier soumis à décision en instrument traçable et vérifiable dont le verdict est calculé à partir des réponses mêmes du décideur, sans jamais recommander d’issue | dossier soumis à décision | utilisateur | ✔ |
-| 🧐 **[feynman](../../skills/depth/feynman/SKILL.md)** | Presse une décision fraîchement prise jusqu'à pouvoir l'expliquer, sinon la lacune est signalée | une décision | utilisateur | ✔ |
+| 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | Presse une décision fraîchement prise jusqu'à pouvoir l'expliquer, sinon la lacune est signalée | une décision | utilisateur | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Découpe le périmètre dangereux en amont, exécute le reste sûr à pleine puissance, journalise le descope | une tâche | modèle | |
 | 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | Vérifie le style, les conventions et la cohérence du code ; par défaut, aucune modification et un bref rapport | un changement en revue | modèle | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | Remplace les noms d'outils accidentels par le mécanisme visé | un artifact durable | modèle | |
@@ -125,7 +125,7 @@ Ces skills parient dans l'autre sens. **Chacun enlève quelque chose :**
 - `hate` refuse d'être gentil et renvoie la seule objection qui pourrait tuer un plan, avec le test le moins cher.
 - `macrothink` déploie des lectures fraîches et rapporte la divergence avant que la convergence ne passe pour une preuve.
 - `re0-decide` transforme le matériel soumis pour une décision en un instrument vérifiable dont le verdict découle des propres réponses du décideur.
-- `feynman` presse une décision fraîche jusqu'à ce que vous puissiez l'expliquer à un sceptique, ou nomme la faille que vous ne pouvez pas justifier.
+- `whychk` presse une décision fraîche jusqu'à ce que vous puissiez l'expliquer à un sceptique, ou nomme la faille que vous ne pouvez pas justifier.
 - `autobahn` découpe le périmètre dangereux en amont, pour que le reste sûr tourne à pleine vitesse.
 - `re0-style` vérifie un changement contre les conventions propres du codebase et, par défaut, ne modifie rien.
 - `detool` remplace les noms d'outils incidents dans un contenu portable par le mécanisme qu'ils désignent.
