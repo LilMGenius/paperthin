@@ -66,6 +66,7 @@
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 주장된 것을 양방향으로 소스에 대조합니다. 말도 안 되는 것이 팩트일 수 있고, 당연한 것이 거짓일 수 있는가? | 클레임 하나 | 모델 | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | leakage가 있는지 audit합니다. 외부 ground truth가 실제로 들어오는가? | eval 하나 | 모델 | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | 실제 코드 경로에 선 mock, stub, fake, 숨은 fallback을 찾습니다. 아무것도 실제로 돌지 않아 성공 보고가 거짓이 되는 자리입니다. 진짜 의존성이나 정직한 실패를 제안합니다 | 이름 붙인 파일, 디렉터리, diff | 모델 | |
+| 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | 공유 저장소나 산출물로 새어 나간 한 소유자의 개인 정보와 사업 정보를 찾아 각 항목을 그것이 맡은 역할로 바꾸고, 아직 그것을 담은 커밋을 나열합니다 | 이름 붙인 산출물 하나와 소유자 한 명 | 모델 | |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 변경 뒤마다 레포 자체의 clean-and-true 체크로 아웃풋을 맛봅니다 | 내 아웃풋 | 모델 | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 완료된 커밋 메시지를 날짜와 자리는 그대로 둔 채 다시 쓰고, 늦은 커밋은 한 줄 히스토리의 그 시각 자리에 넣어 `git log`만으로 handoff가 되게 합니다 | 커밋 하나 | 사용자 | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | GitHub 저장소를 같은 트리의 서명된 커밋 하나로 다시 공개합니다: force push는 옛 커밋에 닿을 수 있게 남기므로 remote를 삭제하고 다시 만듭니다 | 저장소 하나 | 사용자 | |
@@ -137,6 +138,7 @@
 - `factchk`는 주장된 것을 양방향으로 소스에 대조해, 직감이 팩트로 출고되지 않게 합니다.
 - `mandela`는 eval의 leakage를 audit해, 외부 진실이 만든 적 없는 결과를 사실로 받아들이지 않게 합니다.
 - `demock`은 실제 코드 경로에 선 mock, stub, 숨은 fallback을 찾아 진짜 의존성이나 정직한 실패를 제안합니다.
+- `deid`는 공유 산출물에 새어 든 한 소유자의 데이터를 찾아 그것이 맡은 역할로 바꾸고, 히스토리에서 아직 그것을 담은 커밋을 나열합니다.
 - `sip`은 내 아웃풋에 `shower`, `ssotize`, `re0`를 실행하고, 해당할 때 `factchk`, `mandela`, `detool`도 실행합니다.
 - `re0-git`은 완료된 커밋 메시지를 날짜는 그대로 둔 채 다시 써서 `git log`만으로 handoff가 되게 합니다.
 - `re0-squash`는 저장소를 같은 트리의 서명된 커밋 하나로 다시 공개해, 옛 커밋이 닿을 수 있게 남지 않게 합니다.

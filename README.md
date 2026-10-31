@@ -65,6 +65,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🔬 **[factchk](./skills/depth/factchk/SKILL.md)** | Verify what's asserted against sources both ways: could the absurd be real, the obvious false? | one claim | model | |
 | 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Audit for leakage: does outside ground-truth actually enter? | one eval | model | ✔ |
 | 🎭 **[demock](./skills/depth/demock/SKILL.md)** | Find mocks, stubs, fakes and silent fallbacks on the real code path, where a success report is false because nothing real ran; propose the real dependency or an honest failure | a named file set, directory or diff | model | |
+| 🥸 **[deid](./skills/depth/deid/SKILL.md)** | Find one owner's personal or business data leaked into a shared repository or artifact, replace each hit with the role it plays, and list the commits that still carry it | one named artifact and one owner | model | |
 | 🥄 **[sip](./skills/depth/sip/SKILL.md)** | After any change, taste it with the repo's own clean-and-true checks | your output | model | |
 | 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrite a finished commit's message with every date and position kept, and slot a late commit into the linear log at its time, so `git log` alone hands off | one commit | user | |
 | 🧨 **[re0-squash](./skills/depth/re0-squash/SKILL.md)** | Republish a GitHub repository as one signed commit with the same tree: delete the remote and recreate it, since a force push leaves old commits reachable | one repository | user | |
@@ -135,6 +136,7 @@ These skills bet the other way. **Every one of them removes:**
 - `factchk` checks what's asserted against sources in both directions, so a gut call never ships as fact,
 - `mandela` audits an eval for leakage, so a result no outside truth produced is not taken as real,
 - `demock` finds mocks, stubs and silent fallbacks on the real code path and proposes the real dependency or an honest failure,
+- `deid` finds one owner's data in a shared artifact, replaces it with the role it plays, and lists the history commits that still carry it,
 - `sip` runs `shower`, `ssotize` and `re0` on your own output, with `factchk`, `mandela` or `detool` where they apply,
 - `re0-git` rewrites a finished commit's message with every date kept, so `git log` alone hands off,
 - `re0-squash` republishes a repository as one signed commit with the same tree, leaving no old commit reachable,

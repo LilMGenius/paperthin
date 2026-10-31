@@ -66,6 +66,7 @@
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | sources के against जो दावा किया गया उसे दोनों दिशाओं में verify करता है: क्या absurd सच हो सकता है, और obvious झूठ? | एक claim | model | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | leakage audit करता है: क्या बाहर की ground truth सच में अंदर आती है? | एक eval | model | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | असली कोड पथ पर खड़े mock, stub, fake और चुपचाप fallback खोजता है, जहाँ सफलता की रिपोर्ट झूठी है क्योंकि कुछ असली चला ही नहीं; असली निर्भरता या ईमानदार विफलता सुझाता है | नामित फ़ाइलें, निर्देशिका या diff | model | |
+| 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | साझा रिपॉज़िटरी या आर्टिफ़ैक्ट में लीक हुआ एक स्वामी का निजी या व्यावसायिक डेटा खोजता है, हर मिलान को उसकी भूमिका से बदलता है, और वे commits सूचीबद्ध करता है जिनमें वह अब भी है | एक नामित आर्टिफ़ैक्ट और एक स्वामी | model | |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | हर change के बाद repo के अपने clean-and-true checks से आपके output को taste करता है | आपका output | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | finished commit message को हर तारीख और जगह बनाए रखते हुए rewrite करता है, और देर से आए commit को linear history में उसके समय पर रखता है, ताकि `git log` अकेले handoff दे सके | एक commit | user | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | GitHub repository को उसी tree वाले एक signed commit के रूप में दोबारा प्रकाशित करता है: remote हटाकर फिर बनाता है, क्योंकि force push पुराने commits को पहुँच में छोड़ देता है | एक repository | user | |
@@ -137,6 +138,7 @@ Agent को goal दें और वह **add** करता है: और fi
 - `factchk` दावों को दोनों दिशाओं में sources से जाँचता है, ताकि अंदाज़ा fact बनकर ship न हो।
 - `mandela` eval में leakage audit करता है, ताकि जिस result को किसी बाहरी सच ने पैदा नहीं किया वह असली न माना जाए।
 - `demock` असली code path पर बैठे mocks, stubs और silent fallbacks ढूँढता है और असली dependency या ईमानदार failure सुझाता है।
+- `deid` साझा artifact में एक स्वामी का डेटा ढूँढता है, उसे उसकी भूमिका से बदलता है और इतिहास के वे commits सूचीबद्ध करता है जिनमें वह अब भी है।
 - `sip` आपके अपने output पर `shower`, `ssotize` और `re0` चलाता है, और जहाँ लागू हों वहाँ `factchk`, `mandela` या `detool` भी।
 - `re0-git` finished commit का message हर date बनाए रखते हुए फिर से लिखता है, ताकि अकेला `git log` handoff कर दे।
 - `re0-squash` repository को उसी tree वाले एक signed commit के रूप में फिर publish करता है, कोई पुराना commit reachable नहीं छोड़ता।
