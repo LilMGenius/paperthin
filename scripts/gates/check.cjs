@@ -3,7 +3,7 @@
 // The release gate: every deterministic rule AGENTS.md names, run by npm run check locally and in CI. Each failure prints as file:line, and as an annotation on GitHub.
 const path = require('node:path');
 
-const gates = ['skills', 'catalog', 'links', 'prose'];
+const gates = ['skills', 'catalog', 'links', 'prose', 'llms'];
 const root = path.join(__dirname, '..', '..');
 let failed = 0;
 for (const name of gates) {
