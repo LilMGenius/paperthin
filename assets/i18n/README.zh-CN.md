@@ -66,6 +66,7 @@
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 双向对照 source 核验所主张的：荒谬的可能真实吗，显然的可能是假的吗？ | 一个 claim | 模型 | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | 审计是否 leakage：外部 ground truth 真的进入了吗？ | 一个 eval | 模型 | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | 找出真实代码路径上的 mock、stub、fake 和静默回退，那里没有真东西在运行，成功报告是假的；提出真实依赖或诚实的失败 | 指定的文件、目录或 diff | 模型 | |
+| 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | 找出泄露到共享仓库或产物中的某一位所有者的个人或业务数据，把每处命中替换为它所扮演的角色，并列出仍带有这些数据的提交 | 指定的一个产物和一位所有者 | 模型 | |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 每次变更后，用 repo 自己的 clean-and-true 检查品尝你的 output | 你的 output | 模型 | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 重写已完成 commit 的信息，日期和位置都不变，并把迟到的 commit 按时间放进线性历史，让 `git log` 本身就能完成交接 | 一个 commit | 用户 | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | 把 GitHub 仓库以同一棵树的一个签名 commit 重新发布：删除 remote 并重建，因为 force push 会让旧 commit 仍可访问 | 一个仓库 | 用户 | |
@@ -137,6 +138,7 @@
 - `factchk` 双向对照 source 核验所主张的内容，不让直觉被当成事实发布。
 - `mandela` 审计 eval 是否 leakage，不让没有外部真相支撑的结果被当真。
 - `demock` 找出真实代码路径上的 mock、stub 和静默回退，提出真实依赖或诚实的失败。
+- `deid` 找出共享产物中某一位所有者的数据，替换为它所扮演的角色，并列出历史中仍带有这些数据的提交。
 - `sip` 在你自己的 output 上运行 `shower`、`ssotize` 和 `re0`，适用时再加上 `factchk`、`mandela` 或 `detool`。
 - `re0-git` 重写已完成 commit 的信息并保留所有日期，让 `git log` 本身就能完成交接。
 - `re0-squash` 把仓库以同一棵树的一个签名 commit 重新发布，不留下任何可访问的旧 commit。

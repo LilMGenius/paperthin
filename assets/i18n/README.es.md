@@ -66,6 +66,7 @@ En **cualquier** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cur
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Verifica lo afirmado contra sources en ambas direcciones: podria lo absurdo ser real y lo obvio ser falso? | una claim | model | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Audita en busca de leakage: entra de verdad una ground truth externa? | un eval | model | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | Encuentra mocks, stubs, fakes y fallbacks silenciosos en la ruta de código real, donde un informe de éxito es falso porque nada real se ejecutó; propone la dependencia real o un fallo honesto | archivos, un directorio o un diff indicados | model | |
+| 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | Encuentra datos personales o de negocio de un propietario filtrados en un repositorio o artefacto compartido, sustituye cada coincidencia por el papel que cumple y lista los commits que aún los conservan | un artefacto indicado y un propietario | model | |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Despues de cualquier cambio, prueba tu output con los checks clean-and-true del propio repo | tu output | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Reescribe el mensaje de un commit terminado conservando cada fecha y posicion, y coloca un commit tardio en el historial lineal a su hora, para que `git log` haga el handoff por si solo | un commit | user | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | Republica un repositorio de GitHub como un solo commit firmado con el mismo arbol: borra el remote y lo recrea, porque un force push deja alcanzables los commits antiguos | un repositorio | user | |
@@ -137,6 +138,7 @@ Estas skills apuestan en la direccion contraria. **Cada una elimina algo:**
 - `factchk` contrasta lo afirmado con fuentes en ambas direcciones, para que una corazonada nunca se publique como hecho.
 - `mandela` audita un eval en busca de leakage, para que un resultado que ninguna verdad externa produjo no se tome por real.
 - `demock` encuentra mocks, stubs y fallbacks silenciosos en el camino real del codigo y propone la dependencia real o un fallo honesto.
+- `deid` encuentra los datos de un propietario en un artefacto compartido, los sustituye por el papel que cumplen y lista los commits del historial que todavia los conservan.
 - `sip` ejecuta `shower`, `ssotize` y `re0` sobre tu propio output, y `factchk`, `mandela` o `detool` donde aplican.
 - `re0-git` reescribe el mensaje de un commit terminado conservando cada fecha, para que `git log` por si solo sirva de traspaso.
 - `re0-squash` republica un repositorio como un solo commit firmado con el mismo arbol, sin dejar ningun commit viejo alcanzable.

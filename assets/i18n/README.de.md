@@ -66,6 +66,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | Prüft, was behauptet wird, in beide Richtungen gegen Sources: Könnte das Absurde wahr sein, das Offensichtliche falsch? | einen Claim | Modell | |
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Auditiert auf Leakage: kommt externe Ground Truth wirklich hinein? | ein Eval | Modell | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | Findet Mocks, Stubs, Fakes und stille Fallbacks im echten Codepfad, wo eine Erfolgsmeldung falsch ist, weil nichts Echtes lief; schlägt die echte Abhängigkeit oder einen ehrlichen Fehler vor | benannte Dateien, ein Verzeichnis oder ein Diff | Modell | |
+| 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | Findet Daten einer Person oder Organisation, die in ein gemeinsames Repository oder Artefakt gelangt sind, ersetzt jeden Treffer durch die Rolle, die er spielt, und listet die Commits auf, die sie noch tragen | ein benanntes Artefakt und ein Eigentümer | Modell | |
 | 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Kostet nach jeder Änderung dein Ergebnis mit den repo-eigenen clean-and-true Checks | dein Output | Modell | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Schreibt die Nachricht eines fertigen Commits neu, behält jedes Datum und jede Position und setzt einen verspäteten Commit zu seiner Zeit in die lineare Historie, damit `git log` allein die Übergabe trägt | ein Commit | Nutzer | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | Veröffentlicht ein GitHub-Repository als einen signierten Commit mit demselben Tree neu: löscht das Remote und legt es neu an, weil ein Force-Push alte Commits erreichbar lässt | ein Repository | Nutzer | |
@@ -137,6 +138,7 @@ Diese Skills wetten in die andere Richtung. **Jeder einzelne entfernt etwas:**
 - `factchk` prüft Behauptungen in beide Richtungen gegen Quellen, damit kein Bauchgefühl als Fakt ausgeliefert wird.
 - `mandela` prüft ein Eval auf Leakage, damit kein Ergebnis, das keine äußere Wahrheit erzeugt hat, als echt gilt.
 - `demock` findet Mocks, Stubs und stille Fallbacks auf dem echten Codepfad und schlägt die echte Abhängigkeit oder ein ehrliches Scheitern vor.
+- `deid` findet die Daten eines Eigentümers in einem gemeinsamen Artefakt, ersetzt sie durch die Rolle, die sie spielen, und listet die Commits der Historie auf, die sie noch tragen.
 - `sip` führt `shower`, `ssotize` und `re0` auf deinem eigenen Output aus, dazu `factchk`, `mandela` oder `detool`, wo sie greifen.
 - `re0-git` schreibt die Message eines fertigen Commits neu und behält jedes Datum, damit `git log` allein die Übergabe trägt.
 - `re0-squash` veröffentlicht ein Repository als einen einzigen signierten Commit mit demselben Baum neu und lässt keinen alten Commit erreichbar.
