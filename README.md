@@ -28,6 +28,8 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 
 **Not sure?** Paste that command into whatever agent you're using and just say `set this up for me`, it'll do the rest.
 
+**In ChatGPT or Claude on the web?** Give it `https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt`, one file holding this README and every skill, and ask it to apply the skill you need; [llms.txt](./llms.txt) lists each file's address.
+
 ## The Map
 
 **How many artifacts, and across how much time?**
