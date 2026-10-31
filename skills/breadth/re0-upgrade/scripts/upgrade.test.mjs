@@ -84,6 +84,24 @@ test('classify refuses a table it cannot read confidently with exit 2', () => {
   assert.equal(run(['classify', '--skill-md', skillMd, '--installed', write(join(scratch, 'bad.txt'), 'two names\n')]).status, 2);
 });
 
+test('classify retires a name whose Deprecations row says retired, with no replacement', () => {
+  const retiring = write(join(scratch, 'retiring', 'SKILL.md'), RULES.replace('\n\n## Current catalog', '\n| \x60gone\x60 | retired | 0.4.0 |\n\n## Current catalog'));
+  const out = run(['classify', '--skill-md', retiring, '--installed', write(join(scratch, 'retire.txt'), 'gone\nkept\n')]);
+  assert.equal(out.status, 1, out.stderr);
+  assert.deepEqual(out.json.stale, [{ name: 'gone', replacement: null, replacementInstalled: false }]);
+  assert.deepEqual(out.json.present, ['kept']);
+  assert.deepEqual(out.json.unknown, []);
+  const absent = run(['classify', '--skill-md', retiring, '--installed', write(join(scratch, 'retire-none.txt'), 'kept\n')]);
+  assert.deepEqual(absent.json.stale, []);
+});
+
+test('classify refuses a retired name that is also in the Current catalog', () => {
+  const both = write(join(scratch, 'both', 'SKILL.md'), RULES.replace('\n\n## Current catalog', '\n| \x60kept\x60 | retired | 0.4.0 |\n\n## Current catalog'));
+  const out = run(['classify', '--skill-md', both, '--installed', write(join(scratch, 'both.txt'), 'kept\n')]);
+  assert.equal(out.status, 2);
+  assert.match(out.stderr, /both deprecated and in the Current catalog/);
+});
+
 // Integrity fixtures: v3 is the newest published tag, v2 and v1 older, v0 predates the skill (no file), and v4 is a draft
 // whose bytes equal the local edit, so a walk that read drafts would call that edit clean.
 const PATH = 'skills/breadth/demo/SKILL.md';
