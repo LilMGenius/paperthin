@@ -80,7 +80,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | Consolide les fichiers ou arborescences en double en une identité gérée par le noyau : lien physique, lien symbolique, jonction ou montage bind, avec une procédure de retour vérifiée | mêmes octets, plusieurs chemins | modèle | |
 | 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | Audite un README et son AGENTS.md, puis déplace chaque ligne vers le fichier dont le lecteur en a besoin | README et AGENTS.md d'un dépôt | modèle | |
 | 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | Dépose le matériau transmis dans le document d'une base de connaissances existante qui le détient, selon des règles lues dans cette base ; signale ce qui ne peut pas être placé | matériau transmis et une base de connaissances | utilisateur | |
-| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | Amène vos skills au catalogue actuel complet en une commande : retire ce qui a été renommé, ajoute les nouveautés, le tout confirmé au préalable | votre installation de skills | utilisateur | |
+| 🆙 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | Amène vos skills au catalogue actuel complet en une commande : retire ce qui a été renommé, ajoute les nouveautés, le tout confirmé au préalable | votre installation de skills | utilisateur | |
 
 ### `coil/`
 
@@ -89,11 +89,11 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | Ouvre un nouveau dossier d'itération avec son DESIGN/WORKFLOW/EVIDENCE avant le premier tour de re0-loop | un nouveau cycle | utilisateur | |
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Lance la boucle build → QA → re0-memo → re0-work pour que l'apprentissage compose, pas le code | toute la boucle | modèle | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | Surveille une tâche longue d’un agent pour détecter les blocages et alerte par défaut ; la reprise reste une proposition soumise à approbation humaine | une tâche en cours | utilisateur | |
-| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Extrait les leçons et anti-patterns d'un cycle terminé ou raté | un cycle terminé | modèle | |
+| 📝 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Extrait les leçons et anti-patterns d'un cycle terminé ou raté | un cycle terminé | modèle | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Redémarre depuis v0 en gardant seulement les leçons qui ont mérité d'être réutilisées | un redémarrage | modèle | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Reconstruit le contexte perdu à partir de l'état en direct : ce dont il a besoin, ce qui a changé, ce que signifient les nouveaux mots | une réentrée | modèle | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lit l'état vivant du cycle et renvoie la seule meilleure prochaine action, pas un menu | le cycle en cours | modèle | ✔ |
-| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Recommande un graphe ordonné de skills pour une intention exprimée, avec le type d’autorité de chaque étape, sans les invoquer | une intention exprimée | modèle | ✔ |
+| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Recommande un graphe ordonné de skills pour une intention exprimée, avec le type d’autorité de chaque étape, sans les invoquer | une intention exprimée | modèle | ✔ |
 | 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | Apprendre une compétence de la suite en trois niveaux évalués, dont la réussite repose sur le travail remis par l'apprenant lui-même, jamais sur une trace d'invocation | une compétence | utilisateur | |
 
 ### `mesh/`

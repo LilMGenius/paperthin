@@ -80,7 +80,7 @@
 | 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | दोहराई गई फ़ाइलों या डायरेक्टरी ट्री को कर्नेल द्वारा प्रबंधित एक पहचान में समेकित करता है: हार्डलिंक, सिमलिंक, जंक्शन या बाइंड माउंट, साथ में सत्यापित वापसी प्रक्रिया | वही बाइट्स, कई पथ | model | |
 | 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | README और उसकी AGENTS.md को audit करता है, फिर हर पंक्ति को उस फ़ाइल में ले जाता है जिसके पाठक को उसकी ज़रूरत है | एक repository की README और AGENTS.md | model | |
 | 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | सौंपी गई सामग्री को मौजूदा knowledge base के उस दस्तावेज़ में रखता है जो उसका मालिक है, उसी base से पढ़े नियमों के अनुसार; जो जगह न पा सके उसकी रिपोर्ट करता है | सौंपी गई सामग्री और एक knowledge base | user | |
-| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | एक कमांड में पूरे मौजूदा catalog तक ले आता है: नाम बदले हटाता है, नए जोड़ता है, सब पहले पुष्टि | आपकी skill install | user | |
+| 🆙 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | एक कमांड में पूरे मौजूदा catalog तक ले आता है: नाम बदले हटाता है, नए जोड़ता है, सब पहले पुष्टि | आपकी skill install | user | |
 
 ### `coil/`
 
@@ -89,11 +89,11 @@
 | 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | re0-loop की पहली turn से पहले नया iteration folder DESIGN/WORKFLOW/EVIDENCE के साथ खोलता है | एक नया cycle | user | |
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | build → QA → re0-memo → re0-work loop चलाता है ताकि learning compound करे, code नहीं | पूरा loop | model | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | लंबे समय तक चलने वाले एजेंट कार्य में रुकावट पर नज़र रखता है और डिफ़ॉल्ट रूप से चेतावनी देता है; रिकवरी केवल मानव की स्वीकृति के लिए प्रस्ताव है | एक चालू कार्य | user | |
-| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | finished या failed cycle से lessons और anti-patterns निकालता है | एक finished cycle | model | |
+| 📝 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | finished या failed cycle से lessons और anti-patterns निकालता है | एक finished cycle | model | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | सिर्फ reuse कमाने वाले lessons रखते हुए v0 से restart करता है | एक restart | model | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | live state से खोया हुआ context फिर से बनाता है: उसे क्या चाहिए, क्या बदला, नए शब्दों का मतलब क्या है | एक re-entry | model | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | live cycle state पढ़कर menu नहीं, single next best action देता है | live cycle | model | ✔ |
-| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | एक स्पष्ट रूप से बताए गए इरादे के लिए skills का क्रमबद्ध ग्राफ सुझाता है, हर चरण के अधिकार का प्रकार बताता है और किसी skill को चलाता नहीं | एक बताया गया इरादा | model | ✔ |
+| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | एक स्पष्ट रूप से बताए गए इरादे के लिए skills का क्रमबद्ध ग्राफ सुझाता है, हर चरण के अधिकार का प्रकार बताता है और किसी skill को चलाता नहीं | एक बताया गया इरादा | model | ✔ |
 | 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | सुइट का एक कौशल तीन मूल्यांकित स्तरों में सीखें; पूर्णता सीखने वाले के अपने प्रस्तुत काम पर निर्भर है, कभी भी invocation trace पर नहीं | एक कौशल | user | |
 
 ### `mesh/`
