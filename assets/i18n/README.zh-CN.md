@@ -80,7 +80,7 @@
 | 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | 将重复的文件或目录树整合为由内核管理的同一实体：硬链接、符号链接、目录联接或绑定挂载，并提供经过验证的还原步骤 | 相同字节，多个路径 | 模型 | |
 | 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | 审计 README 及其 AGENTS.md，把每一行移到其读者需要的文件 | 一个仓库的 README 和 AGENTS.md | 模型 | |
 | 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | 把交来的材料放进拥有它的现有知识库文档，规则读自该知识库本身；放不下的如实报告 | 交来的材料和一个知识库 | 用户 | |
-| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 用一条命令把已安装的 skill 升级到完整的当前目录：淘汰改名的，补齐新增的，全部先确认 | 你的 skill 安装 | 用户 | |
+| 🆙 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 用一条命令把已安装的 skill 升级到完整的当前目录：淘汰改名的，补齐新增的，全部先确认 | 你的 skill 安装 | 用户 | |
 
 ### `coil/`
 
@@ -89,11 +89,11 @@
 | 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | 在 re0-loop 第一轮之前打开新的 iteration 文件夹并写入它的 DESIGN/WORKFLOW/EVIDENCE | 一个新 cycle | 用户 | |
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | 跑 build → QA → re0-memo → re0-work cycle，让学习复利，而不是代码膨胀 | 整个 cycle | 模型 | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | 监视长时间运行的代理任务是否停滞，默认仅发出提醒；恢复仅作为提案交由人批准 | 一个运行中的任务 | 用户 | |
-| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 从一次完成或失败的 cycle 中抽取教训和反模式 | 一个结束的 cycle | 模型 | |
+| 📝 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 从一次完成或失败的 cycle 中抽取教训和反模式 | 一个结束的 cycle | 模型 | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 只保留赢得复用资格的教训，从 v0 重新开始 | 一次重启 | 模型 | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 从实时 state 重建丢失的 context：谁需要它、发生了什么变化、新词是什么意思 | 一次回归 | 模型 | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 读取实时 cycle state，返回一个下一步最佳行动，而不是菜单 | 当前 cycle | 模型 | ✔ |
-| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 为一个明确意图推荐有序的技能图，标明每一步的权限类型，但不调用任何技能 | 一个明确意图 | 模型 | ✔ |
+| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 为一个明确意图推荐有序的技能图，标明每一步的权限类型，但不调用任何技能 | 一个明确意图 | 模型 | ✔ |
 | 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | 通过三个分级考核关卡学习套件中的一项技能，完成与否以学习者本人提交的作品为依据，绝不以调用记录为依据 | 一项技能 | 用户 | |
 
 ### `mesh/`

@@ -80,7 +80,7 @@
 | 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | 重複するファイルやディレクトリツリーをカーネルが管理する一つの実体に統合する: ハードリンク、シンボリックリンク、ジャンクション、バインドマウントを使い、元に戻す手順も検証する | 同じバイト列、多数のパス | モデル | |
 | 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | README とその AGENTS.md を監査し、各行をその読者が必要とするファイルへ移す | 一つのリポジトリの README と AGENTS.md | モデル | |
 | 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | 受け取った素材を、それを所有する既存の知識ベースの文書に、その知識ベースから読み取った規則で置く。置けないものは報告する | 受け取った素材と一つの知識ベース | ユーザー | |
-| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 一つのコマンドで現在のフルカタログに引き上げる: 改名は整理、新規は追加、すべて事前に確認 | 自分の skill インストール | ユーザー | |
+| 🆙 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 一つのコマンドで現在のフルカタログに引き上げる: 改名は整理、新規は追加、すべて事前に確認 | 自分の skill インストール | ユーザー | |
 
 ### `coil/`
 
@@ -89,11 +89,11 @@
 | 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | re0-loop の最初の turn の前に新しい iteration フォルダを開き、DESIGN/WORKFLOW/EVIDENCE を書き込む | 新しい cycle 一つ | ユーザー | |
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | build → QA → re0-memo → re0-work ループを回し、コードではなく学習を複利化する | ループ全体 | モデル | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | 長時間動くエージェントのジョブの停滞を監視し、既定では通知だけを行います。復旧は人間の承認を求める提案にとどめます | 実行中のジョブ一つ | ユーザー | |
-| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 完了または失敗した cycle から教訓と anti-pattern を抽出する | 完了した cycle 一つ | モデル | |
+| 📝 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 完了または失敗した cycle から教訓と anti-pattern を抽出する | 完了した cycle 一つ | モデル | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 再利用に値した教訓だけを残して v0 からやり直す | やり直し一つ | モデル | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | ライブ state から失った context を再構築する: 何が必要か、何が変わったか、新しい言葉が何を意味するか | re-entry 一つ | モデル | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | live cycle state を読み、メニューではなく一つの next best action を返す | 現在の cycle | モデル | ✔ |
-| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 明示された一つの意図に対し、各ステップの権限を型で示した順序付きスキルグラフを推奨し、スキルは呼び出さない | 明示された意図一つ | モデル | ✔ |
+| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 明示された一つの意図に対し、各ステップの権限を型で示した順序付きスキルグラフを推奨し、スキルは呼び出さない | 明示された意図一つ | モデル | ✔ |
 | 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | スイートのスキル一つを採点付きの3段階で学び、修了は学習者自身の提出物で判断し、呼び出し履歴では決して判断しません | スキル一つ | ユーザー | |
 
 ### `mesh/`

@@ -77,7 +77,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🔗 **[ssotize-local](./skills/breadth/ssotize-local/SKILL.md)** | Consolidate duplicate files or trees into one kernel-managed identity: hardlink, symlink, junction, or bind mount, with a verified reverse path | same bytes, many paths | model | |
 | 📖 **[re0-readme](./skills/breadth/re0-readme/SKILL.md)** | Audit a README and its AGENTS.md, then move each line to the file whose reader needs it | one repository README and AGENTS.md | model | |
 | 📥 **[re0-import](./skills/breadth/re0-import/SKILL.md)** | Land handed-over material in the document of an existing knowledge base that owns it, by rules read from that base; report what cannot be placed | handed-over material and one knowledge base | user | |
-| 🧰 **[re0-upgrade](./skills/breadth/re0-upgrade/SKILL.md)** | Upgrade to the full current catalog in one command: retire renamed, add new, all confirmed first | your skill install | user | |
+| 🆙 **[re0-upgrade](./skills/breadth/re0-upgrade/SKILL.md)** | Upgrade to the full current catalog in one command: retire renamed, add new, all confirmed first | your skill install | user | |
 
 ### `coil/`
 
@@ -86,11 +86,11 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🗂️ **[re0-plan](./skills/coil/re0-plan/SKILL.md)** | Open a new iteration folder with DESIGN/WORKFLOW/EVIDENCE before re0-loop's first turn | one new cycle | user | |
 | 🌀 **[re0-loop](./skills/coil/re0-loop/SKILL.md)** | Run the build → QA → re0-memo → re0-work loop so learning compounds, not code | the whole loop | model | |
 | 👁️ **[re0-watch](./skills/coil/re0-watch/SKILL.md)** | Watch a long-running agent job for stalls and alert by default; recovery is only a proposal a human approves | one running job | user | |
-| 🧭 **[re0-memo](./skills/coil/re0-memo/SKILL.md)** | Pull the lessons and anti-patterns from a finished or failed cycle | one finished cycle | model | |
+| 📝 **[re0-memo](./skills/coil/re0-memo/SKILL.md)** | Pull the lessons and anti-patterns from a finished or failed cycle | one finished cycle | model | |
 | 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Start over from v0, keeping only the lessons that earned reuse | one restart | model | |
 | 🗺️ **[catchup](./skills/coil/catchup/SKILL.md)** | Rebuild lost context from live state: what needs them, what changed, what new words mean | one re-entry | model | ✔ |
 | 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Read the live cycle state and return the single next best action, not a menu | the live cycle | model | ✔ |
-| 🧩 **[re0-workflow](./skills/coil/re0-workflow/SKILL.md)** | Recommend an ordered graph of skills for one stated intent, with each step's authority typed, without invoking them | one stated intent | model | ✔ |
+| 🪜 **[re0-workflow](./skills/coil/re0-workflow/SKILL.md)** | Recommend an ordered graph of skills for one stated intent, with each step's authority typed, without invoking them | one stated intent | model | ✔ |
 | 🎓 **[re0-tutorial](./skills/coil/re0-tutorial/SKILL.md)** | Learn one skill of the suite through three graded levels whose completion rests on the learner's own submission, never an invocation trace | one skill | user | |
 
 ### `mesh/`

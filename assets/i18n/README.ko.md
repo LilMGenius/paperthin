@@ -80,7 +80,7 @@
 | 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | 중복 파일이나 디렉터리 트리를 커널이 관리하는 하나의 실체로 통합합니다: 하드링크, 심볼릭 링크, 정션 또는 바인드 마운트를 사용하며 되돌리는 절차도 검증합니다 | 같은 바이트, 여러 경로 | 모델 | |
 | 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | README와 AGENTS.md를 감사하고, 각 줄을 그 독자가 필요로 하는 파일로 옮깁니다 | 저장소 하나의 README와 AGENTS.md | 모델 | |
 | 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | 넘겨받은 자료를 그것을 소유한 기존 지식 베이스의 문서에, 그 베이스에서 읽은 규칙대로 놓고, 놓지 못한 것은 보고합니다 | 넘겨받은 자료와 지식 베이스 하나 | 사용자 | |
-| 🧰 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 한 번에 현재 전체 카탈로그로 올립니다: 이름 바뀐 건 정리, 새 건 추가, 전부 먼저 확인 | 내 스킬 설치 | 사용자 | |
+| 🆙 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 한 번에 현재 전체 카탈로그로 올립니다: 이름 바뀐 건 정리, 새 건 추가, 전부 먼저 확인 | 내 스킬 설치 | 사용자 | |
 
 ### `coil/`
 
@@ -89,11 +89,11 @@
 | 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | re0-loop의 첫 turn 전에 새 iteration 폴더를 열고 DESIGN/WORKFLOW/EVIDENCE를 씁니다 | 새 사이클 하나 | 사용자 | |
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | build → QA → re0-memo → re0-work 루프를 돌려 배움이 코드가 아니라 축적되게 합니다 | 전체 루프 | 모델 | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | 장시간 실행되는 에이전트 작업의 정체를 감시하고 기본적으로 알림만 보냅니다. 복구는 사람이 승인할 제안으로만 제시합니다 | 실행 중인 작업 하나 | 사용자 | |
-| 🧭 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 끝났거나 실패한 사이클에서 교훈과 anti-pattern을 뽑아냅니다 | 완료된 사이클 하나 | 모델 | |
+| 📝 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 끝났거나 실패한 사이클에서 교훈과 anti-pattern을 뽑아냅니다 | 완료된 사이클 하나 | 모델 | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 재사용할 자격을 얻은 교훈만 남기고 v0에서 다시 시작합니다 | 재시작 하나 | 모델 | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 실시간 state에서 잃어버린 context를 재구성합니다: 누구에게 필요한지, 무엇이 바뀌었는지, 새 단어가 무엇을 뜻하는지 | 재진입 하나 | 모델 | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 살아 있는 사이클 state를 읽고 메뉴가 아니라 단 하나의 다음 최선 행동을 돌려줍니다 | 현재 사이클 | 모델 | ✔ |
-| 🧩 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 명시된 의도 하나에 맞는 순서 있는 스킬 그래프를 추천하고 각 단계의 권한 유형을 표시하며 스킬을 호출하지 않습니다 | 명시된 의도 하나 | 모델 | ✔ |
+| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 명시된 의도 하나에 맞는 순서 있는 스킬 그래프를 추천하고 각 단계의 권한 유형을 표시하며 스킬을 호출하지 않습니다 | 명시된 의도 하나 | 모델 | ✔ |
 | 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | 스위트의 스킬 하나를 평가가 있는 세 단계로 배웁니다. 완료 여부는 학습자 본인의 제출물로 판단하며, 호출 기록으로는 절대 판단하지 않습니다 | 스킬 하나 | 사용자 | |
 
 ### `mesh/`
