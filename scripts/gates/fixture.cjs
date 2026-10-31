@@ -17,8 +17,9 @@ const readme = (switcher, up, model, user, problem) => [
 
 const BASE = {
   '.gitignore': '*.local*\n',
-  'package.json': JSON.stringify({ description: 'One line.' }),
-  '.claude-plugin/plugin.json': JSON.stringify({ description: 'One line.', skills: ['./skills/depth/foo', './skills/breadth/re0-upgrade'] }),
+  'package.json': JSON.stringify({ version: '0.1.0', description: 'One line.' }),
+  '.claude-plugin/plugin.json': JSON.stringify({ name: 'paperthin', version: '0.1.0', description: 'One line.', skills: ['./skills/depth/foo', './skills/breadth/re0-upgrade'] }),
+  '.claude-plugin/marketplace.json': JSON.stringify({ name: 'paperthin', owner: { name: 'x' }, plugins: [{ name: 'paperthin', source: './', description: 'One line.' }] }),
   'scripts/runtime/catalog.cjs': "module.exports = { CATALOG: ['foo', 're0-upgrade'] };\n",
   'skills/depth/foo/SKILL.md': skill('foo', 'Do foo. Use when foo is due.'),
   'skills/depth/foo/agents/openai.yaml': 'interface:\n  display_name: "foo"\n  short_description: "Do foo"\n',

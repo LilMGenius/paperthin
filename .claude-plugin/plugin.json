@@ -1,6 +1,15 @@
 {
   "name": "paperthin",
+  "version": "0.17.7",
   "description": "Low-level agentic design patterns. Turning old engineering wisdom into reflexes your agent reaches for on its own, on any agent.",
+  "author": {
+    "name": "LilMGenius",
+    "url": "https://github.com/LilMGenius"
+  },
+  "homepage": "https://github.com/LilMGenius/paperthin",
+  "repository": "https://github.com/LilMGenius/paperthin",
+  "license": "MIT",
+  "icon": "./assets/icon.png",
   "skills": [
     "./skills/depth/re0",
     "./skills/depth/readback",

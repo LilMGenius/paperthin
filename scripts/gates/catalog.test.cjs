@@ -47,6 +47,14 @@ test('a brand line that differs and an .npmignore fail', (t) => {
   assert.match(problems.join(), /\.npmignore: publishing reads \.gitignore/);
 });
 
+test('a plugin version behind package.json, a missing marketplace and a marketplace naming another source fail', (t) => {
+  const plugin = JSON.stringify({ ...JSON.parse(BASE['.claude-plugin/plugin.json']), version: '0.0.9' });
+  assert.match(run(t, { '.claude-plugin/plugin.json': plugin }).join(), /version 0\.0\.9 differs from package\.json 0\.1\.0/);
+  assert.match(run(t, { '.claude-plugin/marketplace.json': null }).join(), /marketplace\.json: missing/);
+  const other = JSON.stringify({ name: 'paperthin', owner: { name: 'x' }, plugins: [{ name: 'paperthin', source: './plugins/p', description: 'One line.' }] });
+  assert.match(run(t, { '.claude-plugin/marketplace.json': other }).join(), /must list paperthin with source "\.\/"/);
+});
+
 test('plugin.json that is not JSON fails with a problem, not a crash', (t) => {
   assert.match(run(t, { '.claude-plugin/plugin.json': BASE['.claude-plugin/plugin.json'] + ',' }).join(), /plugin\.json: is not valid JSON/);
 });
