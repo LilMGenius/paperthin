@@ -31,15 +31,16 @@ function section(text, title) {
 }
 
 // Deprecations rows (deprecated, renamed to) in table order, each resolved to its final current name, and the Current
-// catalog in roster order. A row that does not parse, a loop, or a chain ending outside the catalog is refused.
+// catalog in roster order. A row whose Renamed-to cell is the bare word retired removes the skill with no replacement
+// (final name null). A row that does not parse, a loop, or a chain ending outside the catalog is refused.
 export function readRules(text) {
   const rows = section(text, 'Deprecations').split('\n').filter((line) => line.trim().startsWith('|'));
   if (rows.length < 2) throw new Refusal('the Deprecations section holds no table');
   const renames = rows.slice(2).map((row) => {
     const cells = row.split('|').slice(1, -1).map((cell) => cell.trim());
     const from = NAME.exec(cells[0] ?? '');
-    const to = NAME.exec(cells[1] ?? '');
-    if (!from || !to) throw new Refusal('Deprecations row does not read as \x60old\x60 | \x60new\x60: ' + row.trim());
+    const to = cells[1] === 'retired' ? [null, null] : NAME.exec(cells[1] ?? '');
+    if (!from || !to) throw new Refusal('Deprecations row does not read as \x60old\x60 | \x60new\x60 or \x60old\x60 | retired: ' + row.trim());
     return [from[1], to[1]];
   });
   const catalog = [...section(text, 'Current catalog').matchAll(/\x60([a-z0-9][a-z0-9-]*)\x60/g)].map((m) => m[1]);
@@ -52,10 +53,18 @@ export function readRules(text) {
     if (current.has(from)) throw new Refusal(from + ' is both deprecated and in the Current catalog');
     const seen = [from];
     let name = next.get(from);
+    if (name === null) {
+      finals.set(from, null);
+      continue;
+    }
     while (next.has(name)) {
       if (seen.includes(name)) throw new Refusal('rename chain loops: ' + [...seen, name].join(' -> '));
       seen.push(name);
       name = next.get(name);
+    }
+    if (name === null) {
+      finals.set(from, null);
+      continue;
     }
     if (!current.has(name)) throw new Refusal('rename chain ' + [...seen, name].join(' -> ') + ' ends outside the Current catalog');
     finals.set(from, name);
