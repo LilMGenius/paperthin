@@ -100,7 +100,6 @@
 
 | Skill | क्या करता है | Scope | Invoker | read-only |
 |---|---|---|---|---|
-| 🔺 **[prism](../../skills/mesh/prism/SKILL.md)** | एक artifact को independent lenses में बांटता है; जहां वे टकराते हैं वह लौटाता है और वह सवाल जो उसे सुलझाता है | एक artifact | user | ✔ |
 | 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | पहले से एकत्र स्वतंत्र पढ़तों का आकलन करके निष्कर्षों को उद्धृत साक्ष्यों के आधार पर वर्गीकृत करता है, कभी संख्या के आधार पर नहीं; आदान-प्रदान का एक वैकल्पिक दौर केवल विवादित उद्धरणों को साझा करता है और साक्ष्य के कारण हुए हर संशोधन को दर्ज करता है। | एक artifact या प्रश्न की कई पढ़तें | user | ✔ |
 
 *Invocation पर अधिक: [.agents/invocation.md](../../.agents/invocation.md)।*
@@ -157,7 +156,6 @@ Agent को goal दें और वह **add** करता है: और fi
 - `nba` live cycle पढ़कर सिर्फ़ एक अगली चाल लौटाता है, कभी menu नहीं।
 - `re0-workflow` एक घोषित intent के लिए skills का ordered graph सुझाता है, उन्हें invoke किए बिना।
 - `re0-tutorial` एक skill को तीन graded levels में सिखाता है जो learner की अपनी submission पर टिके हैं।
-- `prism` एक artifact को independent lenses में बाँटता है और वे जहाँ टकराते हैं वह लौटाता है, कभी उनका average नहीं।
 - `multithink` independent reads को cited evidence से वर्गीकृत करता है, गिनती से कभी नहीं।
 
 > [!TIP]

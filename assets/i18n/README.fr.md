@@ -100,7 +100,6 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 
 | Skill | Ce qu'il fait | Portée | Invocation | Lecture seule |
 |---|---|---|---|---|
-| 🔺 **[prism](../../skills/mesh/prism/SKILL.md)** | Éclate un artifact selon des lentilles indépendantes ; renvoie où elles divergent et la question qui tranche | un artifact | utilisateur | ✔ |
 | 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | Arbitre des lectures indépendantes déjà recueillies pour produire des constats classés selon les éléments de preuve cités, jamais selon leur nombre ; un tour d’échange facultatif fait circuler uniquement les citations contestées et consigne chaque révision causée par les preuves. | plusieurs lectures d’un artifact ou d’une question | utilisateur | ✔ |
 
 *Plus d'informations sur l'invocation : [.agents/invocation.md](../../.agents/invocation.md).*
@@ -157,7 +156,6 @@ Ces skills parient dans l'autre sens. **Chacun enlève quelque chose :**
 - `nba` lit le cycle en direct et renvoie le seul coup suivant, jamais un menu.
 - `re0-workflow` recommande un graphe ordonné de skills pour une intention énoncée, sans les invoquer.
 - `re0-tutorial` enseigne un skill en trois niveaux notés qui reposent sur le rendu de l'apprenant lui-même.
-- `prism` éclate un artefact en lentilles indépendantes et renvoie leurs contradictions, jamais leur moyenne.
 - `multithink` classe des lectures indépendantes par les preuves citées, jamais par leur nombre.
 
 > [!TIP]
