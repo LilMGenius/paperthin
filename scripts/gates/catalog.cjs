@@ -94,6 +94,14 @@ function check(root) {
 
   const descriptions = [json('package.json').description, plugin.description];
   if (descriptions[0] !== descriptions[1]) problems.push(problem('.claude-plugin/plugin.json', 0, 'description differs from package.json; the brand one-liner is one sentence in both'));
+  // A Claude Code plugin is refetched only when its version changes, so plugin.json carries package.json's version; marketplace.json lists this one plugin from the repository root.
+  if (plugin.version !== json('package.json').version) problems.push(problem('.claude-plugin/plugin.json', 0, 'version ' + plugin.version + ' differs from package.json ' + json('package.json').version + '; a host refetches the plugin only when this version moves'));
+  if (!isFile(root, '.claude-plugin/marketplace.json')) problems.push(problem('.claude-plugin/marketplace.json', 0, 'missing; Claude Code and Codex add this repository as a marketplace through it'));
+  else {
+    const listed = (json('.claude-plugin/marketplace.json').plugins || []).find((p) => p.name === plugin.name);
+    if (!listed || listed.source !== './') problems.push(problem('.claude-plugin/marketplace.json', 0, 'must list ' + plugin.name + ' with source "./"'));
+    else if (listed.description !== plugin.description) problems.push(problem('.claude-plugin/marketplace.json', 0, 'description differs from plugin.json'));
+  }
   if (isFile(root, '.npmignore')) problems.push(problem('.npmignore', 0, 'publishing reads .gitignore; an .npmignore replaces it and ships the *.local files'));
   return problems;
 }
