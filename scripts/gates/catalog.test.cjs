@@ -20,10 +20,12 @@ test('a translated Index out of catalog order fails, and rows elsewhere do not c
   assert.deepEqual(run(t, edit('README.md', (text) => text.replace('## Quickstart', elsewhere))), []);
 });
 
-test('a skill missing from plugin.json or the upgrade roster fails', (t) => {
+test('a skill missing from plugin.json or the upgrade roster fails against the upgrade roster', (t) => {
   const plugin = JSON.stringify({ description: 'One line.', skills: ['./skills/depth/foo'] });
   assert.match(run(t, { '.claude-plugin/plugin.json': plugin }).join(), /skills\/breadth\/re0-upgrade is not registered/);
-  assert.match(run(t, edit('skills/breadth/re0-upgrade/SKILL.md', (text) => text.replace(', \x60re0-upgrade\x60', ''))).join(), /re0-upgrade\/SKILL\.md: lists the roster as \[foo\]/);
+  const short = run(t, edit('skills/breadth/re0-upgrade/SKILL.md', (text) => text.replace(', \x60re0-upgrade\x60', ''))).join();
+  assert.match(short, /plugin\.json: lists the roster as \[foo, re0-upgrade\], which is not the set and order of re0-upgrade's Current catalog/);
+  assert.match(short, /README\.md Index: lists the roster as \[foo, re0-upgrade\]/);
 });
 
 test('an Invoker cell off its lane fails in any language', (t) => {

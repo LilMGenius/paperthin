@@ -1,5 +1,5 @@
 'use strict';
-// The roster has no build step to generate it, so it is hand-written onto surfaces that cannot reference each other: the skill folders, plugin.json, the runtime CATALOG, re0-upgrade's Current catalog and every README Index and Problem list. They must hold one set in one order.
+// The roster has no build step to generate it, so it is hand-written onto surfaces that cannot reference each other: the skill folders, plugin.json, re0-upgrade's Current catalog and every README Index and Problem list. re0-upgrade's Current catalog is the reference list, since the installed skill reads it at runtime; every other surface must hold its set in its order.
 const path = require('node:path');
 const { listFiles, isFile, read, problem } = require('./repo.cjs');
 const { frontmatter } = require('./skills.cjs');
@@ -70,16 +70,16 @@ function check(root) {
   };
   const onDisk = listFiles(root, 'skills').filter((file) => file.endsWith('/SKILL.md')).map((file) => path.posix.dirname(file));
   const plugin = json('.claude-plugin/plugin.json');
-  const { CATALOG } = require(path.join(root, 'scripts', 'runtime', 'catalog.cjs'));
   const roster = upgradeRoster(read(root, UPGRADE));
   if (!roster) problems.push(problem(UPGRADE, 0, 'has no "## Current catalog" section'));
+  const CATALOG = roster || [];
 
   const registered = plugin.skills.map((p) => p.replace(/^\.\//, ''));
   for (const dir of onDisk.filter((dir) => !registered.includes(dir))) problems.push(problem('.claude-plugin/plugin.json', 0, dir + ' is not registered'));
   for (const dir of registered.filter((dir) => !onDisk.includes(dir))) problems.push(problem('.claude-plugin/plugin.json', 0, dir + ' has no SKILL.md'));
 
   const readmes = ['README.md', ...listFiles(root, 'assets/i18n').filter((file) => /\/README\.[^/]+\.md$/.test(file))];
-  const surfaces = { '.claude-plugin/plugin.json': registered.map((dir) => path.posix.basename(dir)), [UPGRADE]: roster || [] };
+  const surfaces = { '.claude-plugin/plugin.json': registered.map((dir) => path.posix.basename(dir)) };
   const invocation = new Map(onDisk.map((dir) => [path.posix.basename(dir), frontmatter(dir, read(root, dir + '/SKILL.md')).data?.['disable-model-invocation'] === true]));
   const retired = retiredNames(read(root, UPGRADE));
   for (const readme of readmes) {
@@ -89,7 +89,7 @@ function check(root) {
     checkInvoker(readme, rows, invocation, problems);
   }
   for (const [surface, list] of Object.entries(surfaces)) {
-    if (list.join(' ') !== CATALOG.join(' ')) problems.push(problem(surface, 0, 'lists the roster as [' + list.join(', ') + '], which is not the set and order of scripts/runtime/catalog.cjs'));
+    if (roster && list.join(' ') !== CATALOG.join(' ')) problems.push(problem(surface, 0, 'lists the roster as [' + list.join(', ') + "], which is not the set and order of re0-upgrade's Current catalog"));
   }
 
   const descriptions = [json('package.json').description, plugin.description];
