@@ -15,8 +15,10 @@ function gate(t, files) {
   fs.mkdirSync(path.dirname(path.join(root, classifier)), { recursive: true });
   fs.copyFileSync(path.join(__dirname, '..', '..', classifier), path.join(root, classifier));
   // llms.txt and llms-full.txt are generated from the catalog, so a fixture writes its own before the gate runs.
-  spawnSync(process.execPath, ['scripts/gates/llms.cjs'], { cwd: root, encoding: 'utf8' });
-  return spawnSync(process.execPath, ['scripts/gates/check.cjs'], { cwd: root, encoding: 'utf8', env: { ...process.env, GITHUB_ACTIONS: '' } });
+  // The copied gates sit in a temp folder with no node_modules above it, so they resolve this repository's dependencies by NODE_PATH.
+  const env = { ...process.env, GITHUB_ACTIONS: '', NODE_PATH: path.join(__dirname, '..', '..', 'node_modules') };
+  spawnSync(process.execPath, ['scripts/gates/llms.cjs'], { cwd: root, encoding: 'utf8', env });
+  return spawnSync(process.execPath, ['scripts/gates/check.cjs'], { cwd: root, encoding: 'utf8', env });
 }
 
 test('the gate exits 0 on a clean catalog and 1 with file:line on any problem', (t) => {
