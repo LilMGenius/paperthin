@@ -21,27 +21,26 @@
 
 **每个 agent 只选一种方式**；装两种会让每个 skill 加载两次。
 
-1. **Claude Code**：
+1. **Claude Code**:
    ```bash
-   claude plugin marketplace add LilMGenius/paperthin
-   claude plugin install paperthin@paperthin
+   claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
    然后运行 `/plugin`，打开 **Marketplaces**，选择 `paperthin` 并点一次 **Enable auto-update**。
-2. **Codex**：每次会话开始时自动更新。
+2. **Codex**: 每次会话开始时自动更新。
    ```bash
-   codex plugin marketplace add LilMGenius/paperthin
-   codex plugin add paperthin@paperthin
+   codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
    ```
-3. **其他 agent**（OpenCode、Cursor 等）：第二行会注册一个每天运行的更新任务，保持最新。如果 OS 要求，请在提升权限/admin shell 中运行，让这些 skill 以链接方式安装而不是被复制。 如果 Claude Code 或 Codex 走插件方式，请把 `'*'` 换成你实际使用的 agent（例如 `opencode`），把它们排除在外。
+3. **其他所有 agent**：一行命令同时装好 skill 和每日自动更新。
    ```bash
-   npx skills@latest add LilMGenius/paperthin --global --agent '*'
-   node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
+   npx skills@latest add LilMGenius/paperthin --global --agent '*' && node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
    ```
-4. **直接使用**。任何 skill 都能像 `/re0` 一样点名调用（在 Claude Code 中是 `/paperthin:re0`，在 Codex 中是 `$re0`）；model-invoked 也会自动触发。
+4. **开始使用**。像 `/re0` 这样直接用名字调用任何 skill；很多 skill 在需要时也会自己启动。
 
-**用旧方式装过？** 在新会话里运行一次 `/re0-upgrade`，它会把你迁到上面的方式，并移除旧的会话启动提醒。
+**以前装过？** 在新会话里运行一次 `/re0-upgrade`。
 
-**不确定怎么做？** 对你的 agent 说 `install https://github.com/LilMGenius/paperthin`，它会按照[给 agent 的步骤](../../.agents/install-block.md#handed-only-this-repository)安装，并告诉你还剩什么要做。
+**不确定？** 对你的 agent 说 `install https://github.com/LilMGenius/paperthin`，它会按[安装步骤](../../.agents/install-block.md#handed-only-this-repository)自己装好。
+
+**在网页版 ChatGPT 或 Claude 里？** 把 `https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt` 交给它。
 
 <a id="the-map"></a>
 ## 地图

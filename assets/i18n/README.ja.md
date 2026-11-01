@@ -23,25 +23,24 @@
 
 1. **Claude Code**:
    ```bash
-   claude plugin marketplace add LilMGenius/paperthin
-   claude plugin install paperthin@paperthin
+   claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
    その後 `/plugin` で **Marketplaces** を開き、`paperthin` を選んで **Enable auto-update** を一度だけ有効にします。
 2. **Codex**: セッション開始のたびに自動で更新されます。
    ```bash
-   codex plugin marketplace add LilMGenius/paperthin
-   codex plugin add paperthin@paperthin
+   codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
    ```
-3. **その他の agent**（OpenCode、Cursor など）: 二行目が毎日動く更新ジョブを登録し、最新に保ちます。OS が求める場合は昇格/admin シェルで実行し、skills がコピーではなくリンクされるようにします。 Claude Code や Codex をプラグイン経路で使うなら、`'*'` の代わりに実際に使う agent だけ（例: `opencode`）を書いて外してください。
+3. **その他すべての agent**: 一行で skill と毎日の自動更新をまとめて入れます。
    ```bash
-   npx skills@latest add LilMGenius/paperthin --global --agent '*'
-   node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
+   npx skills@latest add LilMGenius/paperthin --global --agent '*' && node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
    ```
-4. **使います**。どの skill も `/re0` のように名前で呼べます（Claude Code では `/paperthin:re0`、Codex では `$re0`）。model-invoked は自動でも動きます。
+4. **使ってみましょう**。`/re0` のように名前で呼ぶだけです。作業に必要なときは自分から動き出す skill も多くあります。
 
-**古い方法で入れていたら？** 新しいセッションで `/re0-upgrade` を一度実行してください。上の経路へ移し、古い session-start 通知を取り除きます。
+**以前に入れていたら？** 新しいセッションで `/re0-upgrade` を一度実行してください。
 
-**迷ったら？** 使っている agent に `install https://github.com/LilMGenius/paperthin` と伝えてください。[agent 向けの手順](../../.agents/install-block.md#handed-only-this-repository)に従ってインストールし、残りの作業を教えてくれます。
+**迷ったら？** agent に `install https://github.com/LilMGenius/paperthin` と伝えれば、[セットアップ手順](../../.agents/install-block.md#handed-only-this-repository)に沿って自分で入れてくれます。
+
+**Web 版の ChatGPT や Claude なら？** `https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt` を渡してください。
 
 <a id="the-map"></a>
 ## マップ

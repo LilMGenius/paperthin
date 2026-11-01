@@ -4,7 +4,7 @@ One install story. `README.md`, every translation under `assets/i18n/`, and the 
 
 ## One route per agent
 
-Every route here keeps paperthin current without the user running anything after setup, which on Claude Code includes turning on auto-update once. Claude Code and Codex install it as a plugin from this repository's marketplace (`.claude-plugin/marketplace.json` and `plugin.json`), and each host updates its own plugins. Every other agent installs through [skills.sh](https://skills.sh/LilMGenius/paperthin), with a daily per-user job that updates it. Pick one route per agent: installing both leaves every skill loaded twice.
+Claude Code and Codex install paperthin as a plugin from this repository's marketplace (`.claude-plugin/marketplace.json` and `plugin.json`); every other agent installs it through [skills.sh](https://skills.sh/LilMGenius/paperthin). Each route keeps it current after setup, as the table says. Pick one route per agent: installing both leaves every skill loaded twice.
 
 | Agent | Route | Updates itself? |
 | --- | --- | --- |
@@ -19,11 +19,10 @@ Codex also reads `~/.agents/skills`, where every global skills.sh install lands.
 <canonical-block name="claude-code">
 
 ```bash
-claude plugin marketplace add LilMGenius/paperthin
-claude plugin install paperthin@paperthin
+claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
 ```
 
-Then turn on auto-update once, since Claude Code leaves it off for every marketplace Anthropic does not ship ([docs](https://code.claude.com/docs/en/discover-plugins#turn-auto-update-on-or-off-for-a-marketplace)): run `/plugin` in a session, open **Marketplaces**, select `paperthin` and choose **Enable auto-update**. Skills load as `/paperthin:<skill>`.
+Then turn on auto-update once, since Claude Code leaves it off for every marketplace Anthropic does not ship ([docs](https://code.claude.com/docs/en/discover-plugins#turn-auto-update-on-or-off-for-a-marketplace)): run `/plugin` in a session, open **Marketplaces**, select `paperthin` and choose **Enable auto-update**.
 
 </canonical-block>
 
@@ -32,8 +31,7 @@ Then turn on auto-update once, since Claude Code leaves it off for every marketp
 <canonical-block name="codex">
 
 ```bash
-codex plugin marketplace add LilMGenius/paperthin
-codex plugin add paperthin@paperthin
+codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
 ```
 
 Codex refreshes the marketplace at every session start and updates the plugin itself.
@@ -45,11 +43,10 @@ Codex refreshes the marketplace at every session start and updates the plugin it
 <canonical-block name="other-agents">
 
 ```bash
-npx skills@latest add LilMGenius/paperthin --global --agent '*'
-node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
+npx skills@latest add LilMGenius/paperthin --global --agent '*' && node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
 ```
 
-The first line installs one canonical copy of each skill under `~/.agents/skills` and links every agent's skill folder to it; run it from an elevated or admin shell if your OS asks, so the skills are linked rather than copied; run the second line in a normal shell, since the job runs as the user. Replace `'*'` with the agents you use (`opencode`, `cursor`, and others from the CLI's [supported agents](https://github.com/vercel-labs/skills/blob/main/docs/agents.md)) to leave out an agent that takes a plugin route. The second line registers a per-user job, unelevated and windowless, that runs at local 00:00 (Task Scheduler, a launchd LaunchAgent, or a systemd user timer with cron as the fallback), updates every global skill and adds any skill a newer release ships.
+`skills add` installs one canonical copy of each skill under `~/.agents/skills` and links every agent's skill folder to it. Replace `'*'` with the agents you use (`opencode`, `cursor`, and others from the CLI's [supported agents](https://github.com/vercel-labs/skills/blob/main/docs/agents.md)) to leave out an agent that takes a plugin route. `schedule.mjs install` then registers a per-user job, unelevated and windowless, that runs at local 00:00 (Task Scheduler, a launchd LaunchAgent, or a systemd user timer with cron as the fallback), updates every global skill and adds any skill a newer release ships. On Windows, run the line from an elevated shell if the CLI asks, so the skills are linked rather than copied; the task still registers at least privilege and runs as the user. On macOS and Linux, run it without sudo, since the job belongs to the user.
 
 </canonical-block>
 

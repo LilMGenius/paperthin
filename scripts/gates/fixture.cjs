@@ -5,7 +5,7 @@ const os = require('node:os');
 const path = require('node:path');
 const { execFileSync } = require('node:child_process');
 
-const INSTALL = "npx skills@latest add LilMGenius/paperthin --global --agent '*'";
+const INSTALL = "npx skills@latest add LilMGenius/paperthin --global --agent '*' && node \"$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs\" install";
 const skill = (name, description, extra = '') => '---\nname: ' + name + '\ndescription: "' + description + '"\n' + extra + '---\n\nOne line.\n\n## Goal\n\n## Workflow\n\n## Rules\n\n## Verification\n';
 const readme = (switcher, up, model, user, problem) => [
   '# Paperthin', '', '<sub>Read in: ' + switcher + '</sub>', '', '## Quickstart', '', '\x60\x60\x60bash', INSTALL, '\x60\x60\x60', '', 'Then run \x60/re0-upgrade\x60.', '',

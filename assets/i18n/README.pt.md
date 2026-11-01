@@ -23,25 +23,24 @@ Escolha **uma rota por agent**; instalar duas carrega cada skill duas vezes.
 
 1. **Claude Code**:
    ```bash
-   claude plugin marketplace add LilMGenius/paperthin
-   claude plugin install paperthin@paperthin
+   claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
-   Depois rode `/plugin`, abra **Marketplaces**, escolha `paperthin` e ative **Enable auto-update** uma vez.
-2. **Codex**: atualiza sozinho a cada inicio de sessao.
+   Depois rode `/plugin`, abra **Marketplaces**, selecione `paperthin` e escolha **Enable auto-update**, uma vez só.
+2. **Codex**: atualiza sozinho a cada início de sessão.
    ```bash
-   codex plugin marketplace add LilMGenius/paperthin
-   codex plugin add paperthin@paperthin
+   codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
    ```
-3. **Qualquer outro agent** (OpenCode, Cursor e o resto): a segunda linha instala uma tarefa diaria que o mantem atualizado. Execute em uma shell elevada/admin se o seu OS pedir, para que as skills sejam ligadas em vez de copiadas. Se Claude Code ou Codex usam a rota de plugin, troque `'*'` pelos agents que voce usa (como `opencode`) para deixa-los de fora.
+3. **Qualquer outro agent**: uma linha instala as skills e uma atualização diária.
    ```bash
-   npx skills@latest add LilMGenius/paperthin --global --agent '*'
-   node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
+   npx skills@latest add LilMGenius/paperthin --global --agent '*' && node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
    ```
-4. **Use-as**. Chame qualquer skill pelo nome, como `/re0` (`/paperthin:re0` no Claude Code, `$re0` no Codex); as model-invoked tambem disparam sozinhas.
+4. **Use**: chame qualquer skill pelo nome, como `/re0`. Muitas também entram em ação sozinhas quando o trabalho pede.
 
-**Vem de uma instalacao antiga?** Rode `/re0-upgrade` uma vez em uma sessao nova; ele move voce para a rota acima e remove o antigo aviso de inicio de sessao.
+**Já instalou antes?** Rode `/re0-upgrade` uma vez em uma sessão nova.
 
-**Nao tem certeza?** Diga ao seu agent `install https://github.com/LilMGenius/paperthin`; ele segue os [passos para agents](../../.agents/install-block.md#handed-only-this-repository) e diz o que falta para voce.
+**Na dúvida?** Diga ao seu agent `install https://github.com/LilMGenius/paperthin` e ele segue os [passos de instalação](../../.agents/install-block.md#handed-only-this-repository) sozinho.
+
+**Usa ChatGPT ou Claude na web?** Entregue `https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt`.
 
 <a id="the-map"></a>
 ## O mapa

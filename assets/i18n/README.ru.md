@@ -19,29 +19,28 @@
 <a id="quickstart-15-seconds"></a>
 ## Быстрый старт (15 секунд)
 
-Выберите **один путь на агента**; два пути загружают каждый skill дважды.
+Выберите **один путь для каждого агента**: если поставить два, каждый skill загрузится дважды.
 
 1. **Claude Code**:
    ```bash
-   claude plugin marketplace add LilMGenius/paperthin
-   claude plugin install paperthin@paperthin
+   claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
-   Затем запустите `/plugin`, откройте **Marketplaces**, выберите `paperthin` и один раз включите **Enable auto-update**.
-2. **Codex**: обновляется сам при каждом старте сессии.
+   Затем выполните `/plugin`, откройте **Marketplaces**, выберите `paperthin` и один раз включите **Enable auto-update**.
+2. **Codex**: обновляется сам при каждом запуске сессии.
    ```bash
-   codex plugin marketplace add LilMGenius/paperthin
-   codex plugin add paperthin@paperthin
+   codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
    ```
-3. **Любой другой агент** (OpenCode, Cursor и остальные): вторая строка регистрирует ежедневную задачу, которая держит его актуальным. Запустите из повышенной/admin shell, если OS этого требует, чтобы skills были связаны ссылками, а не скопированы. Если Claude Code или Codex идут через плагин, замените `'*'` на агентов, которыми пользуетесь (например, `opencode`), чтобы исключить их.
+3. **Любой другой агент**: одна строка ставит skills и ежедневное обновление.
    ```bash
-   npx skills@latest add LilMGenius/paperthin --global --agent '*'
-   node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
+   npx skills@latest add LilMGenius/paperthin --global --agent '*' && node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
    ```
-4. **Используйте их**. Вызывайте любой skill по имени, например `/re0` (`/paperthin:re0` в Claude Code, `$re0` в Codex); model-invoked срабатывают и сами.
+4. **Пользуйтесь**. Вызывайте любой skill по имени, например `/re0`. Многие запускаются и сами, когда этого требует работа.
 
-**Ставили по-старому?** Запустите `/re0-upgrade` один раз в новой сессии; он переведёт вас на путь выше и уберёт старое уведомление при старте сессии.
+**Уже ставили раньше?** Запустите `/re0-upgrade` один раз в новой сессии.
 
-**Не уверены?** Скажите агенту `install https://github.com/LilMGenius/paperthin`; он выполнит [шаги для агентов](../../.agents/install-block.md#handed-only-this-repository) и скажет, что осталось сделать вам.
+**Не уверены?** Скажите агенту `install https://github.com/LilMGenius/paperthin`, и он сам пройдёт [шаги установки](../../.agents/install-block.md#handed-only-this-repository).
+
+**В веб-версии ChatGPT или Claude?** Дайте ссылку `https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt`.
 
 <a id="the-map"></a>
 ## Карта

@@ -23,25 +23,24 @@
 
 1. **Claude Code**:
    ```bash
-   claude plugin marketplace add LilMGenius/paperthin
-   claude plugin install paperthin@paperthin
+   claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
    ثم شغّل `/plugin` وافتح **Marketplaces** واختر `paperthin` وفعّل **Enable auto-update** مرة واحدة.
 2. **Codex**: يحدّث نفسه عند بدء كل جلسة.
    ```bash
-   codex plugin marketplace add LilMGenius/paperthin
-   codex plugin add paperthin@paperthin
+   codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
    ```
-3. **أي agent آخر** (OpenCode وCursor وغيرهما): السطر الثاني يثبّت مهمة يومية تبقيه محدثا. شغّله من shell بصلاحيات مرتفعة/admin إذا طلب نظام التشغيل ذلك، حتى تُربط الـ skills بدل أن تُنسخ. إذا كان Claude Code أو Codex يستخدمان طريق الـ plugin، فضع مكان `'*'` الـ agents التي تستخدمها فقط (مثل `opencode`) لاستبعادهما.
+3. **أي agent آخر**: سطر واحد يثبّت الـ skills ومعها تحديثا يوميا.
    ```bash
-   npx skills@latest add LilMGenius/paperthin --global --agent '*'
-   node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
+   npx skills@latest add LilMGenius/paperthin --global --agent '*' && node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
    ```
-4. **استخدمها**. نادِ أي skill بالاسم مثل `/re0` (`/paperthin:re0` في Claude Code و`$re0` في Codex)؛ وتنطلق model-invoked وحدها أيضا.
+4. **استخدمها**. نادِ أي skill باسمه مثل `/re0`، وكثير منها يبدأ وحده حين يحتاجه العمل.
 
-**ثبّتّه بالطريقة القديمة؟** شغّل `/re0-upgrade` مرة واحدة في جلسة جديدة؛ ينقلك إلى الطريق أعلاه ويزيل إشعار بدء الجلسة القديم.
+**ثبّتّه من قبل؟** شغّل `/re0-upgrade` مرة واحدة في جلسة جديدة.
 
-**لست متأكدا؟** قل لـ agent الخاص بك `install https://github.com/LilMGenius/paperthin`؛ سيتبع [خطوات الـ agents](../../.agents/install-block.md#handed-only-this-repository) ويخبرك بما بقي لك.
+**لست متأكدا؟** قل لـ agent الخاص بك `install https://github.com/LilMGenius/paperthin` وسيتبع [خطوات الإعداد](../../.agents/install-block.md#handed-only-this-repository) بنفسه.
+
+**تستخدم ChatGPT أو Claude على الويب؟** أعطه `https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt`.
 
 <a id="the-map"></a>
 ## الخريطة
