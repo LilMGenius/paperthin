@@ -14,16 +14,9 @@ It is **user-invoked**: shipping is a deliberate human action, so only the human
 
 ## Workflow
 
-1. **Check the checklist.** Read the pending diff against every applicable item of the Shipping checklist in the repository root's `AGENTS.md` (its Shipping section) except the version bump and the `sip` run, which steps 2 and 3 own. That section is the authority; in this suite's own repository its items are:
-   - any new or changed `SKILL.md` has the right shape: frontmatter `name` and `description`, `disable-model-invocation` only if the skill is user-invoked, and body sections Goal, Workflow, Rules, Verification; its `agents/openai.yaml` carries `policy.allow_implicit_invocation: false` exactly when the skill is user-invoked;
-   - the README and every localized copy under `assets/i18n/` list it accurately, with the right invocation column and roster order; that order stays aligned across `plugin.json` and `re0-upgrade`'s Current catalog, set with `re0-order`; it enters the README's curated Problem removes-list and Fixes narrative only if it carries the thesis, which most skills do not;
-   - `plugin.json` registers its path;
-   - a rename appends its old → new row to `re0-upgrade`'s deprecations, in release order;
-   - the shared cross-skill rules (edit-safety, negatives-as-corpus, commit-economy) stay coherent across every copy.
-
-   Report any gap to the human and stop rather than guessing past it.
+1. **Check the checklist.** Read the pending diff against every applicable item of the Shipping checklist in the repository root's `AGENTS.md` (its Shipping section) except the version bump and the `sip` run, which steps 2 and 3 own. That section is the authority. Report any gap to the human and stop rather than guessing past it.
 2. **Classify the bump.** A new skill is minor; a fix or docs-only change is patch; a skill removed with no replacement path is major. Classify an existing skill's enhancement by kind, not size, against its own prior spec: wrong behavior is a fix (patch, including new plumbing that serves only the fix); correct but narrower, or missing a dimension, is a new capability a user newly reaches for (minor). State which case applies, not just the bump.
-3. **Taste-test.** Call the Skill tool with "sip" if it is installed and apply its findings. Otherwise run its checks yourself, one Skill tool call each, in this order, applying each one's findings: "shower" to cold-read; "factchk" for a claim or "mandela" for an eval, only when the change carries one; "ssotize" for consistency, auditing first and consolidating only after the human approves; then "re0" to tidy.
+3. **Taste-test.** Call the Skill tool with "sip" and apply its findings. When `sip` is not installed, say so and skip this step.
 4. **Bump** `package.json`'s version to step 2's classification.
 5. **Draft the commit message** to commit-economy from the first draft: one bullet per real, durable change, supporting edits folded in; nothing the diff or version already proves; no co-author tag except a closing `Co-authored-by` trailer that credits a human contributor on a squashed or carried contribution. Match the local log's shape, or, absent one, a subject plus one `-` bullet per change on a single unwrapped line. Rewrite the message as edits develop instead of appending to it. If an existing commit needs cleanup, tell the human to run `/re0-git`; it is user-invoked, so never call it.
 6. **First confirmation.** Show the human the bump with its case and the drafted message, and ask for explicit confirmation. Commit only after it; the commit stays local.
