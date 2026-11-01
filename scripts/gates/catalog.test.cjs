@@ -57,6 +57,13 @@ test('a plugin version behind package.json, a missing marketplace and a marketpl
   assert.match(run(t, { '.claude-plugin/marketplace.json': other }).join(), /must list paperthin with source "\.\/"/);
 });
 
+test('a marketplace whose name or catalog description drifts from plugin.json fails', (t) => {
+  const market = (extra) => ({ '.claude-plugin/marketplace.json': JSON.stringify({ name: 'paperthin', owner: { name: 'x' }, plugins: [{ name: 'paperthin', source: './', description: 'One line.' }], ...extra }) });
+  assert.deepEqual(run(t, market({ metadata: { description: 'One line.' } })), []);
+  assert.match(run(t, market({ metadata: { description: 'Another line.' } })).join(), /marketplace\.json: metadata\.description differs from plugin\.json/);
+  assert.match(run(t, market({ name: 'paperthin-dev' })).join(), /marketplace\.json: name paperthin-dev differs from the plugin name paperthin/);
+});
+
 test('plugin.json that is not JSON fails with a problem, not a crash', (t) => {
   assert.match(run(t, { '.claude-plugin/plugin.json': BASE['.claude-plugin/plugin.json'] + ',' }).join(), /plugin\.json: is not valid JSON/);
 });
