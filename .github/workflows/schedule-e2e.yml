@@ -1,0 +1,45 @@
+name: schedule-e2e
+
+# re0-upgrade's daily job runs under a different OS scheduler on each platform, so one matrix job runs the same end-to-end
+# script on all three. Unit tests in ci.yml cover what the job writes; this covers what the scheduler does with it.
+on:
+  push:
+    paths:
+      - skills/breadth/re0-upgrade/scripts/**
+      - scripts/e2e/schedule.mjs
+      - .github/workflows/schedule-e2e.yml
+  pull_request:
+    paths:
+      - skills/breadth/re0-upgrade/scripts/**
+      - scripts/e2e/schedule.mjs
+      - .github/workflows/schedule-e2e.yml
+  schedule:
+    # Monday 00:00 Seoul: the job installs skills@latest and the latest release on users' machines every night, so a
+    # change upstream of this repository can break it with no push here.
+    - cron: "0 15 * * 0"
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    name: e2e (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      # A runner has no login session, so no systemd user manager runs until lingering starts one; without it the job
+      # would fall back to cron and the systemd timer most Linux users get would go untested.
+      - name: Start a systemd user manager
+        if: runner.os == 'Linux'
+        run: |
+          sudo loginctl enable-linger "$USER"
+          for i in $(seq 1 30); do [ -S "/run/user/$(id -u)/bus" ] && break; sleep 1; done
+          echo "XDG_RUNTIME_DIR=/run/user/$(id -u)" >> "$GITHUB_ENV"
+          echo "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus" >> "$GITHUB_ENV"
+      - run: node scripts/e2e/schedule.mjs
