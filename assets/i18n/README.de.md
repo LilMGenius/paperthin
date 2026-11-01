@@ -25,7 +25,7 @@ Wähle **einen Weg pro Agent**; wer zwei installiert, lädt jeden Skill doppelt.
    ```bash
    claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
-   Dann `/plugin` ausführen, **Marketplaces** öffnen, `paperthin` wählen und einmal **Enable auto-update** aktivieren.
+   Dann in Claude Code `/plugin` ausführen, **Marketplaces** öffnen, `paperthin` wählen und einmal **Enable auto-update** aktivieren.
 2. **Codex**: aktualisiert sich bei jedem Sessionstart selbst.
    ```bash
    codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
@@ -81,7 +81,7 @@ Wähle **einen Weg pro Agent**; wer zwei installiert, lädt jeden Skill doppelt.
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Prüft, ob ein Test oder eine Kennzahl sich selbst benotet oder ob eine echte äußere Wahrheit über das Ergebnis entscheidet | ein Eval | Modell | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | Findet im laufenden Code Attrappen und stille Ausweichwege, die eine Erfolgsmeldung zur Lüge machen, und schlägt die echte Lösung vor | benannte Dateien, ein Verzeichnis oder ein Diff | Modell | |
 | 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | Findet die Daten einer Person oder Firma in geteilten Dateien, ersetzt sie durch die Rolle, die sie spielen, und listet die alten Commits auf, die sie noch enthalten | ein benanntes Artefakt und ein Eigentümer | Modell | |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Lässt direkt nach jeder Änderung, bevor du sie für fertig erklärst, die Prüfungen der Sammlung selbst über dein Ergebnis laufen | dein Output | Modell | |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Lässt direkt nach jeder Änderung, bevor du sie für fertig erklärst, die eigenen Prüfungen von paperthin über dein Ergebnis laufen | dein Output | Modell | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Schreibt die Nachricht eines fertigen Commits neu und behält Datum und Platz, sodass jeder allein anhand der Historie übernehmen kann | ein Commit | Nutzer | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | Veröffentlicht ein GitHub-Repository als einen einzigen signierten Commit mit denselben Dateien neu, sodass kein alter Commit mehr erreichbar bleibt | ein Repository | Nutzer | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | Arbeitet die Release-Checkliste ab, setzt nach deiner Bestätigung das Tag und veröffentlicht | ein Release | Nutzer | |
