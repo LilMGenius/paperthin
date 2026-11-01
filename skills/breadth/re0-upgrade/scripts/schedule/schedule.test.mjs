@@ -5,7 +5,7 @@ import { mkdtempSync, rmSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { cronInstall, cronRemove, jobArgs, lastRun, launchdPlist, logFile, namesToAdd, npxCommand, rotate, systemdUnits, windowsTask } from './schedule.mjs';
+import { cronInstall, cronRemove, jobArgs, lastRun, launchdPlist, logFile, namesToAdd, npxCommand, rotate, systemdUnits, tagFromRedirect, windowsTask } from './schedule.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const scratch = mkdtempSync(join(tmpdir(), 're0-schedule-'));
@@ -21,6 +21,13 @@ const argv = jobArgs(job);
 test('the job runs the script verb run under its own name, carrying --home only when one is given', () => {
   assert.deepEqual(argv, [job.node, job.script, 'run', '--name', 'paperthin-update']);
   assert.deepEqual(jobArgs({ ...job, home: '/tmp/h' }).slice(-2), ['--home', '/tmp/h']);
+});
+
+test('the latest tag is read from the redirect github.com answers, and a page with no release names none', () => {
+  assert.equal(tagFromRedirect('https://github.com/LilMGenius/paperthin/releases/tag/v0.17.7'), 'v0.17.7');
+  assert.equal(tagFromRedirect('https://github.com/o/r/releases/tag/release%2F1.0'), 'release/1.0');
+  assert.equal(tagFromRedirect('https://github.com/LilMGenius/paperthin/releases'), null, 'a repository with no release redirects to the list');
+  assert.equal(tagFromRedirect(null), null);
 });
 
 test('the Windows task fires daily at local 00:00, hidden, unelevated, through a headless console', () => {
