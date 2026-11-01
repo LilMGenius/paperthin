@@ -2,6 +2,7 @@
 // Line rules over tracked text: no em-dash, no in-sentence dash in the READMEs and brand surfaces, one spelling of the skills CLI, generic examples in durable docs, backticked names that resolve, and the install command every README copies.
 const path = require('node:path');
 const { listFiles, read, problem } = require('./repo.cjs');
+const { indexRows } = require('./catalog.cjs');
 // dedash owns the one classifier of em and en dashes by slot; the gate loads it rather than keeping a second copy.
 const { findText, isProse } = require(path.join(__dirname, '..', '..', 'skills', 'depth', 'dedash', 'scripts', 'find.mjs'));
 
@@ -52,7 +53,37 @@ function check(root) {
     });
   }
   checkInstall(root, problems);
+  checkTranslatedIndex(root, problems);
   return problems;
+}
+
+// A translation paraphrases the English Index in natural prose of its own language. Two signs of a copy are mechanical and checked here: a translated "What it does" cell equal to the English cell for the same skill, and, in a language with its own script, a cell whose letters are mostly Latin once skill names, code spans, links and bold are set aside. Whether the wording reads as natural or word for word stays a reviewer's judgment.
+const SCRIPTS = {
+  ko: /\p{Script=Hangul}/gu,
+  ja: /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/gu,
+  'zh-CN': /\p{Script=Han}/gu,
+  ru: /\p{Script=Cyrillic}/gu,
+  ar: /\p{Script=Arabic}/gu,
+  hi: /\p{Script=Devanagari}/gu,
+};
+
+function whatCells(text) {
+  return new Map(indexRows(text).map((row) => [row.name, { cell: row.row.split('|')[2].trim(), line: row.line }]));
+}
+
+function checkTranslatedIndex(root, problems) {
+  const english = whatCells(read(root, 'README.md'));
+  for (const readme of listFiles(root, 'assets/i18n').filter((file) => /\/README\.[^/]+\.md$/.test(file))) {
+    const script = SCRIPTS[readme.match(/README\.([^/]+)\.md$/)[1]];
+    for (const [name, { cell, line }] of whatCells(read(root, readme))) {
+      if (english.get(name)?.cell === cell) problems.push(problem(readme, line, name + "'s What it does cell is the English one; paraphrase it in the translation's own language"));
+      if (!script) continue;
+      const bare = cell.replace(/\x60[^\x60]*\x60/g, '').replace(/\[[^\]]*\]\([^)]*\)/g, '').replace(/\*\*[^*]*\*\*/g, '').replace(/[a-z0-9]+(?:-[a-z0-9]+)*/g, (word) => (english.has(word) ? '' : word));
+      const native = (bare.match(script) || []).length;
+      const latin = (bare.match(/[A-Za-z]/g) || []).length;
+      if (native <= latin) problems.push(problem(readme, line, name + "'s What it does cell has " + latin + ' Latin letters to ' + native + ' in the ' + readme.match(/README\.([^/]+)\.md$/)[1] + ' script; write it in that script'));
+    }
+  }
 }
 
 // .agents/install-block.md owns the install commands, one canonical block per route; every README carries each command line verbatim and points at /re0-upgrade for older installs.
