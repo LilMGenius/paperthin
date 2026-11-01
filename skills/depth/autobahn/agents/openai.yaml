@@ -1,3 +1,4 @@
 interface:
   display_name: "autobahn"
   short_description: "Carve out unsafe scope, run the rest at speed"
+  default_prompt: "Use $autobahn to carve the risky parts out and run the rest."

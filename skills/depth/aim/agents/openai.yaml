@@ -1,3 +1,4 @@
 interface:
   display_name: "aim"
   short_description: "Propose the intent behind handed-over data"
+  default_prompt: "Use $aim to read this and propose what I am trying to do."

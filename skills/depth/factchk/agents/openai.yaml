@@ -1,3 +1,4 @@
 interface:
   display_name: "factchk"
   short_description: "Verify claims against sources in both directions"
+  default_prompt: "Use $factchk to verify the claims in this against sources."

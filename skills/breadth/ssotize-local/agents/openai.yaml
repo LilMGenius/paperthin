@@ -1,3 +1,4 @@
 interface:
   display_name: "ssotize-local"
   short_description: "Link duplicate files into one filesystem identity"
+  default_prompt: "Use $ssotize-local to turn these duplicate files into one linked copy."

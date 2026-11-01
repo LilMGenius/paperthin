@@ -1,3 +1,4 @@
 interface:
   display_name: "sip"
   short_description: "Taste-test your own output with the suite"
+  default_prompt: "Use $sip to taste-test what you just changed."

@@ -1,3 +1,4 @@
 interface:
   display_name: "catchup"
   short_description: "Rebuild lost context from live project state"
+  default_prompt: "Use $catchup to rebuild my context on this project."

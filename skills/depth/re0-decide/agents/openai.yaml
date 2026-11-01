@@ -1,5 +1,6 @@
 interface:
   display_name: "re0-decide"
   short_description: "Turn decision material into a checkable instrument"
+  default_prompt: "Use $re0-decide to turn this material into a decision instrument."
 policy:
   allow_implicit_invocation: false

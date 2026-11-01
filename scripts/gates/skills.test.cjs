@@ -12,7 +12,7 @@ const run = (t, files) => messages(check(fixture(t, files)));
 // A second model-invoked skill, so one skill can call another without calling itself.
 const BAR = {
   'skills/depth/bar/SKILL.md': skill('bar', 'Do bar. Use when bar is due.'),
-  'skills/depth/bar/agents/openai.yaml': 'interface:\n  display_name: "bar"\n  short_description: "Do bar"\n',
+  'skills/depth/bar/agents/openai.yaml': 'interface:\n  display_name: "bar"\n  short_description: "Do bar whenever bar is due"\n  default_prompt: "Use $bar on this."\n',
 };
 const calling = (rel, files, name) => ({ ...files, [rel]: files[rel].replace('## Workflow\n', '## Workflow\n\n1. Call the Skill tool with "' + name + '".\n') });
 const fooCalls = (name) => calling('skills/depth/foo/SKILL.md', BASE, name);
@@ -32,13 +32,21 @@ test('a name that is not its directory fails', (t) => {
 });
 
 test('a lane set in SKILL.md but not in agents/openai.yaml fails', (t) => {
-  assert.match(run(t, { 'skills/breadth/re0-upgrade/agents/openai.yaml': 'interface:\n  display_name: "x"\n  short_description: "x"\n' }).join(), /must pair with disable-model-invocation/);
+  assert.match(run(t, { 'skills/breadth/re0-upgrade/agents/openai.yaml': 'interface:\n  display_name: "re0-upgrade"\n  short_description: "Install the current catalog"\n  default_prompt: "Use $re0-upgrade to update."\n' }).join(), /must pair with disable-model-invocation/);
 });
 
 test('a missing agents/openai.yaml and a missing section fail', (t) => {
   const problems = run(t, { 'skills/depth/foo/agents/openai.yaml': null, 'skills/depth/foo/SKILL.md': skill('foo', 'Do foo.').replace('## Rules\n', '') });
   assert.match(problems.join(), /openai\.yaml: missing/);
   assert.match(problems.join(), /missing the ## Rules section/);
+});
+
+test('agents/openai.yaml needs a 25 to 64 character blurb and a default prompt naming $<skill>', (t) => {
+  const yaml = (body) => ({ 'skills/depth/foo/agents/openai.yaml': body });
+  assert.match(run(t, yaml('interface:\n  display_name: "foo"\n  short_description: "Do foo"\n  default_prompt: "Use $foo on this."\n')).join(), /short_description is 6 characters; hosts show 25 to 64/);
+  assert.match(run(t, yaml('interface:\n  display_name: "foo"\n  short_description: "Do foo whenever foo is due"\n')).join(), /interface\.default_prompt must name \$foo/);
+  assert.match(run(t, yaml('interface:\n  display_name: "foo"\n  short_description: "Do foo whenever foo is due"\n  default_prompt: "Use $bar on this."\n')).join(), /interface\.default_prompt must name \$foo/);
+  assert.match(run(t, yaml('interface:\n  display_name: "Foo"\n  short_description: "Do foo whenever foo is due"\n  default_prompt: "Use $foo on this."\n')).join(), /display_name "Foo" is not the skill name foo/);
 });
 
 test('a user-invoked description with "Use when" triggers fails', (t) => {

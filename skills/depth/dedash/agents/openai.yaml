@@ -1,5 +1,6 @@
 interface:
   display_name: "dedash"
   short_description: "Remove in-sentence em and en dashes, keep label dashes"
+  default_prompt: "Use $dedash to remove the dashes standing in for other punctuation."
 policy:
   allow_implicit_invocation: false

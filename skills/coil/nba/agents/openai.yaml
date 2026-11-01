@@ -1,3 +1,4 @@
 interface:
   display_name: "nba"
   short_description: "Return the single next best action"
+  default_prompt: "Use $nba to tell me the single next best action."

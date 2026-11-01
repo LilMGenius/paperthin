@@ -1,5 +1,6 @@
 interface:
   display_name: "re0-watch"
   short_description: "Watch a long job for stalls and alert"
+  default_prompt: "Use $re0-watch to watch this long-running job for stalls."
 policy:
   allow_implicit_invocation: false

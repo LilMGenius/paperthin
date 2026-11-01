@@ -1,5 +1,6 @@
 interface:
   display_name: "macrothink"
   short_description: "Fan out fresh reads and report divergence"
+  default_prompt: "Use $macrothink to check whether this direction is tunnel-visioned."
 policy:
   allow_implicit_invocation: false

@@ -1,5 +1,6 @@
 interface:
   display_name: "re0-git"
   short_description: "Clean a commit message and keep history linear"
+  default_prompt: "Use $re0-git to rewrite this commit message with its dates kept."
 policy:
   allow_implicit_invocation: false
