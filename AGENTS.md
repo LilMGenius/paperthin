@@ -75,8 +75,9 @@ A skill names another in one of two ways, and only one of them is a dependency. 
 
 A rule several skills need at runtime, with no model-invoked skill that owns it to call, is carried inline in each; the copies are mapped here so they stay coherent when you touch one, and AGENTS.md is the contributor's map, not a runtime dependency:
 
-- **edit-safety**: safe mutation (assert the target exists and report a MISS, edit unicode-safe, replace positional targets per occurrence not by blanket sweep, script large structural moves), in `re0`, `detool`, `debloat`, `re0-order`, `dedash`, `ssotize`.
-- **negatives-as-corpus**: "cut" means move-to-archive, never delete; pruned and failed branches are assets, in `autobahn`, `re0-merge`, `re0-plan`, `re0-loop`, `re0-memo`, `re0-work`.
+- **edit-safety**: safe mutation (assert the target exists and report a MISS, edit unicode-safe, replace positional targets per occurrence not by blanket sweep, script large structural moves), in `re0`, `detool`, `debloat`, `re0-order`, `dedash`, `ssotize`, `re0-readme`, `re0-import`, `re0-style`.
+- **negatives-as-corpus**: "cut" means move-to-archive, never delete; pruned and failed branches are assets, in `autobahn`, `re0-merge`, `re0-plan`, `re0-loop`, `re0-memo`, `re0-work`, `re0-release`.
+- **bump by kind**: a version moves by the kind of change (a fix is patch, a new capability is minor, a removal with no replacement is major), never by its size, stated in [Shipping](#shipping) item 3 and carried inline in `re0-release`'s bump step and `re0-plan`'s provisional version.
 - **commit-economy**: the commit-message standard, stated in full by its home `re0-git` and carried inline in `re0-release`.
 - **tell-family order**: the passes that remove machine-writing tells state their class and their order inline, and the punctuation pass runs last because a rewrite regenerates dashes: `re0` (shape class by rewriting; an unsourced claim is observed, never deleted or sourced), `debloat` (excess class, handing drift, duplication, dashes and stack nouns to their owners), `dedash` (punctuation, last), `dedot` (second punctuation pass, Korean middle dot; runs after any rewrite like `dedash`); `detool` states that it is outside the family and `modelchk` that routing is not its dial.
 
