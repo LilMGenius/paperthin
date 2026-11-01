@@ -25,7 +25,7 @@ Escolha **uma rota por agent**; instalar duas carrega cada skill duas vezes.
    ```bash
    claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
-   Depois rode `/plugin`, abra **Marketplaces**, selecione `paperthin` e escolha **Enable auto-update**, uma vez só.
+   Depois, no Claude Code, rode `/plugin`, abra **Marketplaces**, selecione `paperthin` e escolha **Enable auto-update**, uma vez só.
 2. **Codex**: atualiza sozinho a cada início de sessão.
    ```bash
    codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
@@ -81,7 +81,7 @@ Escolha **uma rota por agent**; instalar duas carrega cada skill duas vezes.
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Verifica se um teste ou uma métrica está dando nota a si mesmo ou se é uma verdade externa que decide o resultado | um eval | model | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | Acha no código em uso as imitações e os desvios silenciosos que tornam falso um relatório de sucesso, e sugere a correção de verdade | arquivos, um diretório ou um diff indicados | model | |
 | 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | Encontra dados de uma pessoa ou empresa em arquivos compartilhados, troca-os pelo papel que cumprem e lista os commits antigos que ainda os guardam | um artefato indicado e um proprietário | model | |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Logo depois de qualquer mudança, antes de dar por encerrado, roda as verificações da própria coleção sobre o seu resultado | seu output | model | |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Logo depois de qualquer mudança, antes de dar por encerrado, roda as verificações do próprio paperthin sobre o seu resultado | seu output | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Reescreve a mensagem de um commit concluído mantendo datas e posição, para qualquer pessoa assumir o trabalho só pelo histórico | um commit | user | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | Republica um repositório do GitHub como um único commit assinado com os mesmos arquivos, sem deixar nenhum commit antigo ao alcance | um repositorio | user | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | Passa pela lista de verificação do lançamento e, quando você confirma, cria a tag e publica | um release | user | |

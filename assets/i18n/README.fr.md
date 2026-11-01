@@ -25,7 +25,7 @@ Choisissez **une seule voie par agent** ; en installer deux charge chaque skill 
    ```bash
    claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
-   Lancez ensuite `/plugin`, ouvrez **Marketplaces**, sélectionnez `paperthin` et choisissez **Enable auto-update**, une seule fois.
+   Lancez ensuite `/plugin` dans Claude Code, ouvrez **Marketplaces**, sélectionnez `paperthin` et choisissez **Enable auto-update**, une seule fois.
 2. **Codex**: il se met à jour seul à chaque début de session.
    ```bash
    codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
@@ -81,7 +81,7 @@ Choisissez **une seule voie par agent** ; en installer deux charge chaque skill 
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Vérifie si un test ou une métrique se note lui-même, ou si c'est une vérité extérieure qui décide du résultat | un eval | modèle | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | Repère dans le code en service les imitations et les replis silencieux qui rendent un rapport de réussite mensonger, et propose la vraie correction | des fichiers, un dossier ou un diff désignés | modèle | |
 | 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | Retrouve les données d'une personne ou d'une entreprise dans des fichiers partagés, les remplace par le rôle qu'elles jouent et liste les anciens commits qui les contiennent encore | un artefact désigné et un propriétaire | modèle | |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Juste après un changement, avant de le déclarer fini, passe votre résultat aux vérifications de la collection elle-même | votre output | modèle | |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Juste après un changement, avant de le déclarer fini, passe votre résultat aux vérifications propres à paperthin | votre output | modèle | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Réécrit le message d'un commit terminé en gardant ses dates et sa place, pour que n'importe qui reprenne le travail à partir de l'historique seul | un commit | utilisateur | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | Republie un dépôt GitHub sous la forme d'un seul commit signé aux fichiers identiques, sans laisser aucun ancien commit accessible | un dépôt | utilisateur | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | Déroule la liste de contrôle de la publication, puis pose le tag et publie une fois que vous confirmez | une release | utilisateur | |

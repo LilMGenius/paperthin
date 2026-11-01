@@ -25,7 +25,7 @@
    ```bash
    claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
-   その後 `/plugin` で **Marketplaces** を開き、`paperthin` を選んで **Enable auto-update** を一度だけ有効にします。
+   その後 Claude Code で `/plugin` を実行して **Marketplaces** を開き、`paperthin` を選んで **Enable auto-update** を一度だけ有効にします。
 2. **Codex**: セッション開始のたびに自動で更新されます。
    ```bash
    codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
@@ -81,7 +81,7 @@
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | テストや指標が自分で自分を採点していないか、外にある本当の事実が結果を決めているかを確かめます | eval 一つ | モデル | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | 動いているコードの中で、成功の報告を偽りにする偽物の実装や黙った代替経路を見つけ、本物の直し方を提案します | 指定したファイル、ディレクトリ、diff | モデル | |
 | 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | 共有ファイルに紛れ込んだ一人の人や一社の情報を見つけて役割の名前に置き換え、まだそれを含む古いコミットを挙げます | 指定した成果物ひとつと持ち主ひとり | モデル | |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 何かを変えた直後、終わったと言う前に、このスイート自身のチェックを成果物にかけます | 自分の output | モデル | |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 何かを変えた直後、終わったと言う前に、paperthin 自身のチェックを成果物にかけます | 自分の output | モデル | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 済んだコミットのメッセージを日付と位置はそのままに書き直し、履歴だけで誰でも引き継げるようにします | commit 一つ | ユーザー | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | GitHub のリポジトリを、ファイルはそのままに署名付きのコミット一つとして公開し直し、古いコミットには二度と届かないようにします | リポジトリ一つ | ユーザー | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | リリースのチェックリストを回し、あなたが確認したらタグを付けて公開します | release 一つ | ユーザー | |
