@@ -14,7 +14,9 @@ const cli = join(scratch, 'scripts', 'upgrade.mjs');
 process.on('exit', () => rmSync(scratch, { recursive: true, force: true }));
 
 function run(args) {
-  const result = spawnSync(process.execPath, [cli, ...args], { encoding: 'utf8' });
+  // The runner's own XDG_CONFIG_HOME would point OpenCode's config away from the fixture home, so it is dropped here.
+  const { XDG_CONFIG_HOME, ...env } = process.env;
+  const result = spawnSync(process.execPath, [cli, ...args], { encoding: 'utf8', env });
   let json = null;
   try {
     json = JSON.parse(result.stdout);

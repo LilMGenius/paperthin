@@ -20,7 +20,8 @@ function gate(t, files) {
 }
 
 test('the gate exits 0 on a clean catalog and 1 with file:line on any problem', (t) => {
-  assert.equal(gate(t).status, 0);
+  const clean = gate(t);
+  assert.equal(clean.status, 0, clean.stdout + clean.stderr);
   const red = gate(t, { 'NOTES.md': '[x](./gone.md)\n' });
   assert.equal(red.status, 1);
   assert.match(red.stderr, /^NOTES\.md:1: link \.\/gone\.md/m);
