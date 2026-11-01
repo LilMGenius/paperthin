@@ -1,5 +1,6 @@
 interface:
   display_name: "dedot"
-  short_description: "Propose fixes for Korean middle-dot lists"
+  short_description: "Review Korean middle dots, propose per-dot fixes"
+  default_prompt: "Use $dedot to review the middle dots in this Korean file and propose fixes without editing it."
 policy:
   allow_implicit_invocation: false
