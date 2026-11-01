@@ -100,15 +100,30 @@ function checkSkill(root, file, problems) {
   return { name, userInvoked, lines };
 }
 
-// A user-invoked skill is out of every skill's reach, so no Skill tool call may name one. Each call that may stand becomes an edge for the cycle check.
+// A Skill tool call, however a sentence phrases it ("Call the Skill tool", "calling the Skill tool", "one Skill tool call each"), runs to the end of its sentence.
+const CALL = /(?:\bcall(?:s|ing|ed)? the Skill tool|\bSkill tool calls?)\b[^.]*/gi;
+
+// A user-invoked skill is out of every skill's reach, so no Skill tool call may name one. Each call that may stand becomes an edge for the cycle check,
+// and so does a sibling named in backticks or quotes in a Workflow step, since that step needs the sibling's result even without a call; a name under
+// Goal, Rules or Verification is a reference and adds no edge.
 function checkCalls(skill, file, invocation, problems, edges) {
+  let section = '';
   skill.lines.forEach((line, i) => {
-    for (const call of line.matchAll(/Call the Skill tool\b[^.]*/g)) {
+    if (line.startsWith('## ')) section = line.slice(3).trim();
+    const called = new Set();
+    for (const call of line.matchAll(CALL)) {
       for (const [, target] of call[0].matchAll(/"([a-z0-9-]+)"/g)) {
+        called.add(target);
         if (!invocation.has(target)) problems.push(problem(file, i + 1, 'calls the Skill tool with "' + target + '", which is not a shipped skill'));
         else if (invocation.get(target)) problems.push(problem(file, i + 1, 'calls the Skill tool with "' + target + '", which is user-invoked; tell the human to run /' + target + ' instead'));
-        else edges.push({ from: skill.name, to: target, file, line: i + 1 });
+        else edges.push({ from: skill.name, to: target, file, line: i + 1, prose: false });
       }
+    }
+    if (section !== 'Workflow') return;
+    for (const [, target] of line.matchAll(/[\x60"]([a-z0-9-]+)[\x60"]/g)) {
+      if (target === skill.name || called.has(target) || !invocation.has(target)) continue;
+      called.add(target);
+      edges.push({ from: skill.name, to: target, file, line: i + 1, prose: true });
     }
   });
 }
@@ -123,7 +138,11 @@ function checkCycles(skills, edges, problems) {
     path.push(name);
     for (const edge of calls.get(name) || []) {
       const open = path.indexOf(edge.to);
-      if (open >= 0) problems.push(problem(edge.file, edge.line, 'calls the Skill tool with "' + edge.to + '", which closes the cycle ' + [...path.slice(open), edge.to].join(' -> ') + '; a skill never depends on one that depends on it'));
+      if (open >= 0) {
+        const cycle = [...path.slice(open), edge.to].join(' -> ');
+        const what = edge.prose ? 'names "' + edge.to + '" in a Workflow step' : 'calls the Skill tool with "' + edge.to + '"';
+        problems.push(problem(edge.file, edge.line, what + ', which closes the cycle ' + cycle + '; a skill never depends on one that depends on it (move a boundary mention under ## Rules)'));
+      }
       else if (!done.has(edge.to)) visit(edge.to);
     }
     path.pop();
