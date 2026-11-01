@@ -59,8 +59,22 @@ test('a Skill tool call naming a user-invoked skill fails, and one naming a mode
 });
 
 test('a cycle of Skill tool calls fails once, at the call that closes it', (t) => {
-  assert.deepEqual(run(t, { ...fooCalls('bar'), ...barCalls('foo') }), ['skills/depth/foo/SKILL.md:12: calls the Skill tool with "bar", which closes the cycle bar -> foo -> bar; a skill never depends on one that depends on it']);
-  assert.deepEqual(run(t, fooCalls('foo')), ['skills/depth/foo/SKILL.md:12: calls the Skill tool with "foo", which closes the cycle foo -> foo; a skill never depends on one that depends on it']);
+  assert.deepEqual(run(t, { ...fooCalls('bar'), ...barCalls('foo') }), ['skills/depth/foo/SKILL.md:12: calls the Skill tool with "bar", which closes the cycle bar -> foo -> bar; a skill never depends on one that depends on it (move a boundary mention under ## Rules)']);
+  assert.deepEqual(run(t, fooCalls('foo')), ['skills/depth/foo/SKILL.md:12: calls the Skill tool with "foo", which closes the cycle foo -> foo; a skill never depends on one that depends on it (move a boundary mention under ## Rules)']);
+});
+
+// A step written in prose rather than as "Call the Skill tool" still creates the dependency, so the gate reads both forms.
+const fooSays = (step) => ({ ...BASE, 'skills/depth/foo/SKILL.md': BASE['skills/depth/foo/SKILL.md'].replace('## Workflow\n', '## Workflow\n\n1. ' + step + '\n') });
+
+test('a lower-case call mid-sentence closes a cycle and is checked for its lane', (t) => {
+  assert.deepEqual(run(t, { ...fooSays('When unsure, call the Skill tool with "bar".'), ...barCalls('foo') }), ['skills/depth/foo/SKILL.md:12: calls the Skill tool with "bar", which closes the cycle bar -> foo -> bar; a skill never depends on one that depends on it (move a boundary mention under ## Rules)']);
+  assert.match(run(t, fooSays('Then call the Skill tool with "re0-upgrade".')).join(), /calls the Skill tool with "re0-upgrade", which is user-invoked/);
+});
+
+test('a sibling named in a Workflow step is a dependency, and one named under Rules is not', (t) => {
+  assert.deepEqual(run(t, { ...fooSays('Read the notes \x60bar\x60 writes.'), ...barCalls('foo') }), ['skills/depth/foo/SKILL.md:12: names "bar" in a Workflow step, which closes the cycle bar -> foo -> bar; a skill never depends on one that depends on it (move a boundary mention under ## Rules)']);
+  const rules = (rel, files, name) => ({ ...files, [rel]: files[rel].replace('## Rules\n', '## Rules\n\n- Leave \x60' + name + '\x60 to its own skill.\n') });
+  assert.deepEqual(run(t, { ...rules('skills/depth/foo/SKILL.md', BASE, 'bar'), ...rules('skills/depth/bar/SKILL.md', BAR, 'foo') }), []);
 });
 
 test('a ../ link out of a skill fails', (t) => {
