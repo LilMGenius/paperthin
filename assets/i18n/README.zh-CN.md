@@ -105,6 +105,7 @@
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | 让构建、测试、总结、重来的循环一直转下去，积累下来的是经验而不是代码 | 整个 cycle | 模型 | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | 盯住长时间运行的代理任务，一旦卡住就提醒你；任何修复都只是等你批准的提议 | 一个运行中的任务 | 用户 | |
 | 📝 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 从已完成或失败的一轮里提炼出经验和应当避免的错误 | 一个结束的 cycle | 模型 | |
+| 🔁 **[backprop](../../skills/coil/backprop/SKILL.md)** | 把一次纠正得来的教训改回造成问题的文档和规则里，再把它们整理干净 | 一条教训 | 模型 | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 从零开始，只带上已经证明值得复用的经验 | 一次重启 | 模型 | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 帮你补上离开期间的进展：哪些事等着你、什么变了、新词是什么意思 | 一次回归 | 模型 | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 读出工作进展到哪一步，只给出最好的下一步，而不是一张菜单 | 当前 cycle | 模型 | ✔ |

@@ -1,0 +1,4 @@
+interface:
+  display_name: "backprop"
+  short_description: "Feed a lesson back through its sources and clean them"
+  default_prompt: "Use $backprop to feed this lesson back through its sources."

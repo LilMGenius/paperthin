@@ -105,6 +105,7 @@ Wähle **einen Weg pro Agent**; wer zwei installiert, lädt jeden Skill doppelt.
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Hält den Kreislauf aus Bauen, Testen, Lernen und Neustarten in Gang, damit sich Lehren ansammeln statt Code | die ganze Schleife | Modell | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | Achtet darauf, ob ein langer Agent-Job hängt, und warnt dich; jede Reparatur ist nur ein Vorschlag, den du freigibst | ein laufender Auftrag | Nutzer | |
 | 📝 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Zieht aus einem abgeschlossenen oder gescheiterten Zyklus die Lehren und die Fehler, die man meiden sollte | ein abgeschlossener cycle | Modell | |
+| 🔁 **[backprop](../../skills/coil/backprop/SKILL.md)** | Trägt die Lehre aus einer Korrektur zurück in die Dokumente und Regeln, die den Fehler verursacht haben, und räumt sie auf | eine Lehre | Modell | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Fängt bei null an und nimmt nur die Lehren mit, die sich als wiederverwendbar erwiesen haben | ein Neustart | Modell | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Bringt dich nach einer Pause auf Stand: was auf dich wartet, was sich geändert hat und was neue Begriffe bedeuten | ein Wiedereinstieg | Modell | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Liest, wo die Arbeit steht, und nennt den einen besten nächsten Schritt statt einer Auswahlliste | der laufende cycle | Modell | ✔ |

@@ -105,6 +105,7 @@ Elige **una sola ruta por agent**; si instalas dos, cada skill se carga dos vece
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Mantiene en marcha el ciclo de construir, probar, aprender y reiniciar, para que se acumulen lecciones y no código | todo el cycle | model | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | Vigila que un trabajo largo de un agent no se atasque y te avisa; cualquier arreglo es solo una propuesta que tú apruebas | una tarea en curso | user | |
 | 📝 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Saca las lecciones, y los errores que conviene evitar, de un ciclo terminado o fallido | un cycle terminado | model | |
+| 🔁 **[backprop](../../skills/coil/backprop/SKILL.md)** | Lleva lo aprendido de una corrección a los documentos y reglas que causaron el error, y luego los ordena | una lección | model | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Empieza de cero y se lleva solo las lecciones que demostraron valer la pena | un reinicio | model | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Te pone al día tras una ausencia: qué te espera, qué cambió y qué significan los términos nuevos | una reentrada | model | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lee en qué punto está el trabajo y nombra el mejor paso siguiente, uno solo, sin menús | el cycle vivo | model | ✔ |
