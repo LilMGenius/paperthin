@@ -25,7 +25,7 @@
    ```bash
    claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
-   ثم شغّل `/plugin` وافتح **Marketplaces** واختر `paperthin` وفعّل **Enable auto-update** مرة واحدة.
+   ثم شغّل `/plugin` داخل Claude Code وافتح **Marketplaces** واختر `paperthin` وفعّل **Enable auto-update** مرة واحدة.
 2. **Codex**: يحدّث نفسه عند بدء كل جلسة.
    ```bash
    codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
@@ -81,7 +81,7 @@
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | يتحقق هل يمنح الاختبار أو المقياس نفسه الدرجة، أم أن حقيقة خارجية فعلية هي التي تحسم النتيجة | eval واحد | model | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | يعثر في الكود الفعلي على البدائل الزائفة والمسارات الاحتياطية الصامتة التي تجعل تقرير النجاح كاذبا، ويقترح الإصلاح الحقيقي | مجموعة ملفات أو مجلد أو diff محدد | model | |
 | 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | يجد بيانات شخص أو شركة في ملفات مشتركة، ويستبدلها باسم الدور الذي تؤديه، ويسرد الإيداعات القديمة التي ما زالت تحملها | أثر واحد مسمى ومالك واحد | model | |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | بعد أي تغيير مباشرة، وقبل أن تعدّه منتهيا، يشغّل فحوص المجموعة نفسها على ما أنتجته | output الخاص بك | model | |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | بعد أي تغيير مباشرة، وقبل أن تعدّه منتهيا، يشغّل فحوص paperthin نفسها على ما أنتجته | output الخاص بك | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | يعيد كتابة رسالة إيداع منتهٍ مع الإبقاء على تواريخه وموضعه، ليتمكن أي شخص من المتابعة من السجل وحده | commit واحد | user | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | يعيد نشر مستودع GitHub في إيداع واحد موقّع بالملفات نفسها، فلا يبقى أي إيداع قديم في المتناول | مستودع واحد | user | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | يمرّ على قائمة الإصدار، ثم يضع الوسم وينشر بعد تأكيدك | إصدار واحد | user | |

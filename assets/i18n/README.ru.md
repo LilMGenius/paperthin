@@ -25,7 +25,7 @@
    ```bash
    claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
-   Затем выполните `/plugin`, откройте **Marketplaces**, выберите `paperthin` и один раз включите **Enable auto-update**.
+   Затем в Claude Code выполните `/plugin`, откройте **Marketplaces**, выберите `paperthin` и один раз включите **Enable auto-update**.
 2. **Codex**: обновляется сам при каждом запуске сессии.
    ```bash
    codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
@@ -81,7 +81,7 @@
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | Проверяет, не ставит ли тест или метрика оценку сам себе и решает ли исход настоящая внешняя истина | один eval | model | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | Находит в рабочем коде подделки и тихие запасные пути, из-за которых отчёт об успехе лжёт, и предлагает настоящее исправление | указанные файлы, каталог или diff | model | |
 | 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | Находит данные одного человека или компании в общих файлах, заменяет их названием роли и перечисляет старые коммиты, где они ещё остались | один указанный артефакт и один владелец | model | |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Сразу после любого изменения, пока вы не объявили работу готовой, прогоняет по результату проверки самого набора | ваш output | model | |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | Сразу после любого изменения, пока вы не объявили работу готовой, прогоняет по результату собственные проверки paperthin | ваш output | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | Переписывает сообщение готового коммита, сохраняя даты и место, чтобы по одной истории любой мог подхватить работу | один commit | user | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | Заново публикует репозиторий GitHub одним подписанным коммитом с теми же файлами, так что до старых коммитов уже не добраться | один репозиторий | user | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | Проходит чек-лист выпуска, а после вашего подтверждения ставит тег и публикует | один release | user | |

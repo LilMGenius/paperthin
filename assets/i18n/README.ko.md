@@ -25,7 +25,7 @@
    ```bash
    claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
-   그다음 `/plugin`에서 **Marketplaces**를 열고 `paperthin`을 골라 **Enable auto-update**를 한 번 켭니다.
+   그다음 Claude Code에서 `/plugin`을 실행해 **Marketplaces**를 열고 `paperthin`을 골라 **Enable auto-update**를 한 번 켭니다.
 2. **Codex**: 세션을 시작할 때마다 스스로 업데이트합니다.
    ```bash
    codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
@@ -81,7 +81,7 @@
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | 테스트나 지표가 스스로를 채점하고 있는지, 바깥의 진짜 사실이 결과를 정하는지 확인합니다 | eval 하나 | 모델 | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | 실제로 도는 코드에서 성공 보고를 거짓으로 만드는 가짜 구현과 조용한 대체 경로를 찾아 진짜 해결책을 제안합니다 | 이름 붙인 파일, 디렉터리, diff | 모델 | |
 | 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | 공유 파일에 섞여 든 한 사람이나 회사의 정보를 찾아 그 역할 이름으로 바꾸고, 그 정보가 아직 남은 옛 커밋을 알려 줍니다 | 이름 붙인 산출물 하나와 소유자 한 명 | 모델 | |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 무언가를 바꾼 직후, 끝났다고 하기 전에 이 모음집의 검사를 내 결과물에 돌립니다 | 내 아웃풋 | 모델 | |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 무언가를 바꾼 직후, 끝났다고 하기 전에 paperthin의 검사를 내 결과물에 돌립니다 | 내 아웃풋 | 모델 | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 끝난 커밋의 메시지를 날짜와 순서는 그대로 둔 채 다시 써서, 기록만 보고도 누구든 이어받을 수 있게 합니다 | 커밋 하나 | 사용자 | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | GitHub 저장소를 파일은 그대로 둔 채 서명된 커밋 하나로 다시 올려, 옛 커밋에 더는 닿을 수 없게 합니다 | 저장소 하나 | 사용자 | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | 배포 점검표를 돌리고, 내가 확인하면 태그를 달고 공개합니다 | 릴리스 하나 | 사용자 | |

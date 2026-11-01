@@ -25,7 +25,7 @@
    ```bash
    claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
-   然后运行 `/plugin`，打开 **Marketplaces**，选择 `paperthin` 并点一次 **Enable auto-update**。
+   然后在 Claude Code 里运行 `/plugin`，打开 **Marketplaces**，选择 `paperthin` 并点一次 **Enable auto-update**。
 2. **Codex**: 每次会话开始时自动更新。
    ```bash
    codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
@@ -81,7 +81,7 @@
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | 检查测试或指标是不是在给自己打分，还是真正由外部事实决定结果 | 一个 eval | 模型 | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | 找出线上代码里让成功报告变成假话的假实现和静默兜底，并建议真正的修法 | 指定的文件、目录或 diff | 模型 | |
 | 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | 在共享文件里找出某个人或某家公司的数据，换成它所扮演的角色，并列出仍带着这些数据的旧提交 | 指定的一个产物和一位所有者 | 模型 | |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 任何改动之后、宣布完成之前，用这套工具自己的检查跑一遍你的成果 | 你的 output | 模型 | |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 任何改动之后、宣布完成之前，用 paperthin 自己的检查跑一遍你的成果 | 你的 output | 模型 | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 保留日期和位置，重写已完成提交的说明，让任何人只看提交历史就能接手 | 一个 commit | 用户 | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | 把 GitHub 仓库以文件不变的单个签名提交重新发布，旧提交再也无法访问 | 一个仓库 | 用户 | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | 跑完发布清单，等你确认后打标签并发布 | 一次 release | 用户 | |

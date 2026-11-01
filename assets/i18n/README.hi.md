@@ -25,7 +25,7 @@
    ```bash
    claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
-   फिर `/plugin` चलाएं, **Marketplaces** खोलें, `paperthin` चुनें और एक बार **Enable auto-update** चालू करें।
+   फिर Claude Code में `/plugin` चलाएं, **Marketplaces** खोलें, `paperthin` चुनें और एक बार **Enable auto-update** चालू करें।
 2. **Codex**: हर session शुरू होने पर खुद अपडेट होता है।
    ```bash
    codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
@@ -81,7 +81,7 @@
 | 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | जांचता है कि कोई टेस्ट या पैमाना खुद को ही नंबर तो नहीं दे रहा, या बाहर का असली सच नतीजा तय करता है | एक eval | model | ✔ |
 | 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | चलते कोड में वे नकली हिस्से और चुपचाप काम करने वाले विकल्प ढूंढता है जो सफलता की रिपोर्ट को झूठा बनाते हैं, और असली सुधार सुझाता है | नामित फ़ाइलें, निर्देशिका या diff | model | |
 | 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | साझा फ़ाइलों में किसी एक व्यक्ति या कंपनी का डेटा ढूंढकर उसकी जगह उसकी भूमिका लिखता है, और वे पुराने कमिट बताता है जिनमें वह अब भी है | एक नामित आर्टिफ़ैक्ट और एक स्वामी | model | |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | किसी भी बदलाव के ठीक बाद, काम पूरा कहने से पहले, आपके नतीजे पर इस संग्रह की अपनी जांचें चलाता है | आपका output | model | |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | किसी भी बदलाव के ठीक बाद, काम पूरा कहने से पहले, आपके नतीजे पर paperthin की अपनी जांचें चलाता है | आपका output | model | |
 | 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | पूरे हो चुके कमिट का संदेश तारीख़ और जगह वही रखकर दोबारा लिखता है, ताकि सिर्फ़ इतिहास देखकर कोई भी काम संभाल सके | एक commit | user | |
 | 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | GitHub रिपॉज़िटरी को उन्हीं फ़ाइलों के साथ एक हस्ताक्षरित कमिट के रूप में फिर से प्रकाशित करता है, ताकि कोई पुराना कमिट पहुंच में न रहे | एक repository | user | |
 | 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | रिलीज़ की जांच-सूची चलाता है, फिर आपकी पुष्टि पर टैग लगाकर प्रकाशित करता है | एक release | user | |
