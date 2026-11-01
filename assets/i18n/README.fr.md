@@ -53,6 +53,7 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | Vérifie si un élément entre dans le périmètre existant d’une cible, lu dans les propres sources de la cible, et nomme le bon foyer sinon | un élément et la cible qu’il rejoindrait | modèle | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Refuse d'être gentil : l'objection unique qui peut tuer le plan, plus le test le moins cher | un plan | utilisateur | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Retire le bait, lance des lectures fraîches et signale d'abord la divergence | une direction | utilisateur | ✔ |
+| 🔀 **[crossthink](../../skills/depth/crossthink/SKILL.md)** | Liste d'abord les options du frame, transpose des mécanismes de cinq domaines lointains avec leur breaks-where et ne garde que ce qui manquait à la liste | un problème bloqué | modèle | ✔ |
 | ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | Transforme un dossier soumis à décision en instrument traçable et vérifiable dont le verdict est calculé à partir des réponses mêmes du décideur, sans jamais recommander d’issue | dossier soumis à décision | utilisateur | ✔ |
 | 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | Presse une décision fraîchement prise jusqu'à pouvoir l'expliquer, sinon la lacune est signalée | une décision | utilisateur | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Découpe le périmètre dangereux en amont, exécute le reste sûr à pleine puissance, journalise le descope | une tâche | modèle | |
@@ -125,6 +126,7 @@ Ces skills parient dans l'autre sens. **Chacun enlève quelque chose :**
 - `scopechk` vérifie un élément contre le périmètre que la cible écrit elle-même, avant qu'il n'atterrisse là où il n'a pas sa place.
 - `hate` refuse d'être gentil et renvoie la seule objection qui pourrait tuer un plan, avec le test le moins cher.
 - `macrothink` déploie des lectures fraîches et rapporte la divergence avant que la convergence ne passe pour une preuve.
+- `crossthink` emprunte des mécanismes qui fonctionnent dans des domaines lointains et ne garde que ceux que le frame du problème n'offrait pas.
 - `re0-decide` transforme le matériel soumis pour une décision en un instrument vérifiable dont le verdict découle des propres réponses du décideur.
 - `whychk` presse une décision fraîche jusqu'à ce que vous puissiez l'expliquer à un sceptique, ou nomme la faille que vous ne pouvez pas justifier.
 - `autobahn` découpe le périmètre dangereux en amont, pour que le reste sûr tourne à pleine vitesse.

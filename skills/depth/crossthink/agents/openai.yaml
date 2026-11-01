@@ -1,0 +1,4 @@
+interface:
+  display_name: "crossthink"
+  short_description: "Borrow mechanisms from distant domains"
+  default_prompt: "Use $crossthink to find options this stuck problem's frame hides."

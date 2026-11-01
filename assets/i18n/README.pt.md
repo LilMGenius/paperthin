@@ -53,6 +53,7 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | Verifica se um item cabe no escopo existente de um destino, lido das próprias fontes do destino, e indica o lar adequado quando não cabe | um item e o destino ao qual se juntaria | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Recusa ser gentil: a unica objecao que poderia matar o plano, mais o teste mais barato | um plano | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Remove o bait, abre leituras frescas e relata divergencia primeiro | uma direcao | user | ✔ |
+| 🔀 **[crossthink](../../skills/depth/crossthink/SKILL.md)** | Lista primeiro as opcoes do proprio frame, mapeia mecanismos de cinco dominios distantes com seu breaks-where e guarda so o que faltava na lista | um problema travado | model | ✔ |
 | ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | Transforma o material enviado para uma decisão em um instrumento rastreável e verificável cujo veredito é calculado a partir das próprias respostas de quem decide, sem nunca recomendar um resultado | material enviado para uma decisão | user | ✔ |
 | 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | Pressiona uma decisao recem-tomada ate poder explica-la, ou a lacuna e sinalizada | uma decisao | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Recorta o scope inseguro de antemao, executa o restante seguro com forca total e registra o descope | uma tarefa | model | |
@@ -125,6 +126,7 @@ Essas skills apostam no outro lado. **Cada uma remove algo:**
 - `scopechk` confere um item contra o escopo que o proprio alvo deixa escrito, antes que ele caia onde nao pertence.
 - `hate` se recusa a ser gentil e devolve a unica objecao que poderia matar um plano, com o teste mais barato.
 - `macrothink` espalha leituras novas e reporta a divergencia antes que a convergencia pareca prova.
+- `crossthink` toma emprestados mecanismos que funcionam em dominios distantes e guarda so os que o frame do problema nunca ofereceu.
 - `re0-decide` transforma o material enviado para uma decisao em um instrumento verificavel cujo veredito vem das proprias respostas de quem decide.
 - `whychk` pressiona uma decisao recem-tomada ate voce conseguir explica-la a um cetico, ou nomeia a lacuna que voce nao consegue.
 - `autobahn` recorta o scope inseguro de antemao, para que o restante seguro rode em velocidade total.
