@@ -2541,7 +2541,7 @@ Return the smallest ordered graph that serves the stated intent using the instal
 - Read-only and advisory: never invoke a target, execute the graph, modify the intended artifact, or write a record. A `recommend` never upgrades itself into execution; promotion requires a separate human act.
 - User-only targets remain eligible for coverage as `recommend` or `user-handoff`, never `invoke-model-skill`. Do not drop them to make an order automatically runnable. For missing authority, explicitly skip or hand off for the required human act.
 - Missing optional skills appear as `skip` with `skill not installed`; unmet conditions and absent authority also remain explicit. Never silently substitute another skill as equivalent, and never count a skip as success.
-- `nba` picks one action from live state; `re0-workflow` orders skills for one intent. When `nba` consults this router, it remains one candidate among others. `nba` still returns exactly one action with a done-when condition, never the router's graph. Its other candidates and consultations remain unrestricted.
+- `nba` picks one action from live state; `re0-workflow` orders skills for one intent.
 - `sip` owns a fixed conditional graph triggered by newly created or changed output. This router recommends an order for a stated intent. Recommend an existing matching pipeline as one node instead of reproducing its graph.
 - Do not pad a single-skill intent, infer an intent from cycle state, require an orientation skill, or invent new pipeline skills. Call count and fan-out belong to the workflow; capability and effort advice do not confer execution authority.
 
@@ -2554,7 +2554,7 @@ Before returning the recommendation:
 3. A missing optional skill appears as `skip` naming `skill not installed`; other skips name their failed precondition and make no success claim.
 4. A cycle is rejected with `reject` and the cycle named, never returned as an executable order.
 5. A single-skill intent has one node and explicitly trivial ordering; no matching skill produces zero steps. A matching frozen pipeline remains one unexpanded node.
-6. When consulted by `nba`, its answer remains exactly one action. No target was invoked, no artifact modified, and no record written by this router.
+6. No target was invoked, no artifact modified, and no record written by this router.
 
 --- FILE: skills/coil/re0-tutorial/SKILL.md (https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/coil/re0-tutorial/SKILL.md) ---
 
