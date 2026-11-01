@@ -2277,7 +2277,7 @@ Use it when an artifact is done, failed, disappointing, or ambiguous enough that
 
 A restart from v0 always runs it first. The memo is the restart's map: what the old cycle got wrong and how far it actually stands from its objective, so the restart aims at the measured gap rather than at the old plan's picture of itself.
 
-It calls no other skill. Its output feeds the next cycle, read by a fresh agent who never saw this one.
+It calls one other skill, `scopechk`, to place each lesson. Its output feeds the next cycle, read by a fresh agent who never saw this one.
 
 ## Workflow
 
@@ -2292,7 +2292,7 @@ Run the steps in order.
 7. Turn repeated or high-impact failures into quality gates for the next pass.
 8. Turn vague user direction into architecture vocabulary a fresh agent can work with.
 9. Write or refresh the cycle's local docs, kept beside the work the cycle produced: a `re0-memo` holding the measured standing and the lessons with their evidence, and a `plan` holding the next cycle's contracts, gates, and vocabulary.
-10. Pick the owner of each lesson by who must read it to avoid the failure, then check the pick against that owner's own written scope: its stated purpose, its readers and its boundaries. A rule every project of one author needs lives in that author's shared guide, a fact a teammate or another machine needs lives in the repository they clone, and a procedure lives in the skill or tool that carries it out. When that scope excludes the lesson, pick another place the same reader opens whose scope includes it; a rule placed where its reader never looks has not landed.
+10. Pick the owner of each lesson by who must read it to avoid the failure, then call the Skill tool with "scopechk" on the lesson and that owner, so the pick is checked against the owner's own written scope: its stated purpose, its readers and its boundaries. Show its verdict beside the lesson and land the lesson in this turn: the sign that triggered the run is the approval, so the approval stop scopechk ends at does not hold the lesson back. When `scopechk` is not installed, check the pick against that scope yourself. A rule every project of one author needs lives in that author's shared guide, a fact a teammate or another machine needs lives in the repository they clone, and a procedure lives in the skill or tool that carries it out. When that scope excludes the lesson, pick another place the same reader opens whose scope includes it; a rule placed where its reader never looks has not landed.
 11. Land each lesson's rule in that owner, and leave the `re0-memo` entry as the evidence pointing to it, so the rule lives in one place. Rewrite that passage as though the lesson had always been there: a new idea gets its own step or sentence, and the neighboring sentence keeps its wording instead of gaining an appended clause.
 12. Check that an agent starting from scratch could avoid the same failure using those docs alone.
 
