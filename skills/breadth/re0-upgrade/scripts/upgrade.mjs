@@ -1,17 +1,21 @@
 #!/usr/bin/env node
 // The mechanical half of re0-upgrade: sort an install against the skill's own Deprecations table and Current catalog
-// (classify), and compare one installed SKILL.md with the published releases of LilMGenius/paperthin (integrity). Both read
-// their rules from SKILL.md or from the upstream and decide nothing a person must; the skill prints the plan and asks.
+// (classify), compare one installed SKILL.md with the published releases of LilMGenius/paperthin (integrity), and find the
+// session-start notice older releases wired into agent configs (wiring). Each reads and reports; none edits a file, and the
+// skill prints the plan and asks.
 // Usage: node upgrade.mjs classify --skill-md <re0-upgrade SKILL.md> --installed <skills-dir | names-file>
 //        node upgrade.mjs integrity --installed-file <SKILL.md> --skill <name> --lock <.skill-lock.json>
 //                                   (--releases-json <file> | --fetch) [--raw-dir <dir>]
-// Exit codes: 0 nothing stale or missing, or clean; 1 something stale or missing, or not clean; 2 usage or refused input.
+//        node upgrade.mjs wiring [--home <dir>]
+// Exit codes: 0 nothing stale or missing, clean, or no old wiring; 1 something stale or missing, not clean, or old wiring
+// found; 2 usage or refused input.
 import { existsSync, readdirSync, readFileSync, realpathSync, statSync } from 'node:fs';
+import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 
-const USAGE = 'usage: node upgrade.mjs classify --skill-md <SKILL.md> --installed <skills-dir | names-file>\n       node upgrade.mjs integrity --installed-file <SKILL.md> --skill <name> --lock <.skill-lock.json> (--releases-json <file> | --fetch) [--raw-dir <dir>]';
+const USAGE = 'usage: node upgrade.mjs classify --skill-md <SKILL.md> --installed <skills-dir | names-file>\n       node upgrade.mjs integrity --installed-file <SKILL.md> --skill <name> --lock <.skill-lock.json> (--releases-json <file> | --fetch) [--raw-dir <dir>]\n       node upgrade.mjs wiring [--home <dir>]';
 const UPSTREAM = 'LilMGenius/paperthin';
 const SOURCE_URL = /^https:\/\/github\.com\/lilmgenius\/paperthin(?:\.git)?\/?$/i;
 const RELEASES = 'https://api.github.com/repos/' + UPSTREAM + '/releases';
@@ -187,19 +191,50 @@ export async function integrity({ installed, skill, lock, releases, raw }) {
   return { skill, result: 'divergent-or-unknown', reason: 'all ' + tags.length + ' release tags were fetched; ' + held + ' hold ' + path + ' and none matches the installed bytes', path, walked };
 }
 
+// Releases before 1.0.0 wired a session-start notice: a SessionStart command running session-check.cjs in Claude Code's
+// settings.json and in Codex's config.toml or hooks.json, an opencode-discovery.js entry in OpenCode's plugin list, and the
+// runtime copy under ~/.re0/. Each hit names its file and line, so the entry holding it is removed and nothing beside it.
+export function oldWiring(home, env) {
+  const opencode = join(env.XDG_CONFIG_HOME || join(home, '.config'), 'opencode');
+  const files = [
+    ['claude-session-start', join(home, '.claude', 'settings.json'), 'session-check.cjs'],
+    ['codex-session-start', join(home, '.codex', 'config.toml'), 'session-check.cjs'],
+    ['codex-session-start', join(home, '.codex', 'hooks.json'), 'session-check.cjs'],
+    ['opencode-plugin', join(opencode, 'opencode.json'), 'opencode-discovery.js'],
+    ['opencode-plugin', join(opencode, 'opencode.jsonc'), 'opencode-discovery.js'],
+  ];
+  const found = [];
+  for (const [kind, file, needle] of files) {
+    if (!existsSync(file)) continue;
+    readFileSync(file, 'utf8').split(/\r?\n/).forEach((text, i) => {
+      if (text.includes(needle)) found.push({ kind, file, line: i + 1, text: text.trim() });
+    });
+  }
+  const runtime = join(home, '.re0');
+  if (existsSync(runtime)) found.push({ kind: 'runtime-copy', file: runtime, line: 0, text: readdirSync(runtime).join(', ') });
+  return found;
+}
+
 export async function main(argv) {
   let values;
   let command;
   try {
     ({ values, positionals: [command] } = parseArgs({ args: argv, allowPositionals: true, options: {
       'skill-md': { type: 'string' }, installed: { type: 'string' }, 'installed-file': { type: 'string' }, skill: { type: 'string' }, lock: { type: 'string' },
-      'releases-json': { type: 'string' }, 'raw-dir': { type: 'string' }, fetch: { type: 'boolean' }, help: { type: 'boolean' },
+      'releases-json': { type: 'string' }, 'raw-dir': { type: 'string' }, fetch: { type: 'boolean' }, home: { type: 'string' }, help: { type: 'boolean' },
     } }));
     if (values.help) {
       console.log(USAGE);
       return 0;
     }
-    if (!['classify', 'integrity'].includes(command)) throw new Refusal('name classify or integrity');
+    if (!['classify', 'integrity', 'wiring'].includes(command)) throw new Refusal('name classify, integrity or wiring');
+    if (command === 'wiring') {
+      const home = values.home ?? homedir();
+      if (!statSync(home, { throwIfNoEntry: false })?.isDirectory()) throw new Refusal('--home ' + home + ' is not a directory');
+      const found = oldWiring(home, process.env);
+      console.log(JSON.stringify({ home, found }, null, 2));
+      return found.length ? 1 : 0;
+    }
     const required = { classify: ['skill-md', 'installed'], integrity: ['installed-file', 'skill', 'lock'] }[command];
     const missing = required.filter((name) => !values[name]);
     if (missing.length) throw new Refusal('missing ' + missing.map((name) => '--' + name).join(', '));

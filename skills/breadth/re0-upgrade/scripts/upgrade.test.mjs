@@ -171,4 +171,43 @@ test('usage errors exit 2 and help exits 0 through the junction', () => {
   assert.equal(run(['integrity', '--installed-file', skillMd, '--skill', 'demo', '--lock', lockOf(goodEntry), '--raw-dir', rawDir]).status, 2, 'neither --releases-json nor --fetch');
   assert.equal(run(['integrity', '--installed-file', skillMd, '--skill', 'demo', '--lock', lockOf(goodEntry), '--releases-json', releases]).status, 2, 'neither --raw-dir nor --fetch');
   assert.equal(run(['integrity', '--installed-file', skillMd, '--skill', '../demo', '--lock', lockOf(goodEntry), '--releases-json', releases, '--raw-dir', rawDir]).status, 2);
+  assert.equal(run(['wiring', '--home', join(scratch, 'no-such-home')]).status, 2);
+});
+
+// The three shapes older releases wired, as they sat in a real config, beside a foreign hook that must stay unreported.
+function wiredHome(name, { claude = true, codex = true, opencode = true, re0 = true } = {}) {
+  const home = join(scratch, name);
+  mkdirSync(home, { recursive: true });
+  const foreign = { type: 'command', command: 'node C:/tools/other-hook.cjs', timeout: 5 };
+  if (claude) write(join(home, '.claude', 'settings.json'), JSON.stringify({ hooks: { SessionStart: [{ matcher: '*', hooks: [{ type: 'command', command: '"C:/Program Files/nodejs/node.exe" "C:/Users/u/.re0/session-check.cjs"', timeout: 10 }] }, { matcher: '*', hooks: [foreign] }] } }, null, 2));
+  if (codex) write(join(home, '.codex', 'config.toml'), ['model = "x"', '', '[[hooks.SessionStart]]', '[[hooks.SessionStart.hooks]]', 'type = "command"', 'command = "C:\\\\PROGRA~1\\\\nodejs\\\\node.exe \\"C:/Users/u/.re0/session-check.cjs\\""', 'command_windows = "C:\\\\PROGRA~1\\\\nodejs\\\\node.exe \\"C:/Users/u/.re0/session-check.cjs\\""', 'timeout = 10', '', '[[hooks.SessionStart]]', '[[hooks.SessionStart.hooks]]', 'type = "command"', 'command = "node C:/tools/other-hook.cjs"', ''].join('\n'));
+  if (opencode) write(join(home, '.config', 'opencode', 'opencode.jsonc'), '{\n  // plugins\n  "plugin": [\n    "C:/Users/u/.re0/opencode-discovery.js",\n    "oh-my-openagent@latest"\n  ]\n}\n');
+  if (re0) write(join(home, '.re0', 'session-check.cjs'), '// old runtime\n');
+  return home;
+}
+
+test('wiring finds every session-start notice an older release wired, and nothing foreign', () => {
+  const out = run(['wiring', '--home', wiredHome('wired')]);
+  assert.equal(out.status, 1, out.stderr);
+  assert.deepEqual(out.json.found.map((hit) => hit.kind + ' ' + hit.file.slice(out.json.home.length + 1).replace(/\\/g, '/') + ':' + hit.line), [
+    'claude-session-start .claude/settings.json:9',
+    'codex-session-start .codex/config.toml:6',
+    'codex-session-start .codex/config.toml:7',
+    'opencode-plugin .config/opencode/opencode.jsonc:4',
+    'runtime-copy .re0:0',
+  ]);
+  assert.ok(out.json.found.every((hit) => !hit.text.includes('other-hook')));
+});
+
+test('wiring exits 0 on a home with configs but no paperthin wiring, and reads XDG_CONFIG_HOME for OpenCode', () => {
+  const clean = wiredHome('clean', { claude: false, codex: false, opencode: false, re0: false });
+  write(join(clean, '.claude', 'settings.json'), JSON.stringify({ hooks: { SessionStart: [{ hooks: [{ type: 'command', command: 'node other-hook.cjs' }] }] } }));
+  const out = run(['wiring', '--home', clean]);
+  assert.equal(out.status, 0, out.stdout + out.stderr);
+  assert.deepEqual(out.json.found, []);
+  const xdg = join(scratch, 'xdg');
+  write(join(xdg, 'opencode', 'opencode.json'), JSON.stringify({ plugin: ['/home/u/.re0/opencode-discovery.js'] }));
+  const moved = spawnSync(process.execPath, [cli, 'wiring', '--home', clean], { encoding: 'utf8', env: { ...process.env, XDG_CONFIG_HOME: xdg } });
+  assert.equal(moved.status, 1);
+  assert.deepEqual(JSON.parse(moved.stdout).found.map((hit) => hit.kind), ['opencode-plugin']);
 });
