@@ -58,64 +58,64 @@
 
 | skill | 作用 | scope | Invoker | 只读 |
 |---|---|---|---|---|
-| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | 把漂移的 artifact 重写成干净的 v0，而不是再打一层 patch | 一个 artifact | 模型 | |
-| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | 检查对请求的理解；只暴露真正仍然存在的分叉 | 一个 instruction | 模型 | ✔ |
-| 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | 读取交接来的数据，主动提出待确认的意图，而不是反过来询问 | 一份数据交付 | 模型 | ✔ |
-| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 选择足够且最便宜的 tier 与推理强度 | 一个任务 | 模型 | ✔ |
-| 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | 对因惯性而施加且已无收益的未实现需求，附上来源和证据提出删除建议；保留一切外部强制要求 | 一组尚未实现的需求及其来源 | 模型 | ✔ |
-| 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | 依据目标自身的资料检查某项是否落在目标现有范围内，不在时指出合适的归属 | 一个条目及其将加入的目标 | 模型 | ✔ |
-| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 拒绝客气，给出一个足以杀死计划的反对意见和最便宜的测试 | 一个计划 | 用户 | |
-| 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | 去掉 bait，展开新鲜读法，并优先报告 divergence | 一个方向 | 用户 | ✔ |
-| 🔀 **[crossthink](../../skills/depth/crossthink/SKILL.md)** | 先列出 frame 内的选项，再把五个以上远领域的机制连同 breaks-where 映射过来，只保留清单里没有的 | 一个卡住的问题 | 模型 | ✔ |
-| ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | 把提交待决的材料变成可追溯、可核查的工具，裁定由决策者自己的回答计算得出，绝不推荐结果 | 提交待决的材料 | 用户 | ✔ |
-| 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | 追问一个刚做出的决定，直到你能把它解释清楚，否则标记出缺口 | 一个决定 | 用户 | ✔ |
-| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 先切掉不安全 scope，让安全部分全速运行，并记录 descope | 一个任务 | 模型 | |
-| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | 检查代码风格、惯例和一致性；默认不做修改，只给出简短报告 | 一项待审查的变更 | 模型 | |
-| 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 把偶然绑定的工具名替换成它真正表达的机制 | 一个 durable artifact | 模型 | |
-| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | 把臃肿的文字或代码压缩到承重的密度；只删多余，绝不删规则或行为 | 一件产物，文字或代码 | 模型 | |
-| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | 在一条明确的原则下，把漂移的列表重新排成合理顺序；只移动条目，不改动文字 | 一个列表 | 模型 | |
-| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | 移除句子里代替其他标点的 em dash 和 en dash，保留连字符、范围和标签分隔符 | 你的文字 | 用户 | |
-| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | 对韩语中连接开放式列举的每个中点附上理由，在散文中建议改用逗号或连接词，在标签行中建议改用空格；保留三种允许的用法和受保护的语境 | 作者指定范围的韩语散文或标签行 | 用户 | ✔ |
-| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 用全新、零上下文的眼睛冷读它，判断它能不能独自站住 | 一个 artifact | 模型 | ✔ |
-| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 双向对照 source 核验所主张的：荒谬的可能真实吗，显然的可能是假的吗？ | 一个 claim | 模型 | |
-| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | 审计是否 leakage：外部 ground truth 真的进入了吗？ | 一个 eval | 模型 | ✔ |
-| 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | 找出真实代码路径上的 mock、stub、fake 和静默回退，那里没有真东西在运行，成功报告是假的；提出真实依赖或诚实的失败 | 指定的文件、目录或 diff | 模型 | |
-| 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | 找出泄露到共享仓库或产物中的某一位所有者的个人或业务数据，把每处命中替换为它所扮演的角色，并列出仍带有这些数据的提交 | 指定的一个产物和一位所有者 | 模型 | |
-| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 每次变更后，用 repo 自己的 clean-and-true 检查品尝你的 output | 你的 output | 模型 | |
-| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 重写已完成 commit 的信息，日期和位置都不变，并把迟到的 commit 按时间放进线性历史，让 `git log` 本身就能完成交接 | 一个 commit | 用户 | |
-| 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | 把 GitHub 仓库以同一棵树的一个签名 commit 重新发布：删除 remote 并重建，因为 force push 会让旧 commit 仍可访问 | 一个仓库 | 用户 | |
-| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | 跑一遍 shipping 和 releasing 检查清单，确认后打 tag 并发布 | 一次 release | 用户 | |
-| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | 审查并合入一份贡献：先把关，保留作者署名，关闭前先批准，并说明任何改动 | 一份贡献 | 用户 | |
+| ♻️ **[re0](../../skills/depth/re0/SKILL.md)** | 把反复修补、越改越乱的文档或文件重写成干净的第一版，而不是再打一层补丁 | 一个 artifact | 模型 | |
+| 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | 动手前先确认自己理解了你的要求，只有两种理解确实不同时才发问 | 一个 instruction | 模型 | ✔ |
+| 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | 读完你交来的文件或文字，先提出你可能想做的事，你只需确认 | 一份数据交付 | 模型 | ✔ |
+| 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 选出仍能把事做好的最便宜的模型档位和思考深度 | 一个任务 | 模型 | ✔ |
+| 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | 建议删掉只因习惯而保留的要求，并注明每条的出处；外部定下的规则一概不动 | 一组尚未实现的需求及其来源 | 模型 | ✔ |
+| 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | 按目标自己写明的范围，检查新东西放在你想放的位置是否合适，不合适就指出更好的去处 | 一个条目及其将加入的目标 | 模型 | ✔ |
+| 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 故意当个刻薄的批评者：找出可能击垮计划的那一条反对意见，和验证它的最省钱办法 | 一个计划 | 用户 | |
+| 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | 把去掉你预设的问题交给多个全新视角，先展示他们分歧在哪里 | 一个方向 | 用户 | ✔ |
+| 🔀 **[crossthink](../../skills/depth/crossthink/SKILL.md)** | 当所有选项看起来都差不多时，从五个以上毫不相干的领域借来行之有效的办法，只留下新的那些 | 一个卡住的问题 | 模型 | ✔ |
+| ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | 把决策所需的材料变成清单，结论由你自己的回答算出；它从不替你选择 | 提交待决的材料 | 用户 | ✔ |
+| 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | 追问你刚做的决定，直到你能讲清楚，否则指出推理中的漏洞 | 一个决定 | 用户 | ✔ |
+| 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 先把任务中有风险的部分连同更安全的替代方案拿出来，其余部分全速推进，并记下被拿掉的内容 | 一个任务 | 模型 | |
+| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | 检查代码是否符合项目自己的风格；默认什么都不改，只写一份简短报告 | 一项待审查的变更 | 模型 | |
+| 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 把长期文档里的品牌名和工具名换成它们实际做的事，让文档比工具活得更久 | 一个 durable artifact | 模型 | |
+| 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | 把臃肿的文字或代码精简到真正有用的部分，不丢掉任何一条规则或一种行为 | 一件产物，文字或代码 | 模型 | |
+| 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | 按一条明确的原则把杂乱的列表重新排好；只移动条目，不改一个字 | 一个列表 | 模型 | |
+| ✂️ **[dedash](../../skills/depth/dedash/SKILL.md)** | 删掉代理在句子里乱撒的长破折号，保留连字符、范围和标签分隔用的破折号 | 你的文字 | 用户 | |
+| ⸱ **[dedot](../../skills/depth/dedot/SKILL.md)** | 在韩语文字里，为每个连接并列项的间隔号建议换成逗号或连接词，并说明理由 | 作者指定范围的韩语散文或标签行 | 用户 | ✔ |
+| 🚿 **[shower](../../skills/depth/shower/SKILL.md)** | 把成果交给一位毫无背景的新读者，问它单独拿出来是否讲得通 | 一个 artifact | 模型 | ✔ |
+| 🔬 **[factchk](../../skills/depth/factchk/SKILL.md)** | 拿真实来源双向核对说法：荒唐的可能是真的，显而易见的也可能是错的 | 一个 claim | 模型 | |
+| 🧪 **[mandela](../../skills/depth/mandela/SKILL.md)** | 检查测试或指标是不是在给自己打分，还是真正由外部事实决定结果 | 一个 eval | 模型 | ✔ |
+| 🎭 **[demock](../../skills/depth/demock/SKILL.md)** | 找出线上代码里让成功报告变成假话的假实现和静默兜底，并建议真正的修法 | 指定的文件、目录或 diff | 模型 | |
+| 🥸 **[deid](../../skills/depth/deid/SKILL.md)** | 在共享文件里找出某个人或某家公司的数据，换成它所扮演的角色，并列出仍带着这些数据的旧提交 | 指定的一个产物和一位所有者 | 模型 | |
+| 🥄 **[sip](../../skills/depth/sip/SKILL.md)** | 任何改动之后、宣布完成之前，用这套工具自己的检查跑一遍你的成果 | 你的 output | 模型 | |
+| 🧾 **[re0-git](../../skills/depth/re0-git/SKILL.md)** | 保留日期和位置，重写已完成提交的说明，让任何人只看提交历史就能接手 | 一个 commit | 用户 | |
+| 🧨 **[re0-squash](../../skills/depth/re0-squash/SKILL.md)** | 把 GitHub 仓库以文件不变的单个签名提交重新发布，旧提交再也无法访问 | 一个仓库 | 用户 | |
+| 🚀 **[re0-release](../../skills/depth/re0-release/SKILL.md)** | 跑完发布清单，等你确认后打标签并发布 | 一次 release | 用户 | |
+| 🤝 **[re0-merge](../../skills/depth/re0-merge/SKILL.md)** | 审阅并合入别人的贡献，保留作者的署名，并解释做过的任何修改 | 一份贡献 | 用户 | |
 
 ### `breadth/`
 
 | skill | 作用 | scope | Invoker | 只读 |
 |---|---|---|---|---|
-| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | 审计散落位置，把 fact 合并到一个归宿并让其他位置指向它 | 一个 fact，多个位置 | 模型 | |
-| 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | 将重复的文件或目录树整合为由内核管理的同一实体：硬链接、符号链接、目录联接或绑定挂载，并提供经过验证的还原步骤 | 相同字节，多个路径 | 模型 | |
-| 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | 审计 README 及其 AGENTS.md，把每一行移到其读者需要的文件 | 一个仓库的 README 和 AGENTS.md | 模型 | |
-| 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | 把交来的材料放进拥有它的现有知识库文档，规则读自该知识库本身；放不下的如实报告 | 交来的材料和一个知识库 | 用户 | |
-| 🆙 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 用一条命令把已安装的 skill 升级到完整的当前目录：淘汰改名的，补齐新增的，全部先确认 | 你的 skill 安装 | 用户 | |
+| 🧲 **[ssotize](../../skills/breadth/ssotize/SKILL.md)** | 找出被复制到多处的同一事实，经你批准后集中到一处，其余地方都指向那里 | 一个 fact，多个位置 | 模型 | |
+| 🔗 **[ssotize-local](../../skills/breadth/ssotize-local/SKILL.md)** | 把重复的文件或文件夹合并成一份真实副本，其余用链接指向它，并验证好还原的办法 | 相同字节，多个路径 | 模型 | |
+| 📖 **[re0-readme](../../skills/breadth/re0-readme/SKILL.md)** | 梳理 README 和 AGENTS.md，让每一行都待在需要它的读者所读的文件里 | 一个仓库的 README 和 AGENTS.md | 模型 | |
+| 📥 **[re0-import](../../skills/breadth/re0-import/SKILL.md)** | 把交来的资料按现有知识库自己的规则放进合适的页面，并报告找不到位置的部分 | 交来的材料和一个知识库 | 用户 | |
+| 🆙 **[re0-upgrade](../../skills/breadth/re0-upgrade/SKILL.md)** | 确认一次就把安装更新到当前完整目录：清理改了名的技能，加上新的 | 你的 skill 安装 | 用户 | |
 
 ### `coil/`
 
 | skill | 作用 | scope | Invoker | 只读 |
 |---|---|---|---|---|
-| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | 在 re0-loop 第一轮之前打开新的 iteration 文件夹并写入它的 DESIGN/WORKFLOW/EVIDENCE | 一个新 cycle | 用户 | |
-| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | 跑 build → QA → re0-memo → re0-work cycle，让学习复利，而不是代码膨胀 | 整个 cycle | 模型 | |
-| 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | 监视长时间运行的代理任务是否停滞，默认仅发出提醒；恢复仅作为提案交由人批准 | 一个运行中的任务 | 用户 | |
-| 📝 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 从一次完成或失败的 cycle 中抽取教训和反模式 | 一个结束的 cycle | 模型 | |
-| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 只保留赢得复用资格的教训，从 v0 重新开始 | 一次重启 | 模型 | |
-| 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 从实时 state 重建丢失的 context：谁需要它、发生了什么变化、新词是什么意思 | 一次回归 | 模型 | ✔ |
-| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 读取实时 cycle state，返回一个下一步最佳行动，而不是菜单 | 当前 cycle | 模型 | ✔ |
-| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 为一个明确意图推荐有序的技能图，标明每一步的权限类型，但不调用任何技能 | 一个明确意图 | 模型 | ✔ |
-| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | 通过三个分级考核关卡学习套件中的一项技能，完成与否以学习者本人提交的作品为依据，绝不以调用记录为依据 | 一项技能 | 用户 | |
+| 🗂️ **[re0-plan](../../skills/coil/re0-plan/SKILL.md)** | 新一轮工作开始前，先建好它的文件夹，放进设计、流程和证据文件 | 一个新 cycle | 用户 | |
+| 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | 让构建、测试、总结、重来的循环一直转下去，积累下来的是经验而不是代码 | 整个 cycle | 模型 | |
+| 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | 盯住长时间运行的代理任务，一旦卡住就提醒你；任何修复都只是等你批准的提议 | 一个运行中的任务 | 用户 | |
+| 📝 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | 从已完成或失败的一轮里提炼出经验和应当避免的错误 | 一个结束的 cycle | 模型 | |
+| 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 从零开始，只带上已经证明值得复用的经验 | 一次重启 | 模型 | |
+| 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 帮你补上离开期间的进展：哪些事等着你、什么变了、新词是什么意思 | 一次回归 | 模型 | ✔ |
+| 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 读出工作进展到哪一步，只给出最好的下一步，而不是一张菜单 | 当前 cycle | 模型 | ✔ |
+| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 针对一个目标，推荐该按什么顺序用哪些技能，但不替你运行 | 一个明确意图 | 模型 | ✔ |
+| 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | 分三个等级教会你一个技能，每级都凭你自己提交的成果过关 | 一项技能 | 用户 | |
 
 ### `mesh/`
 
 | skill | 作用 | scope | Invoker | 只读 |
 |---|---|---|---|---|
-| 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | 裁定已收集的独立解读，将发现按引用的证据分类，绝不按数量判断；可选的一轮交流只传递有争议的引文，并记录每一次由证据引发的修订。 | 对一个 artifact 或问题的多份解读 | 用户 | ✔ |
+| 🕸️ **[multithink](../../skills/mesh/multithink/SKILL.md)** | 按各自引用的证据来衡量几份独立意见，从不看有多少人赞同 | 对一个 artifact 或问题的多份解读 | 用户 | ✔ |
 
 *更多调用方式见 [.agents/invocation.md](../../.agents/invocation.md)。*
 
@@ -129,51 +129,7 @@
 > [!WARNING]
 > 在项目里重复几次，就会得到熟悉的 AI 生成 toolkit：近似重复的 skill、废弃设置、把同一件事说三遍的 README。看起来合理、忙碌，却在悄悄变得不可维护。
 
-这些 skill 押注相反方向。**每一个都在移除：**
-
-- `re0` 把草稿重写成干净的 v0，而不是继续打 patch。
-- `readback` 在内部复述请求，只有真正存活的分歧才会提问。
-- `aim` 读一份交接过来的 data drop，直接提出待确认的意图，而不是反过来问你。
-- `modelchk` 在工作开始前选出足够用的最便宜 tier 与推理强度。
-- `elon` 对只因惯性而保留的需求附上来源和证据提出删除建议，绝不触碰外部强制要求。
-- `scopechk` 依据目标自身的资料检查某项是否在其范围内，在它落到不该在的地方之前拦下。
-- `hate` 拒绝客气，返回一个足以杀死计划的反对意见和最便宜的测试。
-- `macrothink` 展开新的解读，先报告分歧，再让收敛看起来像证据。
-- `crossthink` 借用远领域里真正起作用的机制，只保留问题自身 frame 从未给出的那些。
-- `re0-decide` 把提交待决的材料变成可核查的工具，裁定由决策者自己的回答计算得出。
-- `whychk` 逼问一个刚做出的决定，直到你能把它讲给怀疑者听，或者点出你讲不清的那处缺口。
-- `autobahn` 先切掉不安全 scope，让安全剩余部分全速运行。
-- `re0-style` 按代码库自身的惯例检查一次变更，默认不做任何修改。
-- `detool` 把可移植内容里偶然带上的工具名换成它们真正指代的机制。
-- `debloat` 把臃肿的产物压缩到承重的密度，只删文字，绝不删规则。
-- `re0-order` 按单一原则重新对齐一份已经漂移的列表，只挪动条目，不改动任何措辞。
-- `dedash` 逐处判断并删掉 agent 塞进句子里的 em dash 和 en dash，保留分隔标签的 dash。
-- `dedot` 为韩语中连接开放式列举的每个中点附上理由，建议改用逗号或连接词。
-- `shower` 删掉陌生人看不懂的部分。
-- `factchk` 双向对照 source 核验所主张的内容，不让直觉被当成事实发布。
-- `mandela` 审计 eval 是否 leakage，不让没有外部真相支撑的结果被当真。
-- `demock` 找出真实代码路径上的 mock、stub 和静默回退，提出真实依赖或诚实的失败。
-- `deid` 找出共享产物中某一位所有者的数据，替换为它所扮演的角色，并列出历史中仍带有这些数据的提交。
-- `sip` 在你自己的 output 上运行 `shower`、`ssotize` 和 `re0`，适用时再加上 `factchk`、`mandela` 或 `detool`。
-- `re0-git` 重写已完成 commit 的信息并保留所有日期，让 `git log` 本身就能完成交接。
-- `re0-squash` 把仓库以同一棵树的一个签名 commit 重新发布，不留下任何可访问的旧 commit。
-- `re0-release` 在打 tag 和发布之前跑一遍 shipping 检查清单。
-- `re0-merge` 审查并合入一份贡献，保留作者署名。
-- `ssotize` 审计散落在文件里的 facts，取得批准，然后把它们折叠到一个归宿。
-- `ssotize-local` 把重复的文件或目录树折叠成一个文件系统实体，并验证还原步骤。
-- `re0-readme` 把 README 及其 AGENTS.md 的每一行移到其读者需要的文件。
-- `re0-import` 把交来的材料放进拥有它的知识库文档，放不下的如实报告。
-- `re0-upgrade` 一次确认就淘汰改名的 skill 并补齐新增的。
-- `re0-plan` 在一个 cycle 的第一轮之前打开它的 design、workflow 和 evidence 文件。
-- `re0-loop` 让 build、QA、re0-memo、re0-work cycle 持续运转，让学习复利，而不是代码。
-- `re0-watch` 监视长时间运行的任务是否停滞，恢复只作为待人批准的提案给出。
-- `re0-memo` 从一次完成或失败的 cycle 中抽取教训和反模式。
-- `re0-work` 从 v0 重新开始，让错误的 build 死掉，只保留赢得复用资格的教训。
-- `catchup` 从实时 state 重建人类的地图：什么需要他们、发生了什么变化、新词是什么意思。
-- `nba` 读取实时 cycle，只返回下一步，绝不给菜单。
-- `re0-workflow` 为一个明确意图推荐有序的技能图，但不调用任何技能。
-- `re0-tutorial` 通过以学习者本人提交为依据的三个分级关卡教授一项 skill。
-- `multithink` 按引用的证据给独立解读分类，绝不按数量。
+这些 skill 押注相反方向：**每一个都在移除某样东西**，移除什么见[索引](#the-index)。
 
 > [!TIP]
 > 难的不是加功能，而是克制。一次检查如果找不到可改进之处，就什么也不改。**这种克制就是产品。**
