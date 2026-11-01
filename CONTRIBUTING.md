@@ -1,10 +1,27 @@
-# Contributing to paperthin
+# Contributing
 
-Thanks for helping. Paperthin is a small suite on purpose, so every addition has to show that the suite is worse without it.
+Every issue and pull request is judged against one bar: paperthin is a small suite on purpose, so every addition has to show that the suite is worse without it. Read [AGENTS.md](./AGENTS.md) first.
 
-## Proposing a change
+## Where each request goes
 
-Open an issue to discuss an idea, or a pull request when you have the change. A bug fix is the easiest yes. Tooling is welcome when it automates a rule the suite already applies by hand. A new skill has to close a real gap that no existing skill covers, and it has to follow the guide in [AGENTS.md](./AGENTS.md): its [layout](./AGENTS.md#layout) and name, the [SKILL.md format](./AGENTS.md#skillmd-format), its [invocation](./AGENTS.md#invocation) lane, and the [shipping checklist](./AGENTS.md#shipping). Keep one pull request to one idea.
+| You have | Go to |
+| --- | --- |
+| A bug in a skill | [Issue](https://github.com/LilMGenius/paperthin/issues/new), or a pull request with the fix |
+| A change to an existing skill | [Issue](https://github.com/LilMGenius/paperthin/issues/new), or a pull request with the change |
+| A question, or "how do I...?" | [Issue](https://github.com/LilMGenius/paperthin/issues/new) |
+| An idea for a new skill, or a skill to donate | [Issue](https://github.com/LilMGenius/paperthin/issues/new) |
+
+Pull requests are open to everyone. Keep one pull request to one idea, and follow the guide in [AGENTS.md](./AGENTS.md): its [layout](./AGENTS.md#layout) and name, the [SKILL.md format](./AGENTS.md#skillmd-format), its [invocation](./AGENTS.md#invocation) lane, and the [shipping checklist](./AGENTS.md#shipping). Tooling is welcome when it automates a rule the suite already applies by hand.
+
+## Issues written with AI
+
+Agents are welcome to help, but you post the issue, so you own it:
+
+- **One problem per issue.** Several findings from one session are several issues, or none.
+- **Short.** If it does not fit on one screen, cut it.
+- **Repro first.** The steps that show the problem come before any analysis.
+- **No pasted specs.** No full proposals, plans, or rewritten `SKILL.md` files. Describe the problem; the fix is ours to design.
+- **Not your project's issues.** If your agent files the specs or tickets for your own project here, it has the wrong repo.
 
 ## How your pull request lands
 
