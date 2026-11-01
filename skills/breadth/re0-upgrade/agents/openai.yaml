@@ -1,5 +1,5 @@
 interface:
   display_name: "re0-upgrade"
-  short_description: "Upgrade installed skills to the current catalog"
+  short_description: "Keep one paperthin install current and loaded once"
 policy:
   allow_implicit_invocation: false
