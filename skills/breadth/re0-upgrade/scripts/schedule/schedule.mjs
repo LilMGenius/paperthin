@@ -26,7 +26,10 @@ const KEEP = 10;
 const OUTPUT_CAP = 4000;
 const STEP_TIMEOUT = 30 * 60 * 1000;
 const UPSTREAM = 'LilMGenius/paperthin';
-const LATEST = 'https://api.github.com/repos/' + UPSTREAM + '/releases/latest';
+// github.com answers /releases/latest with a redirect to the newest release's tag page. The REST API answers the same
+// question but allows an unauthenticated IP 60 requests an hour, which a shared egress (a CI runner, an office NAT) spends:
+// a macOS runner's call answered 403 on 2026-11-02.
+const LATEST = 'https://github.com/' + UPSTREAM + '/releases/latest';
 const CATALOG_AT = (tag) => 'https://raw.githubusercontent.com/' + UPSTREAM + '/' + encodeURIComponent(tag) + '/skills/breadth/re0-upgrade/SKILL.md';
 const CRON_MARK = ' # paperthin-job:';
 
@@ -200,13 +203,17 @@ function npx(args, home) {
   return exec(command.file, [...command.args, ...args], { cwd: home || homedir(), env, shell: command.shell, timeout: STEP_TIMEOUT, maxBuffer: 64 * 1024 * 1024 });
 }
 
+export function tagFromRedirect(location) {
+  const tag = /\/releases\/tag\/([^/?#]+)$/.exec(location || '')?.[1];
+  return tag ? decodeURIComponent(tag) : null;
+}
+
 async function latestCatalog() {
-  const headers = { accept: 'application/vnd.github+json', 'user-agent': 're0-upgrade-schedule' };
-  const release = await fetch(LATEST, { headers, signal: AbortSignal.timeout(30000) });
-  if (release.status !== 200) throw new Error('GET ' + LATEST + ' answered ' + release.status);
-  const tag = (await release.json()).tag_name;
-  if (typeof tag !== 'string' || !tag) throw new Error('the latest release names no tag');
-  const raw = await fetch(CATALOG_AT(tag), { headers: { 'user-agent': headers['user-agent'] }, signal: AbortSignal.timeout(30000) });
+  const headers = { 'user-agent': 're0-upgrade-schedule' };
+  const release = await fetch(LATEST, { headers, redirect: 'manual', signal: AbortSignal.timeout(30000) });
+  const tag = tagFromRedirect(release.headers.get('location'));
+  if (!tag) throw new Error('GET ' + LATEST + ' answered ' + release.status + ' with no release tag to follow');
+  const raw = await fetch(CATALOG_AT(tag), { headers, signal: AbortSignal.timeout(30000) });
   if (raw.status !== 200) throw new Error('GET ' + CATALOG_AT(tag) + ' answered ' + raw.status);
   return { tag, catalog: readRules(await raw.text()).catalog };
 }
