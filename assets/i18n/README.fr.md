@@ -21,27 +21,26 @@ Sur **n'importe quel** agent | Claude Code, Codex, OpenCode, Antigravity, Copilo
 
 Choisissez **une seule voie par agent** ; en installer deux charge chaque skill deux fois.
 
-1. **Claude Code** :
+1. **Claude Code**:
    ```bash
-   claude plugin marketplace add LilMGenius/paperthin
-   claude plugin install paperthin@paperthin
+   claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
-   Puis lancez `/plugin`, ouvrez **Marketplaces**, choisissez `paperthin` et activez **Enable auto-update** une fois.
-2. **Codex** : il se met à jour seul à chaque démarrage de session.
+   Lancez ensuite `/plugin`, ouvrez **Marketplaces**, sélectionnez `paperthin` et choisissez **Enable auto-update**, une seule fois.
+2. **Codex**: il se met à jour seul à chaque début de session.
    ```bash
-   codex plugin marketplace add LilMGenius/paperthin
-   codex plugin add paperthin@paperthin
+   codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
    ```
-3. **Tout autre agent** (OpenCode, Cursor et les autres) : la deuxième ligne installe une tâche quotidienne qui le garde à jour. Lancez-le depuis un shell élevé/admin si votre OS le demande, pour que les skills soient liés plutôt que copiés. Si Claude Code ou Codex passent par le plugin, remplacez `'*'` par les agents que vous utilisez (comme `opencode`) pour les exclure.
+3. **Tout autre agent** : une seule ligne installe les skills et une mise à jour quotidienne.
    ```bash
-   npx skills@latest add LilMGenius/paperthin --global --agent '*'
-   node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
+   npx skills@latest add LilMGenius/paperthin --global --agent '*' && node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
    ```
-4. **Utilisez-les** : appelez n'importe quel skill par son nom, comme `/re0` (`/paperthin:re0` dans Claude Code, `$re0` dans Codex) ; les model-invoked se déclenchent aussi seules.
+4. **Utilisez-les** : appelez n'importe quel skill par son nom, comme `/re0`. Beaucoup se lancent aussi d'eux-mêmes quand le travail le demande.
 
-**Vous venez d'une ancienne installation ?** Lancez `/re0-upgrade` une fois dans une nouvelle session ; il vous fait passer sur la voie ci-dessus et retire l'ancien avis de démarrage de session.
+**Déjà installé ?** Lancez `/re0-upgrade` une fois dans une nouvelle session.
 
-**Pas sûr ?** Dites à votre agent `install https://github.com/LilMGenius/paperthin` ; il suit les [étapes pour agents](../../.agents/install-block.md#handed-only-this-repository) et vous dit ce qu'il vous reste à faire.
+**Pas sûr ?** Dites à votre agent `install https://github.com/LilMGenius/paperthin` et il suit seul les [étapes d'installation](../../.agents/install-block.md#handed-only-this-repository).
+
+**Sur ChatGPT ou Claude dans le navigateur ?** Donnez-lui `https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt`.
 
 <a id="the-map"></a>
 ## La carte

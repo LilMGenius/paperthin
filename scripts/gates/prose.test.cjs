@@ -30,13 +30,14 @@ test('an unpinned npx skills and a translation without the install command fail'
   assert.match(run(t, edit('assets/i18n/README.ko.md', (text) => text.replace(' --global', ''))).join(), /README\.ko\.md: does not carry the install command/);
 });
 
-test('every line of every canonical block must reach every README', (t) => {
-  const second = 'codex plugin add paperthin@paperthin';
-  const block = edit('.agents/install-block.md', (text) => text + '\n<canonical-block name="codex">\n\n\x60\x60\x60bash\ncodex plugin marketplace add LilMGenius/paperthin\n' + second + '\n\x60\x60\x60\n\n</canonical-block>\n');
-  const both = (text) => text + '\ncodex plugin marketplace add LilMGenius/paperthin\n' + second + '\n';
-  assert.deepEqual(run(t, { ...block, ...edit('README.md', both), ...edit('assets/i18n/README.ko.md', both) }), []);
-  const failed = run(t, { ...block, ...edit('README.md', both), ...edit('assets/i18n/README.ko.md', (text) => both(text).replace(second, '')) }).join();
-  assert.match(failed, /README\.ko\.md: does not carry the install command from \.agents\/install-block\.md: codex plugin add paperthin@paperthin/);
+test('every one-line route of every canonical block must reach every README whole', (t) => {
+  const route = 'codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin';
+  const block = edit('.agents/install-block.md', (text) => text + '\n<canonical-block name="codex">\n\n\x60\x60\x60bash\n' + route + '\n\x60\x60\x60\n\n</canonical-block>\n');
+  const carry = (line) => (text) => text + '\n' + line + '\n';
+  assert.deepEqual(run(t, { ...block, ...edit('README.md', carry(route)), ...edit('assets/i18n/README.ko.md', carry(route)) }), []);
+  const split = route.replace(' && ', '\n');
+  const failed = run(t, { ...block, ...edit('README.md', carry(route)), ...edit('assets/i18n/README.ko.md', carry(split)) }).join();
+  assert.match(failed, /README\.ko\.md: does not carry the install command from \.agents\/install-block\.md: codex plugin marketplace add LilMGenius\/paperthin && codex plugin add paperthin@paperthin/);
 });
 
 test('a backticked name one affix from a skill fails in a tracked file, never in a gitignored draft', (t) => {
