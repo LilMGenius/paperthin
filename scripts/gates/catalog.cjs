@@ -99,6 +99,10 @@ function check(root) {
   if (!isFile(root, '.claude-plugin/marketplace.json')) problems.push(problem('.claude-plugin/marketplace.json', 0, 'missing; Claude Code and Codex add this repository as a marketplace through it'));
   else {
     const listed = (json('.claude-plugin/marketplace.json').plugins || []).find((p) => p.name === plugin.name);
+    const market = json('.claude-plugin/marketplace.json');
+    // The host names the marketplace from this field (paperthin@paperthin), and its catalog line is the same one-liner.
+    if (market.name !== plugin.name) problems.push(problem('.claude-plugin/marketplace.json', 0, 'name ' + market.name + ' differs from the plugin name ' + plugin.name + ', so the install command paperthin@paperthin would not resolve'));
+    if (market.metadata?.description !== undefined && market.metadata.description !== plugin.description) problems.push(problem('.claude-plugin/marketplace.json', 0, 'metadata.description differs from plugin.json'));
     if (!listed || listed.source !== './') problems.push(problem('.claude-plugin/marketplace.json', 0, 'must list ' + plugin.name + ' with source "./"'));
     else if (listed.description !== plugin.description) problems.push(problem('.claude-plugin/marketplace.json', 0, 'description differs from plugin.json'));
   }
