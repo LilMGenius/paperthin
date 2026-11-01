@@ -1,5 +1,6 @@
 interface:
   display_name: "re0-tutorial"
   short_description: "Learn one skill through three graded levels"
+  default_prompt: "Use $re0-tutorial to teach me one skill hands-on."
 policy:
   allow_implicit_invocation: false

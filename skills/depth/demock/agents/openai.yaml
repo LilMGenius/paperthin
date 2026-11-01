@@ -1,3 +1,4 @@
 interface:
   display_name: "demock"
   short_description: "Find fakes and false successes on real code paths"
+  default_prompt: "Use $demock to find mocks and fallbacks on the real code path."

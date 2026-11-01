@@ -1,3 +1,4 @@
 interface:
   display_name: "debloat"
   short_description: "Cut bloated prose or code to load-bearing density"
+  default_prompt: "Use $debloat to cut this down to what carries weight."

@@ -11,6 +11,8 @@ const DESCRIPTION_MAX = 800;
 // Codex's skill-creator quick_validate.py rules, ported because the script needs PyYAML and reads cp949 on Windows; skills.test.cjs pins the sha256 of the copy they came from. disable-model-invocation is the one key it rejects that Claude Code reads.
 const KEYS = ['name', 'description', 'license', 'allowed-tools', 'metadata', 'disable-model-invocation'];
 const NAME_MAX = 64;
+// skill-creator's agents/openai.yaml rules: hosts list a skill by its display name and a 25 to 64 character blurb, and its default prompt names $<skill> so the picker inserts a call that resolves.
+const BLURB = [25, 64];
 
 // A failure names the line and column, since a plain value holding ": " parses as a nested mapping and the host drops the skill.
 function parseYaml(file, source, version, firstLine) {
@@ -78,6 +80,11 @@ function checkSkill(root, file, problems) {
       for (const key of ['display_name', 'short_description']) {
         if (typeof meta.interface?.[key] !== 'string') problems.push(problem(yamlFile, 0, 'interface.' + key + ' must be a string'));
       }
+      const blurb = meta.interface?.short_description;
+      if (typeof blurb === 'string' && (blurb.length < BLURB[0] || blurb.length > BLURB[1])) problems.push(problem(yamlFile, 0, 'interface.short_description is ' + blurb.length + ' characters; hosts show ' + BLURB[0] + ' to ' + BLURB[1]));
+      if (typeof meta.interface?.display_name === 'string' && meta.interface.display_name !== name) problems.push(problem(yamlFile, 0, 'interface.display_name ' + JSON.stringify(meta.interface.display_name) + ' is not the skill name ' + name + ', so the picker lists it under another name than the one it is called by'));
+      const prompt = meta.interface?.default_prompt;
+      if (typeof prompt !== 'string' || !new RegExp('\\$' + name + '(?![a-z0-9-])').test(prompt)) problems.push(problem(yamlFile, 0, 'interface.default_prompt must name $' + name + ', the call the picker inserts'));
       if ((meta.policy?.allow_implicit_invocation === false) !== userInvoked) problems.push(problem(yamlFile, 0, 'policy.allow_implicit_invocation: false must pair with disable-model-invocation: true in SKILL.md; a skill is user-invoked in both hosts or neither'));
     }
   }

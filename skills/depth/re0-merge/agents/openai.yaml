@@ -1,5 +1,6 @@
 interface:
   display_name: "re0-merge"
   short_description: "Review and land a contribution with credit"
+  default_prompt: "Use $re0-merge to review and land this contribution."
 policy:
   allow_implicit_invocation: false

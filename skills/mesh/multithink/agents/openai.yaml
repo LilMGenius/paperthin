@@ -1,5 +1,6 @@
 interface:
   display_name: "multithink"
   short_description: "Adjudicate collected reads by cited evidence"
+  default_prompt: "Use $multithink to class these reads by their cited evidence."
 policy:
   allow_implicit_invocation: false

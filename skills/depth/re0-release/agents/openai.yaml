@@ -1,5 +1,6 @@
 interface:
   display_name: "re0-release"
   short_description: "Run the release checklist, then tag and publish"
+  default_prompt: "Use $re0-release to run the release checklist."
 policy:
   allow_implicit_invocation: false

@@ -1,5 +1,6 @@
 interface:
   display_name: "re0-upgrade"
   short_description: "Keep one paperthin install current and loaded once"
+  default_prompt: "Use $re0-upgrade to bring my paperthin install up to date."
 policy:
   allow_implicit_invocation: false
