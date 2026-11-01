@@ -1,6 +1,7 @@
 This repository vendors third-party material, kept verbatim or adapted with its
 wording and structure intact, and used under the original licenses. Attribution
-is tracked per source below (not per file).
+is tracked per source below (not per file). From mattpocock/skills: .agents/invocation.md,
+.agents/install-block.md and CONTRIBUTING.md, adapted with this suite's routes and names.
 
 ======================================================================
 mattpocock/skills  —  https://github.com/mattpocock/skills  (MIT License)

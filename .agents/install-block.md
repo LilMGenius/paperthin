@@ -1,18 +1,20 @@
 # The canonical install block
 
-One install story. `README.md`, every translation under `assets/i18n/`, and the `### Install` section of every release note carry **these commands** and nothing that contradicts them. Change it here first, then propagate; [`npm run check`](../scripts/gates/check.cjs) fails a README that drops any command in a block below.
+One install story, one wording. `README.md`, every translation under `assets/i18n/`, and the `### Install` section of every release note must say **this** and nothing else. Change it here first, then propagate.
 
-## One route per agent
+## Managed installs first
 
-Claude Code and Codex install paperthin as a plugin from this repository's marketplace (`.claude-plugin/marketplace.json` and `plugin.json`); every other agent installs it through [skills.sh](https://skills.sh/LilMGenius/paperthin). Each route keeps it current after setup, as the table says. Pick one route per agent: installing both leaves every skill loaded twice.
+Lead with installs that update themselves. Fall back to skills.sh only for agents that have no such install. Call a route managed only if it updates without the user running a command. Put any one-time opt-in beside its install command. Never promise "instant".
 
-| Agent | Route | Updates itself? |
-| --- | --- | --- |
-| Claude Code | `paperthin@paperthin` plugin | Yes, after turning on auto-update once |
-| Codex | `paperthin@paperthin` plugin | Yes, at session start, by default |
-| Every other agent | skills.sh | Yes, through the daily job its block installs |
+Claude Code and Codex install from this repo's own marketplace, `.claude-plugin/marketplace.json` and `plugin.json`. Those routes reinstall only when the `version` in `plugin.json` changes, so every release bumps it.
 
-Codex also reads `~/.agents/skills`, where every global skills.sh install lands. So when Codex is one of several agents and another of them has no plugin route, install all of them through skills.sh, Codex included, and skip the Codex plugin.
+| Agent         | Route                  | Updates itself?                                 |
+| ------------- | ---------------------- | ----------------------------------------------- |
+| Claude Code   | `@paperthin` marketplace | Yes, after a one-time auto-update opt-in        |
+| Codex         | `@paperthin` marketplace | Yes, at startup, by default                     |
+| Everyone else | skills.sh              | Yes, through the daily job its block installs   |
+
+Sources (2026-11-01): Claude Code [discover-plugins](https://code.claude.com/docs/en/discover-plugins#turn-auto-update-on-or-off-for-a-marketplace), which leaves auto-update off for every marketplace Anthropic does not ship.
 
 ## Claude Code
 
@@ -22,7 +24,7 @@ Codex also reads `~/.agents/skills`, where every global skills.sh install lands.
 claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
 ```
 
-Then turn on auto-update once, since Claude Code leaves it off for every marketplace Anthropic does not ship ([docs](https://code.claude.com/docs/en/discover-plugins#turn-auto-update-on-or-off-for-a-marketplace)): run `/plugin` in a session, open **Marketplaces**, select `paperthin` and choose **Enable auto-update**.
+Then, once, in Claude Code, run `/plugin`, open **Marketplaces**, select `paperthin` and choose **Enable auto-update**.
 
 </canonical-block>
 
@@ -34,11 +36,13 @@ Then turn on auto-update once, since Claude Code leaves it off for every marketp
 codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
 ```
 
-Codex refreshes the marketplace at every session start and updates the plugin itself.
+Updates itself at startup.
 
 </canonical-block>
 
-## Every other agent (skills.sh)
+## Every other agent, or editable files (skills.sh)
+
+`--agent '*'` installs for every agent the CLI supports; replace `'*'` with the agents you use (`opencode`, `cursor`, and others from its [supported agents](https://github.com/vercel-labs/skills/blob/main/docs/agents.md)) to leave out one that takes a plugin route. `npx skills@latest update` skips skills added upstream since `add`, so the daily job the block installs re-runs `add` too.
 
 <canonical-block name="other-agents">
 
@@ -46,11 +50,17 @@ Codex refreshes the marketplace at every session start and updates the plugin it
 npx skills@latest add LilMGenius/paperthin --global --agent '*' && node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
 ```
 
-`skills add` installs one canonical copy of each skill under `~/.agents/skills` and links every agent's skill folder to it. Replace `'*'` with the agents you use (`opencode`, `cursor`, and others from the CLI's [supported agents](https://github.com/vercel-labs/skills/blob/main/docs/agents.md)) to leave out an agent that takes a plugin route. `schedule.mjs install` then registers a per-user job, unelevated and windowless, that runs at local 00:00 (Task Scheduler, a launchd LaunchAgent, or a systemd user timer with cron as the fallback), updates every global skill and adds any skill a newer release ships. On Windows, run the line from an elevated shell if the CLI asks, so the skills are linked rather than copied; the task still registers at least privilege and runs as the user. On macOS and Linux, run it without sudo, since the job belongs to the user.
+`schedule.mjs install` registers a per-user job, unelevated and windowless, that updates every skill at local 00:00 and picks up new ones. On Windows, run the line from an elevated shell if the CLI asks, so the skills are linked rather than copied; on macOS and Linux, run it without sudo.
 
 </canonical-block>
 
-`skills@latest` is the one spelling used everywhere.
+`skills@latest` is the pinned spelling everywhere.
+
+## The two routes are exclusive
+
+The plugin is a managed, read-only bundle you subscribe to. skills.sh writes files you own and edit. Installing both leaves the user with every skill twice: always say "pick one".
+
+Codex also reads `~/.agents/skills`, where every global skills.sh install lands. So when Codex is one of several agents and another of them has no plugin route, install all of them through skills.sh, Codex included, and skip the Codex plugin.
 
 ## Coming from an older install
 
