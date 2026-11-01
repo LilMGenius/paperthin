@@ -105,6 +105,7 @@ Escolha **uma rota por agent**; instalar duas carrega cada skill duas vezes.
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Mantém girando o ciclo de construir, testar, aprender e recomeçar, para acumular lições e não código | o loop inteiro | model | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | Vigia um trabalho longo de agent para ver se ele travou e avisa você; qualquer correção é só uma proposta que você aprova | uma tarefa em execução | user | |
 | 📝 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Tira as lições, e os erros a evitar, de um ciclo concluído ou fracassado | um cycle concluido | model | |
+| 🔁 **[backprop](../../skills/coil/backprop/SKILL.md)** | Leva a lição de uma correção de volta aos documentos e regras que causaram o erro e depois os arruma | uma lição | model | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Recomeça do zero e leva só as lições que provaram valer a reutilização | um reinicio | model | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Atualiza você depois de um tempo fora: o que espera por você, o que mudou e o que querem dizer os termos novos | uma reentrada | model | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lê em que ponto o trabalho está e indica o melhor próximo passo, um só, sem cardápio | o cycle vivo | model | ✔ |

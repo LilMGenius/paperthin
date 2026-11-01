@@ -105,6 +105,7 @@ Choisissez **une seule voie par agent** ; en installer deux charge chaque skill 
 | 🌀 **[re0-loop](../../skills/coil/re0-loop/SKILL.md)** | Fait tourner le cycle construire, tester, tirer les leçons, recommencer, pour que ce soient les leçons qui s'accumulent plutôt que le code | toute la boucle | modèle | |
 | 👁️ **[re0-watch](../../skills/coil/re0-watch/SKILL.md)** | Surveille un long travail d'agent pour repérer un blocage et vous prévient ; toute réparation reste une proposition que vous approuvez | une tâche en cours | utilisateur | |
 | 📝 **[re0-memo](../../skills/coil/re0-memo/SKILL.md)** | Tire d'un cycle terminé ou raté ses leçons et les erreurs à éviter | un cycle terminé | modèle | |
+| 🔁 **[backprop](../../skills/coil/backprop/SKILL.md)** | Reporte la leçon d'une correction dans les documents et les règles qui ont causé l'erreur, puis les remet au propre | une leçon | modèle | |
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Repart de zéro en n'emportant que les leçons qui ont prouvé leur valeur | un redémarrage | modèle | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Vous remet à niveau après une absence : ce qui vous attend, ce qui a changé et ce que veulent dire les nouveaux termes | une réentrée | modèle | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lit où en est le travail et désigne la meilleure étape suivante, une seule, pas un menu | le cycle en cours | modèle | ✔ |
