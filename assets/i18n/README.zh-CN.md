@@ -53,6 +53,7 @@
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | 依据目标自身的资料检查某项是否落在目标现有范围内，不在时指出合适的归属 | 一个条目及其将加入的目标 | 模型 | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 拒绝客气，给出一个足以杀死计划的反对意见和最便宜的测试 | 一个计划 | 用户 | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | 去掉 bait，展开新鲜读法，并优先报告 divergence | 一个方向 | 用户 | ✔ |
+| 🔀 **[crossthink](../../skills/depth/crossthink/SKILL.md)** | 先列出 frame 内的选项，再把五个以上远领域的机制连同 breaks-where 映射过来，只保留清单里没有的 | 一个卡住的问题 | 模型 | ✔ |
 | ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | 把提交待决的材料变成可追溯、可核查的工具，裁定由决策者自己的回答计算得出，绝不推荐结果 | 提交待决的材料 | 用户 | ✔ |
 | 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | 追问一个刚做出的决定，直到你能把它解释清楚，否则标记出缺口 | 一个决定 | 用户 | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 先切掉不安全 scope，让安全部分全速运行，并记录 descope | 一个任务 | 模型 | |
@@ -125,6 +126,7 @@
 - `scopechk` 依据目标自身的资料检查某项是否在其范围内，在它落到不该在的地方之前拦下。
 - `hate` 拒绝客气，返回一个足以杀死计划的反对意见和最便宜的测试。
 - `macrothink` 展开新的解读，先报告分歧，再让收敛看起来像证据。
+- `crossthink` 借用远领域里真正起作用的机制，只保留问题自身 frame 从未给出的那些。
 - `re0-decide` 把提交待决的材料变成可核查的工具，裁定由决策者自己的回答计算得出。
 - `whychk` 逼问一个刚做出的决定，直到你能把它讲给怀疑者听，或者点出你讲不清的那处缺口。
 - `autobahn` 先切掉不安全 scope，让安全剩余部分全速运行。

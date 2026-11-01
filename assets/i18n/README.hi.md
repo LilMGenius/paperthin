@@ -53,6 +53,7 @@
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | लक्ष्य के अपने स्रोतों से पढ़कर जाँचता है कि कोई आइटम उसके मौजूदा दायरे में आता है या नहीं, और न आने पर सही घर बताता है | एक आइटम और वह लक्ष्य जिसमें वह जुड़ेगा | model | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | nice होने से इनकार करता है: plan को मार सकने वाली एक objection, और सबसे सस्ता test | एक plan | user | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait हटाता है, fresh reads fan out करता है, और divergence पहले report करता है | एक direction | user | ✔ |
+| 🔀 **[crossthink](../../skills/depth/crossthink/SKILL.md)** | पहले frame के भीतर के विकल्प लिखता है, फिर पाँच दूर के domains के mechanisms को breaks-where के साथ map करता है और सिर्फ़ वही रखता है जो सूची में नहीं था | एक अटकी समस्या | model | ✔ |
 | ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | निर्णय के लिए सौंपी गई सामग्री को एक अनुरेखणीय, जाँचने योग्य साधन में बदलता है, जिसका निर्णय निर्णयकर्ता के अपने उत्तरों से गणना होता है, और कभी किसी परिणाम की सिफ़ारिश नहीं करता | निर्णय के लिए सौंपी गई सामग्री | user | ✔ |
 | 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | अभी लिए गए decision को तब तक दबाता है जब तक आप उसे समझा न सकें, या gap flag हो जाए | एक decision | user | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | unsafe scope को upfront carve करता है, safe rest को full strength पर चलाता है, descope record करता है | एक task | model | |
@@ -125,6 +126,7 @@ Agent को goal दें और वह **add** करता है: और fi
 - `scopechk` किसी item को target के अपने लिखे scope से मिलाता है, इससे पहले कि वह गलत जगह पहुँच जाए।
 - `hate` नरमी से इनकार करता है और plan को मार सकने वाली एक आपत्ति सबसे सस्ते test के साथ लौटाता है।
 - `macrothink` fresh reads फैलाता है और convergence को proof मानने से पहले divergence report करता है।
+- `crossthink` दूर के domains में सचमुच काम करने वाले mechanisms उधार लेता है और सिर्फ़ वे रखता है जो समस्या का अपना frame कभी नहीं देता था।
 - `re0-decide` decision के लिए दिए गए material को एक जाँचने योग्य instrument में बदलता है, जिसका verdict निर्णयकर्ता के अपने जवाबों से निकलता है।
 - `whychk` अभी-अभी लिए गए decision को तब तक दबाता है जब तक आप उसे किसी skeptic को समझा न सकें, या जिस gap को आप नहीं समझा सकते उसे नाम देता है।
 - `autobahn` unsafe scope upfront carve करता है, ताकि safe remainder पूरी speed से चले।
