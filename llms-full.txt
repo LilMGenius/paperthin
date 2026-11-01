@@ -1771,79 +1771,86 @@ Before finishing, confirm:
 
 ---
 name: ssotize-local
-description: "Consolidate duplicate files or directories into one truth after approval, with the result an identity managed by this machine's filesystem: hardlink, symlink, junction, or bind mount. Use when consumers need the same bytes at several paths and textual references cannot serve them; it runs ssotize's audit and approval first, then probes capabilities and links only while the approved equality still holds."
+description: "Consolidate duplicate files or directories into one canonical home after approval, held as an identity by this machine's filesystem: hardlink, symlink, junction, or bind mount, with bytes, ACLs, owner and mode, named streams, xattrs and kept timestamps preserved. Use when consumers need the same bytes at several paths and textual references cannot serve them, when asked to hardlink, symlink, junction or bind-mount duplicate copies, or to dedupe identical files or trees on disk without breaking their readers."
 ---
 
-Give duplicated files or trees one canonical home that this machine's filesystem holds as an identity, after audit and approval.
+Give duplicated files or trees one canonical home and make every other path a filesystem identity of it, after an audit and an approval.
 
 ## Goal
 
-Establish or repair one canonical home for duplicated files or trees without losing bytes or their preservation contract: ACLs, owner and mode, named streams, xattrs, and the timestamps that must be kept. The `-local` suffix means the result is an identity managed by this machine's filesystem, so portability depends on the mechanism. Use it when consumers need the same bytes at several paths and textual references cannot serve them.
+Duplicated files or trees get one canonical home, and every other path its consumers read becomes an identity of it held by this machine's filesystem: a hardlink, symlink, junction or bind mount. Nothing is lost on the way: neither the bytes nor the preservation contract, which covers ACLs, owner and mode, named streams, xattrs and the timestamps that must be kept. Use it when consumers need the same bytes at several paths and textual references cannot serve them.
 
-It is an orchestrator. `ssotize` owns the shared procedure: naming the truth, finding every copy by two methods, classifying copies and contradictions, choosing the canonical home, folding unique details and the approval of the plan. This skill runs it first and adds only what a filesystem identity needs: capability probes, writer exclusion, the preservation contract, the link ladder, identity proof, the failure register and reversal. When `ssotize` is not installed, say so and stop, since a link made without its audit and approval skips the gates that make it safe. The deterministic steps run the script bundled beside this file, `node scripts/identity.mjs probe <path>...` and the subcommands below, and every subcommand accepts `--json`. No scatter means no change, and a stop is a valid outcome.
+The `-local` suffix means portability depends on the mechanism; what survives a clone, a copy or another host is stated per mechanism under Rules. A run that finds no scatter changes nothing, and a stop at any gate is a valid outcome.
 
 ## Workflow
 
-1. **Audit with ssotize.** Call the Skill tool with "ssotize" on the duplicated files or trees, for its read-only audit and plan, with linking as the proposed action for each copy whose consumers need the same bytes. Its occurrence table, canonical home and reason, contradictions and unique details are this run's inventory, and where it stops, this run stops. Then add what a link needs: the consumers, the aliases, the trust boundaries, hidden and empty entries and nested links, each link target resolved explicitly. A shared directory must include every member its consumers need.
-2. **Probe, never assume.** Run `node scripts/identity.mjs probe <path>...` on the candidates and the destination parents, and record command, exit, output and time. Probe reports path, link state and target, identity and link count, size, mtime, mount root where derivable, and the link capabilities it tests in a temporary directory, the only write an audit makes. Probe destination permission, locality, filesystem and mount privilege separately, and resolve ancestor links and mounts. A label proves nothing; unknown stays unproven.
-3. **Exclusive access (the human decides).** Ask: "Can every concurrent writer be excluded for the whole mutation and verification interval by a maintenance window or a lock every writer honors?" Only an explicit yes establishes exclusive access, and the answer is recorded; a handle listing is a snapshot, not a lock. On no, or no answer, report "Exclusive access unproven for <path>; no mutation" and stop. Never kill unrelated processes.
-4. **Read-only audit.** `digest <path>...` gives path, mtime, size, sha256 and identity through every name, with sorted relative members and a manifest hash. `compare <a> <b>` classifies bytes and identity and exits 0 for equality or identity, 3 for divergence or unique members, 1 for errors. Inspect ACLs, owner and mode, named streams, xattrs and timestamps separately, and report deltas caused by reads or identity changes. Which timestamps must be kept is the user's call, made with the approval: propose each from what reads it, such as a sync or build keyed on mtime, a backup or a ledger, and keep every timestamp until they decide. Every name of a link shows the canonical's timestamps, so a duplicate's timestamp that must be kept goes into the preservation step 8 verifies. A missing tool, denied read or unsupported field leaves the contract unproven; the script proves main bytes and members only.
-5. **Classify** each case into one decision:
+Every deterministic step runs `node scripts/identity.mjs` from this skill's folder, with the subcommands `probe`, `digest`, `compare`, `link`, `verify` and `unlink`; every subcommand accepts `--json`.
 
-   | Case | Decision |
-   | --- | --- |
-   | identical bytes and contract | eligible for approved linking; no backup |
-   | identical bytes, differing or unreadable contract | unproven; name the deltas and stop, or resolve preservation explicitly; a backup proves no equality |
-   | divergent bytes | a contradiction `ssotize` reports; stop for a human choice or a requested merge; never newest or largest wins |
-   | present in one place only | call the Skill tool with "ssotize" again for the fold, under its own approval from the human; re-audit before linking |
-   | already linked to the intended canonical | identity-proven no-op; report and re-verify, never relink |
+1. **Audit.** Call the Skill tool with "ssotize" on the duplicated files or trees for its read-only audit and plan, with linking proposed for each copy whose consumers need the same bytes. Its result is this run's **inventory**: the occurrence table, the canonical home and its reason, the contradictions, the unique details, and the **approval** gate the plan must pass. Where it stops, this run stops. When ssotize is not installed, say so and stop, because a link made without its audit and approval skips the gates that make it safe.
+2. **Extend the inventory for links.** Add what a link needs: every consumer, alias, trust boundary, hidden and empty entry and nested link, with each link target resolved explicitly. A shared directory includes every member its consumers need.
+3. **Probe, never assume.** Run `node scripts/identity.mjs probe <path>...` on every candidate and every destination parent, and record the command, exit code, output and time. It reports the path, link state and target, identity and link count, size, mtime, mount root where derivable, and the link capabilities it tested in a temporary directory, which is the only write an audit makes. Probe destination permission, locality, filesystem and mount privilege separately, and resolve every ancestor link and mount. A label proves nothing, and what is unknown stays unproven.
+4. **Ask about writers.** The human decides, with this exact question: "Can every concurrent writer be excluded for the whole mutation and verification interval by a maintenance window or a lock every writer honors?" Only an explicit yes counts, and it is recorded. A handle listing is a snapshot, not a lock. On no, or no answer, report "Exclusive access unproven for <path>; no mutation" and stop. Never kill unrelated processes.
+5. **Digest and compare, read-only.** `node scripts/identity.mjs digest <path>...` prints path, mtime, size, sha256 and identity through every name, with the sorted relative members and a manifest hash. `node scripts/identity.mjs compare <a> <b>` classifies bytes and identity, and exits 0 for equality or identity, 3 for divergence or unique members, and 1 for errors. Inspect ACLs, owner and mode, named streams, xattrs and timestamps separately, and report any delta that the reads or an identity change caused. The script proves main bytes and members only; a missing tool, a denied read or an unsupported field leaves the contract unproven.
+6. **Classify** each candidate against the canonical home, one row per case:
 
-6. **Report** to the human, beside `ssotize`'s occurrence table, per path: the rung (the linking mechanism chosen from step 9's ladder), displaced names, preservation locations, proof and reverse actions. Re-audit after an approved fold.
-7. **Plan approval (the human decides).** Put the plan to the human as `ssotize`'s approval, in the wording **"link if still identical at the mutation step"**; only that wording covers the link step. Without it, stop after the read-only report. This approval covers neither an unresolved conflict nor a later change, and a fold, a merge or a copy each needs its own consent.
-8. **Re-check before the first write.** Immediately before any target write, backup and reconciliation included, re-enumerate the candidates and re-read **path, mtime, size, and sha256**, the contract, identity and exclusion evidence against the approved audit, per item. Any added, missing, unreadable, replaced or changed candidate stops the write, naming the file and the delta, and audit and approval are renewed. The script snapshots staging and displacement, never approval or writer exclusion, and hashing narrows a race without removing it. Proven byte-and-contract equality skips backup; an unproven candidate first needs verified independent preservation, contract included, and if that is impossible the run stops.
-9. **Execute the ladder.** After the gates, `link <canonical> <alias> --mechanism hardlink|symlink|junction [--staged <absent-sibling>]` installs a proven link and keeps any entry it displaces intact. Never overwrite an uninspected path or recursively delete a tree; on failure preserve originals and stages. Pick one rung per case:
-
-   | Rung | When | How |
+   | Case | Class | Action |
    | --- | --- | --- |
-   | file hardlink | regular file on the same supported local volume, with parent permission | probe, then `link --mechanism hardlink` |
-   | directory hardlink | unsupported on every mainstream system | never attempt |
-   | symlink | first choice for a directory, fallback for a file, where link creation and parent permission were probed | `link --mechanism symlink` |
-   | junction | Windows directory fallback: writable parent, absolute local target, no network target, no same-volume rule | `link --mechanism junction` |
-   | bind mount | Linux only, by explicit human choice, with probed privilege, an approved empty mount point and its own persistence plan | outside the script; never a silent fallback |
-   | copy | only by explicit consent from the human | reported as "no longer SSOT", never as a link |
+   | Identical bytes and contract | eligible | approved linking, no backup |
+   | Identical bytes, contract differing or unreadable | unproven | name the deltas, then stop or resolve preservation explicitly; a backup proves no equality |
+   | Divergent bytes | a contradiction the inventory already reports | stop for a human choice or a requested merge; never newest or largest wins |
+   | Present in one place only | fold | call the Skill tool with "ssotize" again for it, under its own approval from the human, then re-audit before linking |
+   | Already linked to the intended canonical | identity-proven no-op | report and re-verify; never relink |
 
-   The rungs rest on [hard links and junctions](https://learn.microsoft.com/en-us/windows/win32/fileio/hard-links-and-junctions), [Linux link(2)](https://man7.org/linux/man-pages/man2/link.2.html) and [macOS link(2)](https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/link.2.html), cited as sources, not local measurements; documentation never closes a probe.
-10. **Re-verify** read-only after every mutation with `verify <canonical> <alias>...` against the approved manifest and contract. A hardlink needs equal dev:ino (or volume and file ID) and an nlink covering the set; a symlink or junction must resolve to the canonical; every member hashes equal through every name. Equal bytes alone never prove identity. A bind mount needs its own mount, source and identity proof. Unknown stops. Never write a sentinel to a live target; a write test belongs to an authorized disposable fixture.
-11. **Check the failure register.** Each class names its evidence and its re-verify action, and none substitutes for the current run:
+7. **Report** per path, beside the inventory's occurrence table: the rung chosen, the displaced names, the preservation locations, the proof and the reverse actions. When a fold ran under its own approval, rerun steps 1 to 6 on the result and report from that new inventory; the fold's approval never stands in for step 8.
+8. **Approve.** Put the plan to the human at the inventory's approval gate in the exact wording "link if still identical at the mutation step"; only that wording covers the link step. Without it, stop after the read-only report. It covers neither an unresolved conflict nor a later change, and a fold, a merge or a copy each needs its own consent. With the approval the human decides which timestamps must be kept: propose each one from what reads it (a sync or build keyed on mtime, a backup, a ledger), and keep every timestamp until they decide. Every name of a link shows the canonical's timestamps, so a duplicate's timestamp that must be kept goes into the preservation that step 9 verifies.
+9. **Re-check before every write.** Immediately before any target write, backup and reconciliation included, re-enumerate the candidates and re-read path, mtime, size and sha256, the contract, the identity and the exclusion evidence against the approved audit, per item. An added, missing, unreadable, replaced or changed candidate stops the write, naming the file and its delta, and the run returns to step 1 for a new audit and to step 8 for a new approval from the human before any write. The script snapshots staging and displacement, never the approval or writer exclusion, and hashing narrows a race without removing it. Proven equality of bytes and contract skips the backup; an unproven candidate first needs verified independent preservation, contract included, and where that is impossible, stop.
+10. **Link, one rung per case.** `node scripts/identity.mjs link <canonical> <alias> --mechanism hardlink|symlink|junction [--staged <absent-sibling>]` installs a proven link and keeps any displaced entry intact. Never overwrite an uninspected path or recursively delete a tree; on failure, preserve the originals and the stages. Choose the rung from this ladder:
 
-    | # | Failure | Evidence | Re-verify |
-    | --- | --- | --- | --- |
-    | 1 | a replacing save severs a hardlink while an in-place save keeps it | sourced, unmeasured | verify the whole set after saving |
-    | 2 | a checkout or stash may write a replacement file | sourced | verify after any rewrite, external aliases included |
-    | 3 | a restore without link preservation expands the set | sourced | verify after the round trip, never inferred from options |
-    | 4 | a cloud-sync service may reject links or materialize copies | sourced | probe it and verify on each host; unknown stops |
-    | 5 | an edit after the audit invalidates equality | historical | step 8 names the delta and stops |
-    | 6 | equal bytes can hide different ACLs, streams or xattrs | proposed | repeat the contract proof; unproven stays stopped |
-    | 7 | a writer can act after the final hash | proposed | stop without the exclusion answer; never claim the race removed |
+    | Rung | When | How |
+    | --- | --- | --- |
+    | File hardlink | a regular file on the same supported local volume, with parent permission | probe, then `link --mechanism hardlink` |
+    | Directory hardlink | unsupported on every mainstream system | never attempt |
+    | Symlink | first choice for a directory, fallback for a file, where creation and parent permission were probed | `link --mechanism symlink` |
+    | Junction | Windows directory fallback: writable parent, absolute local target, no network target; no same-volume rule | `link --mechanism junction` |
+    | Bind mount | Linux only, by explicit human choice, with probed privilege, an approved empty mount point and its own persistence plan | outside the script; never a silent fallback |
+    | Copy | only by explicit human consent | reported as "no longer SSOT", never as a link |
 
-12. **Reverse by mechanism, after the human approves it.** Repeat step 2 and probe the removal on disposable data. `unlink <alias> --stage <dir>`, with `<dir>` an existing folder on the alias's volume outside the linked tree, replaces the link with a proven independent copy under the alias name, removing only the entry and never the target tree ([nonrecursive removal](https://learn.microsoft.com/en-us/dotnet/api/system.io.directory.delete) for a junction). Verify the staged contract first, since copied bytes do not certify ACLs, streams or xattrs. Never delete through a link. Prove the canonical's members, hashes and contracts and every unselected link intact; a link count fits the intended aliases, not always one. A bind mount needs an explicit unmount (busy stops; never force or lazy), exact-mount absence, an unchanged source and a distinct revealed mount-point identity; never stage into or remove a mount point, and an unmount creates no copy. On partial failure preserve receipts and originals; what cannot be verified stays unfinished.
+    These documents state what each mechanism supports; they were not measured on this machine, so a rung still needs its step 3 probe: https://learn.microsoft.com/en-us/windows/win32/fileio/hard-links-and-junctions , https://man7.org/linux/man-pages/man2/link.2.html , https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/link.2.html
+11. **Verify, read-only, after every mutation.** Run `node scripts/identity.mjs verify <canonical> <alias>...` against the approved manifest and contract. A hardlink needs equal dev:ino (or volume and file ID) and a link count covering the set; a symlink or junction must resolve to the canonical; every member hashes equal through every name. Equal bytes alone never prove identity. A bind mount needs its own mount, source and identity proof. Unknown stops. Never write a sentinel to a live target; a write test belongs to an authorized disposable fixture.
+12. **Reverse by mechanism**, after the human approves the reversal. Repeat the probe, and probe the removal on disposable data. `node scripts/identity.mjs unlink <alias> --stage <dir>`, with `<dir>` an existing folder on the alias's volume outside the linked tree, replaces the link with a proven independent copy under the alias name; it removes only the entry, never the target tree, and a junction is removed nonrecursively (https://learn.microsoft.com/en-us/dotnet/api/system.io.directory.delete ). Verify the staged contract first, since copied bytes do not certify ACLs, streams or xattrs. Never delete through a link. Prove the canonical's members, hashes and contracts and every unselected link intact; a link count fits the intended aliases, which is not always one. A bind mount needs an explicit unmount (busy stops; never force or lazy), the exact mount's absence, an unchanged source and a distinct revealed identity at the mount point; never stage into or remove a mount point, and an unmount creates no copy. On partial failure, preserve the receipts and originals; what cannot be verified stays unfinished.
 
 ## Rules
 
-- Never write to a target before `ssotize`'s audit and approval (the probe's temporary directory is not a target); report what stayed read-only and what needs a human decision. An empty finding is valid.
-- Confirm with the human any private/public or internal/customer-facing boundary a link would cross: a link exposes shared changes and permissions to every consumer.
-- Never follow a link to delete its target, and never recursively delete at an alias; preserve originals on partial failure.
-- State portability per mechanism. A hardlink carries no identity in a Git clone. A relative symlink travels where the layout is reproduced, and `core.symlinks=false` writes its target text as a file, so inspect the [repository setting](https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresymlinks) and verify on the destination. An absolute symlink needs the same target path. A junction is Windows-only, local and absolute. A bind mount needs host administration and approved persistence. A copy is no longer SSOT.
-- Prefer a directory link when consumers must see additions, deletions and replacements; re-verify a file hardlink after replacement. Never promise permanent linkage.
+- Never write to a target before the step 1 audit and approval; the probe's temporary directory is not a target. Report what stayed read-only and what needs a human decision; an empty finding is valid.
+- Confirm with the human any boundary a link would cross, private to public or internal to customer-facing, because a link exposes shared changes and permissions to every consumer.
+- Never follow a link to delete its target, never recursively delete at an alias, and preserve the originals on partial failure.
+- Portability is per mechanism. A hardlink carries no identity in a Git clone. A relative symlink travels where the layout is reproduced, and `core.symlinks=false` writes its target text as a file, so inspect the setting (https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresymlinks) and verify on the destination. An absolute symlink needs the same target path. A junction is Windows-only, local and absolute. A bind mount needs host administration and approved persistence. A copy is no longer SSOT.
+- Prefer a directory link when consumers must see additions, deletions and replacements; re-verify a file hardlink after any replacement; never promise permanent linkage.
 - An already-linked set is a reported no-op that is re-verified, never relinked.
+- The failure register below names what breaks a link after it is made. None of its rows substitutes for the current run's proof.
+
+| # | Failure | Evidence | Re-verify |
+| --- | --- | --- | --- |
+| 1 | A replacing save severs a hardlink, while an in-place save keeps it | sourced, unmeasured | verify the whole set after saving |
+| 2 | A checkout or stash may write a replacement file | sourced | verify after any rewrite, external aliases included |
+| 3 | A restore without link preservation expands the set | sourced | verify after the round trip; never infer it from options |
+| 4 | A cloud-sync service may reject links or materialize copies | sourced | probe it and verify on each host; unknown stops |
+| 5 | An edit after the audit invalidates equality | historical | the pre-write re-check names the delta and stops |
+| 6 | Equal bytes can hide different ACLs, streams or xattrs | proposed | repeat the contract proof; unproven stays stopped |
+| 7 | A writer can act after the final hash | proposed | stop without the exclusion answer; never claim the race removed |
 
 ## Verification
 
-Before finishing:
+Before finishing, confirm:
 
-1. Confirm the probed rungs, the exclusion answer and the approval, the pre-write deltas, preservation, identity, hash and contract proof through every name, the seven failure classes, and the staged reversal. Unknown stays unfinished.
-2. Confirm every receipt carries command, exit, time, before and after identity, preservation location and unresolved fields.
-3. Confirm `ssotize` ran first and its approval preceded every write, no scatter made no change, and a stop is reported as a valid outcome.
+1. The step 1 audit ran first and its approval preceded every write; a run with no scatter made no change, and a stop is reported as a valid outcome.
+2. The probed rungs, the exclusion answer and the approval are recorded.
+3. Every pre-write delta is reported, and every required preservation is verified.
+4. Identity, hashes and contract are proven through every name.
+5. Each of the seven failure classes is re-verified where it applies.
+6. A staged reversal, when one ran, is proven; anything unknown stays unfinished.
+7. Every receipt carries the command, exit code, time, identity before and after, preservation location and unresolved fields.
+8. The final report states what was linked, what stayed read-only, and what still needs a human decision.
 
 --- FILE: skills/breadth/re0-readme/SKILL.md (https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/breadth/re0-readme/SKILL.md) ---
 
