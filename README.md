@@ -24,7 +24,7 @@ Pick **one route per agent**; installing two loads every skill twice.
    ```bash
    claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
-   Then run `/plugin`, open **Marketplaces**, select `paperthin` and choose **Enable auto-update**, once.
+   Then, in Claude Code, run `/plugin`, open **Marketplaces**, select `paperthin` and choose **Enable auto-update**, once.
 2. **Codex**: it updates itself at every session start.
    ```bash
    codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
@@ -78,7 +78,7 @@ Pick **one route per agent**; installing two loads every skill twice.
 | 🧪 **[mandela](./skills/depth/mandela/SKILL.md)** | Checks whether a test or metric is grading itself, or whether real outside truth decides the result | one eval | model | ✔ |
 | 🎭 **[demock](./skills/depth/demock/SKILL.md)** | Finds fakes and silent fallbacks in live code that make a success report false, and suggests the real fix | a named file set, directory or diff | model | |
 | 🥸 **[deid](./skills/depth/deid/SKILL.md)** | Finds one person's or company's data in shared files, replaces it with the role it plays, and lists the old commits that still hold it | one named artifact and one owner | model | |
-| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | Right after any change, before you call it done, runs the suite's own checks on your output | your output | model | |
+| 🥄 **[sip](./skills/depth/sip/SKILL.md)** | Right after any change, before you call it done, runs paperthin's own checks on your output | your output | model | |
 | 🧾 **[re0-git](./skills/depth/re0-git/SKILL.md)** | Rewrites a finished commit's message with its dates and place kept, so the git history alone lets anyone take over | one commit | user | |
 | 🧨 **[re0-squash](./skills/depth/re0-squash/SKILL.md)** | Republishes a GitHub repository as one signed commit with the same files, leaving no old commit reachable | one repository | user | |
 | 🚀 **[re0-release](./skills/depth/re0-release/SKILL.md)** | Runs the release checklist, then tags and publishes once you confirm | one release | user | |
