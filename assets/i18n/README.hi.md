@@ -23,25 +23,24 @@
 
 1. **Claude Code**:
    ```bash
-   claude plugin marketplace add LilMGenius/paperthin
-   claude plugin install paperthin@paperthin
+   claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
    ```
    फिर `/plugin` चलाएं, **Marketplaces** खोलें, `paperthin` चुनें और एक बार **Enable auto-update** चालू करें।
 2. **Codex**: हर session शुरू होने पर खुद अपडेट होता है।
    ```bash
-   codex plugin marketplace add LilMGenius/paperthin
-   codex plugin add paperthin@paperthin
+   codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
    ```
-3. **कोई और agent** (OpenCode, Cursor आदि): दूसरी line एक daily job लगाती है जो इसे अपडेट रखता है। अगर OS कहे तो इसे elevated/admin shell से चलाएं, ताकि skills copy न होकर link हों। अगर Claude Code या Codex plugin रास्ते से चलते हैं, तो उन्हें बाहर रखने के लिए `'*'` की जगह सिर्फ़ वे agents लिखें जो आप इस्तेमाल करते हैं (जैसे `opencode`)।
+3. **बाकी हर agent**: एक ही line skills और रोज़ का अपडेट, दोनों लगा देती है।
    ```bash
-   npx skills@latest add LilMGenius/paperthin --global --agent '*'
-   node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
+   npx skills@latest add LilMGenius/paperthin --global --agent '*' && node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
    ```
-4. **इन्हें इस्तेमाल करें**। किसी भी skill को `/re0` जैसे नाम से call करें (Claude Code में `/paperthin:re0`, Codex में `$re0`); model-invoked खुद भी चल जाती हैं।
+4. **इस्तेमाल करें**। किसी भी skill को `/re0` की तरह नाम से बुलाएं; कई skills काम की ज़रूरत होने पर खुद भी चल पड़ती हैं।
 
-**पुराने तरीके से install किया था?** नए session में एक बार `/re0-upgrade` चलाएं; यह आपको ऊपर वाले रास्ते पर ले जाता है और पुरानी session-start सूचना हटाता है।
+**पहले install किया था?** नए session में एक बार `/re0-upgrade` चलाएं।
 
-**पक्का नहीं?** अपने agent से कहें `install https://github.com/LilMGenius/paperthin`; वह [agents के लिए steps](../../.agents/install-block.md#handed-only-this-repository) का पालन करेगा और बताएगा कि आपके लिए क्या बचा है।
+**पक्का नहीं?** अपने agent से कहें `install https://github.com/LilMGenius/paperthin`; वह [setup के steps](../../.agents/install-block.md#handed-only-this-repository) खुद पूरे करेगा।
+
+**वेब पर ChatGPT या Claude?** उसे `https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt` दें।
 
 <a id="the-map"></a>
 ## Map
