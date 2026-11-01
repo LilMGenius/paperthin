@@ -19,15 +19,29 @@ Em **qualquer** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Curs
 <a id="quickstart-15-seconds"></a>
 ## Inicio rapido (15 segundos)
 
-1. **Instale** para todos os agents que voce usa:
+Escolha **uma rota por agent**; instalar duas carrega cada skill duas vezes.
+
+1. **Claude Code**:
+   ```bash
+   claude plugin marketplace add LilMGenius/paperthin
+   claude plugin install paperthin@paperthin
+   ```
+   Depois rode `/plugin`, abra **Marketplaces**, escolha `paperthin` e ative **Enable auto-update** uma vez.
+2. **Codex**: atualiza sozinho a cada inicio de sessao.
+   ```bash
+   codex plugin marketplace add LilMGenius/paperthin
+   codex plugin add paperthin@paperthin
+   ```
+3. **Qualquer outro agent** (OpenCode, Cursor e o resto): a segunda linha instala uma tarefa diaria que o mantem atualizado. Execute em uma shell elevada/admin se o seu OS pedir, para que as skills sejam ligadas em vez de copiadas. Se Claude Code ou Codex usam a rota de plugin, troque `'*'` pelos agents que voce usa (como `opencode`) para deixa-los de fora.
    ```bash
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
+   node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
    ```
-2. **Execute em uma shell elevada/admin se o seu OS pedir** para que as skills sejam ligadas por symlink em vez de copiadas, e todos os agents leiam uma única cópia.
-3. **Fique atualizado**. Rode `/re0-upgrade` quando quiser atualizar; ele tambem ativa um aviso discreto de inicio de sessao para novas skills.
-4. **Use-as**. Chame qualquer skill pelo nome, como `/re0`; as model-invoked tambem disparam sozinhas.
+4. **Use-as**. Chame qualquer skill pelo nome, como `/re0` (`/paperthin:re0` no Claude Code, `$re0` no Codex); as model-invoked tambem disparam sozinhas.
 
-**Nao tem certeza?** Cole esse comando no agent que estiver usando e diga `set this up for me`. Ele faz o resto.
+**Vem de uma instalacao antiga?** Rode `/re0-upgrade` uma vez em uma sessao nova; ele move voce para a rota acima e remove o antigo aviso de inicio de sessao.
+
+**Nao tem certeza?** Diga ao seu agent `install https://github.com/LilMGenius/paperthin`; ele segue os [passos para agents](../../.agents/install-block.md#handed-only-this-repository) e diz o que falta para voce.
 
 <a id="the-map"></a>
 ## O mapa

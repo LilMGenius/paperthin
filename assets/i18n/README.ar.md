@@ -19,15 +19,29 @@
 <a id="quickstart-15-seconds"></a>
 ## البدء السريع (15 ثانية)
 
-1. **ثبّت** لكل agent تستخدمه:
+اختر **طريقا واحدا لكل agent**؛ تثبيت طريقين يحمّل كل skill مرتين.
+
+1. **Claude Code**:
+   ```bash
+   claude plugin marketplace add LilMGenius/paperthin
+   claude plugin install paperthin@paperthin
+   ```
+   ثم شغّل `/plugin` وافتح **Marketplaces** واختر `paperthin` وفعّل **Enable auto-update** مرة واحدة.
+2. **Codex**: يحدّث نفسه عند بدء كل جلسة.
+   ```bash
+   codex plugin marketplace add LilMGenius/paperthin
+   codex plugin add paperthin@paperthin
+   ```
+3. **أي agent آخر** (OpenCode وCursor وغيرهما): السطر الثاني يثبّت مهمة يومية تبقيه محدثا. شغّله من shell بصلاحيات مرتفعة/admin إذا طلب نظام التشغيل ذلك، حتى تُربط الـ skills بدل أن تُنسخ. إذا كان Claude Code أو Codex يستخدمان طريق الـ plugin، فضع مكان `'*'` الـ agents التي تستخدمها فقط (مثل `opencode`) لاستبعادهما.
    ```bash
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
+   node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
    ```
-2. **شغّله من shell بصلاحيات مرتفعة/admin إذا طلب نظام التشغيل ذلك** حتى تُربط الـ skills كـ symlinks بدل أن تُنسخ، فتقرأ كل الـ agents نسخة واحدة.
-3. **ابقَ محدثا**. شغّل `/re0-upgrade` متى أردت التحديث؛ يفعّل أيضا إشعار بدء-جلسة هادئا عند وصول skills جديدة.
-4. **استخدمها**. نادِ أي skill بالاسم مثل `/re0`؛ وتنطلق model-invoked وحدها أيضا.
+4. **استخدمها**. نادِ أي skill بالاسم مثل `/re0` (`/paperthin:re0` في Claude Code و`$re0` في Codex)؛ وتنطلق model-invoked وحدها أيضا.
 
-**لست متأكدا؟** الصق ذلك الأمر في أي agent تستخدمه وقل فقط `set this up for me`. سيتولى الباقي.
+**ثبّتّه بالطريقة القديمة؟** شغّل `/re0-upgrade` مرة واحدة في جلسة جديدة؛ ينقلك إلى الطريق أعلاه ويزيل إشعار بدء الجلسة القديم.
+
+**لست متأكدا؟** قل لـ agent الخاص بك `install https://github.com/LilMGenius/paperthin`؛ سيتبع [خطوات الـ agents](../../.agents/install-block.md#handed-only-this-repository) ويخبرك بما بقي لك.
 
 <a id="the-map"></a>
 ## الخريطة

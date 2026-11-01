@@ -19,15 +19,29 @@
 <a id="quickstart-15-seconds"></a>
 ## Quickstart (15 सेकंड)
 
-1. जिन भी agents का आप उपयोग करते हैं, उनके लिए **install** करें:
+**हर agent के लिए एक ही रास्ता** चुनें; दो लगाने से हर skill दो बार लोड होती है।
+
+1. **Claude Code**:
+   ```bash
+   claude plugin marketplace add LilMGenius/paperthin
+   claude plugin install paperthin@paperthin
+   ```
+   फिर `/plugin` चलाएं, **Marketplaces** खोलें, `paperthin` चुनें और एक बार **Enable auto-update** चालू करें।
+2. **Codex**: हर session शुरू होने पर खुद अपडेट होता है।
+   ```bash
+   codex plugin marketplace add LilMGenius/paperthin
+   codex plugin add paperthin@paperthin
+   ```
+3. **कोई और agent** (OpenCode, Cursor आदि): दूसरी line एक daily job लगाती है जो इसे अपडेट रखता है। अगर OS कहे तो इसे elevated/admin shell से चलाएं, ताकि skills copy न होकर link हों। अगर Claude Code या Codex plugin रास्ते से चलते हैं, तो उन्हें बाहर रखने के लिए `'*'` की जगह सिर्फ़ वे agents लिखें जो आप इस्तेमाल करते हैं (जैसे `opencode`)।
    ```bash
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
+   node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
    ```
-2. अगर OS कहे तो इसे elevated/admin shell से चलाएं, ताकि skills copy न होकर symlink हों और हर agent एक ही copy पढ़े।
-3. **अपडेट रहें**। जब अपडेट करना हो तब `/re0-upgrade` चलाएं; यह नई skills के लिए एक हल्की session-start सूचना भी चालू करता है।
-4. **इन्हें इस्तेमाल करें**। किसी भी skill को `/re0` जैसे नाम से call करें; model-invoked खुद भी चल जाती हैं।
+4. **इन्हें इस्तेमाल करें**। किसी भी skill को `/re0` जैसे नाम से call करें (Claude Code में `/paperthin:re0`, Codex में `$re0`); model-invoked खुद भी चल जाती हैं।
 
-**पक्का नहीं?** यह command अपने agent में paste करें और बस कहें `set this up for me`। बाकी वह कर देगा।
+**पुराने तरीके से install किया था?** नए session में एक बार `/re0-upgrade` चलाएं; यह आपको ऊपर वाले रास्ते पर ले जाता है और पुरानी session-start सूचना हटाता है।
+
+**पक्का नहीं?** अपने agent से कहें `install https://github.com/LilMGenius/paperthin`; वह [agents के लिए steps](../../.agents/install-block.md#handed-only-this-repository) का पालन करेगा और बताएगा कि आपके लिए क्या बचा है।
 
 <a id="the-map"></a>
 ## Map

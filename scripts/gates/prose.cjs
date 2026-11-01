@@ -55,17 +55,17 @@ function check(root) {
   return problems;
 }
 
-// .agents/install-block.md owns the install command; every README copies it verbatim and points at /re0-upgrade for updates.
+// .agents/install-block.md owns the install commands, one canonical block per route; every README carries each command line verbatim and points at /re0-upgrade for older installs.
 function checkInstall(root, problems) {
-  const block = read(root, INSTALL_BLOCK).match(/<canonical-block name="install">[\s\S]*?\x60\x60\x60bash\n(.+)\n\x60\x60\x60/);
-  if (!block) {
-    problems.push(problem(INSTALL_BLOCK, 0, 'has no install canonical block with a bash command'));
+  const blocks = [...read(root, INSTALL_BLOCK).matchAll(/<canonical-block name="([^"]+)">[\s\S]*?\x60\x60\x60bash\n([\s\S]+?)\n\x60\x60\x60/g)];
+  if (!blocks.length) {
+    problems.push(problem(INSTALL_BLOCK, 0, 'has no canonical block with a bash command'));
     return;
   }
-  const command = block[1].trim();
+  const commands = blocks.flatMap((block) => block[2].split('\n').map((line) => line.trim()).filter(Boolean));
   for (const readme of ['README.md', ...listFiles(root, 'assets/i18n').filter((file) => /\/README\.[^/]+\.md$/.test(file))]) {
     const text = read(root, readme);
-    if (!text.includes(command)) problems.push(problem(readme, 0, 'does not carry the install command from ' + INSTALL_BLOCK + ': ' + command));
+    for (const command of commands) if (!text.includes(command)) problems.push(problem(readme, 0, 'does not carry the install command from ' + INSTALL_BLOCK + ': ' + command));
     if (!text.includes('/re0-upgrade')) problems.push(problem(readme, 0, 'does not point at /re0-upgrade for updates'));
   }
 }
