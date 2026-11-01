@@ -60,6 +60,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🧩 **[scopechk](https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/depth/scopechk/SKILL.md)** | Check whether an item falls inside a target's existing scope, read from the target's own sources, and name the home that fits when it does not | one item and the target it would join | model | ✔ |
 | 😈 **[hate](https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/depth/hate/SKILL.md)** | Refuse to be nice: the one objection that could kill it, plus the cheapest test | one plan | user | |
 | 🧠 **[macrothink](https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/depth/macrothink/SKILL.md)** | Strip the bait, fan out fresh reads, report divergence first | one direction | user | ✔ |
+| 🔀 **[crossthink](https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/depth/crossthink/SKILL.md)** | List the frame's own options, map mechanisms from five distant domains with a breaks-where each, and keep only what the list lacked | one stuck problem | model | ✔ |
 | ⚖️ **[re0-decide](https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/depth/re0-decide/SKILL.md)** | Turn material submitted for a decision into a traceable, checkable instrument whose verdict is computed from the decider's own answers, never recommending an outcome | material submitted for a decision | user | ✔ |
 | 🧐 **[whychk](https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/depth/whychk/SKILL.md)** | Press a just-made decision until you can explain it, or the gap is flagged | one decision | user | ✔ |
 | 🛣️ **[autobahn](https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/depth/autobahn/SKILL.md)** | Carve unsafe scope out up front, run the safe rest at full strength, log the descope | one task | model | |
@@ -131,6 +132,7 @@ These skills bet the other way. **Every one of them removes:**
 - `scopechk` checks an item against a target's own written scope before it lands where it does not belong,
 - `hate` refuses to be nice and returns the one objection that could kill a plan, with the cheapest test,
 - `macrothink` fans out fresh reads and reports divergence before convergence reads as proof,
+- `crossthink` borrows working mechanisms from distant domains and keeps only those the problem's own frame never offered,
 - `re0-decide` turns material submitted for a decision into a checkable instrument whose verdict comes from the decider's own answers,
 - `whychk` presses a just-made decision until you can explain it to a skeptic, or names the gap you can't,
 - `autobahn` carves unsafe scope out up front, so the safe remainder runs at full speed,
@@ -788,6 +790,51 @@ Before finishing, confirm:
 5. Any convergence was described as reassurance, not proof.
 6. The report did not use consensus, majority, averaging, verified, or proved wording.
 7. On the macro path: the route followed the order in step 2, every expansion carries its causal link, a no-change names the covered items, and no option was adopted.
+
+--- FILE: skills/depth/crossthink/SKILL.md (https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/depth/crossthink/SKILL.md) ---
+
+---
+name: crossthink
+description: "When every option on the table is a variation of one route or waits on the same sign-in, approval, person or dependency, list the options that frame already gives, then map working mechanisms from five or more distant domains onto the problem and report the ones the first list lacked, each with where it breaks. Use when work is stuck inside one frame, when the user asks how another field or industry would solve it, or asks for an analogy that actually transfers. Not for re-reading a decision at a larger scale (macrothink), listing options when no single frame is stuck, or checking claims (factchk)."
+---
+
+List what the problem's own frame already offers, then borrow working mechanisms from distant domains and keep only the ones that list lacked.
+
+## Goal
+
+A problem stuck in one frame keeps producing variations of one route. A mechanism that already works in another domain can open a route the frame hides, but only when the transfer is operational: the source mechanism is real, the target mapping says who or what does which step here, and the breaks-where names the condition in this setting under which it fails. The run returns the new mechanisms with their breaks-where, or says honestly that the mapping found none.
+
+The mapping does not replace direct generation. On the problems it was tried on, direct generation found more usable mechanisms, and the mapping still found ones direct generation missed, most of them about keeping the work safe while the blocker stands (reconciliation, staging against a stand-in, escalation, findings kept as text).
+
+## Workflow
+
+1. **State the problem and its frame.** Write the goal, the hard constraints, the stated unknowns and the frame that narrows the options now: the route every current option takes and the step it waits on, if any. Keep the problem's facts; drop the session's preferred answer.
+2. **List the frame's own options first.** Write the distinct mechanisms the problem already yields directly, one line each: how it works here and what it needs. This list is the baseline the mapping is judged against, so write it before choosing any domain.
+3. **Map distant domains until five rows are accepted.** Pick domains far from the problem's field (logistics, biology, law, finance, film, games, hardware, cognitive science, real estate, or others). For each, fill three cells:
+   - **source mechanism**: an operation or causal process that actually works in that domain, stated as what happens, not as a slogan;
+   - **target mapping**: the concrete option it yields here, saying who or what performs which step and what it requires;
+   - **breaks-where**: the specific condition in this setting under which the transfer fails, and how to handle it when it can be handled. "May not work" or a cost alone is not a condition.
+4. **Reject what does not transfer.** A row with an empty cell, a mapping that only renames words with no operation behind it, and a source mechanism you cannot state as a working operation (reject it as unverified; this pass does not check sources) go to a rejected list with the reason.
+5. **Fold and subtract.** Fold rows that share one working operation into one mechanism; a different domain, vendor, tool, parameter or wording does not make a new one. Move every mechanism already on the step 2 list to the rejected list with the reason `already direct: <its step 2 line>`. What remains is the result.
+6. **Report.** Lead with the new mechanisms, each with its domain, target mapping and breaks-where: first those that remove the blocker, then those that limit its damage while it stands. Name the cheapest observation that would confirm or break the first one. Close with the rejected list. Zero new mechanisms is a valid result: say so and keep the step 2 list as the answer.
+
+## Rules
+
+- Direct options are written first and never replaced by the mapping; the mapping is judged only by what it adds.
+- A rejected row is kept with its reason, never deleted.
+- Never invent a fact about a source domain. Checking a claim against sources belongs to `factchk`.
+- Re-reading the same decision at a larger scale, purpose or horizon is a vertical read and belongs to `macrothink`; this skill reads sideways, across domains.
+- Read-only and advisory: it proposes options and changes nothing, and choosing among them stays with the main work.
+
+## Verification
+
+Before finishing, confirm:
+
+1. The frame and the step 2 list were written before any domain was mapped.
+2. At least five rows were accepted. Each has a source mechanism, a target mapping and a concrete breaks-where.
+3. No reported mechanism is already on the step 2 list, and rows sharing one operation were folded.
+4. Every rejected row, the already-direct ones included, is listed with its reason.
+5. The report names one next observation, or states that the mapping added nothing.
 
 --- FILE: skills/depth/re0-decide/SKILL.md (https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/depth/re0-decide/SKILL.md) ---
 
@@ -1998,7 +2045,7 @@ This section owns every rename and retirement, in release order; a future one ap
 
 Install every skill listed here in the chosen scope, except any the user declines at confirmation. This roster is also how the list output and the installed directories tell current names from unknown ones.
 
-`re0`, `readback`, `aim`, `modelchk`, `elon`, `scopechk`, `hate`, `macrothink`, `re0-decide`, `whychk`, `autobahn`, `re0-style`, `detool`, `debloat`, `re0-order`, `dedash`, `dedot`, `shower`, `factchk`, `mandela`, `demock`, `deid`, `sip`, `re0-git`, `re0-squash`, `re0-release`, `re0-merge`, `ssotize`, `ssotize-local`, `re0-readme`, `re0-import`, `re0-upgrade`, `re0-plan`, `re0-loop`, `re0-watch`, `re0-memo`, `re0-work`, `catchup`, `nba`, `re0-workflow`, `re0-tutorial`, `multithink`
+`re0`, `readback`, `aim`, `modelchk`, `elon`, `scopechk`, `hate`, `macrothink`, `crossthink`, `re0-decide`, `whychk`, `autobahn`, `re0-style`, `detool`, `debloat`, `re0-order`, `dedash`, `dedot`, `shower`, `factchk`, `mandela`, `demock`, `deid`, `sip`, `re0-git`, `re0-squash`, `re0-release`, `re0-merge`, `ssotize`, `ssotize-local`, `re0-readme`, `re0-import`, `re0-upgrade`, `re0-plan`, `re0-loop`, `re0-watch`, `re0-memo`, `re0-work`, `catchup`, `nba`, `re0-workflow`, `re0-tutorial`, `multithink`
 
 ## Workflow
 

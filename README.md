@@ -52,6 +52,7 @@ On **any** agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor, G
 | 🧩 **[scopechk](./skills/depth/scopechk/SKILL.md)** | Check whether an item falls inside a target's existing scope, read from the target's own sources, and name the home that fits when it does not | one item and the target it would join | model | ✔ |
 | 😈 **[hate](./skills/depth/hate/SKILL.md)** | Refuse to be nice: the one objection that could kill it, plus the cheapest test | one plan | user | |
 | 🧠 **[macrothink](./skills/depth/macrothink/SKILL.md)** | Strip the bait, fan out fresh reads, report divergence first | one direction | user | ✔ |
+| 🔀 **[crossthink](./skills/depth/crossthink/SKILL.md)** | List the frame's own options, map mechanisms from five distant domains with a breaks-where each, and keep only what the list lacked | one stuck problem | model | ✔ |
 | ⚖️ **[re0-decide](./skills/depth/re0-decide/SKILL.md)** | Turn material submitted for a decision into a traceable, checkable instrument whose verdict is computed from the decider's own answers, never recommending an outcome | material submitted for a decision | user | ✔ |
 | 🧐 **[whychk](./skills/depth/whychk/SKILL.md)** | Press a just-made decision until you can explain it, or the gap is flagged | one decision | user | ✔ |
 | 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Carve unsafe scope out up front, run the safe rest at full strength, log the descope | one task | model | |
@@ -123,6 +124,7 @@ These skills bet the other way. **Every one of them removes:**
 - `scopechk` checks an item against a target's own written scope before it lands where it does not belong,
 - `hate` refuses to be nice and returns the one objection that could kill a plan, with the cheapest test,
 - `macrothink` fans out fresh reads and reports divergence before convergence reads as proof,
+- `crossthink` borrows working mechanisms from distant domains and keeps only those the problem's own frame never offered,
 - `re0-decide` turns material submitted for a decision into a checkable instrument whose verdict comes from the decider's own answers,
 - `whychk` presses a just-made decision until you can explain it to a skeptic, or names the gap you can't,
 - `autobahn` carves unsafe scope out up front, so the safe remainder runs at full speed,

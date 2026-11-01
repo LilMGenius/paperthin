@@ -53,6 +53,7 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | Prüft, ob ein Element in den bestehenden Umfang eines Ziels fällt, gelesen aus den eigenen Quellen des Ziels, und nennt sonst den passenden Ort | ein Element und das Ziel, dem es beitreten soll | Modell | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | Weigert sich, nett zu sein: der eine Einwand, der den Plan töten könnte, plus der billigste Test | ein Plan | Nutzer | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | Entfernt den Bait, fächert frische Lesarten auf, meldet Divergenz zuerst | eine Richtung | Nutzer | ✔ |
+| 🔀 **[crossthink](../../skills/depth/crossthink/SKILL.md)** | Listet erst die Optionen des eigenen Frames, überträgt dann Mechanismen aus fünf fernen Domänen mit je einem breaks-where und behält nur, was der Liste fehlte | ein festgefahrenes Problem | Modell | ✔ |
 | ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | Macht aus Material, das zur Entscheidung vorgelegt wird, ein nachvollziehbares, prüfbares Instrument, dessen Urteil aus den eigenen Antworten der entscheidenden Person berechnet wird, ohne je ein Ergebnis zu empfehlen | zur Entscheidung vorgelegtes Material | Nutzer | ✔ |
 | 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | Bohrt bei einer gerade getroffenen Entscheidung nach, bis du sie erklären kannst oder die Lücke markiert ist | eine Entscheidung | Nutzer | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | Schneidet unsicheren Scope vorab heraus, fährt den sicheren Rest mit voller Leistung, protokolliert den Descope | eine Aufgabe | Modell | |
@@ -125,6 +126,7 @@ Diese Skills wetten in die andere Richtung. **Jeder einzelne entfernt etwas:**
 - `scopechk` prüft ein Element gegen den Umfang, den das Ziel selbst schriftlich festhält, bevor es dort landet, wo es nicht hingehört.
 - `hate` weigert sich, nett zu sein, und liefert den einen Einwand, der einen Plan töten könnte, samt billigstem Test.
 - `macrothink` fächert frische Lesarten auf und meldet Divergenz, bevor Konvergenz wie ein Beweis aussieht.
+- `crossthink` leiht funktionierende Mechanismen aus fernen Domänen und behält nur die, die der eigene Frame des Problems nie anbot.
 - `re0-decide` macht aus Material, das zur Entscheidung vorliegt, ein prüfbares Instrument, dessen Urteil aus den eigenen Antworten der Entscheidenden folgt.
 - `whychk` bohrt bei einer gerade getroffenen Entscheidung nach, bis du sie einem Skeptiker erklären kannst, oder benennt die Lücke, die du nicht erklären kannst.
 - `autobahn` schneidet unsicheren Scope vorab heraus, damit der sichere Rest mit voller Geschwindigkeit läuft.

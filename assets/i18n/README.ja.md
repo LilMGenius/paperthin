@@ -53,6 +53,7 @@
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | 対象自身の資料から読み取った既存の範囲に項目が収まるかを確かめ、収まらなければ合う置き場所を挙げる | 一つの項目と、それが加わる対象 | モデル | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 優しくしない。計画を殺せる一つの反論と、最も安いテストを返す | 計画一つ | ユーザー | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | bait を外し、新しい読みを fan out して、divergence を最初に報告する | direction 一つ | ユーザー | ✔ |
+| 🔀 **[crossthink](../../skills/depth/crossthink/SKILL.md)** | frame 内の選択肢を先に書き、遠い domain 五つ以上の mechanism を breaks-where 付きで写像し、その一覧になかったものだけを残す | 行き詰まった問題一つ | モデル | ✔ |
 | ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | 決定のために提出された資料を、追跡でき検証できる道具に変え、判定は決定者自身の回答から計算する。結果を推奨することはない | 決定のために提出された資料 | ユーザー | ✔ |
 | 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | 下したばかりの決定を、説明できるまで問い詰め、できなければ隙間を指摘する | 決定一つ | ユーザー | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 危険な scope を先に切り出し、安全な残りを全力で走らせ、descope を記録する | タスク一つ | モデル | |
@@ -125,6 +126,7 @@ agent に目標を渡すと、agent は**足します**。ファイルを増や�
 - `scopechk` は項目が対象自身の資料が定める範囲に収まるかを確かめ、合わない場所に置かれる前に止めます。
 - `hate` は優しくせず、計画を殺せる一つの反論と最も安いテストを返します。
 - `macrothink` は新しい読みを展開し、収束が証拠に見える前に divergence を報告します。
+- `crossthink` は遠い domain で実際に働く mechanism を借り、問題の frame が出さなかったものだけを残します。
 - `re0-decide` は決定のために提出された資料を検証できる道具に変え、判定は決定者自身の回答から計算します。
 - `whychk` は下したばかりの決定を、懐疑的な相手に説明できるまで問い詰め、できなければその gap を名指しします。
 - `autobahn` は危険な scope を先に切り、安全な残りが全速力で走れるようにします。
