@@ -2,7 +2,7 @@
 const assert = require('node:assert/strict');
 const { test } = require('node:test');
 const { check } = require('./prose.cjs');
-const { fixture, edit, messages } = require('./fixture.cjs');
+const { fixture, edit, messages, BASE } = require('./fixture.cjs');
 
 const run = (t, files) => messages(check(fixture(t, files)));
 
@@ -38,6 +38,16 @@ test('every one-line route of every canonical block must reach every README whol
   const split = route.replace(' && ', '\n');
   const failed = run(t, { ...block, ...edit('README.md', carry(route)), ...edit('assets/i18n/README.ko.md', carry(split)) }).join();
   assert.match(failed, /README\.ko\.md: does not carry the install command from \.agents\/install-block\.md: codex plugin marketplace add LilMGenius\/paperthin && codex plugin add paperthin@paperthin/);
+});
+
+test('a translated Index cell that copies the English one, or sits mostly in Latin letters where its language has its own script, fails', (t) => {
+  const ko = 'assets/i18n/README.ko.md';
+  assert.match(run(t, edit(ko, (text) => text.replace('푸를 처리합니다', 'Does foo'))).join(), /README\.ko\.md:\d+: foo's What it does cell is the English one/);
+  assert.match(run(t, edit(ko, (text) => text.replace('푸를 처리합니다', 'Handles the foo 처리'))).join(), /README\.ko\.md:\d+: foo's What it does cell has 10 Latin letters to 2 in the ko script/);
+  assert.deepEqual(run(t, edit(ko, (text) => text.replace('푸를 처리합니다', '**[foo](x)** 와 \x60re0-upgrade --yes\x60 로 re0-upgrade 를 처리합니다'))), []);
+  const es = (cell) => ({ 'assets/i18n/README.es.md': BASE['README.md'].replace('Does foo', cell).replace('Installs the catalog', 'Instala el catálogo') });
+  assert.match(run(t, es('Does foo')).join(), /README\.es\.md:\d+: foo's What it does cell is the English one/);
+  assert.deepEqual(run(t, es('Hace foo')), []);
 });
 
 test('a backticked name one affix from a skill fails in a tracked file, never in a gitignored draft', (t) => {
