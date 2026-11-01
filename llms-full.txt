@@ -1088,7 +1088,7 @@ Before finishing:
 
 1. Every load-bearing claim and observable behavior survives; only excess was cut.
 2. Every code cut happened behind a green lock, and the lock and the repository's checks are green after it.
-3. A cold reader finds the result tighter and intentionally terse without missing content.
+3. A cold reader finds the result tighter and intentionally terse without missing content: call the Skill tool with "shower" on the result when it is installed, since the author still remembers what was cut, and read it again yourself when it is not.
 4. Duplication, drift, conventions, and finds outside the scope or the excess class were handed to their owners or reported, never force-compressed.
 
 Report the scope, the lock (tests found, added, and the baseline), the cuts by class, each keep or skip with its reason, and every handoff.
