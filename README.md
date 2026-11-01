@@ -102,6 +102,7 @@ Pick **one route per agent**; installing two loads every skill twice.
 | 🌀 **[re0-loop](./skills/coil/re0-loop/SKILL.md)** | Keeps a build, test, learn and restart cycle running, so lessons pile up instead of code | the whole loop | model | |
 | 👁️ **[re0-watch](./skills/coil/re0-watch/SKILL.md)** | Watches a long agent job for stalls and alerts you; any fix is only a proposal you approve | one running job | user | |
 | 📝 **[re0-memo](./skills/coil/re0-memo/SKILL.md)** | Pulls the lessons, and the mistakes to avoid, out of a finished or failed cycle | one finished cycle | model | |
+| 🔁 **[backprop](./skills/coil/backprop/SKILL.md)** | Takes what a correction taught and fixes the docs and rules that caused it, then tidies them up | one lesson | model | |
 | 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Starts over from scratch, keeping only the lessons that proved worth reusing | one restart | model | |
 | 🗺️ **[catchup](./skills/coil/catchup/SKILL.md)** | Catches you up after time away: what needs you, what changed, and what new terms mean | one re-entry | model | ✔ |
 | 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Reads where the work stands and names the one best next step, not a menu | the live cycle | model | ✔ |
