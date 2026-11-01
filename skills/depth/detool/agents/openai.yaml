@@ -1,3 +1,4 @@
 interface:
   display_name: "detool"
   short_description: "Replace stack nouns with the mechanism meant"
+  default_prompt: "Use $detool to replace incidental tool names with the mechanism."

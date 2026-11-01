@@ -1,5 +1,6 @@
 interface:
   display_name: "re0-plan"
   short_description: "Open an iteration casebook before the loop"
+  default_prompt: "Use $re0-plan to open the iteration folder for this cycle."
 policy:
   allow_implicit_invocation: false

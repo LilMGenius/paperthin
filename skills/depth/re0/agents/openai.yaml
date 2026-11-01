@@ -1,3 +1,4 @@
 interface:
   display_name: "re0"
   short_description: "Rewrite a drifted artifact into a clean v0"
+  default_prompt: "Use $re0 to rewrite this into a clean current version."

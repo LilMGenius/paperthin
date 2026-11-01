@@ -1,3 +1,4 @@
 interface:
   display_name: "re0-style"
   short_description: "Check code style and conventions, report first"
+  default_prompt: "Use $re0-style to check this change against the codebase conventions."

@@ -1,5 +1,6 @@
 interface:
   display_name: "re0-import"
   short_description: "Land handed-over material where its base owns it"
+  default_prompt: "Use $re0-import to land this material in the knowledge base."
 policy:
   allow_implicit_invocation: false

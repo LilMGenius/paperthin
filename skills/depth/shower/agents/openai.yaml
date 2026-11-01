@@ -1,3 +1,4 @@
 interface:
   display_name: "shower"
   short_description: "Cold-read an artifact with zero-context eyes"
+  default_prompt: "Use $shower to cold-read this with fresh eyes."

@@ -1,3 +1,4 @@
 interface:
   display_name: "ssotize"
   short_description: "Consolidate a scattered fact into one home"
+  default_prompt: "Use $ssotize to find where this fact is scattered and consolidate it."

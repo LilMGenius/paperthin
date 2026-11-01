@@ -1,5 +1,6 @@
 interface:
   display_name: "hate"
   short_description: "Find the one objection that could kill a plan"
+  default_prompt: "Use $hate to find the one objection that could kill this plan."
 policy:
   allow_implicit_invocation: false

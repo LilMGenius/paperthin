@@ -1,3 +1,4 @@
 interface:
   display_name: "modelchk"
   short_description: "Size the cheapest sufficient tier and effort"
+  default_prompt: "Use $modelchk to size the model tier and effort for this task."

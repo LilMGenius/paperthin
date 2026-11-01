@@ -1,3 +1,4 @@
 interface:
   display_name: "re0-work"
   short_description: "Restart from v0 keeping only proven lessons"
+  default_prompt: "Use $re0-work to restart this from v0 keeping only proven lessons."
