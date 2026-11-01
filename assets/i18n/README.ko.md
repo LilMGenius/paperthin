@@ -19,15 +19,29 @@
 <a id="quickstart-15-seconds"></a>
 ## 빠른 시작 (15초)
 
-1. 사용하는 모든 에이전트에 **설치**합니다.
+**에이전트마다 경로 하나**만 고르세요. 둘을 깔면 모든 스킬이 두 번 뜹니다.
+
+1. **Claude Code**:
+   ```bash
+   claude plugin marketplace add LilMGenius/paperthin
+   claude plugin install paperthin@paperthin
+   ```
+   그다음 `/plugin`에서 **Marketplaces**를 열고 `paperthin`을 골라 **Enable auto-update**를 한 번 켭니다.
+2. **Codex**: 세션을 시작할 때마다 스스로 업데이트합니다.
+   ```bash
+   codex plugin marketplace add LilMGenius/paperthin
+   codex plugin add paperthin@paperthin
+   ```
+3. **그 밖의 에이전트**(OpenCode, Cursor 등): 둘째 줄이 매일 도는 업데이트 작업을 깔아 최신으로 유지합니다. OS가 요구하면 상승 권한/admin 셸에서 실행해 스킬이 복사되지 않고 링크로 연결되게 합니다. Claude Code나 Codex를 플러그인 경로로 쓴다면 `'*'` 자리에 실제로 쓰는 에이전트만(예: `opencode`) 적어 빼 주세요.
    ```bash
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
+   node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
    ```
-2. OS가 요구하면 상승 권한/admin 셸에서 실행해 스킬들이 복사되지 않고 심볼릭 링크로 연결되게 합니다. 모든 에이전트가 같은 사본 하나를 읽습니다.
-3. **최신 유지.** 업데이트하고 싶을 때 `/re0-upgrade`를 실행하세요. 새 스킬이 나오면 알려주는 가벼운 session-start 알림도 함께 켜집니다.
-4. **사용하세요.** 어떤 스킬이든 `/re0`처럼 이름으로 부르면 되고, model-invoked는 알아서도 실행됩니다.
+4. **사용하세요.** 어떤 스킬이든 `/re0`처럼 이름으로 부르면 되고(Claude Code에서는 `/paperthin:re0`, Codex에서는 `$re0`), model-invoked는 알아서도 실행됩니다.
 
-**잘 모르겠다면?** 쓰는 에이전트에 위 명령을 붙여 넣고 `set this up for me`라고 말하세요. 나머지는 에이전트가 처리합니다.
+**예전 방식으로 깔았다면?** 새 세션에서 `/re0-upgrade`를 한 번 실행하세요. 위 경로로 옮기고 옛 session-start 알림을 걷어 냅니다.
+
+**잘 모르겠다면?** 쓰는 에이전트에 `install https://github.com/LilMGenius/paperthin`이라고 말하세요. [에이전트용 절차](../../.agents/install-block.md#handed-only-this-repository)를 따라 설치하고 남은 일을 알려 줍니다.
 
 <a id="the-map"></a>
 ## 지도

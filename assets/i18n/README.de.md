@@ -19,15 +19,29 @@ Auf **jedem** Agent | Claude Code, Codex, OpenCode, Antigravity, Copilot, Cursor
 <a id="quickstart-15-seconds"></a>
 ## Schnellstart (15 Sekunden)
 
-1. Für jeden Agents, den du nutzt, **installieren**:
+Wähle **einen Weg pro Agent**; zwei Installationen laden jeden Skill doppelt.
+
+1. **Claude Code**:
+   ```bash
+   claude plugin marketplace add LilMGenius/paperthin
+   claude plugin install paperthin@paperthin
+   ```
+   Danach `/plugin` ausführen, **Marketplaces** öffnen, `paperthin` wählen und einmal **Enable auto-update** aktivieren.
+2. **Codex**: aktualisiert sich bei jedem Sessionstart selbst.
+   ```bash
+   codex plugin marketplace add LilMGenius/paperthin
+   codex plugin add paperthin@paperthin
+   ```
+3. **Jeder andere Agent** (OpenCode, Cursor und die übrigen): die zweite Zeile richtet einen täglichen Job ein, der alles aktuell hält. Aus einer erhöhten/Admin-Shell ausführen, wenn dein OS es verlangt, damit die Skills verlinkt statt kopiert werden. Nutzt Claude Code oder Codex den Plugin-Weg, ersetze `'*'` durch die Agents, die du verwendest (etwa `opencode`), um sie auszulassen.
    ```bash
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
+   node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
    ```
-2. **Aus einer erhöhten/Admin-Shell ausführen, wenn dein OS es verlangt**, damit die Skills als Symlinks angelegt statt kopiert werden und jeder Agent dieselbe Kopie liest.
-3. **Aktuell bleiben**: `/re0-upgrade` ausführen, wann immer du aktualisieren willst; es aktiviert auch einen leisen Session-Start-Hinweis für neue Skills.
-4. **Nutzen**: jeden Skill beim Namen rufen, etwa `/re0`; model-invoked laufen auch von selbst.
+4. **Nutzen**: jeden Skill beim Namen rufen, etwa `/re0` (in Claude Code `/paperthin:re0`, in Codex `$re0`); model-invoked laufen auch von selbst.
 
-**Unsicher?** Füge den Befehl in den Agent ein, den du gerade verwendest, und sag einfach `set this up for me`. Er erledigt den Rest.
+**Von einer älteren Installation?** Führe `/re0-upgrade` einmal in einer neuen Session aus; es bringt dich auf den Weg oben und entfernt den alten Session-Start-Hinweis.
+
+**Unsicher?** Sag deinem Agent `install https://github.com/LilMGenius/paperthin`; er folgt den [Schritten für Agents](../../.agents/install-block.md#handed-only-this-repository) und sagt dir, was für dich übrig bleibt.
 
 <a id="the-map"></a>
 ## Die Karte

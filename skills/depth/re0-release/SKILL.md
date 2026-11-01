@@ -30,7 +30,7 @@ It is **user-invoked**: shipping is a deliberate human action, so only the human
 7. **Write the release notes** to `.re0/release/RELEASE_NOTES.local.md`, gitignored local scratch that becomes the signed tag's message and never ships as a file. House style:
    - one `##` heading naming the release's durable idea, not the version;
    - one short present-tense paragraph of what is true now;
-   - only the sections the release earns: `### New`, `### Also`, `### The catalog (N skills)` only when the roster needs re-mapping, and `### Install` always last, as an indented block carrying the install command from `.agents/install-block.md` verbatim;
+   - only the sections the release earns: `### New`, `### Also`, `### The catalog (N skills)` only when the roster needs re-mapping, and `### Install` always last, as an indented block carrying every route's commands from `.agents/install-block.md` verbatim;
    - each externally contributed change credited inline with its PR number and author handle, `(#123, @handle)`;
    - skill names and paths in backticks;
    - nothing the tag or version already proves.

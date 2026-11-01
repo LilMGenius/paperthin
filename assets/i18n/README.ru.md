@@ -19,15 +19,29 @@
 <a id="quickstart-15-seconds"></a>
 ## Быстрый старт (15 секунд)
 
-1. **Установите** для каждого агента, которым пользуетесь:
+Выберите **один путь на агента**; два пути загружают каждый skill дважды.
+
+1. **Claude Code**:
+   ```bash
+   claude plugin marketplace add LilMGenius/paperthin
+   claude plugin install paperthin@paperthin
+   ```
+   Затем запустите `/plugin`, откройте **Marketplaces**, выберите `paperthin` и один раз включите **Enable auto-update**.
+2. **Codex**: обновляется сам при каждом старте сессии.
+   ```bash
+   codex plugin marketplace add LilMGenius/paperthin
+   codex plugin add paperthin@paperthin
+   ```
+3. **Любой другой агент** (OpenCode, Cursor и остальные): вторая строка регистрирует ежедневную задачу, которая держит его актуальным. Запустите из повышенной/admin shell, если OS этого требует, чтобы skills были связаны ссылками, а не скопированы. Если Claude Code или Codex идут через плагин, замените `'*'` на агентов, которыми пользуетесь (например, `opencode`), чтобы исключить их.
    ```bash
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
+   node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
    ```
-2. **Запустите из повышенной/admin shell, если OS этого требует**, чтобы skills были установлены как symlinks, а не копировались, и все agents читали одну копию.
-3. **Оставайтесь в курсе**. Запускайте `/re0-upgrade`, когда хотите обновиться; он также включает тихое уведомление при старте сессии о новых skills.
-4. **Используйте их**. Вызывайте любой skill по имени, например `/re0`; model-invoked срабатывают и сами.
+4. **Используйте их**. Вызывайте любой skill по имени, например `/re0` (`/paperthin:re0` в Claude Code, `$re0` в Codex); model-invoked срабатывают и сами.
 
-**Не уверены?** Вставьте эту команду в того агента, которым пользуетесь, и скажите `set this up for me`. Остальное он сделает сам.
+**Ставили по-старому?** Запустите `/re0-upgrade` один раз в новой сессии; он переведёт вас на путь выше и уберёт старое уведомление при старте сессии.
+
+**Не уверены?** Скажите агенту `install https://github.com/LilMGenius/paperthin`; он выполнит [шаги для агентов](../../.agents/install-block.md#handed-only-this-repository) и скажет, что осталось сделать вам.
 
 <a id="the-map"></a>
 ## Карта

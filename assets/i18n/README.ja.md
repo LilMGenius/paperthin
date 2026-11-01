@@ -19,15 +19,29 @@
 <a id="quickstart-15-seconds"></a>
 ## クイックスタート（15秒）
 
-1. 使っているすべての agent に**インストール**します。
+**agent ごとに経路を一つ**だけ選んでください。二つ入れるとすべての skill が二重に読み込まれます。
+
+1. **Claude Code**:
+   ```bash
+   claude plugin marketplace add LilMGenius/paperthin
+   claude plugin install paperthin@paperthin
+   ```
+   その後 `/plugin` で **Marketplaces** を開き、`paperthin` を選んで **Enable auto-update** を一度だけ有効にします。
+2. **Codex**: セッション開始のたびに自動で更新されます。
+   ```bash
+   codex plugin marketplace add LilMGenius/paperthin
+   codex plugin add paperthin@paperthin
+   ```
+3. **その他の agent**（OpenCode、Cursor など）: 二行目が毎日動く更新ジョブを登録し、最新に保ちます。OS が求める場合は昇格/admin シェルで実行し、skills がコピーではなくリンクされるようにします。 Claude Code や Codex をプラグイン経路で使うなら、`'*'` の代わりに実際に使う agent だけ（例: `opencode`）を書いて外してください。
    ```bash
    npx skills@latest add LilMGenius/paperthin --global --agent '*'
+   node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
    ```
-2. OS が求める場合は昇格/admin シェルで実行し、skills がコピーではなく symlink されるようにします。すべての agent が同じ一つのコピーを読みます。
-3. **最新に保つ**。更新したいときに `/re0-upgrade` を実行します。新しい skill が出たら知らせる控えめな session-start 通知も有効になります。
-4. **使います**。どの skill も `/re0` のように名前で呼べます。model-invoked は自動でも動きます。
+4. **使います**。どの skill も `/re0` のように名前で呼べます（Claude Code では `/paperthin:re0`、Codex では `$re0`）。model-invoked は自動でも動きます。
 
-**迷ったら？** 使っている agent に上のコマンドを貼り付けて、`set this up for me` と言ってください。残りはやってくれます。
+**古い方法で入れていたら？** 新しいセッションで `/re0-upgrade` を一度実行してください。上の経路へ移し、古い session-start 通知を取り除きます。
+
+**迷ったら？** 使っている agent に `install https://github.com/LilMGenius/paperthin` と伝えてください。[agent 向けの手順](../../.agents/install-block.md#handed-only-this-repository)に従ってインストールし、残りの作業を教えてくれます。
 
 <a id="the-map"></a>
 ## マップ
