@@ -6,6 +6,8 @@ on:
 
 jobs:
   validate:
+    # Timed on 2026-11-02, 12 samples each: ubuntu-24.04-arm ran the job 3 s faster but queued 2 s longer, so the two
+    # tie from job creation to done; ubuntu-slim's single vCPU tripled npm test.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
