@@ -1,0 +1,34 @@
+name: ssotize-local
+
+# ssotize-local's link rungs differ by OS (hardlink, symlink, junction, bind mount), so its identity tests run on all
+# three. A workflow of its own because path filters apply per workflow, and a job in ci.yml would put every push on
+# macOS and Windows. The mutant step proves on each host that the tests that ran can go red there.
+on:
+  push:
+    paths:
+      - skills/breadth/ssotize-local/**
+      - scripts/e2e/identity-mutants.mjs
+      - .github/workflows/ssotize-local.yml
+  pull_request:
+    paths:
+      - skills/breadth/ssotize-local/**
+      - scripts/e2e/identity-mutants.mjs
+      - .github/workflows/ssotize-local.yml
+  workflow_dispatch:
+
+jobs:
+  identity:
+    name: identity (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: node --test --test-reporter=spec skills/breadth/ssotize-local/scripts/identity.test.mjs
+      - run: node scripts/e2e/identity-mutants.mjs
