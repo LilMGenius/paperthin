@@ -1,0 +1,3 @@
+interface:
+  display_name: "mandela"
+  short_description: "Audit an eval for ground-truth leakage"

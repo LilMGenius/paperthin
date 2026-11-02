@@ -1,0 +1,3 @@
+interface:
+  display_name: "re0-style"
+  short_description: "Check code style and conventions, report first"

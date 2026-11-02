@@ -1,0 +1,5 @@
+interface:
+  display_name: "dedash"
+  short_description: "Remove em-dashes with the punctuation each needs"
+policy:
+  allow_implicit_invocation: false

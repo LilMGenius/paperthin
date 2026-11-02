@@ -1,0 +1,3 @@
+interface:
+  display_name: "catchup"
+  short_description: "Rebuild lost context from live project state"
