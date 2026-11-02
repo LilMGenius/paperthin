@@ -76,6 +76,8 @@ export function buildRules(localDirs) {
     rule('R7', 'README.md', 'loop or harness vocabulary', /\b(checkpoint(ed|s)?|sub-?agents?|context window|compaction|force[- ]with[- ]lease|orphan commit|signed commits?|--porcelain|quality gate|gate is green|gates? (are|were) green)\b/i, { ...README_SEV, skills: 'off' }),
     rule('R8', 'README.md', 'a process obligation on the reader (before committing, must pass, run before)', /\b(before (committing|merging|opening a PR|a commit)|must (be|pass|stay) green|run (this|these|it) before)\b/i, README_SEV),
     rule('R9', 'README.md', 'a code fence whose first command is a check', null, README_SEV),
+    rule('R10', 'README.md', 'repeated first-column groups: consider one section per group', null, { app: 'warn', cli: 'warn', library: 'warn', skills: 'warn' }),
+    rule('R11', 'README.md', 'status column: consider icons with words and a one-sentence legend', null, { app: 'note', cli: 'note', library: 'note', skills: 'note' }),
     rule('A1', 'AGENTS.md', 'an image', /!\[[^\]]*\]\([^)]*\.(gif|png|jpe?g|webp|svg)\)|<img\s/i, AGENTS_SEV),
     rule('A2', 'AGENTS.md', 'a badge', /img\.shields\.io|\[!\[/i, AGENTS_SEV),
     rule('A3', 'AGENTS.md', 'a pitch sentence', /\b(imagine|your team will|the best way to|world[- ]class|blazing(ly)? fast|delightful|effortless(ly)?|seamless(ly)?)\b/i, AGENTS_SEV),
@@ -124,6 +126,33 @@ function scan(root, file, kind, rules) {
   const r9 = rules.find((r) => r.id === 'R9');
   if (file === 'README.md' && r9.sev[kind] !== 'off') {
     for (const fence of fences) if (CHECK_WORDS.test(fence.first)) hits.push({ line: fence.start, id: 'R9', sev: r9.sev[kind], why: r9.why, text: fence.first.slice(0, 120) });
+  }
+  if (file === 'README.md') {
+    const tableRow = (raw) => raw.trim().startsWith('|') ? raw.trim().slice(1).replace(/\|$/, '').split(/(?<!\\)\|/).map((cell) => cell.trim()) : null;
+    for (let i = 0; i + 2 < lines.length; i++) {
+      const header = !lines[i].code && tableRow(lines[i].raw);
+      const separator = !lines[i + 1].code && tableRow(lines[i + 1].raw);
+      if (!header || !separator || separator.length !== header.length || !separator.every((cell) => /^:?-{3,}:?$/.test(cell))) continue;
+      const rows = [];
+      let j = i + 2;
+      while (j < lines.length && !lines[j].code) {
+        const cells = tableRow(lines[j].raw);
+        if (!cells || cells.length !== header.length) break;
+        rows.push(cells);
+        j++;
+      }
+      const add = (id) => {
+        const rule = rules.find((r) => r.id === id);
+        hits.push({ line: lines[i].n, id, sev: rule.sev[kind], why: rule.why, text: lines[i].raw.trim().slice(0, 120) });
+      };
+      if (rows.some((row, index) => index && row[0] && row[0] === rows[index - 1][0])) add('R10');
+      if (header.some((_, col) => {
+        const values = rows.map((row) => row[col]);
+        const unique = new Set(values);
+        return values.length >= 2 && unique.size >= 2 && unique.size <= 5 && values.every((value) => /^[A-Za-z]+$/.test(value)) && unique.size < values.length;
+      })) add('R11');
+      i = j - 1;
+    }
   }
   hits.sort((a, b) => a.line - b.line || a.id.localeCompare(b.id));
   return { file, missing: false, lines: lines.length, hits };
@@ -213,7 +242,7 @@ export function audit(root, { kind, loopDirs = [], strict = false } = {}) {
   const readme = scan(root, 'README.md', resolvedKind, rules);
   const agents = scan(root, 'AGENTS.md', resolvedKind, rules);
   const manifests = auditManifests(root);
-  const failing = (hit) => hit.sev === 'fail' || (strict && hit.sev === 'note');
+  const failing = (hit) => hit.sev === 'fail' || (strict && (hit.sev === 'note' || hit.sev === 'warn'));
   const all = [...readme.hits, ...agents.hits, ...manifests.hits];
   for (const hit of all) hit.failing = failing(hit);
   const fails = all.filter((hit) => hit.failing).length + (agents.missing ? 1 : 0);
@@ -230,7 +259,7 @@ export function format(result) {
     }
     const failed = r.hits.filter((hit) => hit.failing).length;
     out.push(r.file + ': ' + (r.hits.length ? failed + ' fail, ' + (r.hits.length - failed) + ' note' : 'clean') + ' (' + r.lines + ' lines)');
-    for (const hit of r.hits) out.push('  ' + (hit.failing ? 'FAIL ' : 'note ') + hit.id + ' L' + hit.line + ' ' + hit.why + ': ' + hit.text);
+    for (const hit of r.hits) out.push('  ' + (hit.failing ? 'FAIL ' : hit.sev + ' ') + hit.id + ' L' + hit.line + ' ' + hit.why + ': ' + hit.text);
   }
   const m = result.manifests;
   out.push('manifests: ' + (m.hits.length ? m.hits.length + ' fail' : 'clean') + ' (repository ' + m.repository + ')');

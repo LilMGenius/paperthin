@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -122,3 +122,13 @@ test('the CLI runs through a linked skill folder and keeps its exit codes', () =
     rmSync(linkRoot, { recursive: true, force: true });
   }
 });
+
+test('existing README grouping and status columns surface before the redesign and disappear afterward', () => {
+  const read = (name) => readFileSync(join(here, 'fixtures', `vibeghost-${name}.txt`), 'utf8');
+  const findings = (name) => audit(repo({ 'README.md': read(name), 'AGENTS.md': '# Agents\n' }), { kind: 'app' }).readme.hits.map((hit) => hit.id);
+  assert.ok(findings('before').includes('R10'));
+  assert.ok(findings('before').includes('R11'));
+  assert.ok(!findings('after').includes('R10'));
+  assert.ok(!findings('after').includes('R11'));
+});
+
