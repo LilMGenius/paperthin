@@ -521,7 +521,7 @@ The axes are independent. A bounded but fiddly task can be `fast` + `thorough`; 
 A tier is a capability claim, never a price claim. A binder resolves it against measured capability in the named domain, read live from a regularly refreshed evaluation source the operator has enabled, and uses price only to choose the cheapest model among those that measure sufficient. Equal measurements give an equal tier whatever order the candidates are listed in, and one model offered through two routes is one model. Among sufficient models at one price, the higher measurement wins before listing order. Price rank stands in for capability only when no source is enabled, the source cannot be read, or it measures fewer than two of the candidates, and the binder says which. Three limits hold on any source:
 
 - An explicit user mapping of a model to a tier outranks every measurement and every price rank.
-- A model the source does not list is unmeasured, not weak: it stays out of the measured ranking until a user mapping places it, and the report says so.
+- A model the source does not list is unmeasured, not weak: it stays out of the measured ranking until a user mapping places it, and the binder says so.
 - The source's terms decide what may be shown. Open data can be reported with its scores and attribution; data read under the user's own credential informs the choice and stays internal, so only the attribution and the resulting tier are shown.
 
 ## Workflow
