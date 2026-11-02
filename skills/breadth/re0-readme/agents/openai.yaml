@@ -1,4 +1,4 @@
 interface:
   display_name: "re0-readme"
-  short_description: "Keep README for people and AGENTS.md for agents"
-  default_prompt: "Use $re0-readme to split this README and AGENTS.md by reader."
+  short_description: "Keep README, AGENTS.md and manifests for their readers"
+  default_prompt: "Use $re0-readme to split this README and AGENTS.md by reader and align the manifests."
