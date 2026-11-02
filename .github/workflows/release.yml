@@ -6,7 +6,7 @@ on:
 
 permissions:
   contents: write     # create the GitHub Release
-  id-token: write     # npm provenance via OIDC
+  id-token: write     # npm trusted publishing and provenance via OIDC
 
 jobs:
   publish:
@@ -30,15 +30,16 @@ jobs:
           TAG=${GITHUB_REF_NAME#v}
           test "$PKG" = "$TAG" || { echo "tag $TAG != package.json $PKG"; exit 1; }
 
-      - name: Publish to npm (public, with provenance)
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # Trusted publishing: npm trades this job's OIDC token for a one-time publish
+      # credential, so the repository holds no npm token. Provenance is attached
+      # automatically. The trust is set on npmjs.com for release.yml in this repository.
+      - name: Publish to npm (trusted publishing)
         run: |
           VERSION=$(node -p "require('./package.json').version")
           if npm view "paperthin@${VERSION}" version >/dev/null 2>&1; then
             echo "paperthin@${VERSION} is already published; skipping"
           else
-            npm publish --provenance --access public
+            npm publish --access public
           fi
 
       - name: Create the GitHub Release
