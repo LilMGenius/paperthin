@@ -69,6 +69,39 @@ test('AGENTS.md carrying an image, a badge or a pitch fails in every kind', () =
   for (const kind of ['app', 'cli', 'library', 'skills']) assert.deepEqual(ids(audit(root, { kind }).agents), ['A1:1', 'A2:2', 'A3:3']);
 });
 
+test('manifests answer to the repository name, its own addresses, and the skill folders they ship', () => {
+  const root = repo({
+    'AGENTS.md': '# Agents\n',
+    'package.json': JSON.stringify({ name: 'tool-checks' }),
+    '.claude-plugin/plugin.json': JSON.stringify({ name: 'Tool', skills: ['./alpha', './gone'] }),
+    'alpha/SKILL.md': 'x', 'alpha/agents/openai.yaml': 'default_prompt: "Use $alpha."\n',
+    'beta/SKILL.md': 'x',
+  });
+  const named = (dir) => dir.split(/[\\/]/).at(-1);
+  const result = audit(root, { kind: 'skills' });
+  assert.equal(result.manifests.repository, named(root));
+  assert.deepEqual(result.manifests.hits.map((h) => h.id + ' ' + h.file), [
+    'M1 .claude-plugin/plugin.json', 'M3 .claude-plugin/plugin.json', 'M3 .claude-plugin/plugin.json', 'M1 package.json', 'M4 beta/agents/openai.yaml',
+  ].sort((a, b) => a.split(' ')[1].localeCompare(b.split(' ')[1]) || a.localeCompare(b)));
+  assert.equal(result.ok, false);
+  const clean = repo({
+    'AGENTS.md': '# Agents\n',
+    'alpha/SKILL.md': 'x', 'alpha/agents/openai.yaml': 'default_prompt: "Use $alpha."\n',
+  });
+  const name = named(clean);
+  writeFileSync(join(clean, 'package.json'), JSON.stringify({ name: '@owner/' + name.toUpperCase() }));
+  mkdirSync(join(clean, '.claude-plugin'));
+  writeFileSync(join(clean, '.claude-plugin', 'plugin.json'), JSON.stringify({ name, skills: ['./alpha'] }));
+  assert.deepEqual(audit(clean, { kind: 'skills' }).manifests.hits, []);
+});
+
+test('an address naming another repository of the origin owner fails', () => {
+  const root = repo({ 'AGENTS.md': '# Agents\n', 'package.json': JSON.stringify({ name: 'kit', repository: 'https://github.com/Me/old-kit', homepage: 'https://github.com/Other/x' }) });
+  spawnSync('git', ['init', '-q', root]);
+  spawnSync('git', ['-C', root, 'remote', 'add', 'origin', 'https://github.com/Me/kit.git']);
+  assert.deepEqual(audit(root, { kind: 'library' }).manifests.hits.map((h) => h.id + ' ' + h.text), ['M2 github.com/Me/old-kit']);
+});
+
 test('the CLI runs through a linked skill folder and keeps its exit codes', () => {
   const linkRoot = mkdtempSync(join(tmpdir(), 'audit-link-'));
   const link = join(linkRoot, 'scripts');
