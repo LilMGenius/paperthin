@@ -70,7 +70,7 @@
 | ⚖️ **[re0-decide](../../skills/depth/re0-decide/SKILL.md)** | 把决策所需的材料变成清单，结论由你自己的回答算出；它从不替你选择 | 提交待决的材料 | 用户 | ✔ |
 | 🧐 **[whychk](../../skills/depth/whychk/SKILL.md)** | 追问你刚做的决定，直到你能讲清楚，否则指出推理中的漏洞 | 一个决定 | 用户 | ✔ |
 | 🛣️ **[autobahn](../../skills/depth/autobahn/SKILL.md)** | 先把任务中有风险的部分连同更安全的替代方案拿出来，其余部分全速推进，并记下被拿掉的内容 | 一个任务 | 模型 | |
-| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | 检查代码是否符合项目自己的风格；默认什么都不改，只写一份简短报告 | 一项待审查的变更 | 模型 | |
+| 🎨 **[re0-style](../../skills/depth/re0-style/SKILL.md)** | 把代码改成符合项目自己的风格；项目本身有两种写法的地方会先问你 | 一项待审查的变更 | 模型 | |
 | 🧰 **[detool](../../skills/depth/detool/SKILL.md)** | 把长期文档里的品牌名和工具名换成它们实际做的事，让文档比工具活得更久 | 一个 durable artifact | 模型 | |
 | 🗜️ **[debloat](../../skills/depth/debloat/SKILL.md)** | 把臃肿的文字或代码精简到真正有用的部分，不丢掉任何一条规则或一种行为 | 一件产物，文字或代码 | 模型 | |
 | 🔃 **[re0-order](../../skills/depth/re0-order/SKILL.md)** | 按一条明确的原则把杂乱的列表重新排好；只移动条目，不改一个字 | 一个列表 | 模型 | |
