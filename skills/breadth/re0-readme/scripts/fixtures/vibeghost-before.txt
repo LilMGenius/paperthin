@@ -1,0 +1,104 @@
+# VibeGhost
+
+### The Ghost for vibe coders: Git-backed load/save for AI coding environments (`.agenv`)
+
+Apply a known-good setup across Windows, macOS, and Linux. VibeGhost restores the tools, settings, services, launchers, and agent skills that make up an AI coding environment.
+
+## Install
+
+```bash
+npx -y skills@latest add LilMGenius/vibeghost --global --agent '*' --skill '*' -y
+```
+
+Call `$load` to apply an environment or `$save` to capture intentional changes.
+
+Call `$init` to install Desktop launchers, check installed tools against publisher releases, update managed packages, and repair startup paths. Repository-owned skills can share their source files with multiple agent installations. See [maintenance and source links](./references/contract.md#maintenance-and-source-links) for commands and platform coverage.
+
+## Personal snapshot
+
+Defaults live in [`manifest.json > snapshotDefaults`](./manifest.json). The default private repository is `.agenv`, with `dotagenv` as the provider fallback, and the local checkout is `~/.agenv`. Secrets stay excluded unless `$save` receives explicit confirmation.
+
+Both skills accept `repo`, `path`, `visibility`, `message`, and `include-secrets` parameters. `$save` can initialize Git, create the private repository, commit, and push; `$load` clones the selected repository before applying it.
+
+## Supported programs
+
+Full means settings and lists are saved, restored and checked against the machine; Partial saves some of a program's state; Detected means VibeGhost recognises it but saves nothing yet; Planned means it is not on the reference machine or not built. The table is generated from [`references/support.json`](./references/support.json), and [`references/roadmap.md`](./references/roadmap.md) says what moves next.
+
+<!-- support-table:start -->
+
+| Category | Program | Support | What is saved |
+| --- | --- | --- | --- |
+| Agent CLI | Claude Code | Full | CLAUDE.md, settings, plugins and marketplaces, enabled plugin list, skills |
+| Agent CLI | Codex CLI | Full | config.toml with MCP servers, agents, rules, LSP runtime, enabled and remote plugin lists, skills |
+| Agent CLI | Gemini CLI | Partial | settings.json with MCP servers |
+| Agent CLI | Grok CLI | Partial | skills; config.toml is empty here |
+| Agent CLI | Hermes Agent | Partial | skills |
+| Agent CLI | Kiro | Partial | MCP server list, skills |
+| Agent CLI | OpenClaw | Partial | skills |
+| Agent CLI | OpenCode | Partial | opencode.json with MCP servers (secret), Antigravity auth plugin settings |
+| Agent CLI | Qwen Code | Partial | skills |
+| Agent CLI | Trae | Partial | skills |
+| Agent CLI | GitHub Copilot CLI | Detected | config.json holds only a first-launch stamp |
+| Agent CLI | Goose | Planned | not installed here |
+| Agent CLI | Grok Build | Planned | not installed here |
+| Desktop app | ChatGPT desktop (Codex app) | Full | shares Codex config, plugins and the account's remote plugin list |
+| Desktop app | Claude Desktop | Detected | installed; no claude_desktop_config.json yet |
+| Desktop app | Clicky | Planned | not installed here |
+| Desktop app | Grok bot | Planned | not installed here |
+| Desktop app | Muse | Planned | not installed here |
+| Desktop app | Pickle | Planned | not installed here |
+| Proxy | CLIProxyAPI | Full | config.yaml, auth tokens (secret), hidden service task, launcher |
+| Proxy | OpenCodex | Full | config.json with known and disabled models, Codex provider config, npm pin |
+| IDE | VS Code | Full | settings, keybindings, extension list |
+| IDE | Antigravity | Detected | installed; no user settings written yet |
+| IDE | Cursor | Planned | not installed here |
+| IDE | Windsurf | Planned | not installed here |
+| IDE | Zed | Planned | not installed here |
+| Editor | Notepad | Detected | Windows built-in; nothing to save |
+| Editor | Vim | Detected | Git's bundled vim; no vimrc |
+| Editor | Neovim | Planned | not installed here |
+| Editor | Notepad++ | Planned | not installed here |
+| Terminal | Windows Terminal | Full | settings.json with profiles |
+| Terminal | PowerShell 7 | Detected | prerequisite checked by bootstrap; no profile here |
+| Browser | Arc | Detected | installed; nothing saved |
+| Browser | Aside | Detected | installed; memory and accounts are account state |
+| Browser | Chrome | Detected | working browser (profile Bran); extensions not saved yet |
+| Browser | Edge | Detected | Windows default browser; not used for work |
+| Browser | Firefox | Planned | not installed here |
+| Browser | Safari | Planned | macOS only |
+| Tooling | Git | Full | identity, signing config and key (secret) |
+| Tooling | GnuPG | Full | gpg-agent.conf |
+| Tooling | npm global CLIs | Full | pinned versions, both ways |
+| Tooling | omo (LazyCodex) | Full | omo.jsonc, pinned marketplace ref, hourly shim repair |
+| Tooling | Docker Desktop | Detected | installed; nothing saved |
+| Tooling | Tailscale | Detected | installed; nothing saved |
+| Tooling | WSL | Detected | host networking is a manual step |
+
+<!-- support-table:end -->
+
+## Verify
+
+```text
+Windows:     pwsh -NoProfile -File .\scripts\bootstrap.ps1 -DryRun
+macOS/Linux: ./scripts/bootstrap.sh -DryRun
+```
+
+Review the plan, remove `-DryRun`, then run:
+
+```text
+pwsh -NoProfile -File ./scripts/verify.ps1 -Mode Live
+```
+
+The bootstrap puts every launcher declared in `manifest.json > desktopLaunchers` on the Desktop, picking the file for the running platform; on Windows each one is a hardlink to the checkout file, so it stays a real `.cmd` that follows the checkout. The CPA launcher resolves `CLI_PROXY_API_HOME` at launch time. See [`references/contract.md`](./references/contract.md) for restore, snapshot, and failure gates.
+
+When the machine goes silent while the audio stack still reports healthy, run `audio-reset.cmd` on Windows or `audio-reset.command` on macOS from the Desktop. Both run `./scripts/audio-reset.ps1`, which recycles the audio engine for that platform and reports whether it actually restarted.
+
+For a Windows-hosted provider used from WSL, follow the [runtime boundary preflight](./references/contract.md#runtime-boundary-preflight) before starting an isolated review. WSL host networking is a manual prerequisite and is not restored by bootstrap.
+
+## Source of truth
+
+- [`manifest.json`](./manifest.json): values, paths, packages, snapshot defaults, and derived boundaries
+- [`references/contract.md`](./references/contract.md): restore, snapshot, and verification procedure
+- [`AGENTS.md`](./AGENTS.md): agent editing contract
+
+Initial release: `0.1.0`, private. Release `1.0.0` follows sensitive-data cleansing and verification.
