@@ -1134,7 +1134,7 @@ A listing carries meaning when related items sit together along one clear axis; 
 
 - Reorder only: never reword, add, remove, split, or merge an item. Those are other reflexes.
 - Use one principle a reader can name; never blend incompatible sorts in one listing.
-- Before sorting by that principle, place every item that another item depends on before it, and keep every precedence the human stated; a dependency constrains the sort and is never a second principle.
+- Before sorting by that principle, place every item that another item depends on before it, and keep every precedence the human stated; a dependency constrains the sort and is never a second principle. An item that produces knowledge (research, a survey, a measurement) is depended on by every plan or build it would inform even when none of them names it, so it goes before them; its breadth or open end never sends it to the back, since what it finds late is work redone.
 - Respect a deliberate order: when the current sequence already encodes a real principle, complete and tidy it rather than replacing it, and surface the call when unclear.
 - Act only inside the scope a human named or that a pipeline they invoked passes on. Never choose a listing yourself; its order is the human's call, and a reorder reflex choosing its own target churns what nobody asked to move.
 - Mirrored copies of one set get the same order.
