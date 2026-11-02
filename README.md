@@ -67,7 +67,7 @@ Pick **one route per agent**; installing two loads every skill twice.
 | ⚖️ **[re0-decide](./skills/depth/re0-decide/SKILL.md)** | Turns the material behind a decision into a checklist whose verdict comes from your own answers; it never picks for you | material submitted for a decision | user | ✔ |
 | 🧐 **[whychk](./skills/depth/whychk/SKILL.md)** | Questions a decision you just made until you can explain it, or shows where the reasoning has a hole | one decision | user | ✔ |
 | 🛣️ **[autobahn](./skills/depth/autobahn/SKILL.md)** | Sets the risky parts of a task aside first with safer alternatives, runs the rest at full speed, and logs what was left out | one task | model | |
-| 🎨 **[re0-style](./skills/depth/re0-style/SKILL.md)** | Checks code against the project's own style; by default it changes nothing and writes a short report | one change under review | model | |
+| 🎨 **[re0-style](./skills/depth/re0-style/SKILL.md)** | Fixes code to match the project's own style, and asks where the project itself does it two ways | one change under review | model | |
 | 🧰 **[detool](./skills/depth/detool/SKILL.md)** | Replaces brand and tool names in lasting docs with what they actually do, so the docs outlive the tools | one durable artifact | model | |
 | 🗜️ **[debloat](./skills/depth/debloat/SKILL.md)** | Trims bloated writing or code down to what carries weight, without losing a rule or a behavior | one artifact, prose or code | model | |
 | 🔃 **[re0-order](./skills/depth/re0-order/SKILL.md)** | Puts a jumbled list back in a sensible order under one stated rule; it moves items and rewords nothing | one listing | model | |
