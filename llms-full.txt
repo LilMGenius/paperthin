@@ -1856,18 +1856,18 @@ Before finishing, confirm:
 
 ---
 name: re0-readme
-description: "Keep a repository's README for the person deciding whether and how to use it and its AGENTS.md (or a CLAUDE.md read through it) for the agent working inside it: audit both with the bundled script, then move each line to the file whose reader needs it. Use when writing or rewriting a README or an AGENTS.md, reviewing either for audience drift, when an agent-only command or path shows up in a README, when marketing copy or screenshots show up in an agent guide, or when deciding which of the two files a new section belongs in. Not for contracts, ledgers, changelogs or release notes, which have their own readers."
+description: "Keep a repository's README for the person deciding whether and how to use it, its AGENTS.md (or a CLAUDE.md read through it) for the agent working inside it, and the manifests hosts read first (package.json, plugin and marketplace files, agents/openai.yaml) on the repository's one name: audit them with the bundled script, then move each line to the file whose reader needs it and fix each disagreeing manifest. Use when writing, rewriting or reviewing a README or an AGENTS.md, when an agent-only command shows up in a README or marketing copy in an agent guide, when deciding which file a section belongs in, or after a rename. Not for contracts, ledgers, changelogs or release notes."
 ---
 
-Audit a repository's README and AGENTS.md with the bundled script, then move, rewrite or keep each flagged line so it lives in the file whose reader needs it.
+Audit a repository's README, AGENTS.md and manifests with the bundled script, then move, rewrite or keep each flagged line so it lives in the file whose reader needs it, and correct each manifest that disagrees with the repository.
 
 ## Goal
 
-README.md serves a person deciding whether and how to use the repository. AGENTS.md serves an agent working inside it: layout, commands, gates, conventions. Each line lives in the file whose reader needs it. A fact both readers need takes one form per reader (the address a person opens in README, the configuration an agent maintains in AGENTS.md); neither file restates the other's procedure, and each links rather than copies.
+README.md serves a person deciding whether and how to use the repository. AGENTS.md serves an agent working inside it: layout, commands, gates, conventions. Each line lives in the file whose reader needs it. A fact both readers need takes one form per reader (the address a person opens in README, the configuration an agent maintains in AGENTS.md); neither file restates the other's procedure, and each links rather than copies. The manifests a host or registry shows before either file is opened (package.json, `.claude-plugin/` and `.codex-plugin/` plugin files, marketplace files, each skill's `agents/openai.yaml`) answer to the repository's one name, point at its own address, and list exactly the skill folders it ships, so a rename that reaches README but not a manifest leaves the old name on every host that lists it.
 
 The trigger is a README or AGENTS.md that is about to be written, was just written, or is under review, or a line in one suspected of serving the other file's reader. The input is the repository root (the repository the request is about, or the working directory's when none is named), and optionally the kind, extra local-state folder names, and whether the run may rewrite or must only report.
 
-The run reports, in its reply to the human: the audit result before and after, with each finding's rule id, file, line and severity; a keep list naming each finding left in place with its reason; and either the rewritten README and AGENTS.md, edited in place in the working tree where a diff shows them, or, when the run must only report, each proposed move.
+The run reports, in its reply to the human: the audit result before and after, with each finding's rule id, file, line and severity; a keep list naming each finding left in place with its reason; and either the rewritten README, AGENTS.md and manifests, edited in place in the working tree where a diff shows them, or, when the run must only report, each proposed move.
 
 When the baseline audit is green and a read in context finds nothing serving the wrong reader, report the green output and the kind and change nothing. Zero edits is a successful run.
 
@@ -1886,10 +1886,11 @@ When the baseline audit is green and a read in context finds nothing serving the
 5. **Rewrite README for its reader**, in the language that reader reads, which the repository's owner or its sibling repositories set, never the language the code happens to be written in: lead with one sentence saying what the product is, then what it does today as measured, then a visible result or usage example, the shortest working setup, supported environments, dependencies that matter, and links to deeper docs. A product that does less than it was built to do says so near the top, with the measurement, and says what it was designed for only as the goal; a README describing the design as the present misleads the reader the file exists for. Keep operational detail only where it helps a person use or contribute. When stack, vendor or tool nouns in README stand for a mechanism, call the Skill tool with "detool".
 6. **For a visual product, put real product images before long explanation.** Capture each after the scene has finished loading its fonts, images and data, and inspect a frame before publishing. Image sizes and folders follow the repository's convention.
 7. **Rewrite AGENTS.md for its reader**, the agent, in English unless the repository's contract names another language for it; a README written for Korean readers does not move AGENTS.md into Korean. Open with which document owns which kind of fact, then the repository map, run commands, gates with what each protects, failure rules with their evidence, document conventions and commit conventions. A rule a check enforces names that check beside it, so an agent can run it; a measured case stays one sentence of evidence, and explanation meant for a person moves to README. Link contracts and evidence in their original language rather than translating them. When either file has bloated past its load-bearing density, call the Skill tool with "debloat".
-8. **Rerun the audit** and read both files as their intended readers would.
-9. **Rewrite the hosted description with the README.** The one-line description a code host shows beside the repository (GitHub's About) is the README's first sentence for a reader who has not opened it, so a rewrite that changes what the product is, its state or its language rewrites that line in the same pass; when the run must only report, propose the new line.
-10. **Propose the gate, and end there.** When the repository keeps a gate list, propose adding the audit to it as a vendored copy of the script with a comment naming where it came from, so the gate runs on a fresh clone; never point a gate at a path that exists on one machine. This is an approval stop: the run ends with the proposal, the human decides, and nothing is added to the gate list or CI before that approval.
-11. **Taste-test before calling it done**: call the Skill tool with "sip".
+8. **Align the manifests** the audit names: give each the repository's name (an npm name in its lowercase form), point each address at the repository's own origin, list every skill folder a plugin ships and nothing else, and give each skill an `agents/openai.yaml` whose default prompt names `$<skill>`. A manifest the repository generates is fixed at its generator.
+9. **Rerun the audit** and read both files and the manifests as their intended readers would.
+10. **Rewrite the hosted description with the README.** The one-line description a code host shows beside the repository (GitHub's About) is the README's first sentence for a reader who has not opened it, so a rewrite that changes what the product is, its state or its language rewrites that line in the same pass; when the run must only report, propose the new line.
+11. **Propose the gate, and end there.** When the repository keeps a gate list, propose adding the audit to it as a vendored copy of the script with a comment naming where it came from, so the gate runs on a fresh clone; never point a gate at a path that exists on one machine. This is an approval stop: the run ends with the proposal, the human decides, and nothing is added to the gate list or CI before that approval.
+12. **Taste-test before calling it done**: call the Skill tool with "sip".
 
 ## Rules
 
@@ -1899,18 +1900,18 @@ When the baseline audit is green and a read in context finds nothing serving the
 - Review requests report only. Rewrite only when the request is to write, fix or rewrite the files.
 - Edit safely: assert each target line exists before replacing it and report a MISS, edit unicode-safe, act per occurrence, never by blanket sweep.
 - Contracts, ledgers, changelogs and release notes are out of scope.
-- Three changes wait for the human's explicit approval, and the run reports each as a proposal until it arrives: adding the audit to the repository's gate list or CI (step 10); deleting a fact that has no other home; changing a rule in the repository's vendored copy of the script.
+- Three changes wait for the human's explicit approval, and the run reports each as a proposal until it arrives: adding the audit to the repository's gate list or CI (step 11); deleting a fact that has no other home; changing a rule in the repository's vendored copy of the script.
 
 ## Verification
 
 Before finishing, confirm:
 
-1. The before and after audit outputs are both in the report, with the kind and whether it was detected or given.
-2. Every finding is moved, rewritten, or kept with a stated reason, and no fail finding is reported as passed by explanation.
-3. No fact was lost: each moved line is findable in its new home.
-4. README opens with what the product is, and AGENTS.md opens with which document owns what.
-5. README states what the product does today as measured, in the language its reader reads, and the hosted description says the same, or its new line is proposed.
-6. Any gate change waited for approval, and every approval stop still open is named in the report.
+2. The before and after audit outputs are both in the report, with the kind and whether it was detected or given.
+3. Every finding is moved, rewritten, or kept with a stated reason, and no fail finding is reported as passed by explanation.
+4. No fact was lost: each moved line is findable in its new home.
+5. README opens with what the product is, and AGENTS.md opens with which document owns what.
+6. README states what the product does today as measured, in the language its reader reads, and the hosted description says the same, or its new line is proposed.
+7. Any gate change waited for approval, and every approval stop still open is named in the report.
 
 --- FILE: skills/breadth/re0-import/SKILL.md (https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/breadth/re0-import/SKILL.md) ---
 

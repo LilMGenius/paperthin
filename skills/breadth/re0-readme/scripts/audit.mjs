@@ -1,10 +1,12 @@
 #!/usr/bin/env node
-// Report the lines of a repository's README.md written for an agent and the lines of its AGENTS.md written for a person.
+// Report the lines of a repository's README.md written for an agent, the lines of its AGENTS.md written for a person, and
+// the manifests (package.json, plugin and marketplace files, agents/openai.yaml) whose names or addresses disagree.
 // The rules are one table with stable ids; every matching rule is reported, sorted by file, line and id.
 // Usage: node audit.mjs [<repo-root>] [--kind app|cli|library|skills] [--loop-dir <name>]... [--strict] [--json] [--rules]
 // Exit codes: 0 no fail finding; 1 a fail finding, any finding under --strict, or no AGENTS.md; 2 usage or an unreadable input.
+import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync, realpathSync, statSync } from 'node:fs';
-import { join } from 'node:path';
+import { basename, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 
@@ -127,6 +129,81 @@ function scan(root, file, kind, rules) {
   return { file, missing: false, lines: lines.length, hits };
 }
 
+// The files a host or registry reads before any person opens README: the package manifest, the plugin and marketplace
+// manifests and each skill's agents/openai.yaml. One repository answers to one name in all of them, its addresses point
+// at its own origin, and a plugin lists exactly the skill folders it ships.
+export const MANIFESTS = Object.freeze(['package.json', '.claude-plugin/plugin.json', '.claude-plugin/marketplace.json', '.codex-plugin/plugin.json', '.agents/plugins/marketplace.json']);
+export const MANIFEST_RULES = Object.freeze([
+  { id: 'M1', why: 'a manifest name differs from the repository name' },
+  { id: 'M2', why: 'a manifest address names another repository of the same owner' },
+  { id: 'M3', why: 'a plugin skills list and the skill folders disagree' },
+  { id: 'M4', why: 'a skill folder whose agents/openai.yaml is missing or never names $<skill>' },
+]);
+export const normalizeName = (name) => String(name).replace(/^@[^/]+\//, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+export function repositoryName(root) {
+  const run = spawnSync('git', ['-C', root, 'remote', 'get-url', 'origin'], { encoding: 'utf8' });
+  const match = run.status === 0 && run.stdout.trim().match(/github\.com[:/]([^/]+)\/([^/]+?)(\.git)?$/);
+  return match ? { owner: match[1], name: match[2] } : { owner: null, name: basename(root) };
+}
+
+// Skill folders, as paths relative to the root: one level at the root, or up to two below skills/.
+export function skillFolders(root) {
+  const found = [];
+  const walk = (base, rel, depth) => {
+    for (const name of subdirs(base)) {
+      const path = rel + '/' + name;
+      if (existsSync(join(base, name, 'SKILL.md'))) found.push(path);
+      else if (depth > 0) walk(join(base, name), path, depth - 1);
+    }
+  };
+  for (const name of subdirs(root)) if (existsSync(join(root, name, 'SKILL.md'))) found.push(name);
+  if (isDir(join(root, 'skills'))) walk(join(root, 'skills'), 'skills', 1);
+  return found.sort();
+}
+
+const strings = (value) => (typeof value === 'string' ? [value] : value && typeof value === 'object' ? Object.values(value).flatMap(strings) : []);
+
+export function auditManifests(root) {
+  const repo = repositoryName(root);
+  const hits = [];
+  const hit = (id, file, text) => hits.push({ file, line: 1, id, sev: 'fail', why: MANIFEST_RULES.find((r) => r.id === id).why, text });
+  const folders = skillFolders(root);
+  for (const file of MANIFESTS) {
+    if (!existsSync(join(root, file))) continue;
+    let data;
+    try {
+      data = JSON.parse(readFileSync(join(root, file), 'utf8'));
+    } catch (error) {
+      if (error instanceof SyntaxError) throw new InputError(file + ' does not parse: ' + error.message);
+      throw error;
+    }
+    const names = [data.name, ...(Array.isArray(data.plugins) ? data.plugins.map((p) => p?.name) : [])].filter((n) => typeof n === 'string');
+    for (const name of names) if (normalizeName(name) !== normalizeName(repo.name)) hit('M1', file, name + ' (repository ' + repo.name + ')');
+    if (repo.owner) {
+      for (const text of strings(data)) {
+        for (const m of text.matchAll(/github\.com\/([\w.-]+)\/([\w.-]+?)(?:\.git)?(?=[/#?]|$)/gi)) {
+          if (m[1].toLowerCase() === repo.owner.toLowerCase() && m[2].toLowerCase() !== repo.name.toLowerCase()) hit('M2', file, m[0]);
+        }
+      }
+    }
+    if (Array.isArray(data.skills)) {
+      const listed = data.skills.map((s) => String(s).replace(/^\.\//, '').replace(/\/$/, ''));
+      for (const f of folders) if (!listed.includes(f)) hit('M3', file, f + ' is not listed');
+      for (const l of listed) if (!folders.includes(l)) hit('M3', file, l + ' is listed but is not a skill folder');
+    }
+  }
+  for (const folder of folders) {
+    const file = folder + '/agents/openai.yaml';
+    const name = folder.split('/').at(-1);
+    if (!existsSync(join(root, file))) hit('M4', file, 'missing');
+    else if (!readFileSync(join(root, file), 'utf8').includes('$' + name)) hit('M4', file, 'never names $' + name);
+  }
+  hits.sort((a, b) => a.file.localeCompare(b.file) || a.id.localeCompare(b.id));
+  return { file: 'manifests', missing: false, repository: repo.name, hits };
+}
+
+
 export function audit(root, { kind, loopDirs = [], strict = false } = {}) {
   if (!isDir(root)) throw new InputError('not a directory: ' + root);
   if (kind !== undefined && !KINDS.includes(kind)) throw new InputError('kind must be one of ' + KINDS.join(', '));
@@ -135,12 +212,13 @@ export function audit(root, { kind, loopDirs = [], strict = false } = {}) {
   const rules = buildRules(localDirs);
   const readme = scan(root, 'README.md', resolvedKind, rules);
   const agents = scan(root, 'AGENTS.md', resolvedKind, rules);
+  const manifests = auditManifests(root);
   const failing = (hit) => hit.sev === 'fail' || (strict && hit.sev === 'note');
-  for (const hit of [...readme.hits, ...agents.hits]) hit.failing = failing(hit);
-  const all = [...readme.hits, ...agents.hits];
+  const all = [...readme.hits, ...agents.hits, ...manifests.hits];
+  for (const hit of all) hit.failing = failing(hit);
   const fails = all.filter((hit) => hit.failing).length + (agents.missing ? 1 : 0);
   const notes = all.length - all.filter((hit) => hit.failing).length;
-  return { root, kind: resolvedKind, kindSource: kind ? 'given' : 'detected', strict, localDirs, readme, agents, fails, notes, ok: fails === 0 };
+  return { root, kind: resolvedKind, kindSource: kind ? 'given' : 'detected', strict, localDirs, readme, agents, manifests, fails, notes, ok: fails === 0 };
 }
 
 export function format(result) {
@@ -154,6 +232,9 @@ export function format(result) {
     out.push(r.file + ': ' + (r.hits.length ? failed + ' fail, ' + (r.hits.length - failed) + ' note' : 'clean') + ' (' + r.lines + ' lines)');
     for (const hit of r.hits) out.push('  ' + (hit.failing ? 'FAIL ' : 'note ') + hit.id + ' L' + hit.line + ' ' + hit.why + ': ' + hit.text);
   }
+  const m = result.manifests;
+  out.push('manifests: ' + (m.hits.length ? m.hits.length + ' fail' : 'clean') + ' (repository ' + m.repository + ')');
+  for (const hit of m.hits) out.push('  FAIL ' + hit.id + ' ' + hit.file + ' ' + hit.why + ': ' + hit.text);
   out.push(result.fails ? 'AUDIENCE RED ' + result.fails : 'AUDIENCE GREEN' + (result.notes ? ' (' + result.notes + ' note)' : ''));
   return out.join('\n');
 }
@@ -179,6 +260,7 @@ export function main(argv) {
   }
   if (values.rules) {
     for (const r of buildRules([])) console.log(r.id + '  ' + r.file.padEnd(9) + ' ' + KINDS.map((k) => k + '=' + r.sev[k]).join(' ') + '  ' + r.why);
+    for (const r of MANIFEST_RULES) console.log(r.id + '  manifests ' + KINDS.map((k) => k + '=fail').join(' ') + '  ' + r.why);
     return 0;
   }
   if (positionals.length > 1) {
