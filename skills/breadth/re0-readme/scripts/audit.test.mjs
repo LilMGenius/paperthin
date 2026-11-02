@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { audit, detectKind } from './audit.mjs';
+import { audit, detectKind, auditHost, readHost, InputError } from './audit.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -132,3 +132,23 @@ test('existing README grouping and status columns surface before the redesign an
   assert.ok(!findings('after').includes('R11'));
 });
 
+
+const png = (w, h, size = 24) => { const b = Buffer.alloc(size); Buffer.from('89504e470d0a1a0a', 'hex').copy(b); b.write('IHDR', 12); b.writeUInt32BE(w, 16); b.writeUInt32BE(h, 20); return b; };
+const jpeg = (w, h) => Buffer.from([0xff,0xd8,0xff,0xc0,0,11,8,h>>8,h&255,w>>8,w&255,1,1,0x11,0,0xff,0xd9]);
+const gif = (w, h) => { const b = Buffer.alloc(10); b.write('GIF89a'); b.writeUInt16LE(w,6); b.writeUInt16LE(h,8); return b; };
+const goodHost = () => ({ description: 'A useful tool.', readme: 'A useful tool.\n', topics: ['tool'], homepage: 'https://example.com', customPreview: true, previewUrl: 'https://example.com/image', image: png(1280,640), community: Object.fromEntries(['readme','code_of_conduct','contributing','license','security','issue_template','pull_request_template'].map(k => [k, true])) });
+test('host findings identify each planted violation', () => {
+  assert.deepEqual(auditHost(goodHost()).findings, []);
+  const changes = [s => s.description = 'Different.', s => s.topics = ['Bad Topic'], s => s.topics = Array(21).fill('ok'), s => s.homepage = '', s => s.customPreview = false, s => s.community.security = null, s => s.readme = 'A useful tool.\n' + 'x'.repeat(500*1024), s => s.image = png(639,320)];
+  changes.forEach((change, i) => { const s = goodHost(); change(s); assert.ok(auditHost(s).findings.some(f => f.id === 'H' + (i+1))); });
+});
+test('preview dimensions and byte limits apply to PNG JPEG and GIF', () => {
+  for (const image of [png(1280,640),jpeg(1280,640),gif(1280,640)]) { const s=goodHost(); s.image=image; assert.ok(!auditHost(s).findings.some(f=>f.id==='H8')); }
+  for (const image of [png(639,320),jpeg(640,319),gif(1,1),png(1280,640,1000000),Buffer.from('bad')]) { const s=goodHost(); s.image=image; assert.ok(auditHost(s).findings.some(f=>f.id==='H8')); }
+});
+test('host reader uses four injected calls and rejects failures', () => {
+  const calls=[]; const responses=[{description:'A useful tool.',topics:['tool'],homepage:'https://example.com'},{content:Buffer.from('A useful tool.').toString('base64'),encoding:'base64'}, {files:goodHost().community}, {data:{repository:{usesCustomOpenGraphImage:true,openGraphImageUrl:'https://example.com/image'}}}];
+  const run=(cmd,args)=> { calls.push([cmd,args]); return {status:0,stdout:JSON.stringify(responses[calls.length-1])}; };
+  const surface=readHost('owner/repo',run,()=>png(1280,640)); assert.equal(calls.length,4); assert.equal(calls[3][1][1],'graphql'); assert.equal(surface.description,'A useful tool.');
+  assert.throws(()=>readHost('owner/repo',()=>({status:1,stderr:'failed'})),InputError);
+});
