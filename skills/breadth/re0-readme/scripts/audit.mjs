@@ -2,7 +2,7 @@
 // Report the lines of a repository's README.md written for an agent, the lines of its AGENTS.md written for a person, and
 // the manifests (package.json, plugin and marketplace files, agents/openai.yaml) whose names or addresses disagree.
 // The rules are one table with stable ids; every matching rule is reported, sorted by file, line and id.
-// Usage: node audit.mjs [<repo-root>] [--kind app|cli|library|skills] [--loop-dir <name>]... [--strict] [--json] [--rules]
+// Usage: node audit.mjs [<repo-root>] [--kind app|cli|library|skills] [--loop-dir <name>]... [--host <owner/repo>] [--strict] [--json] [--rules]
 // Exit codes: 0 no fail finding; 1 a fail finding, any finding under --strict, or no AGENTS.md; 2 usage or an unreadable input.
 import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync, realpathSync, statSync } from 'node:fs';
@@ -11,9 +11,81 @@ import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 
 export const KINDS = Object.freeze(['app', 'cli', 'library', 'skills']);
-const USAGE = 'usage: node audit.mjs [<repo-root>] [--kind ' + KINDS.join('|') + '] [--loop-dir <name>]... [--strict] [--json] [--rules]';
+const USAGE = 'usage: node audit.mjs [<repo-root>] [--kind ' + KINDS.join('|') + '] [--loop-dir <name>]... [--host <owner/repo>] [--strict] [--json] [--rules]';
 
 export class InputError extends Error {}
+
+const COMMUNITY = ['readme', 'code_of_conduct', 'contributing', 'license', 'security', 'issue_template', 'pull_request_template'];
+
+function fetchImage(url) {
+  const result = spawnSync('curl', ['-fsSL', url], { maxBuffer: 20 * 1024 * 1024 });
+  if (result.status !== 0 || !Buffer.isBuffer(result.stdout)) throw new InputError('cannot fetch social preview');
+  return result.stdout;
+}
+
+export function readHost(name, run = spawnSync, fetcher = fetchImage) {
+  if (!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(name)) throw new InputError('expected owner/repo');
+  const [owner, repo] = name.split('/');
+  const call = (args) => {
+    const result = run('gh', args, { encoding: 'utf8' });
+    if (result.status !== 0) throw new InputError('gh api failed: ' + (result.stderr || 'unknown error'));
+    try { return JSON.parse(result.stdout); } catch { throw new InputError('gh api returned invalid JSON'); }
+  };
+  const info = call(['api', 'repos/' + name]);
+  const readme = call(['api', 'repos/' + name + '/readme']);
+  const community = call(['api', 'repos/' + name + '/community/profile']);
+  const graph = call(['api', 'graphql', '-f', 'query=query($owner:String!,$name:String!){repository(owner:$owner,name:$name){usesCustomOpenGraphImage openGraphImageUrl}}', '-f', 'owner=' + owner, '-f', 'name=' + repo]);
+  const preview = graph?.data?.repository;
+  if (!(typeof info.description === 'string' || info.description === null) || !Array.isArray(info.topics) || !info.topics.every(t => typeof t === 'string') || !(typeof info.homepage === 'string' || info.homepage === null) || readme.encoding !== 'base64' || typeof readme.content !== 'string' || !community.files || !COMMUNITY.filter(k => k !== 'security').every(k => Object.hasOwn(community.files, k)) || typeof preview?.usesCustomOpenGraphImage !== 'boolean' || typeof preview.openGraphImageUrl !== 'string') throw new InputError('host response missing required fields');
+  let image;
+  if (preview.usesCustomOpenGraphImage) {
+    try { image = fetcher(preview.openGraphImageUrl); } catch (error) { throw new InputError('cannot fetch social preview: ' + error.message); }
+    if (!Buffer.isBuffer(image)) throw new InputError('social preview is not bytes');
+  }
+  return { description: info.description, topics: info.topics, homepage: info.homepage, readme: Buffer.from(readme.content, 'base64').toString('utf8'), community: community.files, customPreview: preview.usesCustomOpenGraphImage, previewUrl: preview.openGraphImageUrl, image };
+}
+
+function dimensions(b) {
+  if (!Buffer.isBuffer(b)) return null;
+  if (b.length >= 24 && b.subarray(0,8).equals(Buffer.from('89504e470d0a1a0a','hex')) && b.toString('ascii',12,16) === 'IHDR') return [b.readUInt32BE(16), b.readUInt32BE(20)];
+  if (b.length >= 10 && ['GIF87a','GIF89a'].includes(b.toString('ascii',0,6))) return [b.readUInt16LE(6), b.readUInt16LE(8)];
+  if (b.length >= 4 && b[0] === 0xff && b[1] === 0xd8) {
+    let i = 2;
+    while (i + 3 < b.length) {
+      if (b[i++] !== 0xff) return null;
+      while (b[i] === 0xff) i++;
+      const marker = b[i++];
+      if (marker === 0xd9 || marker === 0xda) break;
+      if (marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) continue;
+      if (i + 2 > b.length) break;
+      const length = b.readUInt16BE(i);
+      if (length < 2 || i + length > b.length) break;
+      if ([0xc0,0xc1,0xc2,0xc3,0xc5,0xc6,0xc7,0xc9,0xca,0xcb,0xcd,0xce,0xcf].includes(marker) && length >= 7) return [b.readUInt16BE(i+5), b.readUInt16BE(i+3)];
+      i += length;
+    }
+  }
+  return null;
+}
+
+export function auditHost(surface, { strict = false } = {}) {
+  const findings = [];
+  const add = (id, text) => findings.push({ id, text });
+  const opening = surface.readme.split(/\r?\n/).map(line => line.trim()).find(line => line && !line.startsWith('#') && !line.startsWith('[') && !line.startsWith('<')) || '';
+  const sentence = opening.match(/^.*?[.!?](?:\s|$)/)?.[0].trim() || opening;
+  if (surface.description !== sentence) add('H1', 'Review description against README opening and claims');
+  if (surface.topics.some(t => !/^[a-z0-9-]+$/.test(t) || t.length > 50)) add('H2', 'Invalid topic');
+  if (surface.topics.length > 20) add('H3', 'More than 20 topics');
+  if (!surface.homepage) add('H4', 'Homepage missing');
+  if (!surface.customPreview) add('H5', 'Custom social preview missing');
+  const missing = COMMUNITY.filter(k => !surface.community[k]);
+  if (missing.length) add('H6', 'Community profile gaps: ' + missing.join(', '));
+  if (Buffer.byteLength(surface.readme) > 500 * 1024) add('H7', 'README exceeds 500 KiB');
+  if (surface.customPreview) {
+    const size = dimensions(surface.image);
+    if (!size || surface.image.length >= 1000000 || size[0] < 640 || size[1] < 320) add('H8', 'Social preview must be PNG, JPEG or GIF under 1 MB and at least 640x320; 1280x640 recommended');
+  }
+  return { findings, ok: !strict || findings.length === 0 };
+}
 
 const isDir = (path) => existsSync(path) && statSync(path).isDirectory();
 const subdirs = (dir) => (isDir(dir) ? readdirSync(dir).filter((name) => !name.startsWith('.') && name !== 'node_modules' && isDir(join(dir, name))) : []);
@@ -273,7 +345,7 @@ export function main(argv) {
   let positionals;
   try {
     ({ values, positionals } = parseArgs({ args: argv, allowPositionals: true, options: {
-      kind: { type: 'string' }, 'loop-dir': { type: 'string', multiple: true, default: [] },
+      host: { type: 'string' }, kind: { type: 'string' }, 'loop-dir': { type: 'string', multiple: true, default: [] },
       strict: { type: 'boolean' }, json: { type: 'boolean' }, rules: { type: 'boolean' }, help: { type: 'boolean' },
     } }));
   } catch (error) {
@@ -286,6 +358,21 @@ export function main(argv) {
   if (values.help) {
     console.log(USAGE);
     return 0;
+  }
+  if (values.host !== undefined) {
+    if (positionals.length || values.kind !== undefined || values['loop-dir'].length || values.rules) {
+      console.error('host cannot be combined with a root, --kind, --loop-dir or --rules');
+      return 2;
+    }
+    try {
+      const result = auditHost(readHost(values.host), { strict: values.strict });
+      console.log(values.json ? JSON.stringify(result) : result.findings.map(f => f.id + ' ' + f.text).join('\n') || 'HOST GREEN');
+      return result.ok ? 0 : 1;
+    } catch (error) {
+      if (!(error instanceof InputError)) throw error;
+      console.error('audit: ' + error.message);
+      return 2;
+    }
   }
   if (values.rules) {
     for (const r of buildRules([])) console.log(r.id + '  ' + r.file.padEnd(9) + ' ' + KINDS.map((k) => k + '=' + r.sev[k]).join(' ') + '  ' + r.why);
