@@ -73,7 +73,10 @@ export function auditHost(surface, { strict = false } = {}) {
   const add = (id, text) => findings.push({ id, text });
   const offer = (id, text) => options.push({ id, text });
   const opening = surface.readme.split(/\r?\n/).map(line => line.trim()).find(line => line && !line.startsWith('#') && !line.startsWith('[') && !line.startsWith('<')) || '';
-  const sentence = opening.match(/^.*?[.!?](?:\s|$)/)?.[0].trim() || opening;
+  // A description of several sentences is compared with as many opening sentences.
+  const sentences = (text) => text.match(/[^.!?]*[.!?]+(?=\s|$)/g)?.map(s => s.trim()) || [text];
+  const count = sentences(surface.description || '').length;
+  const sentence = sentences(opening).slice(0, count).join(' ') || opening;
   if (surface.description !== sentence) add('H1', 'Review description against README opening and claims');
   if (surface.topics.some(t => !/^[a-z0-9-]+$/.test(t) || t.length > 50)) add('H2', 'Invalid topic');
   if (surface.topics.length > 20) add('H3', 'More than 20 topics');

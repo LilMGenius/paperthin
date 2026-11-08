@@ -142,6 +142,12 @@ test('host findings identify each planted violation', () => {
   const changes = { H1: s => s.description = 'Different.', H2: s => s.topics = ['Bad Topic'], H3: s => s.topics = Array(21).fill('ok'), H4: s => s.homepage = '', H6: s => s.community.security = null, H7: s => s.readme = 'A useful tool.\n' + 'x'.repeat(500*1024), H8: s => s.image = png(639,320) };
   for (const [id, change] of Object.entries(changes)) { const s = goodHost(); change(s); assert.ok(auditHost(s).findings.some(f => f.id === id), id); }
 });
+test('a description of several sentences is read against as many opening sentences', () => {
+  const s = goodHost(); s.description = 'A useful tool. It reads files. Built by one person.'; s.readme = '# Tool\n\nA useful tool. It reads files. Built by one person. More detail follows.\n';
+  assert.ok(!auditHost(s).findings.some(f => f.id === 'H1'));
+  s.readme = '# Tool\n\nA useful tool. It writes files. Built by one person.\n';
+  assert.ok(auditHost(s).findings.some(f => f.id === 'H1'));
+});
 test('a trade-off is offered as an option and never fails, even under strict', () => {
   const s = goodHost(); s.customPreview = false;
   const result = auditHost(s, { strict: true });
