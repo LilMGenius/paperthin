@@ -151,7 +151,8 @@ function checkCycles(skills, edges, problems) {
   for (const skill of skills) if (!done.has(skill.name)) visit(skill.name);
 }
 
-function check(root) {
+// Every skill checked, plus the dependency edges its Workflow and Skill tool calls create, so a test can ask what one skill depends on through the same parser the gate uses.
+function analyze(root) {
   const problems = [];
   const files = listFiles(root, 'skills').filter((file) => file.endsWith('/SKILL.md'));
   const skills = new Map();
@@ -172,7 +173,10 @@ function check(root) {
     const entry = lines.findIndex((line) => line.includes('process.argv[1]') && line.includes('import.meta.url'));
     if (entry >= 0 && !lines[entry].includes('realpathSync(process.argv[1])')) problems.push(problem(script, entry + 1, 'its entry check compares process.argv[1] with import.meta.url as typed; compare realpathSync of both, or the script does nothing when run through a link'));
   }
-  return problems;
+  return { problems, edges };
 }
 
-module.exports = { check, frontmatter };
+const check = (root) => analyze(root).problems;
+const edges = (root) => analyze(root).edges;
+
+module.exports = { check, edges, frontmatter };
