@@ -139,8 +139,15 @@ const gif = (w, h) => { const b = Buffer.alloc(10); b.write('GIF89a'); b.writeUI
 const goodHost = () => ({ description: 'A useful tool.', readme: 'A useful tool.\n', topics: ['tool'], homepage: 'https://example.com', customPreview: true, previewUrl: 'https://example.com/image', image: png(1280,640), community: Object.fromEntries(['readme','code_of_conduct','contributing','license','security','issue_template','pull_request_template'].map(k => [k, true])) });
 test('host findings identify each planted violation', () => {
   assert.deepEqual(auditHost(goodHost()).findings, []);
-  const changes = [s => s.description = 'Different.', s => s.topics = ['Bad Topic'], s => s.topics = Array(21).fill('ok'), s => s.homepage = '', s => s.customPreview = false, s => s.community.security = null, s => s.readme = 'A useful tool.\n' + 'x'.repeat(500*1024), s => s.image = png(639,320)];
-  changes.forEach((change, i) => { const s = goodHost(); change(s); assert.ok(auditHost(s).findings.some(f => f.id === 'H' + (i+1))); });
+  const changes = { H1: s => s.description = 'Different.', H2: s => s.topics = ['Bad Topic'], H3: s => s.topics = Array(21).fill('ok'), H4: s => s.homepage = '', H6: s => s.community.security = null, H7: s => s.readme = 'A useful tool.\n' + 'x'.repeat(500*1024), H8: s => s.image = png(639,320) };
+  for (const [id, change] of Object.entries(changes)) { const s = goodHost(); change(s); assert.ok(auditHost(s).findings.some(f => f.id === id), id); }
+});
+test('a trade-off is offered as an option and never fails, even under strict', () => {
+  const s = goodHost(); s.customPreview = false;
+  const result = auditHost(s, { strict: true });
+  assert.deepEqual(result.findings, []);
+  assert.ok(result.options.some(o => o.id === 'H5'));
+  assert.equal(result.ok, true);
 });
 test('preview dimensions and byte limits apply to PNG JPEG and GIF', () => {
   for (const image of [png(1280,640),jpeg(1280,640),gif(1280,640)]) { const s=goodHost(); s.image=image; assert.ok(!auditHost(s).findings.some(f=>f.id==='H8')); }
