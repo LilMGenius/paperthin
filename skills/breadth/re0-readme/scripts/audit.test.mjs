@@ -152,3 +152,13 @@ test('host reader uses four injected calls and rejects failures', () => {
   const surface=readHost('owner/repo',run,()=>png(1280,640)); assert.equal(calls.length,4); assert.equal(calls[3][1][1],'graphql'); assert.equal(surface.description,'A useful tool.');
   assert.throws(()=>readHost('owner/repo',()=>({status:1,stderr:'failed'})),InputError);
 });
+
+
+test('mobile apps need a phone image in the README', () => {
+  const files = { 'AGENTS.md': '# Agents\n', 'public/manifest.webmanifest': '{}', 'README.md': '![Desktop](desktop.png)\n' };
+  const missing = audit(repo(files), { kind: 'app' });
+  assert.equal(missing.ok, false);
+  assert.ok(missing.readme.hits.some(hit => hit.id === 'R12'));
+  const present = audit(repo({ ...files, 'README.md': '![Desktop](desktop.png)\n![Phone screenshot](phone.png)\n' }), { kind: 'app' });
+  assert.equal(present.ok, true);
+});
