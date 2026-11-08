@@ -22,10 +22,10 @@ Run `node scripts/render.mjs <decisions.json> [--out <file.html>] [--json]`. Exi
 The verdict is derived in the page from the current controls and recomputed on every change; the decisions file and the HTML store none.
 
 - **blocked** applies when any **gate** is unmet, regardless of each **judgment**, and names every unmet gate with what it blocks.
-- **conditional** applies when every **gate** is met and at least one **judgment** is unmet, carrying each unmet judgment as an attached condition with its note.
-- **clear** applies when every **gate** and every **judgment** is met. An empty judgment set is fully met.
+- **conditional** applies when every **gate** is met and at least one **judgment** is unmet or one **fork** is not chosen, carrying each unmet judgment with its note and each unchosen fork as attached conditions.
+- **clear** applies when every **gate** and every **judgment** is met and every **fork** has a choice. An empty judgment or fork set is fully met.
 
-Fork selections do not alter the three-state arithmetic and remain part of the current decision record.
+Which option a fork takes never changes the state; only whether it is chosen does, and the choices stay part of the current decision record.
 
 ## Judgment the script cannot make
 

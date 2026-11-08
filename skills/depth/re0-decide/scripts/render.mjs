@@ -145,6 +145,8 @@ const SCRIPT = String.raw`
     list.textContent = '';
     rows.forEach(function (row) { var li = document.createElement('li'); li.textContent = row; list.appendChild(li); });
   };
+  // An unchosen fork leaves the decision open, so it keeps the verdict from clear exactly as an unmet judgment does.
+  function verdictOf(unmetGates, unmetJudgments, unchosenForks) { return unmetGates ? 'blocked' : unmetJudgments || unchosenForks ? 'conditional' : 'clear'; }
   function compute() {
     var gates = all('input[data-kind="gate"]').map(function (box) {
       var item = box.closest('.item');
@@ -160,8 +162,9 @@ const SCRIPT = String.raw`
     });
     var unmetGates = gates.filter(function (g) { return !g.met; });
     var unmetJudgments = judgments.filter(function (j) { return !j.met; });
-    var state = unmetGates.length ? 'blocked' : unmetJudgments.length ? 'conditional' : 'clear';
-    return { gates: gates, judgments: judgments, forks: forks, unmetGates: unmetGates, unmetJudgments: unmetJudgments, state: state };
+    var unchosenForks = forks.filter(function (f) { return !f.choice; });
+    var state = verdictOf(unmetGates.length, unmetJudgments.length, unchosenForks.length);
+    return { gates: gates, judgments: judgments, forks: forks, unmetGates: unmetGates, unmetJudgments: unmetJudgments, unchosenForks: unchosenForks, state: state };
   }
   function summary(r) {
     var lines = ['Verdict: ' + r.state, 'Material: ' + $('#identity').textContent];
@@ -172,6 +175,10 @@ const SCRIPT = String.raw`
     if (r.unmetJudgments.length) {
       lines.push('Unmet judgments (conditions):');
       r.unmetJudgments.forEach(function (j) { lines.push('- ' + j.text + ' (weigh: ' + j.detail + ')'); });
+    }
+    if (r.unchosenForks.length) {
+      lines.push('Forks not chosen (conditions):');
+      r.unchosenForks.forEach(function (f) { lines.push('- ' + f.text); });
     }
     lines.push('Fork selections:');
     if (!r.forks.length) lines.push('- none');
@@ -187,7 +194,7 @@ const SCRIPT = String.raw`
     box.setAttribute('data-state', r.state);
     $('#verdict-state').textContent = r.state;
     fill($('#unmet-gates'), r.unmetGates.map(function (g) { return g.text + ' (blocks: ' + g.detail + ')'; }));
-    fill($('#unmet-judgments'), r.unmetJudgments.map(function (j) { return j.text + ' (weigh: ' + j.detail + ')'; }));
+    fill($('#unmet-judgments'), r.unmetJudgments.map(function (j) { return j.text + ' (weigh: ' + j.detail + ')'; }).concat(r.unchosenForks.map(function (f) { return f.text + ' (not chosen)'; })));
     $('#summary').textContent = summary(r);
   }
   function copy() {
@@ -266,7 +273,7 @@ export function render(doc) {
     '<style>' + STYLE + '</style></head><body>',
     '<header><h1>Decision instrument</h1><p class="identity">Material: <span id="identity">' + esc(doc.material.identity) + '</span></p></header>',
     '<section class="verdict" id="verdict" aria-live="polite"><h2>Verdict: <span class="state" id="verdict-state"></span></h2>',
-    '<p>Unmet gates</p><ul id="unmet-gates"></ul><p>Unmet judgments, attached as conditions</p><ul id="unmet-judgments"></ul></section>',
+    '<p>Unmet gates</p><ul id="unmet-gates"></ul><p>Unmet judgments and unchosen forks, attached as conditions</p><ul id="unmet-judgments"></ul></section>',
     finding,
     '<main>' + body + '</main>',
     '<section><h2>Copy-out</h2><p><button type="button" id="copy">Copy summary</button> <span id="copy-status" role="status"></span></p><pre id="summary"></pre></section>',
