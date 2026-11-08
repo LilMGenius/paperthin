@@ -160,8 +160,11 @@ test('the page script derives blocked, conditional and clear from the controls',
   const script = r.html().match(/<script>([\s\S]*)<\/script>/)[1];
   for (const word of ['blocked', 'conditional', 'clear']) assert.match(script, new RegExp(word));
   assert.doesNotThrow(() => new Function(script));
-  const compute = script.match(/var state = ([^;]*);/)[1];
-  assert.equal(compute, "unmetGates.length ? 'blocked' : unmetJudgments.length ? 'conditional' : 'clear'");
+  const verdictOf = new Function(script.match(/function verdictOf[^\n]*/)[0] + '; return verdictOf;')();
+  assert.equal(verdictOf(1, 1, 1), 'blocked');
+  assert.equal(verdictOf(0, 1, 0), 'conditional');
+  assert.equal(verdictOf(0, 0, 1), 'conditional', 'an unchosen fork keeps the verdict from clear');
+  assert.equal(verdictOf(0, 0, 0), 'clear');
 });
 
 test('submitted text reaches the page as text and never as markup, attribute, script or handler', () => {
