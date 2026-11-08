@@ -150,6 +150,7 @@ export function buildRules(localDirs) {
     rule('R9', 'README.md', 'a code fence whose first command is a check', null, README_SEV),
     rule('R10', 'README.md', 'repeated first-column groups: consider one section per group', null, { app: 'warn', cli: 'warn', library: 'warn', skills: 'warn' }),
     rule('R11', 'README.md', 'status column: consider icons with words and a one-sentence legend', null, { app: 'note', cli: 'note', library: 'note', skills: 'note' }),
+    rule('R12', 'README.md', 'mobile support without a phone screenshot', null, { app: 'fail', cli: 'off', library: 'off', skills: 'off' }),
     rule('A1', 'AGENTS.md', 'an image', /!\[[^\]]*\]\([^)]*\.(gif|png|jpe?g|webp|svg)\)|<img\s/i, AGENTS_SEV),
     rule('A2', 'AGENTS.md', 'a badge', /img\.shields\.io|\[!\[/i, AGENTS_SEV),
     rule('A3', 'AGENTS.md', 'a pitch sentence', /\b(imagine|your team will|the best way to|world[- ]class|blazing(ly)? fast|delightful|effortless(ly)?|seamless(ly)?)\b/i, AGENTS_SEV),
@@ -198,6 +199,24 @@ function scan(root, file, kind, rules) {
   const r9 = rules.find((r) => r.id === 'R9');
   if (file === 'README.md' && r9.sev[kind] !== 'off') {
     for (const fence of fences) if (CHECK_WORDS.test(fence.first)) hits.push({ line: fence.start, id: 'R9', sev: r9.sev[kind], why: r9.why, text: fence.first.slice(0, 120) });
+  }
+  if (file === 'README.md' && kind === 'app') {
+    const walk = (dir) => readdirSync(dir, { withFileTypes: true }).some((entry) => {
+      if (entry.name.startsWith('.') || ['node_modules', 'dist', 'build'].includes(entry.name)) return false;
+      const path = join(dir, entry.name);
+      if (entry.isDirectory()) return walk(path);
+      if (!entry.isFile()) return false;
+      if (/^(manifest.*\.webmanifest|manifest\.json|capacitor\.config\.[cm]?[jt]s|app\.json)$/i.test(entry.name)) return true;
+      if (!/\.(html?|[cm]?[jt]sx?)$/i.test(entry.name)) return false;
+      const content = readFileSync(path, 'utf8');
+      return /<meta\b[^>]*\bname\s*=\s*["']viewport["']/i.test(content) || /(?:viewport|width)[^\n]{0,80}\b320\b/i.test(content);
+    });
+    // Alt text and filenames identify the intended device even when images are remote or composite.
+    const phone = lines.some(({ raw, code }) => !code && /(?:!\[[^\]]*(?:phone|mobile)[^\]]*\]\([^)]*\)|!\[[^\]]*\]\([^)]*(?:phone|mobile)[^)]*\)|<img\b[^>]*(?:phone|mobile)[^>]*>)/i.test(raw));
+    if (walk(root) && !phone) {
+      const rule = rules.find((r) => r.id === 'R12');
+      hits.push({ line: 1, id: rule.id, sev: rule.sev[kind], why: rule.why, text: 'README has no phone image' });
+    }
   }
   if (file === 'README.md') {
     const tableRow = (raw) => raw.trim().startsWith('|') ? raw.trim().slice(1).replace(/\|$/, '').split(/(?<!\\)\|/).map((cell) => cell.trim()) : null;
