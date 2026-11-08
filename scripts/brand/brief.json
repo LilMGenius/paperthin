@@ -1,0 +1,193 @@
+{
+  "copy": {
+    "tagline": "LOW-LEVEL AGENTIC DESIGN PATTERNS"
+  },
+  "ratio": "golden",
+  "sections": 2,
+  "lines": {
+    "x": {
+      "margin-left": "W/r^4",
+      "margin-right": "W-W/r^4"
+    }
+  },
+  "groups": [
+    {
+      "id": "lockup",
+      "direction": "row",
+      "gap": "S/r^2",
+      "fit": {
+        "from": "margin-left",
+        "to": "margin-right"
+      },
+      "align": {
+        "line": "center",
+        "edge": "center"
+      },
+      "items": [
+        {
+          "id": "icon",
+          "h": "S",
+          "aspect": "683/464"
+        },
+        {
+          "id": "words",
+          "direction": "column",
+          "gap": "S/r^3",
+          "align": "start",
+          "items": [
+            {
+              "id": "wordmark",
+              "h": "S/r^2",
+              "measure": {
+                "wordmark": true
+              },
+              "aspect": 6.1676,
+              "text": {
+                "capRatio": 0.71,
+                "inkLeft": 0.086,
+                "tracking": 0
+              }
+            },
+            {
+              "id": "tagline",
+              "h": "S/r^6",
+              "measure": {
+                "copy": "tagline",
+                "fill": "wordmark"
+              },
+              "w": "S/r^2*6.1676",
+              "text": {
+                "capRatio": 0.71,
+                "inkLeft": 0.092,
+                "ink": 18.833,
+                "gaps": 32
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scale": {
+    "base": "lockup.S",
+    "from": 0,
+    "to": 6
+  },
+  "canvases": {
+    "banner": {
+      "w": 1650,
+      "h": 550
+    },
+    "social": {
+      "w": 1280,
+      "h": 640
+    },
+    "icon": {
+      "w": 512,
+      "h": 512,
+      "groups": [
+        {
+          "id": "mark",
+          "direction": "row",
+          "fit": {
+            "from": "margin-left",
+            "to": "margin-right"
+          },
+          "align": {
+            "line": "center",
+            "edge": "center"
+          },
+          "items": [
+            {
+              "id": "icon",
+              "h": "S",
+              "aspect": "683/464"
+            }
+          ]
+        }
+      ],
+      "scale": {
+        "base": "mark.S",
+        "from": 0,
+        "to": 2
+      }
+    },
+    "thumbnail": {
+      "w": 1080,
+      "h": 1080,
+      "lines": {
+        "x": {
+          "margin-left": "W/r^4",
+          "margin-right": "W-W/r^4"
+        }
+      },
+      "groups": [
+        {
+          "id": "stack",
+          "direction": "column",
+          "gap": "S/r^2",
+          "measure": {
+            "span": "W-2*W/r^4"
+          },
+          "at": {
+            "line": "center",
+            "edge": "center"
+          },
+          "align": {
+            "line": "center",
+            "edge": "center"
+          },
+          "items": [
+            {
+              "id": "icon",
+              "h": "S",
+              "aspect": "683/464"
+            },
+            {
+              "id": "words",
+              "direction": "column",
+              "gap": "S/r^3",
+              "align": "start",
+              "items": [
+                {
+                  "id": "wordmark",
+                  "h": "S/r^2",
+                  "measure": {
+                    "wordmark": true
+                  },
+                  "aspect": 6.1676,
+                  "text": {
+                    "capRatio": 0.71,
+                    "inkLeft": 0.086,
+                    "tracking": 0
+                  }
+                },
+                {
+                  "id": "tagline",
+                  "h": "S/r^6",
+                  "measure": {
+                    "copy": "tagline",
+                    "fill": "wordmark"
+                  },
+                  "w": "S/r^2*6.1676",
+                  "text": {
+                    "capRatio": 0.71,
+                    "inkLeft": 0.092,
+                    "ink": 18.833,
+                    "gaps": 32
+                  }
+                }
+              ]
+            }
+          ],
+          "size": "(W-2*W/r^4)/((1/r^2)*6.1676)"
+        }
+      ],
+      "scale": {
+        "base": "stack.S",
+        "from": 0,
+        "to": 6
+      }
+    }
+  }
+}
