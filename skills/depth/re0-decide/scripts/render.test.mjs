@@ -33,7 +33,9 @@ const item = (over) => ({ source: 'spec.md:3', mark: 'claim', answerer: 'decider
 const gate = (text, over) => item({ kind: 'gate', text, consequence: 'nothing ships', ...over });
 const judgment = (text, over) => item({ kind: 'judgment', text, note: 'is the scope worth it', ...over });
 const fork = (text, over) => item({ kind: 'fork', text, options: ['alpha', 'beta'], ...over });
-const base = (items) => ({ material: { identity: 'spec.md @ abc123', path: 'spec.md' }, items });
+const base = (items, material) => ({ material: { identity: 'spec.md @ abc123', path: 'spec.md', ...material }, items });
+// Six decider controls, past the five a numbered list in chat carries comfortably, so the file earns a surface on count alone.
+const many = () => [judgment('j1'), judgment('j2'), fork('f1'), fork('f2'), fork('f3'), gate('g1')];
 
 function setup(doc) {
   const root = dir('re0-decide-');
@@ -88,46 +90,54 @@ const valid = () => base([
   item({ kind: 'exclusion', text: 'Does not authorize hiring' }),
   item({ kind: 'risk', text: 'Vendor lock-in', handling: 'exit clause' }),
   item({ kind: 'missing', text: 'No rollback consequence stated' }),
-]);
+], { handoff: 'the release owner who runs the rollout' });
 
 test('a valid file renders one self-contained surface with the controls each kind is assigned', () => {
   const r = render(valid());
   assert.equal(r.run.status, 0, r.run.stderr);
   const page = r.page();
-  const gates = opens(page, 'input', (a) => a['data-kind'] === 'gate');
-  const judgments = opens(page, 'input', (a) => a['data-kind'] === 'judgment');
-  assert.equal(gates.length, 4);
-  assert.equal(judgments.length, 1);
-  assert.ok(gates.every((g) => g.attrs.type === 'checkbox' && g.attrs['data-blocking'] === 'true'));
-  assert.ok(judgments.every((j) => j.attrs.type === 'checkbox' && j.attrs['data-blocking'] === 'false'));
-  const selects = opens(page, 'select');
-  assert.equal(selects.length, 1);
+  const radios = (kind) => opens(page, 'input', (a) => a['data-kind'] === kind);
+  // A gate or judgment is a met / not met pair, so an unanswered item reads apart from one answered not met.
+  assert.equal(radios('gate').length, 8);
+  assert.equal(radios('judgment').length, 2);
+  assert.ok(radios('gate').concat(radios('judgment')).every((i) => i.attrs.type === 'radio'));
+  assert.deepEqual([...new Set(radios('gate').map((i) => i.attrs.value))].sort(), ['met', 'unmet']);
+  // A fork is one card per named option, never a dropdown.
+  assert.equal(radios('fork').length, 2);
+  assert.equal(opens(page, 'select').length, 0);
   assert.equal(opens(page, 'textarea').length, 0);
   assert.equal(opens(page, 'input', (a) => a.type === 'text').length, 0);
   // Intervention, exclusion, risk and missing items render as tagged text with no control.
-  assert.equal(opens(page, 'input').length, 5);
+  assert.equal(opens(page, 'input').length, 12);
   for (const kind of ['intervention', 'exclusion', 'risk', 'missing']) assert.equal(opens(page, 'div', (a) => a['data-kind'] === kind).length, 1);
-  assert.equal(opens(page, 'button').length, 1);
+  assert.ok(opens(page, 'button', (a) => a.id === 'copy').length === 1);
   assert.ok(opens(page, 'span', (a) => a.id === 'verdict-state').length === 1);
 });
 
-test('no control begins checked or preselected, and fork options are not preselected', () => {
+test('no control begins checked or preselected', () => {
   const page = render(valid()).page();
+  assert.ok(opens(page, 'input').length > 0);
   assert.ok(opens(page, 'input').every((i) => !('checked' in i.attrs)));
-  assert.ok(opens(page, 'option').every((o) => !('selected' in o.attrs) || 'disabled' in o.attrs));
-  const placeholder = opens(page, 'option', (a) => a.value === '');
-  assert.equal(placeholder.length, 1);
-  assert.ok('disabled' in placeholder[0].attrs);
+  assert.equal(opens(page, 'option').length, 0);
 });
 
-test('items are grouped by answerer and the decider group comes last and is marked', () => {
+test('the decider path comes first, one screen per control, and every other item folds into a counted section', () => {
   const page = render(valid()).page();
+  // Steps: the decider's forks first, since they are the decisions, then judgments, then the gates the decider checks, then the record.
+  const steps = opens(page, 'section', (a) => 'data-step' in a);
+  assert.deepEqual(steps.map((s) => s.attrs['data-kind']), ['fork', 'judgment', 'gate', 'record']);
+  // The rail lists every step once, in the same order, so the decider can jump.
+  const rail = opens(page, 'button', (a) => 'data-goto' in a).map((b) => b.attrs['data-goto']);
+  assert.deepEqual(rail, steps.map((s) => s.attrs['data-step']));
+  // Everything a non-decider answers sits in one folded block, grouped and counted, after the path.
+  const folded = opens(page, 'details', (a) => a.id === 'others');
+  assert.equal(folded.length, 1);
+  assert.ok(!('open' in folded[0].attrs));
   const groups = opens(page, 'section', (a) => 'data-answerer' in a).map((s) => s.attrs['data-answerer']);
-  assert.deepEqual(groups, ['artifact', 'submitter', 'delegate', 'decider']);
-  const decider = opens(page, 'section', (a) => a['data-answerer'] === 'decider')[0];
-  assert.match(decider.attrs.class, /\bdecider\b/);
-  const items = opens(page, 'div', (a) => a['data-answerer']).map((d) => d.attrs['data-answerer']);
-  assert.deepEqual(items, [...items].sort((a, b) => ['artifact', 'submitter', 'delegate', 'decider'].indexOf(a) - ['artifact', 'submitter', 'delegate', 'decider'].indexOf(b)));
+  assert.deepEqual(groups, ['artifact', 'submitter', 'delegate']);
+  const order = page.all.filter((t) => !t.close && ((t.name === 'section' && 'data-step' in t.attrs) || (t.name === 'details' && t.attrs.id === 'others'))).map((t) => t.attrs.id === 'others' ? 'others' : 'step');
+  assert.equal(order.at(-1), 'others');
+  assert.ok(page.texts.some((t) => /4 items/.test(t)), 'the folded block states how many items it holds');
 });
 
 test('every item carries its citation and an evidenced or claim mark', () => {
@@ -165,6 +175,7 @@ test('the page script derives blocked, conditional and clear from the controls',
   assert.equal(verdictOf(0, 1, 0), 'conditional');
   assert.equal(verdictOf(0, 0, 1), 'conditional', 'an unchosen fork keeps the verdict from clear');
   assert.equal(verdictOf(0, 0, 0), 'clear');
+  assert.match(script, /data-defer/, 'a deferring choice is read from the page, so it keeps the verdict open');
 });
 
 test('submitted text reaches the page as text and never as markup, attribute, script or handler', () => {
@@ -173,7 +184,8 @@ test('submitted text reaches the page as text and never as markup, attribute, sc
     gate(evil, { consequence: evil, source: evil, answerer: 'decider' }),
     gate('b'), gate('c'), gate('d'),
     judgment(evil, { note: evil }),
-    fork(evil, { options: [evil, 'ok'], fallback: evil }),
+    fork(evil, { options: [{ label: evil, detail: evil, consequence: evil }, 'ok'], fallback: evil, title: evil, quote: [evil, evil + '2'] }),
+    gate('e'), gate('f'),
     item({ kind: 'risk', text: evil, handling: evil }),
   ]);
   doc.material.identity = evil;
@@ -188,28 +200,33 @@ test('submitted text reaches the page as text and never as markup, attribute, sc
   assert.ok(!r.html().includes(evil));
 });
 
-test('a thin file with 3 gates or fewer and no judgment gets no surface and exits 3', () => {
-  const r = render(base([gate('Only gate'), item({ kind: 'exclusion', text: 'x' })]));
+test('text-only forks a chat list carries get no surface and exit 3', () => {
+  const r = render(base([gate('a'), judgment('b'), fork('c'), item({ kind: 'exclusion', text: 'x' })]));
   assert.equal(r.run.status, 3);
   assert.equal(existsSync(r.out), false);
-  assert.match(r.run.stderr, /prose/);
+  assert.match(r.run.stderr, /numbered list/);
+  // Gates others answer do not count toward the decider's load.
+  assert.equal(render(base([gate('a', { answerer: 'artifact' }), gate('b', { answerer: 'artifact' }), gate('c', { answerer: 'artifact' }), gate('d', { answerer: 'artifact' }), judgment('j')])).run.status, 3);
 });
 
-test('one judgment is enough for a surface, and a fourth gate crosses the threshold', () => {
-  assert.equal(render(base([judgment('j')])).run.status, 0);
-  assert.equal(render(base([gate('a'), gate('b'), gate('c')])).run.status, 3);
-  assert.equal(render(base([gate('a'), gate('b'), gate('c'), gate('d')])).run.status, 0);
+test('a surface is built for more than five decider answers, an option image, or a named hand-off reader', () => {
+  assert.equal(render(base(many().slice(0, 5))).run.status, 3);
+  assert.equal(render(base(many())).run.status, 0);
+  assert.equal(render(base([judgment('j')], { handoff: 'the engineer who ships it' })).run.status, 0);
+  const root = setup(base([fork('pick a photo', { options: [{ label: 'one', image: 'a.png' }, 'two'] })]));
+  writeFileSync(join(root, 'a.png'), PNG);
+  assert.equal(cli(root, 'decisions.json', '--out', join(root, 'o.html')).status, 0);
 });
 
 test('when every item is left to the decider the page reports that as a finding', () => {
-  const all = render(base([judgment('a'), gate('b')]));
+  const all = render(base([judgment('a'), gate('b')], { handoff: 'h' }));
   assert.equal(opens(all.page(), 'p', (a) => a['data-finding'] === 'all-decider').length, 1);
-  const some = render(base([judgment('a'), gate('b', { answerer: 'artifact' })]));
+  const some = render(base([judgment('a'), gate('b', { answerer: 'artifact' })], { handoff: 'h' }));
   assert.equal(opens(some.page(), 'p', (a) => a['data-finding']).length, 0);
 });
 
 test('with no --out the surface lands beside the material, named for it', () => {
-  const root = setup(base([judgment('j')]));
+  const root = setup(base(many()));
   const run = cli(root, 'decisions.json', '--json');
   assert.equal(run.status, 0, run.stderr);
   const result = JSON.parse(run.stdout);
@@ -218,7 +235,7 @@ test('with no --out the surface lands beside the material, named for it', () => 
 });
 
 test('a second render of the same file writes nothing', () => {
-  const root = setup(base([judgment('j')]));
+  const root = setup(base(many()));
   assert.equal(JSON.parse(cli(root, 'decisions.json', '--json').stdout).written, true);
   assert.equal(JSON.parse(cli(root, 'decisions.json', '--json').stdout).written, false);
 });
@@ -239,6 +256,16 @@ test('schema violations exit 2 and name the field', () => {
     [base([judgment('a'), fork('f', { options: ['x', 3] })]), 'decisions.items[1].options[1]'],
     [base([judgment('a', { options: ['x', 'y'] })]), 'decisions.items[0].options'],
     [base([judgment('a', { checked: true })]), 'decisions.items[0].checked'],
+    [base([judgment('a'), fork('f', { options: [{ label: 'x', colour: 'red' }, 'y'] })]), 'decisions.items[1].options[0].colour'],
+    [base([judgment('a'), fork('f', { options: [{ detail: 'no label' }, 'y'] })]), 'decisions.items[1].options[0].label'],
+    [base([judgment('a'), fork('f', { options: [{ label: 'x' }, 'x'] })]), 'decisions.items[1].options'],
+    [base([judgment('a'), fork('f', { options: [{ label: 'x', defer: 'yes' }, 'y'] })]), 'decisions.items[1].options[0].defer'],
+    [base([judgment('a'), fork('f', { options: [{ label: 'x', image: 'missing.png' }, 'y'] })]), 'decisions.items[1].options[0].image'],
+    [base([judgment('a'), fork('f', { options: [{ label: 'x', image: 'notes.txt' }, 'y'] })]), 'decisions.items[1].options[0].image'],
+    [base([judgment('a', { quote: 3 })]), 'decisions.items[0].quote'],
+    [base([judgment('a', { quote: ['ok', ''] })]), 'decisions.items[0].quote[1]'],
+    [base([judgment('a', { title: ' ' })]), 'decisions.items[0].title'],
+    [base([judgment('a')], { handoff: '' }), 'decisions.material.handoff'],
   ];
   for (const [doc, field] of cases) {
     const r = render(doc);
@@ -250,13 +277,103 @@ test('schema violations exit 2 and name the field', () => {
 
 test('invalid JSON, a missing file, no path to place the surface and bad usage all exit 2', () => {
   assert.equal(render('{not json').run.status, 2);
-  const root = setup(base([judgment('j')]));
+  const root = setup(base(many()));
   assert.equal(cli(root, 'absent.json').status, 2);
   assert.equal(cli(root).status, 2);
   assert.equal(cli(root, 'decisions.json', '--bogus').status, 2);
-  const noPath = setup({ material: { identity: 'pasted text' }, items: [judgment('j')] });
+  const noPath = setup({ material: { identity: 'pasted text' }, items: many() });
   const run = cli(noPath, 'decisions.json');
   assert.equal(run.status, 2);
   assert.match(run.stderr, /decisions\.material\.path/);
   assert.equal(cli(noPath, 'decisions.json', '--out', join(noPath, 'x', 'o.html')).status, 0);
 });
+
+// A 1x1 transparent PNG, the smallest real image a test can embed.
+const PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=', 'base64');
+
+test('an option naming an image shows it in its card, embedded so the page stays one file', () => {
+  const doc = base([fork('Pick the photo', { options: [{ label: 'stage', image: 'img/stage.png', detail: 'both on stage', consequence: 'hero image' }, 'none'] }), ...many()]);
+  const root = setup(doc);
+  mkdirSync(join(root, 'img'));
+  writeFileSync(join(root, 'img', 'stage.png'), PNG);
+  const out = join(root, 'o.html');
+  const run = cli(root, 'decisions.json', '--out', out);
+  assert.equal(run.status, 0, run.stderr);
+  const html = readFileSync(out, 'utf8');
+  const page = parse(html);
+  const imgs = opens(page, 'img');
+  assert.equal(imgs.length, 1);
+  assert.equal(imgs[0].attrs.src, 'data:image/png;base64,' + PNG.toString('base64'));
+  assert.ok(imgs[0].attrs.alt.includes('stage'));
+  assert.ok(page.texts.includes('both on stage'));
+  assert.ok(page.texts.includes('hero image'));
+  assert.doesNotMatch(html, /img\/stage\.png/);
+});
+
+test('an image over the size an embedded page can carry exits 2 naming the option', () => {
+  const root = setup(base([fork('f', { options: [{ label: 'big', image: 'big.jpg' }, 'small'] }), ...many()]));
+  writeFileSync(join(root, 'big.jpg'), Buffer.alloc(1024 * 1024 + 1));
+  const run = cli(root, 'decisions.json', '--out', join(root, 'o.html'));
+  assert.equal(run.status, 2);
+  assert.match(run.stderr, /decisions\.items\[0\]\.options\[0\]\.image: .*downscale/);
+});
+
+test('the cited source text sits on the item itself, so deciding needs no outside read', () => {
+  const page = render(base([judgment('j', { quote: ['line 29 says the score moved', 'line 55 places it'] }), ...many()])).page();
+  const quotes = opens(page, 'blockquote');
+  assert.ok(quotes.length >= 1);
+  assert.ok(page.texts.includes('line 29 says the score moved'));
+  assert.ok(page.texts.includes('line 55 places it'));
+});
+
+test('a short title names the step in the rail and the record while the full text stays on its screen', () => {
+  const page = render(base([fork('A long context sentence the material gives about the first screen', { title: 'Hero direction' }), ...many()])).page();
+  const rail = opens(page, 'button', (a) => a['data-goto'] === '0');
+  assert.equal(rail.length, 1);
+  assert.ok(page.texts.includes('Hero direction'));
+  assert.ok(page.texts.includes('A long context sentence the material gives about the first screen'));
+});
+
+test('an option that defers the decision is marked so choosing it keeps the verdict open', () => {
+  const page = render(base([fork('f', { options: ['go', { label: 'wait for more candidates', defer: true }] }), ...many()])).page();
+  const deferred = opens(page, 'input', (a) => a['data-defer'] === 'true');
+  assert.equal(deferred.length, 1);
+});
+
+test('answers are saved per material version, so a reload keeps them and a changed file starts empty', () => {
+  const key = (doc) => opens(render(doc).page(), 'body')[0].attrs['data-store'];
+  const a = key(base(many()));
+  assert.match(a, /^re0-decide:[0-9a-f]{16}$/);
+  assert.equal(key(base(many())), a);
+  const changed = base(many());
+  changed.items[0].text = 'j1 reworded';
+  assert.notEqual(key(changed), a);
+});
+
+test('page wording follows the material language, Korean verdict words included, with English as the default', () => {
+  const en = render(valid());
+  assert.match(en.html(), /<html lang="en">/);
+  assert.ok(en.page().texts.includes('Not met'));
+  const doc = valid();
+  doc.material.lang = 'ko';
+  const ko = render(doc);
+  assert.equal(ko.run.status, 0, ko.run.stderr);
+  const page = ko.page();
+  assert.match(ko.html(), /<html lang="ko">/);
+  assert.ok(page.texts.includes('미충족'));
+  assert.ok(!page.texts.includes('Not met'));
+  const script = ko.html().match(/<script>([\s\S]*)<\/script>/)[1];
+  // The page script shows the verdict through the wording table the renderer writes on the page body.
+  const words = JSON.parse(opens(page, 'body')[0].attrs['data-words'].replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&'));
+  assert.deepEqual(words.state, { blocked: '막힘', conditional: '조건부', clear: '통과' });
+  assert.match(script, /data-words/);
+  // The verdict state the page computes stays one of the three rule words whatever language it is shown in.
+  const verdictOf = new Function(script.match(/function verdictOf[^\n]*/)[0] + '; return verdictOf;')();
+  assert.equal(verdictOf(1, 0, 0), 'blocked');
+  const bad = valid();
+  bad.material.lang = 'fr';
+  const r = render(bad);
+  assert.equal(r.run.status, 2);
+  assert.match(r.run.stderr, /decisions\.material\.lang/);
+});
+
