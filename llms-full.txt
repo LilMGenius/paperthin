@@ -2292,7 +2292,7 @@ Before reporting a draft or watch outcome, check each case against its deciding 
 
 ---
 name: re0-memo
-description: "Turn a finished, failed, or disappointing work cycle into portable lessons, anti-patterns, quality gates, and next-cycle vocabulary, and measure how far the work stands from its objective. Use after a build, QA pass, demo, user complaint or correction, a request the user had to repeat, a user asking why something was not done, or an abandoned attempt, and always before a restart from v0, when the useful output is what the next pass must learn rather than the code itself."
+description: "Turn a finished, failed, or disappointing work cycle into portable lessons, anti-patterns, quality gates, and next-cycle vocabulary, and measure how far the work stands from its objective. Use after a build, QA pass, demo, user complaint or correction, a request the user had to repeat, a user asking why something was not done, a lesson whose own fix caused a new failure, or an abandoned attempt, and always before a restart from v0, when the useful output is what the next pass must learn rather than the code itself."
 ---
 
 Pull a work cycle's durable lessons into the docs the next pass starts from.
@@ -2305,7 +2305,9 @@ Use it when an artifact is done, failed, disappointing, or ambiguous enough that
 
 A restart from v0 always runs it first. The memo is the restart's map: what the old cycle got wrong and how far it actually stands from its objective, so the restart aims at the measured gap rather than at the old plan's picture of itself.
 
-It calls one other skill, `scopechk`, to place each lesson. Its output feeds the next cycle, read by a fresh agent who never saw this one.
+A lesson fails in two ways besides being wrong. It stays too narrow, so the same failure returns through another tool, surface or actor and nothing fires; or its fix is itself a member of the failure's class, so landing it causes the next failure. The workflow climbs each lesson to the widest class that still holds, searches that class's siblings, and tries to break each prescription before it lands.
+
+It calls four other skills: `detool` to strip tool, product and person names from a lesson, `crossthink` when every drafted prescription takes one route, `elon` to question the drafted prescriptions, and `scopechk` to place each lesson. It carries two moves of user-invoked skills inline, since no skill can call those: the larger-scale re-read of one decision from `macrothink` (input: the decision and its boundary; output: what changes once the boundary moves), used to find siblings and the actor rung, and the first nail of `hate` (input: a plan; output: its load-bearing assumption and the cheapest experiment that would break it), used on each prescription. Its field-coverage check follows [the failure taxonomies reference](https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/coil/re0-memo/references/failure-taxonomies.md). Its output feeds the next cycle, read by a fresh agent who never saw this one.
 
 ## Workflow
 
@@ -2314,22 +2316,29 @@ Run the steps in order.
 1. Read the original objective, the final artifact, QA evidence, user complaints, and any local planning notes.
 2. Measure where the work stands against its objective from the records it left (outcomes, counts, money, what users actually received), never from the plan or the commit log. Place it on a ladder of capability levels when its field has one, such as driving automation's levels for an autonomous agent, and name both the level it was built for and the level it measures at; a cycle that did worse than doing the work by hand measures below the bottom.
 3. Sort what earned reuse (contracts, schemas, tests, services, vocabulary, examples) apart from what only looked productive (UI, panels, scaffolds, abstractions).
-4. Generalize before writing anything. Cluster the specific complaints into the pattern they share; many complaints across many items usually trace to one root gap. The lesson is that root plus its pattern family, and the specifics sit under it as evidence, never as separate lessons.
-5. Name every failure as an anti-pattern, a concrete failure mode, never as a mood.
-6. For each class, find the rule or gate that already owns it. If one exists, it failed to fire, so the lesson is the missing trigger, check, or step, never a second rule that would drift from the first.
-7. Turn repeated or high-impact failures into quality gates for the next pass.
-8. Turn vague user direction into architecture vocabulary a fresh agent can work with.
-9. Write or refresh the cycle's local docs, kept beside the work the cycle produced: a `re0-memo` holding the measured standing and the lessons with their evidence, and a `plan` holding the next cycle's contracts, gates, and vocabulary.
-10. Pick the owner of each lesson by who must read it to avoid the failure, then call the Skill tool with "scopechk" on the lesson and that owner, so the pick is checked against the owner's own written scope: its stated purpose, its readers and its boundaries. Show its verdict beside the lesson and land the lesson in this turn: the sign that triggered the run is the approval, so the approval stop scopechk ends at does not hold the lesson back. When `scopechk` is not installed, check the pick against that scope yourself. A rule every project of one author needs lives in that author's shared guide, a fact a teammate or another machine needs lives in the repository they clone, and a procedure lives in the skill or tool that carries it out. When that scope excludes the lesson, pick another place the same reader opens whose scope includes it; a rule placed where its reader never looks has not landed.
-11. Land each lesson's rule in that owner, and leave the `re0-memo` entry as the evidence pointing to it, so the rule lives in one place. Rewrite that passage as though the lesson had always been there: a new idea gets its own step or sentence, and the neighboring sentence keeps its wording instead of gaining an appended clause.
-12. Check that an agent starting from scratch could avoid the same failure using those docs alone.
+4. Cluster the specific complaints into the pattern they share; many complaints across many items usually trace to one root gap, and a single complaint is a cluster of one. Write nothing yet.
+5. Climb the generalization ladder from each cluster, one line per rung: the lesson stated at that rung, whether the cycle's records and the repository hold a counterexample, and that counterexample when they do. The rungs, from the bottom: the case as it happened; its siblings inside the same tool, platform or surface; the mechanism with every tool, product and person name removed, for which you call the Skill tool with "detool" on the rung's sentence, or remove the names yourself when it is not installed; the actor generalized, so a person, an agent and a script each read as a role that holds or lacks a capability, a permission and a duty; and the field's known failure class, which step 7 checks against saved sources. The lesson is the highest rung that holds with no counterexample, and the counterexample one rung above it is written beside the lesson as the class's boundary. A rung so general that it no longer names something the next agent can check is past the top.
+6. Search the class's siblings by re-reading the decision that failed at a larger scale, as the Goal describes: across the repository, the documents that hold its rules, and the other actors and surfaces the work touches, list every place the class can strike, each with its path and whether it already failed, is one step from failing, or is covered. A rule that already owns the class but whose wording reaches only part of it (one kind of actor, one surface, one tool) is a sibling too, and the reason it did not fire.
+7. Check the memo's classes against the field when it holds three or more lessons, when a class recurs after an earlier lesson on it, or when a lesson reached the field rung of step 5: follow [the failure taxonomies reference](https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/coil/re0-memo/references/failure-taxonomies.md) to save at least one authoritative failure taxonomy of the field, align its classes with the memo's, and rule on each class it names that the memo lacks and each memo class it does not name. Otherwise skip the check and write the skip and its reason in the memo.
+8. Name every failure as an anti-pattern, a concrete failure mode, never as a mood.
+9. For each class, find the rule or gate that already owns it, using the siblings from step 6. If one exists, it failed to fire, so the prescription is the missing trigger, check, or step, or the widened scope of a rule written for part of the class, never a second rule that would drift from the first.
+10. Turn repeated or high-impact failures into quality gates for the next pass.
+11. When every prescription drafted for a class takes one route (each hands the work to the same actor, adds the same kind of check, or waits on the same approval), call the Skill tool with "crossthink" on the class and those prescriptions, and keep the mechanisms it adds, each with its breaks-where, beside the drafts. Skip it when the drafts already take two or more routes or the prescription only adds a missing trigger to a rule that exists, and write the skip and its reason in the memo.
+12. Try to break each prescription before it lands. First call the Skill tool with "elon" on the drafted prescriptions, each a requirement whose source is its lesson's evidence; drop the drafts it proposes to remove, since a prescription not yet landed has no other owner, and keep its table in the memo, while a proposal touching a rule that already exists stays a proposal for the user. Then, for each surviving prescription, write the one assumption it rests on about its reader, receiver or trigger (that the receiver can do what it is asked, that the trigger fires, that the reader opens the owner) and the cheapest experiment that would break it: one call, one read of a permission, one counter-case put through it. Run the experiment when it is cheap and reversible, and put the prescription through the siblings of step 6 and through one case where it must not fire. A prescription the experiment breaks, or one that is itself a member of its lesson's class, is redrafted and tried again; an experiment that cannot run marks the prescription unverified in the memo.
+13. Turn vague user direction into architecture vocabulary a fresh agent can work with.
+14. Write or refresh the cycle's local docs, kept beside the work the cycle produced: a `re0-memo` holding the measured standing and, per lesson, its class at the rung it reached with the ladder beneath, its evidence, its siblings, its prescription with the options and the falsification record (assumption, experiment, result), and its owner; and a `plan` holding the next cycle's contracts, gates, and vocabulary.
+15. Pick the owner of each lesson by who must read it to avoid the failure, then call the Skill tool with "scopechk" on the lesson and that owner, so the pick is checked against the owner's own written scope: its stated purpose, its readers and its boundaries. Show its verdict beside the lesson and land the lesson in this turn: the sign that triggered the run is the approval, so the approval stop scopechk ends at does not hold the lesson back. When `scopechk` is not installed, check the pick against that scope yourself. A rule every project of one author needs lives in that author's shared guide, a fact a teammate or another machine needs lives in the repository they clone, and a procedure lives in the skill or tool that carries it out. When that scope excludes the lesson, pick another place the same reader opens whose scope includes it; a rule placed where its reader never looks has not landed.
+16. Land each lesson's rule in that owner, and leave the `re0-memo` entry as the evidence pointing to it, so the rule lives in one place. Rewrite that passage as though the lesson had always been there: a new idea gets its own step or sentence, and the neighboring sentence keeps its wording instead of gaining an appended clause.
+17. Check that an agent starting from scratch could avoid the same failure using those docs alone, and that the failure would be caught had it come through a sibling of step 6 instead.
 
 ## Rules
 
 - Never defend the artifact. If it missed the product, say what missed.
 - No changelog: file lists and effort summaries are not lessons.
 - Never transcribe one specific complaint as a lesson. Fixing only the reported case leaves the same failure elsewhere for a human to find, so generalize each to a pattern that catches its whole class; the reporter's exact words are evidence, never the gate.
-- Preserve the negative corpus. Failed paths are training data, so cut means archive, never delete.
+- A lesson's sentence names no tool, product or person; those names belong to its evidence, where they record what happened.
+- Never land a prescription untried. A prescription that asks a receiver for what it cannot do, or adds a rule its own trigger will not reach, repeats the failure it was written to stop.
+- Preserve the negative corpus. Failed paths are training data, so cut means archive, never delete; a dropped or broken prescription stays in the memo with the reason.
 - Prefer hard gates to advice.
 - Cite evidence from the cycle: the objective, file facts, QA output, screenshots, transcripts, diffs, or user feedback.
 - Something the next agent cannot act on is not a lesson yet.
@@ -2342,11 +2351,14 @@ Before finishing, confirm:
 1. Every lesson traces to evidence observed in the cycle.
 2. The memo states where the work measures against its objective, from records, beside where it was built to be.
 3. Every anti-pattern names a concrete failure mode and the gate that catches it.
-4. Every lesson covers a class, with the reported specifics beneath it as evidence.
-5. Every owner was picked by the reader who needs the lesson and fits its own written scope, and reads as its clean current version, with no lesson bolted onto a neighboring sentence.
-6. A fresh agent can tell what to preserve, what to discard, and what to test first without reading the whole old session.
+4. Every lesson covers a class, with the reported specifics beneath it as evidence: its ladder is written, it stands at the highest rung with no counterexample, and its sentence holds zero tool, product or person names outside its evidence.
+5. Every lesson lists its siblings with their paths, and a rule written for part of the class was widened rather than joined by a second rule.
+6. Every prescription carries its `elon` row, its assumption, its experiment and that experiment's result or an unverified mark, and none is a member of its own lesson's class.
+7. The `crossthink` call and the field check each ran or carry a skip reason, and every class a field check added or kept cites a saved source.
+8. Every owner was picked by the reader who needs the lesson and fits its own written scope, and reads as its clean current version, with no lesson bolted onto a neighboring sentence.
+9. A fresh agent can tell what to preserve, what to discard, and what to test first without reading the whole old session.
 
-Report the lessons written, the gates added, and each owner a lesson landed in.
+Report the lessons written with the rung each reached, the gates added, the prescriptions dropped or broken before landing, and each owner a lesson landed in.
 
 --- FILE: skills/coil/backprop/SKILL.md (https://raw.githubusercontent.com/LilMGenius/paperthin/main/skills/coil/backprop/SKILL.md) ---
 
