@@ -13,7 +13,7 @@ The trigger is a README or AGENTS.md that is about to be written, was just writt
 
 Every run reports the baseline audit, its kind and source, each finding's rule id, file, line and severity, and a keep list with reasons. A review-only run reports proposed moves and stops without edits, an after audit or a hosted audit. An already-green run reports the baseline and stops unchanged. A rewrite reports the edited files, the after audit and the hosted audit or its unresolved failure.
 
-When the baseline audit is green and a read in context finds nothing serving the wrong reader, report the green output and the kind and change nothing. Zero edits is a successful run.
+When the baseline audit is green, review every finding and the intended changes, including manifest corrections; stop unchanged only if none needs action. Zero edits is a successful run.
 
 ## Workflow
 
@@ -52,7 +52,7 @@ When the baseline audit is green and a read in context finds nothing serving the
 Before finishing, confirm:
 
 1. Every report includes the baseline and kind source; a rewrite also includes the after audit and hosted result, while a review or already-green run stops at its stated exit.
-2. Every finding is moved, rewritten, or kept with a stated reason, and no fail finding is reported as passed by explanation.
+2. Every finding is moved, rewritten, or kept with a stated reason, or has a proposed disposition in a review, and no fail finding is reported as passed by explanation.
 3. No fact was lost: each moved line is findable in its new home.
 4. For a rewrite, README opens with what the product is, and the agent guide opens with which document owns what.
 5. For a rewrite, README states what the product does today as measured, in the language its reader reads, and the hosted description says the same, or its new line is proposed.
