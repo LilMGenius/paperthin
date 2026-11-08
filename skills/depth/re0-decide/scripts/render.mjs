@@ -230,7 +230,7 @@ const STYLE = [
   'h1{font-size:1.1rem;margin:0}h2{font-size:1.3rem;line-height:1.35;margin:.25rem 0 .5rem}h3{font-size:1rem;margin:.75rem 0 .25rem}',
   '.top{position:static;z-index:2;background:var(--paper);border-bottom:1px solid var(--line);padding:.6rem 1rem;display:flex;flex-wrap:wrap;gap:.4rem 1.25rem;align-items:center;justify-content:space-between}',
   '.identity{margin:0;color:var(--muted);font-size:.8rem;overflow-wrap:anywhere}',
-  '@media (min-width:600px){.top{position:sticky;top:0}}@media (max-width:599px){.identity{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100vw - 2rem)}}',
+  '@media (min-width:600px) and (min-height:1000px){.top{position:sticky;top:0}}@media (max-width:599px){.identity{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100vw - 2rem)}}',
   '.status{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:center}',
   '.verdict{margin:0;font-weight:700;border:2px solid var(--muted);border-radius:999px;padding:.15rem .75rem;font-size:.9rem}',
   '.verdict[data-state=blocked]{border-color:var(--blocked);color:var(--blocked)}.verdict[data-state=conditional]{border-color:var(--conditional);color:var(--conditional)}.verdict[data-state=clear]{border-color:var(--clear);color:var(--clear)}',
@@ -239,7 +239,7 @@ const STYLE = [
   '.bar{display:inline-block;width:8rem;height:.5rem;border-radius:999px;background:var(--line);overflow:hidden}.bar span{display:block;height:100%;width:0;background:var(--accent)}',
   '.finding{border:2px dashed var(--conditional);background:var(--paper);padding:.5rem 1rem;margin:1rem}',
   '.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:1rem;max-width:76rem;margin:0 auto;padding:1rem}',
-  '@media (min-width:900px){.layout{grid-template-columns:17rem minmax(0,1fr)}.rail{position:sticky;top:4.5rem;align-self:start;max-height:calc(100vh - 5.5rem);overflow:auto}}',
+  '@media (min-width:900px){.layout{grid-template-columns:17rem minmax(0,1fr)}.rail{position:sticky;top:var(--head,1rem);align-self:start;max-height:calc(100vh - var(--head,1rem) - 1rem);overflow:auto}}',
   '.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.25rem}',
   '.goto{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:1.8rem minmax(0,1fr);gap:0 .4rem;width:100%;min-height:44px;padding:.35rem .5rem;border-radius:.4rem;border:1px solid transparent;background:var(--paper)}',
   '.goto:hover{border-color:var(--line)}.goto:focus-visible{outline:3px solid var(--accent);outline-offset:1px}',
@@ -249,7 +249,7 @@ const STYLE = [
   '.goto .a{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.8rem;color:var(--muted)}',
   '.goto .a[data-answered=yes]{color:var(--accent)}.goto .a[data-answered=open]{color:var(--conditional)}',
   '@media (max-width:899px){.rail ol{flex-direction:row;flex-wrap:wrap}.rail li{flex:0 0 auto}.goto{width:auto;min-width:44px;grid-template-columns:auto;text-align:center;padding:.35rem .6rem}.goto .n{grid-row:auto;text-align:center}.goto .t,.goto .a{display:none}.goto[data-answered=yes] .n{color:var(--accent)}}',
-  '.step{background:var(--paper);border:1px solid var(--line);border-radius:.6rem;padding:1rem 1.25rem;margin:0 0 1rem}',
+  '.step{scroll-margin-top:var(--head,1rem);background:var(--paper);border:1px solid var(--line);border-radius:.6rem;padding:1rem 1.25rem;margin:0 0 1rem}',
   '.js .step{display:none}.js .step.current{display:block}',
   '.step h2[tabindex]:focus{outline:none}',
   '.eyebrow{margin:0;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}',
@@ -257,6 +257,9 @@ const STYLE = [
   '.ask{margin:.25rem 0 .75rem;padding:.5rem .75rem;border-left:4px solid var(--line);background:var(--soft);overflow-wrap:anywhere}',
   '.options{border:0;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr));gap:.75rem}',
   '.options.binary{grid-template-columns:repeat(2,minmax(0,1fr))}',
+  '.options.images{grid-template-columns:repeat(auto-fit,minmax(min(100%,10.5rem),1fr));gap:.6rem}',
+  '.options.images .opt label{padding:.5rem;gap:.25rem}.options.images .opt .key{left:.9rem;top:.9rem;background:var(--paper);z-index:1}',
+  '.options.images .odetail,.options.images .oconseq{font-size:.85rem}',
   '.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}',
   '.opt{position:relative}',
   '.opt label{display:flex;flex-direction:column;gap:.3rem;height:100%;min-height:44px;padding:.75rem .75rem .75rem 2.6rem;border:2px solid var(--line);border-radius:.6rem;background:var(--paper);cursor:pointer;position:relative;overflow-wrap:anywhere}',
@@ -308,6 +311,14 @@ function pageScript() {
   var all = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
   var textOf = function (box, sel) { var el = $(sel, box); return el ? el.textContent : ''; };
   var steps = all('.step');
+  // A sticky header would cover a step scrolled to the top, so its height becomes the offset steps and the rail keep from it.
+  function offset() {
+    var head = $('header.top');
+    var sticky = getComputedStyle(head).position === 'sticky';
+    document.documentElement.style.setProperty('--head', sticky ? (head.offsetHeight + 16) + 'px' : '1rem');
+  }
+  offset();
+  window.addEventListener('resize', offset);
   var key = document.body.getAttribute('data-store');
   var current = 0;
   var advance = null;
@@ -488,7 +499,8 @@ function choices(item, i, images, t) {
         '<div class="opt"><label><input type="radio" name="' + name + '" value="' + value + '" data-kind="' + item.kind + '"><span class="key">' + (j + 1) + '</span>' +
         '<span class="olabel">' + t.binary[item.kind][j] + '</span></label></div>').join('') + '</fieldset>';
   }
-  return '<fieldset class="options"><legend class="sr">' + t.options + '</legend>' + item.options.map((raw, j) => {
+  const pictured = item.options.some((raw) => optionOf(raw).image);
+  return '<fieldset class="options' + (pictured ? ' images' : '') + '"><legend class="sr">' + t.options + '</legend>' + item.options.map((raw, j) => {
     const option = optionOf(raw);
     const src = images.get(i + ':' + j);
     return '<div class="opt"><label><input type="radio" name="' + name + '" value="' + j + '" data-kind="fork"' + (option.defer ? ' data-defer="true"' : '') + '>' +
