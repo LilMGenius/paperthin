@@ -108,3 +108,10 @@ test('the Codex description and placeholder rules fail what quick_validate.py re
   assert.match(run(t, edit('skills/depth/foo/SKILL.md', (body) => body + '\n[TODO: steps]\n')).join(), /SKILL\.md:\d+: unfinished \[TODO: placeholder/);
   assert.deepEqual(run(t, edit('skills/depth/foo/SKILL.md', (body) => body + '\n\x60\x60\x60md\n[TODO: steps]\n\x60\x60\x60\n')), []);
 });
+
+// A call written with the bare skill name, no quotes or backticks, is still a call: the gate reads it after a call verb, and ordinary English that only contains the word is not.
+test('a bare skill name after a call verb in a Workflow step is a dependency, and the same word without one is not', (t) => {
+  assert.deepEqual(run(t, { ...fooSays('Then run bar on the result.'), ...barCalls('foo') }), ['skills/depth/foo/SKILL.md:12: names "bar" in a Workflow step, which closes the cycle bar -> foo -> bar; a skill never depends on one that depends on it (move a boundary mention under ## Rules)']);
+  assert.deepEqual(run(t, { ...fooSays('Hand the draft to paperthin:bar.'), ...barCalls('foo') }), ['skills/depth/foo/SKILL.md:12: names "bar" in a Workflow step, which closes the cycle bar -> foo -> bar; a skill never depends on one that depends on it (move a boundary mention under ## Rules)']);
+  assert.deepEqual(run(t, { ...fooSays('Read the bar chart, then run the tests.'), ...barCalls('foo') }), []);
+});

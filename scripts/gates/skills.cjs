@@ -102,6 +102,8 @@ function checkSkill(root, file, problems) {
 
 // A Skill tool call, however a sentence phrases it ("Call the Skill tool", "calling the Skill tool", "one Skill tool call each"), runs to the end of its sentence.
 const CALL = /(?:\bcall(?:s|ing|ed)? the Skill tool|\bSkill tool calls?)\b[^.]*/gi;
+// A sibling called by its bare name, with no quotes or backticks ("then run nba", "hand the draft to paperthin:re0"). Ordinary words that happen to be skill names ("the bar chart", "a sip of") stay out, because the name only counts right after a call verb, optionally "the" and a "<plugin>:" namespace, and only when it is exactly a shipped skill's lower-case name.
+const BARE_CALL = /\b(?:run|runs|running|call|calls|calling|invoke|invokes|invoking|hand(?:s|ing)?(?: it| them| the \w+)? (?:over )?to|pass(?:es|ing)?(?: it| them| the \w+)? to)\s+(?:the\s+)?(?:[a-z0-9-]+:)?([a-z0-9]+(?:-[a-z0-9]+)*)(?![\w:-])/gi;
 
 // A user-invoked skill is out of every skill's reach, so no Skill tool call may name one. Each call that may stand becomes an edge for the cycle check,
 // and so does a sibling named in backticks or quotes in a Workflow step, since that step needs the sibling's result even without a call; a name under
@@ -121,6 +123,11 @@ function checkCalls(skill, file, invocation, problems, edges) {
     }
     if (section !== 'Workflow') return;
     for (const [, target] of line.matchAll(/[\x60"]([a-z0-9-]+)[\x60"]/g)) {
+      if (target === skill.name || called.has(target) || !invocation.has(target)) continue;
+      called.add(target);
+      edges.push({ from: skill.name, to: target, file, line: i + 1, prose: true });
+    }
+    for (const [, target] of line.matchAll(BARE_CALL)) {
       if (target === skill.name || called.has(target) || !invocation.has(target)) continue;
       called.add(target);
       edges.push({ from: skill.name, to: target, file, line: i + 1, prose: true });
