@@ -82,3 +82,23 @@ test('a co-author trailer is refused out of place, malformed or naming no human'
     assert.ok(problems.includes(fragment), message + ' => ' + problems);
   }
 });
+
+test('the commit-msg hook refuses a message the check refuses, before any push', () => {
+  // The global core.hooksPath is the relative hooks, so this file runs on every local commit; without it a
+  // bad subject was caught only by CI after the push (2026-11-08: a test(...) type and an 84-character subject).
+  const hook = path.join(__dirname, '..', '..', 'hooks', 'commit-msg');
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'commit-msg-hook-'));
+  try {
+    const run = (message) => {
+      const file = path.join(dir, 'MSG');
+      fs.writeFileSync(file, message);
+      return spawnSync(process.execPath, [hook, file], { encoding: 'utf8' });
+    };
+    const bad = run('test(re0-readme): cover mobile support signals\n');
+    assert.equal(bad.status, 1);
+    assert.match(bad.stderr, /not type\(scope\): description/);
+    assert.equal(run('fix(re0-readme): cover every mobile signal the audit reads\n# Please enter the commit message\n').status, 0);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});

@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+'use strict';
+// Runs the repository's own commit message check on every local commit, so a refused subject stops here instead of in CI after the push.
+const fs = require('node:fs');
+const path = require('node:path');
+const { checkMessage } = require(path.join(__dirname, '..', 'scripts', 'gates', 'check-commit-messages.cjs'));
+
+const message = fs.readFileSync(process.argv[2], 'utf8').split(/\r?\n/).filter((line) => !line.startsWith('#')).join('\n');
+const problems = checkMessage(message);
+if (problems.length) {
+  console.error('commit-msg: ' + message.split('\n')[0]);
+  for (const problem of problems) console.error('  ' + problem);
+  process.exit(1);
+}
