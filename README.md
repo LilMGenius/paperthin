@@ -59,7 +59,7 @@ Pick **one route per agent**; installing two loads every skill twice.
 | 🧭 **[readback](./skills/depth/readback/SKILL.md)** | Checks it understood your request before working, and asks only when two readings really differ | one instruction | model | ✔ |
 | 🏹 **[aim](./skills/depth/aim/SKILL.md)** | Reads the files or text you hand over and suggests what you likely want, so you only confirm | one data drop | model | ✔ |
 | 📏 **[modelchk](./skills/depth/modelchk/SKILL.md)** | Picks the cheapest model tier and thinking effort that still do the job well | one task | model | ✔ |
-| 🧹 **[elon](./skills/depth/elon/SKILL.md)** | Suggests dropping requirements kept only out of habit, with where each came from; never touches rules set from outside | a set of not-yet-built requirements with their sources | model | ✔ |
+| 🧹 **[elon](./skills/depth/elon/SKILL.md)** | Suggests dropping or deferring requirements and commitments kept only out of habit, with where each came from; never touches rules set from outside | a set of requirements or running commitments with their sources | model | ✔ |
 | 🧩 **[scopechk](./skills/depth/scopechk/SKILL.md)** | Checks, by the target's own written scope, whether a new piece belongs where you want to put it, and names a better home if not | one item and the target it would join | model | ✔ |
 | 😈 **[hate](./skills/depth/hate/SKILL.md)** | Plays the hostile critic: the one objection that could sink your plan, and the cheapest test to settle it | one plan | user | |
 | 🧠 **[macrothink](./skills/depth/macrothink/SKILL.md)** | Asks several fresh minds the question without your framing and shows first where they disagree | one direction | user | ✔ |

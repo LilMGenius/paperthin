@@ -1,4 +1,4 @@
 interface:
   display_name: "elon"
-  short_description: "Question requirements before anything is built"
-  default_prompt: "Use $elon to question these requirements before anything is built."
+  short_description: "Question requirements and commitments before effort goes in"
+  default_prompt: "Use $elon to question these requirements or commitments before more effort goes in."

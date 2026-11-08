@@ -62,7 +62,7 @@
 | 🧭 **[readback](../../skills/depth/readback/SKILL.md)** | 动手前先确认自己理解了你的要求，只有两种理解确实不同时才发问 | 一个 instruction | 模型 | ✔ |
 | 🏹 **[aim](../../skills/depth/aim/SKILL.md)** | 读完你交来的文件或文字，先提出你可能想做的事，你只需确认 | 一份数据交付 | 模型 | ✔ |
 | 📏 **[modelchk](../../skills/depth/modelchk/SKILL.md)** | 选出仍能把事做好的最便宜的模型档位和思考深度 | 一个任务 | 模型 | ✔ |
-| 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | 建议删掉只因习惯而保留的要求，并注明每条的出处；外部定下的规则一概不动 | 一组尚未实现的需求及其来源 | 模型 | ✔ |
+| 🧹 **[elon](../../skills/depth/elon/SKILL.md)** | 建议删掉或推迟只因习惯而保留的要求和在做的事，并注明每条的出处；外部定下的规则一概不动 | 一组需求或正在进行的事务及其来源 | 模型 | ✔ |
 | 🧩 **[scopechk](../../skills/depth/scopechk/SKILL.md)** | 按目标自己写明的范围，检查新东西放在你想放的位置是否合适，不合适就指出更好的去处 | 一个条目及其将加入的目标 | 模型 | ✔ |
 | 😈 **[hate](../../skills/depth/hate/SKILL.md)** | 故意当个刻薄的批评者：找出可能击垮计划的那一条反对意见，和验证它的最省钱办法 | 一个计划 | 用户 | |
 | 🧠 **[macrothink](../../skills/depth/macrothink/SKILL.md)** | 把去掉你预设的问题交给多个全新视角，先展示他们分歧在哪里 | 一个方向 | 用户 | ✔ |
