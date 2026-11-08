@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080" role="img" aria-label="Paperthin — Trust the artifact, not the author.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1080" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0B0D11"/>
+      <stop offset="1" stop-color="#15181E"/>
+    </linearGradient>
+
+    <radialGradient id="halo" cx="540" cy="420" r="430" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7FD8FF" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#7FD8FF" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="paper" x1="0.1" y1="0" x2="0.5" y2="1">
+      <stop offset="0" stop-color="#FCFDFE"/>
+      <stop offset="1" stop-color="#CED7E0"/>
+    </linearGradient>
+
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#E6F4FF"/>
+      <stop offset="0.5" stop-color="#9FDCFF"/>
+      <stop offset="1" stop-color="#6FCBFF"/>
+    </linearGradient>
+
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="soft" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect width="1080" height="1080" fill="url(#halo)"/>
+
+  <!-- the sheet (same form as the wide banner), centered and scaled up -->
+  <g transform="translate(230 274) rotate(-5) scale(1.55)">
+    <ellipse cx="205" cy="158" rx="150" ry="20" fill="#000000" opacity="0.5" filter="url(#soft)"/>
+    <path d="M 40 54 L 330 26 L 360 96 C 250 118, 150 122, 70 124 Z" fill="url(#paper)"/>
+    <path d="M 360 96 C 250 118, 150 122, 70 124" fill="none"
+          stroke="url(#edge)" stroke-width="3.5" stroke-linecap="round" filter="url(#glow)"/>
+  </g>
+
+  <!-- wordmark, centered -->
+  <text x="540" y="722" text-anchor="middle"
+        font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+        font-size="132" letter-spacing="0.5">
+    <tspan font-weight="500" fill="#EEF3F8">Paper</tspan><tspan dx="4"
+        font-weight="400" fill="none" stroke="#D4E3EF" stroke-width="1.8">thin</tspan>
+  </text>
+
+  <!-- tagline, centered -->
+  <text x="540" y="794" text-anchor="middle"
+        font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+        font-size="25" font-weight="300" letter-spacing="6.5" fill="#7E8893">
+    TRUST THE ARTIFACT, NOT THE AUTHOR.
+  </text>
+</svg>

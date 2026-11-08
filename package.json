@@ -59,6 +59,7 @@
     "check": "node scripts/gates/check.cjs"
   },
   "devDependencies": {
+    "fontkit": "2.0.4",
     "yaml": "2.9.1"
   }
 }

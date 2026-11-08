@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Paperthin">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0B0D11"/>
+      <stop offset="1" stop-color="#15181E"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="512" cy="500" r="430" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7FD8FF" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#7FD8FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="paper" x1="0.1" y1="0" x2="0.5" y2="1">
+      <stop offset="0" stop-color="#FCFDFE"/>
+      <stop offset="1" stop-color="#CED7E0"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#E6F4FF"/>
+      <stop offset="0.5" stop-color="#9FDCFF"/>
+      <stop offset="1" stop-color="#6FCBFF"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <rect width="1024" height="1024" fill="url(#halo)"/>
+  <!-- the sheet from the banner and thumbnail, alone, centered for a square icon -->
+  <g transform="translate(90 395) rotate(-5) scale(2.05)">
+    <ellipse cx="205" cy="158" rx="150" ry="20" fill="#000000" opacity="0.5" filter="url(#soft)"/>
+    <path d="M 40 54 L 330 26 L 360 96 C 250 118, 150 122, 70 124 Z" fill="url(#paper)"/>
+    <path d="M 360 96 C 250 118, 150 122, 70 124" fill="none" stroke="url(#edge)" stroke-width="3.5" stroke-linecap="round" filter="url(#glow)"/>
+  </g>
+</svg>
