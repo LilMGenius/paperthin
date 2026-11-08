@@ -9,7 +9,9 @@ import { parseArgs } from 'node:util';
 
 const USAGE = 'usage: node table.mjs <file> [--json]';
 export const COLUMNS = ['Item', 'Serves', 'Source', 'Holds', 'Bought', 'Orphans', 'Re-add', 'Verdict', 'Reason'];
-export const VERDICTS = ['keep', 'mandated', 'remove', 'defer', 'simplify', 'accelerate', 'automate', 'ask'];
+export const VERDICTS = ['keep', 'mandated', 'remove', 'defer', 'simplify', 'accelerate', 'automate', 'ask', 'stopped'];
+// A kept item may carry several of these proposals at once, joined by +, each approved on its own.
+const COMBINABLE = ['simplify', 'accelerate', 'automate'];
 const HOLDS = ['yes', 'no', 'unknown'];
 const DATE = /\b\d{4}-\d{2}-\d{2}\b/;
 
@@ -41,12 +43,21 @@ export function findTable(text) {
 
 export function checkRow(row) {
   const problems = [];
-  const verdict = row.Verdict.toLowerCase();
+  const verdicts = row.Verdict.toLowerCase().split('+').map((v) => v.trim()).filter(Boolean);
+  const verdict = verdicts.length === 1 ? verdicts[0] : 'several';
   const holds = row.Holds.toLowerCase().split(/[\s,;]/)[0];
   const need = (name, why) => {
     if (!row[name]) problems.push(name + ' is empty' + (why ? ': ' + why : ''));
   };
-  if (!VERDICTS.includes(verdict)) problems.push('verdict "' + row.Verdict + '" is not one of ' + VERDICTS.join(', '));
+  if (verdict === 'stopped') {
+    need('Item');
+    need('Reason', 'say what stopped the run before this row');
+    return problems;
+  }
+  if (verdict === 'several') {
+    const alone = verdicts.filter((v) => !COMBINABLE.includes(v));
+    if (alone.length) problems.push('verdict "' + row.Verdict + '" joins ' + alone.join(', ') + ', which stands alone; only ' + COMBINABLE.join(', ') + ' combine with +');
+  } else if (!VERDICTS.includes(verdict)) problems.push('verdict "' + row.Verdict + '" is not one of ' + VERDICTS.join(', '));
   if (!HOLDS.includes(holds)) problems.push('Holds must be yes, no or unknown');
   if (verdict === 'remove' && holds === 'unknown') problems.push('a removal with an unknown source is an owner question: make the verdict ask');
   need('Item');

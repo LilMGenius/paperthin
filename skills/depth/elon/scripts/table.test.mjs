@@ -80,6 +80,20 @@ test('an owner question needs its question, whatever the source holds', () => {
   assert.equal(cli(table('| audit log | the release | the owner, by name | yes | a record | none | high | ask | is a retention law behind it? |')).status, 0);
 });
 
+test('a row a mandate conflict stopped needs only its item and the reason it stopped', () => {
+  assert.equal(cli(table('| export step |  |  | unknown |  |  |  | stopped | not reached: the run stopped at the licence conflict |')).status, 0);
+  const run = cli(table('| export step |  |  | unknown |  |  |  | stopped |  |'), '--json');
+  assert.equal(run.status, 1);
+  assert.match(run.json().problems[0].message, /Reason/);
+});
+
+test('one row may carry several of simplify, accelerate and automate, never one of them with a removal', () => {
+  assert.equal(cli(table('| export step | the release | the owner, by name | yes | users get files | none | high | simplify + automate | one pass; a check runs it |')).status, 0);
+  const run = cli(table('| export step | the release | the owner, by name | yes | users get files | none | high | remove + automate | gone |'), '--json');
+  assert.equal(run.status, 1);
+  assert.match(run.json().problems[0].message, /stands alone/);
+});
+
 test('an escaped pipe stays inside its cell', () => {
   const run = cli(table('| a \\| b step | the release | the owner, by name | yes | both | none | high | keep | needed |'), '--json');
   assert.equal(run.status, 0, run.stdout);
