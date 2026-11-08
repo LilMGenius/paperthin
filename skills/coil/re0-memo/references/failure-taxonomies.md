@@ -30,4 +30,4 @@ Each source is saved beside the memo as a plain-text file headed with its URL, t
 
 ## Write
 
-The table and the rulings go into the memo under the lessons they touch. An added or merged class runs back through steps 5 and 6 before any prescription is drafted for it, since a class found here has no ladder or siblings yet.
+The table and the rulings go into the memo's field check section, each ruling also noted under the lesson it touches. A merged class widens that lesson's wording and runs back through steps 5 and 6. An added class becomes a lesson only when the cycle's records or the sibling search of step 6 hold a case of it, and then runs through steps 5 and 6 before any prescription is drafted for it; until then it stays in that section as a field candidate with its source, since every lesson traces to evidence from the cycle.
