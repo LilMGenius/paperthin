@@ -12,13 +12,14 @@ Someone who has never read this suite's catalog types `/paperthin` with what the
 
 ## Workflow
 
-1. Call the Skill tool with "re0-workflow", passing the person's request word for word as the stated intent, with any files or text they attached named after it. If they typed `/paperthin` with nothing after it, say so in the call ("no request given"); asking for the intent is the router's job.
+1. Call the Skill tool with "re0-workflow", passing the person's request word for word as the stated intent, and pass along whatever they attached (files, pasted text) the way the host passes attachments to a skill. If they typed `/paperthin` with nothing after it, say so in the call ("no request given"); asking for the intent is the router's job.
 
 ## Rules
 
 - Forward only: plan, select, order or run nothing here, and call no other skill. Everything after the hand-off is `re0-workflow`'s.
 - Never shorten, rephrase, translate or complete the request; the router reads the person's own words.
-- When `re0-workflow` is not installed, stop and say so, naming it as the skill to install. Never stand in for it with a plan of your own.
+- Whether `re0-workflow` is installed is read from the installed roster before the call, never tried as a second call; when it is missing, stop and say so, naming it as the skill to install. Never stand in for it with a plan of your own.
+- When the forward call fails, report that failure as it came back and run nothing else.
 - `re0-workflow` never routes back here, so the hand-off cannot loop.
 
 ## Verification
