@@ -1,0 +1,6 @@
+interface:
+  display_name: "paperthin"
+  short_description: "Say what you want; paperthin picks and runs the skills"
+  default_prompt: "Use $paperthin to pick and run the skills for this goal."
+policy:
+  allow_implicit_invocation: false

@@ -109,7 +109,8 @@ Wähle **einen Weg pro Agent**; wer zwei installiert, lädt jeden Skill doppelt.
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Fängt bei null an und nimmt nur die Lehren mit, die sich als wiederverwendbar erwiesen haben | ein Neustart | Modell | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Bringt dich nach einer Pause auf Stand: was auf dich wartet, was sich geändert hat und was neue Begriffe bedeuten | ein Wiedereinstieg | Modell | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Liest, wo die Arbeit steht, und nennt den einen besten nächsten Schritt statt einer Auswahlliste | der laufende cycle | Modell | ✔ |
-| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Empfiehlt für ein Ziel, welche Skills in welcher Reihenfolge laufen sollen, ohne sie zu starten | eine erklärte Absicht | Modell | ✔ |
+| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Wählt für ein Ziel, welche Skills in welcher Reihenfolge laufen, zeigt sie dir, startet sie und hält dort an, wo du gefragt bist | eine erklärte Absicht | Modell | |
+| 🚪 **[paperthin](../../skills/coil/paperthin/SKILL.md)** | Der einzige Befehl, den du dir merken musst: Sag, was du willst, und re0-workflow wählt die Skills und startet sie | eine Anfrage | Nutzer | |
 | 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | Lehrt einen Skill in drei bewerteten Stufen, jede bestanden mit Arbeit, die du selbst einreichst | eine Fertigkeit | Nutzer | |
 
 ### `mesh/`

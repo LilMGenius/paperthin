@@ -109,7 +109,8 @@
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 从零开始，只带上已经证明值得复用的经验 | 一次重启 | 模型 | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 帮你补上离开期间的进展：哪些事等着你、什么变了、新词是什么意思 | 一次回归 | 模型 | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 读出工作进展到哪一步，只给出最好的下一步，而不是一张菜单 | 当前 cycle | 模型 | ✔ |
-| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 针对一个目标，推荐该按什么顺序用哪些技能，但不替你运行 | 一个明确意图 | 模型 | ✔ |
+| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 针对一个目标，挑出该用哪些技能、按什么顺序，先给你看，再替你运行，到需要你出手的地方停下 | 一个明确意图 | 模型 | |
+| 🚪 **[paperthin](../../skills/coil/paperthin/SKILL.md)** | 只需记住这一个命令：说出你想做的事，re0-workflow 就会挑选并运行合适的技能 | 一个请求 | 用户 | |
 | 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | 分三个等级教会你一个技能，每级都凭你自己提交的成果过关 | 一项技能 | 用户 | |
 
 ### `mesh/`

@@ -109,7 +109,8 @@ Escolha **uma rota por agent**; instalar duas carrega cada skill duas vezes.
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Recomeça do zero e leva só as lições que provaram valer a reutilização | um reinicio | model | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Atualiza você depois de um tempo fora: o que espera por você, o que mudou e o que querem dizer os termos novos | uma reentrada | model | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lê em que ponto o trabalho está e indica o melhor próximo passo, um só, sem cardápio | o cycle vivo | model | ✔ |
-| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Para um objetivo, recomenda quais skills rodar e em que ordem, sem rodá-las | uma intenção declarada | model | ✔ |
+| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Para um objetivo, escolhe quais skills rodar e em que ordem, mostra a você, roda e para onde é a sua vez de agir | uma intenção declarada | model | |
+| 🚪 **[paperthin](../../skills/coil/paperthin/SKILL.md)** | O único comando para lembrar: diga o que quer e o re0-workflow escolhe e roda as skills | um pedido | user | |
 | 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | Ensina uma skill em três níveis graduados, cada um aprovado por um trabalho que você mesmo entrega | uma habilidade | user | |
 
 ### `mesh/`
