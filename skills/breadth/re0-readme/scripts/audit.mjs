@@ -69,14 +69,16 @@ function dimensions(b) {
 
 export function auditHost(surface, { strict = false } = {}) {
   const findings = [];
+  const options = [];
   const add = (id, text) => findings.push({ id, text });
+  const offer = (id, text) => options.push({ id, text });
   const opening = surface.readme.split(/\r?\n/).map(line => line.trim()).find(line => line && !line.startsWith('#') && !line.startsWith('[') && !line.startsWith('<')) || '';
   const sentence = opening.match(/^.*?[.!?](?:\s|$)/)?.[0].trim() || opening;
   if (surface.description !== sentence) add('H1', 'Review description against README opening and claims');
   if (surface.topics.some(t => !/^[a-z0-9-]+$/.test(t) || t.length > 50)) add('H2', 'Invalid topic');
   if (surface.topics.length > 20) add('H3', 'More than 20 topics');
   if (!surface.homepage) add('H4', 'Homepage missing');
-  if (!surface.customPreview) add('H5', 'Custom social preview missing');
+  if (!surface.customPreview) offer('H5', 'Optional: a custom social preview replaces the default card, which shows live stars, forks and contributors; upload one only if the image is worth more than those counts');
   const missing = COMMUNITY.filter(k => !surface.community[k]);
   if (missing.length) add('H6', 'Community profile gaps: ' + missing.join(', '));
   if (Buffer.byteLength(surface.readme) > 500 * 1024) add('H7', 'README exceeds 500 KiB');
@@ -84,7 +86,7 @@ export function auditHost(surface, { strict = false } = {}) {
     const size = dimensions(surface.image);
     if (!size || surface.image.length >= 1000000 || size[0] < 640 || size[1] < 320) add('H8', 'Social preview must be PNG, JPEG or GIF under 1 MB and at least 640x320; 1280x640 recommended');
   }
-  return { findings, ok: !strict || findings.length === 0 };
+  return { findings, options, ok: !strict || findings.length === 0 };
 }
 
 const isDir = (path) => existsSync(path) && statSync(path).isDirectory();
@@ -385,7 +387,7 @@ export function main(argv) {
     }
     try {
       const result = auditHost(readHost(values.host), { strict: values.strict });
-      console.log(values.json ? JSON.stringify(result) : result.findings.map(f => f.id + ' ' + f.text).join('\n') || 'HOST GREEN');
+      console.log(values.json ? JSON.stringify(result) : [...result.findings.map(f => f.id + ' ' + f.text), ...result.options.map(o => 'option ' + o.id + ' ' + o.text)].join('\n') || 'HOST GREEN');
       return result.ok ? 0 : 1;
     } catch (error) {
       if (!(error instanceof InputError)) throw error;
