@@ -106,7 +106,8 @@ Pick **one route per agent**; installing two loads every skill twice.
 | 🧱 **[re0-work](./skills/coil/re0-work/SKILL.md)** | Starts over from scratch, keeping only the lessons that proved worth reusing | one restart | model | |
 | 🗺️ **[catchup](./skills/coil/catchup/SKILL.md)** | Catches you up after time away: what needs you, what changed, and what new terms mean | one re-entry | model | ✔ |
 | 🎯 **[nba](./skills/coil/nba/SKILL.md)** | Reads where the work stands and names the one best next step, not a menu | the live cycle | model | ✔ |
-| 🪜 **[re0-workflow](./skills/coil/re0-workflow/SKILL.md)** | For one goal, recommends which skills to run in which order, without running them | one stated intent | model | ✔ |
+| 🪜 **[re0-workflow](./skills/coil/re0-workflow/SKILL.md)** | For one goal, picks which skills to run in which order, shows you, then runs them and stops where you must act | one stated intent | model | |
+| 🚪 **[paperthin](./skills/coil/paperthin/SKILL.md)** | The one command to remember: say what you want, and re0-workflow picks and runs the skills | one request | user | |
 | 🎓 **[re0-tutorial](./skills/coil/re0-tutorial/SKILL.md)** | Teaches one skill in three graded levels, each passed on work you submit yourself | one skill | user | |
 
 ### `mesh/`

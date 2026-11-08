@@ -1,4 +1,4 @@
 interface:
   display_name: "re0-workflow"
-  short_description: "Recommend an ordered graph of skills for an intent"
-  default_prompt: "Use $re0-workflow to recommend the skill order for this intent."
+  short_description: "Pick, show and run the skill order for one goal"
+  default_prompt: "Use $re0-workflow to pick, show and run the skills for this goal."

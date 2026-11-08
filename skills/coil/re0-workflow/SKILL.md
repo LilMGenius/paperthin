@@ -1,46 +1,50 @@
 ---
 name: re0-workflow
-description: "Read one stated intent and recommend an ordered graph of the suite's skills with the authority of each step typed, never invoking them."
+description: "Read one stated intent, pick and order the installed skills that serve it, show that order, then run the steps the session may run and stop where a person must act. Use when someone states a goal but does not know which skills serve it or in what order, asks which skills to use, or wants a job that needs several skills run end to end. Typing /paperthin lands here."
 ---
 
-Turn one stated intent into an ordered recommendation with explicit authority at every step.
+Turn one stated intent into an ordered skill graph, show it, and run the steps the session may run.
 
 ## Goal
 
-Return the smallest ordered graph that serves the stated intent using the installed skill roster. Show what each step would produce, who could act, and when to stop; perform none of the steps.
+Someone who does not know this suite's catalog should be able to say what they want and see it done. Select and order the installed skills that serve the human's stated intent, show the order before anything runs, run each step the session holds authority for, and stop at the first step that needs the human, with a report of what ran.
 
 ## Workflow
 
-1. Read the user's stated intent and the installed roster from the host's catalog or available skill directories. Read candidate skills' contracts and invocation lanes; `disable-model-invocation: true` means user-only, otherwise the default is model-invoked. If given only live state, request a stated intent rather than inventing one.
-2. Select only skills whose triggers and outputs serve that intent. If an installed frozen pipeline already serves the same intent, recommend it as one node and never expand its members. If no suite skill fits, return zero steps and say so. If one skill suffices, return exactly one node and say ordering is trivial.
-3. Establish dependencies from the selected contracts and order prerequisites before their consumers. Keep relevant optional steps visible when their preconditions fail. Detect cycles before presenting an order; return `reject` with the complete named cycle, such as `skill-a -> skill-b -> skill-a`, instead of a partial linearization.
-4. Give every step an identifier, target skill, predecessor identifiers, exactly one type below, firing precondition, expected output, skippable condition, and cost owner. For a user-only target represented by `recommend` or `user-handoff`, include the exact invocation string the human types, using the host's supported invocation syntax and installed target name. Every handoff also states what to bring back. If that syntax is unavailable, request it rather than fabricate a command.
-5. Return the ordered graph, explicit skips with their failed preconditions, and one observable stop condition for the whole order. Briefly explain each target's position. Present the steps as proposals, never execution results, and stop.
+1. Read the human's stated intent and the installed roster from the host catalog or skill directories. If given only live state without a stated intent, ask for the intent rather than infer it. Read each candidate's contract and invocation lane: `disable-model-invocation: true` means user-only; otherwise it is model-invoked.
+2. Select only skills whose triggers and outputs serve the intent. A frozen pipeline (a skill whose own contract runs a fixed sequence of other skills) that already serves the intent is one node, never expanded. If none fits, show zero steps and say so; if one suffices, use exactly one node and say ordering is trivial. A skill the intent or a selected contract calls for that the roster lacks is a missing optional skill: it stays as a `skip` step. Do not pad the graph, require an orientation skill, invent a pipeline skill, or substitute another skill for a missing one.
+3. Order the selected steps by their contracts' prerequisites. Detect cycles before showing the graph; if one exists, return a `reject` naming the whole cycle, such as `skill-a -> skill-b -> skill-a`, and show no partial order. Give the graph one observable stop condition; for zero steps or a `reject`, the stop condition is that report itself.
+4. Give every step an identifier, a target (the skill that acts, or the question when the step is a human decision no skill makes), predecessor identifiers, exactly one type, firing precondition, expected output limited to the target's own contract, skippable condition, and cost owner. Assign its type from this closed set:
 
-| Type | Meaning and precondition | Cost owner |
-|---|---|---|
-| `recommend` | Nobody acts in this pass; name this skill at this position for this reason. Naming it needs no execution authority. | This advisory pass. |
-| `invoke-model-skill` | Proposed later agent invocation only when the target is model-invoked, installed, and the session already holds authority for the work; expected output is limited to the target's own contract. The router never performs it. | The later invoking session's run budget. |
-| `user-handoff` | The target is user-only, or a human decision or act is needed; state that it waits on the human, the exact invocation, and what to bring back. | The human's time, at their discretion. |
-| `skip` | Terminal: name the failed precondition as condition not applicable, skill not installed, or no authority. | None. |
-| `reject` | Terminal: the request cannot be served as a graph; state why and name the cycle when cyclic. | None. |
+   | Type | Meaning and precondition | Cost owner |
+   | --- | --- | --- |
+   | `invoke-model-skill` | The router runs it: the target is installed and model-invoked, the session already holds authority for the work, and the step is neither destructive nor irreversible. | This run's budget. |
+   | `user-handoff` | The human acts: the target is user-only, the step is destructive or irreversible, or a human decision is needed. | The human's time, at their discretion. |
+   | `skip` | The step does not run, and the graph goes on without it: its precondition failed, named as condition not applicable, skill not installed, or no authority. A step that depends on it is skipped too, with the same reason. | None. |
+   | `reject` | The whole request ends here: it cannot be served as a graph; name the whole cycle when cyclic. | None. |
+
+5. For each `user-handoff`, say what the human does and what result to bring back: for a skill, the exact invocation they type, in the host's syntax with the installed name (a destructive step whose skill is model-invoked is still typed by the human); for a decision, the question and the answers that change the next step. If the host's invocation syntax is unknown, ask instead of inventing it.
+6. Before any step runs, show the whole typed graph in order, every field of every step, why each sits where it does, and the stop condition. If the human asked only for the order, stop here. If any step to run, before or after a handoff, writes a file, record or artifact, ask once for approval of the shown plan; that approval covers every write the plan shows, across a resume, until the plan changes. If every step to run is read-only, run right after showing it. If the human edits the plan, order it again, check for cycles again, and show it again before running.
+7. Run in order. For each `invoke-model-skill` step, call the Skill tool with that step's target, once for that step, passing the intent and its predecessors' outputs. Before starting the next step, check its expected output: the file or record exists, or the skill's own report states the result. If a step fails, stop there; if its output breaks a later step's precondition, stop there or mark that later step `skip` with the reason. Never retry by swapping in another skill.
+8. Stop at the first `user-handoff`. The stop report is the state a resume reads: the graph as shown, whether approval was given, every step run with its result, the handoff and what to bring back, and the steps still waiting. When the human returns with that result in the same conversation, a new invocation reads that report, takes the result as the handoff step's output and runs on from the next step under the same approval; if the report is out of reach, it starts again from step 1.
+9. End with the graph as shown, each step's outcome (ran with its result, skipped with its reason, handed off, or waiting behind a stop), and whether the stop condition was reached.
 
 ## Rules
 
-- Read-only and advisory: never invoke a target, execute the graph, modify the intended artifact, or write a record. A `recommend` never upgrades itself into execution; promotion requires a separate human act.
-- User-only targets remain eligible for coverage as `recommend` or `user-handoff`, never `invoke-model-skill`. Do not drop them to make an order automatically runnable. For missing authority, explicitly skip or hand off for the required human act.
-- Missing optional skills appear as `skip` with `skill not installed`; unmet conditions and absent authority also remain explicit. Never silently substitute another skill as equivalent, and never count a skip as success.
-- `nba` picks one action from live state; `re0-workflow` orders skills for one intent.
-- `sip` owns a fixed conditional graph triggered by newly created or changed output. This router recommends an order for a stated intent. Recommend an existing matching pipeline as one node instead of reproducing its graph.
-- Do not pad a single-skill intent, infer an intent from cycle state, require an orientation skill, or invent new pipeline skills. Call count and fan-out belong to the workflow; capability and effort advice do not confer execution authority.
+- Never select `re0-workflow` itself or its alias `paperthin` as a step; the alias only forwards here, so either would loop.
+- The router writes nothing of its own; every write comes from a run step's own skill under that skill's contract.
+- Destructive or irreversible means deleting, force-pushing, publishing, tagging, sending a message to someone, or spending money. Such a step is a `user-handoff` even when its skill is model-invoked.
+- Never run a user-only skill, and never drop one to make the order runnable; it stays in the graph as a `user-handoff`. A step the router cannot run is a `user-handoff` or a `skip`, never a silent recommendation, and a skip never counts as success.
+- `nba` picks one next action from live state and runs nothing; this skill orders and runs a graph for one stated intent.
+- `sip` owns a fixed conditional graph for newly changed output; select it as one node when it serves the intent, never reproduce its members.
 
 ## Verification
 
-Before returning the recommendation:
+Before running the first step, and again before the final report:
 
-1. Every step has exactly one typed edge or terminal, a named cost owner, target, dependencies, firing precondition, expected output, and skippable condition; the whole graph has one observable stop condition.
-2. Every user-only target carries `recommend` or `user-handoff` with the exact human invocation, never `invoke-model-skill`; every handoff says what to bring back.
-3. A missing optional skill appears as `skip` naming `skill not installed`; other skips name their failed precondition and make no success claim.
-4. A cycle is rejected with `reject` and the cycle named, never returned as an executable order.
-5. A single-skill intent has one node and explicitly trivial ordering; no matching skill produces zero steps. A matching frozen pipeline remains one unexpanded node.
-6. No target was invoked, no artifact modified, and no record written by this router.
+1. Every selected target's trigger, output, installation, invocation lane and authority were read from its own contract.
+2. Every step carries all its fields and exactly one type; the graph has one observable stop condition, and a cycle was rejected with the whole cycle named.
+3. Every user-only, destructive or decision step is a `user-handoff` with the exact invocation and what to bring back, never `invoke-model-skill`.
+4. The graph was shown before anything ran, and approval was asked once when a step to run writes.
+5. Each run step's expected output was checked before the next step started, and the run stopped at the first `user-handoff`.
+6. The report gives each step's outcome and whether the stop condition was reached.

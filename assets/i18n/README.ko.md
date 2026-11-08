@@ -109,7 +109,8 @@
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 처음부터 다시 시작하되, 다시 쓸 가치가 증명된 교훈만 가져갑니다 | 재시작 하나 | 모델 | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 자리를 비운 사이의 일을 따라잡게 해 줍니다. 내가 할 일, 바뀐 것, 새로 생긴 용어의 뜻을 알려 줍니다 | 재진입 하나 | 모델 | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 일이 어디까지 왔는지 읽고, 선택지 목록 대신 가장 좋은 다음 한 걸음을 알려 줍니다 | 현재 사이클 | 모델 | ✔ |
-| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 목표 하나에 맞춰 어떤 스킬을 어떤 순서로 쓸지 추천합니다. 직접 실행하지는 않습니다 | 명시된 의도 하나 | 모델 | ✔ |
+| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 목표 하나에 맞춰 어떤 스킬을 어떤 순서로 쓸지 골라 보여 준 뒤 그대로 실행하고, 내가 나서야 할 곳에서 멈춥니다 | 명시된 의도 하나 | 모델 | |
+| 🚪 **[paperthin](../../skills/coil/paperthin/SKILL.md)** | 기억할 명령은 이것 하나뿐입니다. 원하는 것을 말하면 re0-workflow가 스킬을 골라 실행합니다 | 요청 하나 | 사용자 | |
 | 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | 스킬 하나를 세 단계로 가르치고, 각 단계는 내가 직접 낸 결과물로 통과합니다 | 스킬 하나 | 사용자 | |
 
 ### `mesh/`

@@ -109,7 +109,8 @@
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | 最初からやり直し、再利用する価値が確かめられた教訓だけを持ち越します | やり直し一つ | モデル | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | 離れていた間のことに追いつかせます。あなたの出番、変わったこと、新しい言葉の意味を伝えます | re-entry 一つ | モデル | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | 作業の現状を読み、選択肢の一覧ではなく、いちばんよい次の一手を一つだけ示します | 現在の cycle | モデル | ✔ |
-| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 一つの目標に向けて、どのスキルをどの順で使うかを勧めます。実行はしません | 明示された意図一つ | モデル | ✔ |
+| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | 一つの目標に向けて使うスキルと順番を選んで見せ、そのまま実行し、あなたの出番が来たところで止まります | 明示された意図一つ | モデル | |
+| 🚪 **[paperthin](../../skills/coil/paperthin/SKILL.md)** | 覚えるのはこのコマンド一つだけ。やりたいことを言えば、re0-workflow がスキルを選んで実行します | 依頼一つ | ユーザー | |
 | 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | スキル一つを三段階で教え、各段階はあなた自身が出した成果物で合格になります | スキル一つ | ユーザー | |
 
 ### `mesh/`

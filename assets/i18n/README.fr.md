@@ -109,7 +109,8 @@ Choisissez **une seule voie par agent** ; en installer deux charge chaque skill 
 | 🧱 **[re0-work](../../skills/coil/re0-work/SKILL.md)** | Repart de zéro en n'emportant que les leçons qui ont prouvé leur valeur | un redémarrage | modèle | |
 | 🗺️ **[catchup](../../skills/coil/catchup/SKILL.md)** | Vous remet à niveau après une absence : ce qui vous attend, ce qui a changé et ce que veulent dire les nouveaux termes | une réentrée | modèle | ✔ |
 | 🎯 **[nba](../../skills/coil/nba/SKILL.md)** | Lit où en est le travail et désigne la meilleure étape suivante, une seule, pas un menu | le cycle en cours | modèle | ✔ |
-| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Pour un objectif, recommande quels skills lancer et dans quel ordre, sans les lancer | une intention exprimée | modèle | ✔ |
+| 🪜 **[re0-workflow](../../skills/coil/re0-workflow/SKILL.md)** | Pour un objectif, choisit quels skills lancer et dans quel ordre, vous le montre, les lance et s'arrête là où vous devez agir | une intention exprimée | modèle | |
+| 🚪 **[paperthin](../../skills/coil/paperthin/SKILL.md)** | La seule commande à retenir : dites ce que vous voulez, et re0-workflow choisit et lance les skills | une demande | utilisateur | |
 | 🎓 **[re0-tutorial](../../skills/coil/re0-tutorial/SKILL.md)** | Enseigne un skill en trois niveaux gradués, chacun validé par un travail que vous rendez vous-même | une compétence | utilisateur | |
 
 ### `mesh/`
