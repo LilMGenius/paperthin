@@ -162,3 +162,18 @@ test('mobile apps need a phone image in the README', () => {
   const present = audit(repo({ ...files, 'README.md': '![Desktop](desktop.png)\n![Phone screenshot](phone.png)\n' }), { kind: 'app' });
   assert.equal(present.ok, true);
 });
+
+
+test('viewport, width sweep and store configuration each signal mobile support', () => {
+  for (const [path, content] of [
+    ['index.html', '<meta name="viewport" content="width=device-width">'],
+    ['scripts/sweep.mjs', 'const viewportWidth = 320;'],
+    ['capacitor.config.ts', 'export default {};'],
+  ]) {
+    const files = { 'AGENTS.md': '# Agents\n', 'README.md': '![Desktop](desktop.png)\n', [path]: content };
+    const result = audit(repo(files), { kind: 'app' });
+    assert.equal(result.ok, false, path);
+    assert.ok(result.readme.hits.some(hit => hit.id === 'R12'), path);
+    assert.equal(audit(repo({ ...files, 'README.md': '![Phone](phone.png)\n' }), { kind: 'app' }).ok, true, path);
+  }
+});
