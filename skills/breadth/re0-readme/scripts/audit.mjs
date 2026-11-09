@@ -72,7 +72,9 @@ export function auditHost(surface, { strict = false } = {}) {
   const options = [];
   const add = (id, text) => findings.push({ id, text });
   const offer = (id, text) => options.push({ id, text });
-  const opening = surface.readme.split(/\r?\n/).map(line => line.trim()).find(line => line && !line.startsWith('#') && !line.startsWith('[') && !line.startsWith('<')) || '';
+  // The opening is compared as GitHub renders it: a <br> is a line break and emphasis markers are not text.
+  const rendered = (line) => line.replace(/<br\s*\/?>/gi, ' ').replace(/(\*\*|__|\*|_)(?=\S)([^*_]*?\S)\1/g, '$2');
+  const opening = rendered(surface.readme.split(/\r?\n/).map(line => line.trim()).find(line => line && !line.startsWith('#') && !line.startsWith('[') && !line.startsWith('<')) || '');
   // A description of several sentences is compared with as many opening sentences.
   const sentences = (text) => text.match(/[^.!?]*[.!?]+(?=\s|$)/g)?.map(s => s.trim()) || [text];
   const count = sentences(surface.description || '').length;
