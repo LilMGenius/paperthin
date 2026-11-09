@@ -77,7 +77,7 @@ function check(root) {
 
 // Translations translate the lane names, so each lane's word is the one most of its rows carry, and a row off its lane's word fails.
 function checkInvoker(readme, rows, invocation, problems) {
-  const known = rows.filter((row) => invocation.has(row.name)).map((row) => ({ ...row, cell: row.row.split('|')[4].trim(), lane: invocation.get(row.name) ? 'user' : 'model' }));
+  const known = rows.filter((row) => invocation.has(row.name)).map((row) => ({ ...row, cell: row.row.split('|')[3].trim(), lane: invocation.get(row.name) ? 'user' : 'model' }));
   const word = {};
   for (const lane of ['user', 'model']) {
     const counts = new Map();

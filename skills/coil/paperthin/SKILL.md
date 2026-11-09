@@ -1,7 +1,7 @@
 ---
 name: paperthin
 disable-model-invocation: true
-description: "The one command to remember: say what you want done and paperthin hands it to re0-workflow, which picks the skills, shows you their order and runs them. User-invoked on purpose: it is a door for a person who does not know the catalog, and the model already reaches re0-workflow itself."
+description: "The one command to remember: type /paperthin, then your dream. It hands the request to re0-workflow, which runs the rest."
 ---
 
 Hand the person's request to `re0-workflow`, unchanged, and add nothing of its own.

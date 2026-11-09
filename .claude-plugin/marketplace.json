@@ -5,13 +5,13 @@
     "url": "https://github.com/LilMGenius"
   },
   "metadata": {
-    "description": "Low-level agentic design patterns. Turning old engineering wisdom into reflexes your agent reaches for on its own, on any agent."
+    "description": "The skillbook for recursive self-improvement (RSI). NVIDIA's latest proof, unpacked with timeless engineering. Distilled from the OpenAI harness engineering hackathon winner's zero-touch method."
   },
   "plugins": [
     {
       "name": "paperthin",
       "source": "./",
-      "description": "Low-level agentic design patterns. Turning old engineering wisdom into reflexes your agent reaches for on its own, on any agent."
+      "description": "The skillbook for recursive self-improvement (RSI). NVIDIA's latest proof, unpacked with timeless engineering. Distilled from the OpenAI harness engineering hackathon winner's zero-touch method."
     }
   ]
 }

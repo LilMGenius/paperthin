@@ -10,23 +10,11 @@ Claude Code and Codex install from this repo's own marketplace, `.claude-plugin/
 
 | Agent         | Route                  | Updates itself?                                 |
 | ------------- | ---------------------- | ----------------------------------------------- |
-| Claude Code   | `@paperthin` marketplace | Yes, after a one-time auto-update opt-in        |
 | Codex         | `@paperthin` marketplace | Yes, at startup, by default                     |
+| Claude Code   | `@paperthin` marketplace | Yes, after a one-time auto-update opt-in        |
 | Everyone else | skills.sh              | Yes, through the daily job its block installs   |
 
 Sources (2026-11-01): Claude Code [discover-plugins](https://code.claude.com/docs/en/discover-plugins#turn-auto-update-on-or-off-for-a-marketplace), which leaves auto-update off for every marketplace Anthropic does not ship.
-
-## Claude Code
-
-<canonical-block name="claude-code">
-
-```bash
-claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
-```
-
-Then, once, in Claude Code, run `/plugin`, open **Marketplaces**, select `paperthin` and choose **Enable auto-update**.
-
-</canonical-block>
 
 ## Codex
 
@@ -37,6 +25,18 @@ codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@
 ```
 
 Updates itself at startup.
+
+</canonical-block>
+
+## Claude Code
+
+<canonical-block name="claude-code">
+
+```bash
+claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
+```
+
+Then, once, in Claude Code, run `/plugin`, open **Marketplaces**, select `paperthin` and choose **Enable auto-update**.
 
 </canonical-block>
 
@@ -73,4 +73,4 @@ An agent asked to "install https://github.com/LilMGenius/paperthin" or to "set t
 1. Name the host it is running in: Claude Code, Codex, or another agent.
 2. Check what is already installed. An older install wired a session-start notice: `~/.re0/` exists, or a `session-check.cjs` line sits in `~/.claude/settings.json`, `~/.codex/config.toml`, `~/.codex/hooks.json` or OpenCode's `opencode.json`. If one does, install nothing, tell the user to open a fresh session and run `/re0-upgrade`, which moves every agent onto its route and removes the wiring, and stop. Without that wiring, a paperthin skill under `~/.agents/skills` is a current skills.sh install: on skills.sh hosts and on Codex, which already reads that folder, leave it and stop; on Claude Code, ask the user whether to keep Claude Code on that install or run `/re0-upgrade` to move it, rather than adding a second copy.
 3. Run that host's commands above in the user's shell. On skills.sh, `node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" status` must then report the job registered.
-4. Tell the user what is left for them: on Claude Code, turning on auto-update in `/plugin` as above, which only the user can do; on every host, starting a fresh session (or `/reload-plugins` in Claude Code), which is what loads the skills.
+4. Tell the user what is left for them: on Claude Code, turning on auto-update in `/plugin` as above, which only the user can do; on every host, starting a fresh session (or `/reload-plugins` in Claude Code), which is what loads the skills. Then the first thing to type is `/paperthin` and their dream.
