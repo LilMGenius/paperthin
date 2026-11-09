@@ -148,6 +148,12 @@ test('a description of several sentences is read against as many opening sentenc
   s.readme = '# Tool\n\nA useful tool. It writes files. Built by one person.\n';
   assert.ok(auditHost(s).findings.some(f => f.id === 'H1'));
 });
+test('the opening is read as it renders: emphasis and line breaks do not count as a different description', () => {
+  const s = goodHost(); s.description = 'A useful tool (RSI). Built by one person.'; s.readme = '# Tool\n\nA useful tool (**RSI**).<br>Built by *one* person.\n';
+  assert.ok(!auditHost(s).findings.some(f => f.id === 'H1'));
+  s.readme = '# Tool\n\nA useful tool (**RSI**).<br>Built by two people.\n';
+  assert.ok(auditHost(s).findings.some(f => f.id === 'H1'));
+});
 test('a trade-off is offered as an option and never fails, even under strict', () => {
   const s = goodHost(); s.customPreview = false;
   const result = auditHost(s, { strict: true });
