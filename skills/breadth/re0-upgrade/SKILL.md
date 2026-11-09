@@ -36,7 +36,7 @@ This section owns every rename and retirement, in release order; a future one ap
 
 Install every skill listed here in the chosen scope, except any the user declines at confirmation. This roster is also how the list output and the installed directories tell current names from unknown ones.
 
-`re0`, `readback`, `aim`, `modelchk`, `elon`, `scopechk`, `hate`, `macrothink`, `crossthink`, `re0-decide`, `whychk`, `autobahn`, `re0-style`, `detool`, `debloat`, `re0-order`, `dedash`, `dedot`, `shower`, `factchk`, `mandela`, `demock`, `deid`, `sip`, `re0-git`, `re0-squash`, `re0-release`, `re0-merge`, `ssotize`, `ssotize-local`, `re0-readme`, `re0-import`, `re0-upgrade`, `re0-plan`, `re0-loop`, `re0-watch`, `re0-memo`, `backprop`, `re0-work`, `catchup`, `nba`, `re0-workflow`, `paperthin`, `re0-tutorial`, `multithink`
+`re0`, `debloat`, `re0-order`, `detool`, `re0-style`, `dedash`, `dedot`, `readback`, `aim`, `modelchk`, `elon`, `scopechk`, `hate`, `macrothink`, `crossthink`, `re0-decide`, `whychk`, `autobahn`, `sip`, `shower`, `factchk`, `mandela`, `demock`, `deid`, `re0-git`, `re0-release`, `re0-merge`, `re0-squash`, `ssotize`, `ssotize-local`, `re0-readme`, `re0-import`, `re0-upgrade`, `paperthin`, `re0-workflow`, `re0-memo`, `backprop`, `re0-work`, `catchup`, `nba`, `re0-plan`, `re0-loop`, `re0-watch`, `re0-tutorial`, `multithink`
 
 ## Workflow
 

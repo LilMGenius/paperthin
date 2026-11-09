@@ -9,9 +9,9 @@ const INSTALL = "npx skills@latest add LilMGenius/paperthin --global --agent '*'
 const skill = (name, description, extra = '') => '---\nname: ' + name + '\ndescription: "' + description + '"\n' + extra + '---\n\nOne line.\n\n## Goal\n\n## Workflow\n\n## Rules\n\n## Verification\n';
 const readme = (switcher, up, model, user, what) => [
   '# Paperthin', '', '<sub>Read in: ' + switcher + '</sub>', '', '## Quickstart', '', '\x60\x60\x60bash', INSTALL, '\x60\x60\x60', '', 'Then run \x60/re0-upgrade\x60.', '',
-  '## The Index', '', '| Skill | What | Scope | Invoker | Read-only |', '|---|---|---|---|---|',
-  '| **[foo](' + up + 'skills/depth/foo/SKILL.md)** | ' + what[0] + ' | one | ' + model + ' | |',
-  '| **[re0-upgrade](' + up + 'skills/breadth/re0-upgrade/SKILL.md)** | ' + what[1] + ' | all | ' + user + ' | |', '',
+  '## The Index', '', '| Skill | What | Invoker | Read-only |', '|---|---|---|---|',
+  '| **[foo](' + up + 'skills/depth/foo/SKILL.md)** | ' + what[0] + ' | ' + model + ' | |',
+  '| **[re0-upgrade](' + up + 'skills/breadth/re0-upgrade/SKILL.md)** | ' + what[1] + ' | ' + user + ' | |', '',
 ].join('\n');
 
 const BASE = {
