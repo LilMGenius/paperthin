@@ -14,8 +14,9 @@ A listing carries meaning when related items sit together along one clear axis; 
 1. Pin the listing and its items: the ordered set in focus, inside the scope the human gave.
 2. Name the one principle that makes the order most meaningful, from workflow or lifecycle sequence, dependency, grouping by kind, severity, frequency, alphabetical. If a latent order already exists, surface it and complete it instead of imposing a new one. When it is unclear whether the current order is deliberate, surface that call to the human and let them decide; move nothing until they do.
 3. Put kin next to each other, then sequence those clusters by that one principle.
-4. Move items into the new order in place. Reword nothing; add nothing; remove nothing.
-5. Apply the identical order everywhere the set is mirrored, translated copies and second surfaces included. To find the mirrors, search the repository for two or three of the set's items, by identifier where items have one and otherwise by a distinctive phrase, and for files that call themselves copies of this one, such as translations. Every hit holding the same set is a mirror and part of the listing the human named.
+4. When the principle is a measured count (how often each item is used, how often it is searched), read each count from the record the listing serves and use it as a starting order, never as the sort key itself. Lead with the item the others are reached through, keep kin together even when their counts differ, let the reading or working order a newcomer follows decide the rest, and let the count settle only what that order leaves open. Name each place the result departs from the count and why.
+5. Move items into the new order in place. Reword nothing; add nothing; remove nothing.
+6. Apply the identical order everywhere the set is mirrored, translated copies and second surfaces included. To find the mirrors, search the repository for two or three of the set's items, by identifier where items have one and otherwise by a distinctive phrase, and for files that call themselves copies of this one, such as translations. Every hit holding the same set is a mirror and part of the listing the human named.
 
 ## Rules
 
