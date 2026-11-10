@@ -121,6 +121,8 @@ Pick **one route per agent**; installing two loads every skill twice.
 
 *More on invocation: [.agents/invocation.md](./.agents/invocation.md)*
 
+**What leaves your machine:** the skills are plain Markdown and send nothing on their own. Three of them ship scripts that reach GitHub when the skill runs them: `re0-upgrade` reads paperthin's own releases from api.github.com and raw.githubusercontent.com, and its optional daily job runs `npx skills@latest` to update a skills.sh install; `re0-readme`'s audit and `re0-watch`'s goal check read a repository you name through your own `gh` login. No hook, no MCP server, no telemetry.
+
 ## The Problem
 
 **Most agent skills are slop.**
