@@ -67,7 +67,7 @@ export function openaiFiles(src) {
     interface: {
       displayName: "Paperthin",
       shortDescription: "Agentic design patterns",
-      longDescription: manifest.description + "\n\n" + manifest.skills.length + " small skills that clean, check, plan and loop agent work: rewrite a drifted artifact into a clean v0, question requirements before effort goes in, cold-read output from a fresh context, fact-check claims, consolidate scattered facts into one source, and run build, QA and lessons cycles. Type /paperthin, then your goal, and it picks and runs the skills for it. Skills only: no MCP server, no hooks, no network calls of its own.",
+      longDescription: manifest.description + "\n\n" + manifest.skills.length + " small skills that clean, check, plan and loop agent work: rewrite a drifted artifact into a clean v0, question requirements before effort goes in, cold-read output from a fresh context, fact-check claims, consolidate scattered facts into one source, and run build, QA and lessons cycles. Type /paperthin, then your goal, and it picks and runs the skills for it. Skills only: no MCP server, no hooks, no telemetry. Three skills ship scripts that read GitHub when run: release checks, an optional update job, and a repository audit through your own gh login.",
       developerName: manifest.author.name,
       category: "Developer Tools",
       capabilities: ["Interactive", "Write"],
