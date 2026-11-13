@@ -43,7 +43,7 @@
 
 **以前に入れていたら？** 新しいセッションで `/re0-upgrade` を一度実行してください。
 
-**迷ったら？** agent に [`install https://github.com/LilMGenius/paperthin`](../../.agents/install-block.md#handed-only-this-repository) と伝えてください。Web のチャットには [llms-full.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt) を渡します。
+**迷ったら？** agent に [`install https://github.com/LilMGenius/paperthin`](../../.agents/install-block.md#handed-only-this-repository) と伝えてください。Web のチャットには [llms.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms.txt) を渡します。
 
 <a id="the-map"></a>
 ## マップ

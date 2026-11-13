@@ -43,7 +43,7 @@ Elige **una sola ruta por agent**; si instalas dos, cada skill se carga dos vece
 
 **¿Ya lo tenías instalado?** Ejecuta `/re0-upgrade` una vez en una sesión nueva.
 
-**¿No estás seguro?** Dile a tu agent [`install https://github.com/LilMGenius/paperthin`](../../.agents/install-block.md#handed-only-this-repository). A un chat web, dale [llms-full.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt).
+**¿No estás seguro?** Dile a tu agent [`install https://github.com/LilMGenius/paperthin`](../../.agents/install-block.md#handed-only-this-repository). A un chat web, dale [llms.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms.txt).
 
 <a id="the-map"></a>
 ## El mapa

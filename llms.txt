@@ -2,7 +2,7 @@
 
 > The skillbook for recursive self-improvement (RSI). NVIDIA's latest proof, unpacked with timeless engineering. Distilled from the OpenAI harness engineering hackathon winner's zero-touch method.
 
-A tool reading this repository over the web needs only [llms-full.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt): the README and every skill in one file, with every link absolute. Each file's own address follows.
+Every file below is at its absolute raw address, so a tool reading this repository over the web fetches the README or any skill directly.
 
 ## Start here
 
