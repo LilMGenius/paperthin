@@ -5,32 +5,24 @@ const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const { test } = require('node:test');
 const { fixture } = require('./fixture.cjs');
-const { absoluteLinks, BASE_URL, check } = require('./llms.cjs');
+const { BASE_URL, check } = require('./llms.cjs');
 
-const TICK = '`';
 const gate = path.join(__dirname, 'llms.cjs');
 const run = (root, ...args) => spawnSync(process.execPath, [gate, '--root', root, ...args], { encoding: 'utf8' });
 
-test('relative links become absolute raw URLs with anchors kept, while code spans, fences and absolute links stay', () => {
-  const text = ['[a](../sip/SKILL.md#goal) [b](https://x.dev) [c](#here) ' + TICK + '[d](x.md)' + TICK, TICK.repeat(3), '[e](x.md)', TICK.repeat(3)].join('\n');
-  assert.deepEqual(absoluteLinks(text, 'skills/depth/re0/SKILL.md').split('\n'), [
-    '[a](' + BASE_URL + 'skills/depth/sip/SKILL.md#goal) [b](https://x.dev) [c](#here) ' + TICK + '[d](x.md)' + TICK,
-    TICK.repeat(3),
-    '[e](x.md)',
-    TICK.repeat(3),
-  ]);
-});
-
-test('the generated files carry every manifest skill, and a skill edited afterwards makes llms-full.txt stale', (t) => {
+test('llms.txt lists every manifest skill at its raw address, and a description edited afterwards makes it stale', (t) => {
   const root = fixture(t);
   assert.equal(run(root).status, 0);
   assert.deepEqual(check(root), []);
   const manifest = JSON.parse(fs.readFileSync(path.join(root, '.claude-plugin', 'plugin.json'), 'utf8'));
-  const carried = fs.readFileSync(path.join(root, 'llms-full.txt'), 'utf8').split('\n').filter((l) => l.startsWith('--- FILE: ')).map((l) => l.split(' ')[2]);
-  assert.deepEqual(carried, ['README.md', ...manifest.skills.map((d) => d.replace(/^\.\//, '') + '/SKILL.md')]);
-  fs.appendFileSync(path.join(root, carried[1]), '\nOne more line.\n');
+  const listed = fs.readFileSync(path.join(root, 'llms.txt'), 'utf8').split('\n').filter((l) => l.startsWith('- [')).map((l) => /^- \[([^\]]+)\]\(([^)]+)\)/.exec(l));
+  const files = ['README.md', ...manifest.skills.map((d) => d.replace(/^\.\//, '') + '/SKILL.md')];
+  assert.deepEqual(listed.map((m) => m[1]), files);
+  assert.deepEqual(listed.map((m) => m[2]), files.map((f) => BASE_URL + f));
+  const skill = path.join(root, files[1]);
+  fs.writeFileSync(skill, fs.readFileSync(skill, 'utf8').replace(/^description: .*$/m, 'description: "Something else entirely"'));
   const [found] = check(root);
-  assert.equal(found.file, 'llms-full.txt');
+  assert.equal(found.file, 'llms.txt');
   assert.match(found.message, /differs from what node scripts\/gates\/llms\.cjs builds/);
 });
 

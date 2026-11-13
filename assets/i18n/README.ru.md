@@ -43,7 +43,7 @@
 
 **Уже ставили раньше?** Запустите `/re0-upgrade` один раз в новой сессии.
 
-**Не уверены?** Скажите агенту [`install https://github.com/LilMGenius/paperthin`](../../.agents/install-block.md#handed-only-this-repository). Веб-чату дайте [llms-full.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt).
+**Не уверены?** Скажите агенту [`install https://github.com/LilMGenius/paperthin`](../../.agents/install-block.md#handed-only-this-repository). Веб-чату дайте [llms.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms.txt).
 
 <a id="the-map"></a>
 ## Карта

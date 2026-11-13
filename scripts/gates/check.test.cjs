@@ -14,7 +14,7 @@ function gate(t, files) {
   const classifier = path.join('skills', 'depth', 'dedash', 'scripts', 'find.mjs');
   fs.mkdirSync(path.dirname(path.join(root, classifier)), { recursive: true });
   fs.copyFileSync(path.join(__dirname, '..', '..', classifier), path.join(root, classifier));
-  // llms.txt and llms-full.txt are generated from the catalog, so a fixture writes its own before the gate runs.
+  // llms.txt is generated from the catalog, so a fixture writes its own before the gate runs.
   // The copied gates sit in a temp folder with no node_modules above it, so they resolve this repository's dependencies by NODE_PATH.
   const env = { ...process.env, GITHUB_ACTIONS: '', NODE_PATH: path.join(__dirname, '..', '..', 'node_modules') };
   spawnSync(process.execPath, ['scripts/gates/llms.cjs'], { cwd: root, encoding: 'utf8', env });

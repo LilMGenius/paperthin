@@ -43,7 +43,7 @@
 
 **예전에 설치했다면?** 새 세션에서 `/re0-upgrade`를 한 번 실행하세요.
 
-**잘 모르겠다면?** 에이전트에게 [`install https://github.com/LilMGenius/paperthin`](../../.agents/install-block.md#handed-only-this-repository)라고 말하세요. 웹 채팅에는 [llms-full.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt)을 건네면 됩니다.
+**잘 모르겠다면?** 에이전트에게 [`install https://github.com/LilMGenius/paperthin`](../../.agents/install-block.md#handed-only-this-repository)라고 말하세요. 웹 채팅에는 [llms.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms.txt)를 건네면 됩니다.
 
 <a id="the-map"></a>
 ## 지도

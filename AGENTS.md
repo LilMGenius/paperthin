@@ -13,7 +13,7 @@ Paperthin is an agent-agnostic suite of plain-Markdown skills that keep an artif
 
 A change lands in the doc whose reader needs it, often both: agent mechanism goes in this guide or `.agents/`, never README, and a change to what users see or do also updates README. `re0-readme` audits the split.
 
-`npm run check` runs [check.cjs](./scripts/gates/check.cjs) over five gates: `skills`, `catalog`, `links`, `prose` and `llms`. `npm test` proves every check can fail, and CI runs both plus [check-commit-messages.cjs](./scripts/gates/check-commit-messages.cjs) over every pull request and push. A rule marked *(checked: <gate>)* is decided by that gate; the rest is judgment. When `llms` reports llms.txt or llms-full.txt stale (they carry README and every `SKILL.md`), regenerate them with `node scripts/gates/llms.cjs`.
+`npm run check` runs [check.cjs](./scripts/gates/check.cjs) over five gates: `skills`, `catalog`, `links`, `prose` and `llms`. `npm test` proves every check can fail, and CI runs both plus [check-commit-messages.cjs](./scripts/gates/check-commit-messages.cjs) over every pull request and push. A rule marked *(checked: <gate>)* is decided by that gate; the rest is judgment. When `llms` reports llms.txt stale (it lists the README and every skill's description), regenerate it with `node scripts/gates/llms.cjs`.
 
 Sections run from the principles, through the repository map and one skill's anatomy, to how skills relate and how a change ships.
 

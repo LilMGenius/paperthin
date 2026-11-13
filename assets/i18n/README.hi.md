@@ -43,7 +43,7 @@
 
 **पहले install किया था?** नए session में एक बार `/re0-upgrade` चलाएं।
 
-**पक्का नहीं?** अपने agent से कहें [`install https://github.com/LilMGenius/paperthin`](../../.agents/install-block.md#handed-only-this-repository)। वेब chat को [llms-full.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt) दें।
+**पक्का नहीं?** अपने agent से कहें [`install https://github.com/LilMGenius/paperthin`](../../.agents/install-block.md#handed-only-this-repository)। वेब chat को [llms.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms.txt) दें।
 
 <a id="the-map"></a>
 ## Map
