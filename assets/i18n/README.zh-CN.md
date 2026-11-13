@@ -43,7 +43,7 @@
 
 **以前装过？** 在新会话里运行一次 `/re0-upgrade`。
 
-**不确定？** 对你的 agent 说 [`install https://github.com/LilMGenius/paperthin`](../../.agents/install-block.md#handed-only-this-repository)。网页聊天就给它 [llms-full.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt)。
+**不确定？** 对你的 agent 说 [`install https://github.com/LilMGenius/paperthin`](../../.agents/install-block.md#handed-only-this-repository)。网页聊天就给它 [llms.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms.txt)。
 
 <a id="the-map"></a>
 ## 地图

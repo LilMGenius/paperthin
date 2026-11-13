@@ -43,7 +43,7 @@
 
 **ثبّتّه من قبل؟** شغّل `/re0-upgrade` مرة واحدة في جلسة جديدة.
 
-**لست متأكدا؟** قل لـ agent الخاص بك [`install https://github.com/LilMGenius/paperthin`](../../.agents/install-block.md#handed-only-this-repository). أما محادثة الويب فأعطها [llms-full.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms-full.txt).
+**لست متأكدا؟** قل لـ agent الخاص بك [`install https://github.com/LilMGenius/paperthin`](../../.agents/install-block.md#handed-only-this-repository). أما محادثة الويب فأعطها [llms.txt](https://raw.githubusercontent.com/LilMGenius/paperthin/main/llms.txt).
 
 <a id="the-map"></a>
 ## الخريطة
