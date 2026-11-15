@@ -41,4 +41,3 @@ Before finishing, confirm:
 2. No needle value appears in anything the run printed, wrote into the artifact or reported.
 3. Every keep in the decision file states its reason.
 4. The history result is reported with its two hand-offs: `/re0-git` for messages, and the owner's content-rewrite decision with nothing run.
-5. When the script changed, its tests call the CLI through a junction or symlink to the skill folder and pass.

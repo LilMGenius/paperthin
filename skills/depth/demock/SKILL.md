@@ -39,4 +39,3 @@ Before finishing, confirm:
 1. Every finding has its location, the evidence that it reaches the real path or its unverified mark, its class and its proposal.
 2. No file was changed without the human's approval.
 3. Every applied fix has a test that failed first.
-4. When the script changed, its tests call the CLI through a junction or symlink to the skill folder and pass.
