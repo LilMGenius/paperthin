@@ -28,6 +28,7 @@ An item tends to land in whichever home is open, and once there it reads as part
 
 - Criteria come only from the target's sources or, labeled `inferred`, from its current members. Taste, the author's wishes, popularity, stars, and effort saved are never criteria.
 - `out of scope` is a successful result. State it plainly and name a home that fits.
+- A verdict names the criterion that holds or fails and where it is written, never a word about the item's worth (overrated, weak, minor). Swapping a criterion the owner stated in their own words for a proxy that is easier to measure (an award list, a star count, a citation count) is an owner question, and a verdict that keeps out an item the owner named shows the criterion beside it.
 - A reachability failure or an open owner question rules out `in scope`; inference never answers an owner question.
 - Propose only. Never edit, move, copy, rename, register, or delete the item or the target during the run.
 
@@ -37,4 +38,5 @@ An item tends to land in whichever home is open, and once there it reads as part
 2. The nearest member is named with the reason it is nearest, or its absence is stated.
 3. Every pointer was checked for reachability or marked `unverified`, and no failure sits under `in scope`.
 4. Every verdict other than `in scope` names its change, its homes, or its owner question.
-5. The run ends at the approval stop with nothing moved.
+5. No verdict uses a worth word, and every verdict that keeps out an item the owner named shows the criterion it failed and that criterion's source.
+6. The run ends at the approval stop with nothing moved.
