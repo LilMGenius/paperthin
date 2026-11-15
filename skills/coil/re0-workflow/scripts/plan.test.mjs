@@ -38,7 +38,7 @@ function valid() {
       step('s2', 'skill-a', ['s1'], ['r1'], { writes: true }),
       step('s3', 'sip', ['s2'], ['r1']),
       step('s4', 'skill-b', ['s3'], ['r2']),
-      step('s5', 'skill-c', ['s3', 's4'], ['r3'], { type: 'user-handoff', cost_owner: 'human', lane: 'user', destructive: true, writes: true, handoff: 'type /skill-c', bring_back: 'the published version' }),
+      step('s5', 'skill-c', ['s3', 's4'], ['r3'], { type: 'user-handoff', cost_owner: 'human', lane: 'user', destructive: true, handoff: 'type /skill-c', bring_back: 'the published version' }),
     ],
     stop: 'the section is published with its claims checked',
   };
@@ -113,7 +113,7 @@ test('cycle: steps that depend on each other fail and the loop is named', () => 
 
 test('user-only: a user-invoked target typed invoke-model-skill fails, even as one of a conditional step\'s types', () => {
   assert.deepEqual(planted((p) => { Object.assign(at(p, 's4'), { lane: 'user' }); }).rules, ['user-only']);
-  assert.deepEqual(planted((p) => { Object.assign(at(p, 's5'), { type: ['user-handoff', 'invoke-model-skill'], destructive: false }); }).rules, ['user-only', 'sip']);
+  assert.deepEqual(planted((p) => { Object.assign(at(p, 's5'), { type: ['user-handoff', 'invoke-model-skill'], destructive: false }); }).rules, ['user-only']);
 });
 
 test('sip: a writing run step with no sip after it fails; a pipeline that runs sip itself passes', () => {
@@ -124,6 +124,27 @@ test('sip: a writing run step with no sip after it fails; a pipeline that runs s
   };
   assert.deepEqual(planted(drop).rules, ['sip']);
   assert.equal(planted((p) => { drop(p); at(p, 's2').members = ['skill-x', 'sip']; }).status, 0);
+});
+
+test('sip: a step the human or the session performs that writes also needs a sip after it', () => {
+  assert.deepEqual(planted((p) => { at(p, 's5').writes = true; }).rules, ['sip']);
+  assert.equal(planted((p) => {
+    at(p, 's5').writes = true;
+    p.steps.push(step('s6', 'sip', ['s5'], ['r3']));
+  }).status, 0);
+});
+
+test('session step: work no skill covers runs as the session\'s own step, never on a skill lane and never destructive', () => {
+  const session = { type: 'session-step', target: 'rebase the branch locally', lane: 'none' };
+  assert.equal(planted((p) => { Object.assign(at(p, 's2'), session); }).status, 0);
+  assert.deepEqual(planted((p) => { Object.assign(at(p, 's2'), session, { lane: 'model' }); }).rules, ['session']);
+  assert.deepEqual(planted((p) => { Object.assign(at(p, 's2'), session, { destructive: true }); }).rules, ['destructive']);
+  assert.deepEqual(planted((p) => { Object.assign(at(p, 's2'), session, { writes: true }); p.steps = p.steps.filter((s) => s.id !== 's3'); at(p, 's4').predecessors = ['s2']; at(p, 's5').predecessors = ['s4']; }).rules, ['sip']);
+  assert.deepEqual(planted((p) => { at(p, 's4').lane = 'none'; }).rules, ['session']);
+});
+
+test('sequence: a step listed before its predecessor fails', () => {
+  assert.deepEqual(planted((p) => { p.steps = [p.steps[0], p.steps[2], p.steps[1], ...p.steps.slice(3)]; }).rules, ['sequence']);
 });
 
 test('stop: a missing stop condition or two of them fail', () => {

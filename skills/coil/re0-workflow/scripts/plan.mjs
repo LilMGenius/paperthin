@@ -11,9 +11,10 @@ import { parseArgs } from 'node:util';
 
 const USAGE = 'usage: node plan.mjs <plan-file> [--report] [--json]';
 
-const COST = { skip: 'none', 'user-handoff': 'human', 'invoke-model-skill': 'run' };
+const COST = { skip: 'none', 'user-handoff': 'human', 'invoke-model-skill': 'run', 'session-step': 'run' };
 const TYPES = Object.keys(COST);
-const LANES = ['model', 'user', 'missing'];
+// A step's target is a model-invoked skill, a user-only skill, a skill not installed, or no skill at all (session work, a human action or decision).
+const LANES = ['model', 'user', 'missing', 'none'];
 // The skills that read a step's result from outside the session that made it.
 const OUTSIDE = new Set(['sip', 'shower', 'factchk', 'mandela']);
 const SELF = new Set(['re0-workflow', 'paperthin']);
@@ -106,6 +107,11 @@ export function checkPlan(plan) {
   };
   for (const s of steps) if (!state.has(s.id)) visit(s);
 
+  // The list is the run order, so every step comes after its predecessors.
+  steps.forEach((s, i) => {
+    for (const p of preds(s)) if (steps.indexOf(byId.get(p)) > i) add('sequence', String(s.id), 'is listed before its predecessor ' + p + '; the list is the run order');
+  });
+
   // The readback runs first and every later step follows it, unless the recorded skip reason holds.
   const readbacks = steps.filter((s) => s.target === 'readback');
   if (plan.readback_skip !== undefined && plan.readback_skip !== null) {
@@ -151,14 +157,17 @@ export function checkPlan(plan) {
     if (SELF.has(s.target)) add('self', where, 'targets ' + s.target + ', which would route back into this router');
     if (s.lane === 'user' && can(s, 'invoke-model-skill')) add('user-only', where, 'targets a user-only skill but can be typed invoke-model-skill; it is a user-handoff');
     if (s.lane === 'missing' && !only(s, 'skip')) add('missing', where, 'targets a skill that is not installed, so it is a skip');
-    if (s.destructive === true && can(s, 'invoke-model-skill')) add('destructive', where, 'is destructive or irreversible, so the human runs it as a user-handoff');
+    if (s.destructive === true && (can(s, 'invoke-model-skill') || can(s, 'session-step'))) add('destructive', where, 'is destructive or irreversible, so the human runs it as a user-handoff');
+    if (can(s, 'session-step') && s.lane !== 'none') add('session', where, 'a session step is work no skill covers, so its lane is none; a step a skill covers runs that skill');
+    if (s.lane === 'none' && can(s, 'invoke-model-skill')) add('session', where, 'targets no skill, so it cannot be typed invoke-model-skill');
     // A conditional step lists its expected type first and carries that type's owner.
     if (filled(s.cost_owner) && TYPES.includes(typesOf(s)[0]) && COST[typesOf(s)[0]] !== s.cost_owner) add('cost', where, 'cost owner ' + JSON.stringify(s.cost_owner) + ' does not match its first type ' + typesOf(s)[0] + ', whose owner is ' + COST[typesOf(s)[0]]);
     if (can(s, 'skip') && !filled(s.reason)) add('skip', where, 'can be a skip but records no reason');
     if (can(s, 'user-handoff') && (!filled(s.handoff) || !filled(s.bring_back))) add('handoff', where, 'a user-handoff names what the human does (handoff) and what to bring back (bring_back)');
     // A skipped step's dependents are skipped too; a missing readback is the exception, since the router writes the read itself.
     if (only(s, 'skip') && s.target !== 'readback') for (const c of children.get(s.id) || []) if (!only(c, 'skip')) add('skip', String(c.id), 'depends on the skipped step ' + where + ', so it is skipped too');
-    if (can(s, 'invoke-model-skill') && s.writes === true && s.target !== 'sip' && !(s.members || []).includes('sip') && !descendants(s).some((d) => d.target === 'sip')) add('sip', where, 'writes but no sip step follows it');
+    // Whoever performs a writing step (a skill, the session or the human), a sip step on its output follows it.
+    if (!only(s, 'skip') && s.writes === true && s.target !== 'sip' && !(s.members || []).includes('sip') && !descendants(s).some((d) => d.target === 'sip')) add('sip', where, 'writes but no sip step follows it');
     if (s.judgment_only === true && !descendants(s).some((d) => OUTSIDE.has(d.target))) add('outside', where, 'rests on the session\'s own judgment but no outside read (' + [...OUTSIDE].join(', ') + ') follows it');
     if (Array.isArray(s.members) && Array.isArray(s.serves)) {
       for (const t of steps) if (t !== s && s.members.includes(t.target) && Array.isArray(t.serves) && t.serves.some((r) => s.serves.includes(r))) add('pipeline', String(t.id), 'reproduces ' + t.target + ', a member of the pipeline step ' + where + ' serving the same requirement');
@@ -179,7 +188,7 @@ export function checkReport(plan) {
     if (!OUTCOMES.includes(s.outcome)) add('outcome', where, 'outcome must be one of ' + OUTCOMES.join(', '));
     else if (s.outcome !== 'waiting' && !filled(s.result)) add('outcome', where, 'outcome ' + s.outcome + ' records no result or reason');
     if (only(s, 'skip') && s.outcome !== 'skipped') add('outcome', where, 'is typed skip but its outcome is ' + s.outcome);
-    if (!can(s, 'invoke-model-skill') && s.outcome === 'ran') add('outcome', where, 'the router never runs a step it cannot type invoke-model-skill; a handoff whose result came back is returned');
+    if (!can(s, 'invoke-model-skill') && !can(s, 'session-step') && s.outcome === 'ran') add('outcome', where, 'only a skill step or a session step runs; a handoff whose result came back is returned');
     if (!can(s, 'user-handoff') && ['returned', 'handed-off'].includes(s.outcome)) add('outcome', where, 'outcome ' + s.outcome + ' belongs to a user-handoff');
     if (['ran', 'returned'].includes(s.outcome)) {
       for (const p of Array.isArray(s.predecessors) ? s.predecessors : []) if (stopped.has(byId.get(p)?.outcome)) add('order', where, 'ran after ' + p + ', where the run had stopped');
