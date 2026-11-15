@@ -11,7 +11,7 @@ The author's judgment of what is plausible, absurd, or novel is the least reliab
 
 ## Workflow
 
-1. Scan for **reality-grounded assertions** that call something plausible, realistic, absurd, novel, or impossible because of a factual premise. Include claims you are *about to write*.
+1. Scan for **reality-grounded assertions** that call something plausible, realistic, absurd, novel, or impossible because of a factual premise. Include claims you are *about to write*. A verdict on a person's or a thing's worth (overrated, underrated, legendary, trivial) is such an assertion: check it the same way, and when no source settles it, rewrite it as which named criterion the subject meets and report the rewrite.
 2. Verify each against **external sources** (web search, open references) in **both directions**: could the "absurd" be real? Could the "obvious" or "novel" be false or long-established? If you cannot reach a source, **flag it; never assert from intuition**.
 3. **Fix or flag:** correct mechanically clear errors, such as wrong dates, misattributed sources, or falsified numbers, with a cited source. Surface contested or interpretive claims as judgment calls; do not silently rewrite them.
 4. Report each claim, its verdict, the source, and which direction a failed claim failed.
