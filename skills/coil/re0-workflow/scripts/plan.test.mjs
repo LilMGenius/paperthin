@@ -295,6 +295,13 @@ test('report: a step that depends on a step skipped at run time cannot have run'
   assert.equal(reported((p) => { broke(p); at(p, 's3').predecessors = ['s1']; }).status, 0);
 });
 
+test('report: a requirement only a missing skill serves is never served', () => {
+  const missing = (p) => { Object.assign(at(p, 's2'), skip, { reason: 'skill-b is not installed', outcome: 'skipped', result: 'skill-b is not installed' }); at(p, 's3').predecessors = ['s1']; p.requirements[1].unmet = 'skill-b is not installed'; };
+  assert.ok(reported((p) => { missing(p); p.requirements[1].status = 'served'; }).rules.includes('status'));
+  assert.equal(reported((p) => { missing(p); p.requirements[1].status = 'unmet'; p.requirements[1].reason = 'skill-b is not installed'; }).status, 0);
+  assert.ok(reported((p) => { missing(p); p.requirements[1].status = 'unmet'; p.requirements[1].reason = 'skill-b is not installed'; Object.assign(at(p, 's4'), { outcome: 'returned', result: 'published' }); p.requirements[2].status = 'served'; p.stop_reached = true; }).rules.includes('stop-reached'));
+});
+
 test('report: a missing closing check takes nothing from the steps after it', () => {
   const missing = (p) => Object.assign(at(p, 's3'), skip, { reason: 'sip is not installed', outcome: 'skipped', result: 'sip is not installed, so the write went untasted' });
   assert.equal(planted(missing).status, 0);
