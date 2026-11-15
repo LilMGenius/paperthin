@@ -351,6 +351,16 @@ test('an install block with release-notes blocks and no package.json exits 2 ask
   assert.match(out, /pass --version X\.Y\.Z/);
 });
 
+
+test('the catalog counts only the listed names, never a skill a description mentions', () => {
+  const note = v100.replace('- \x60mesh/\x60: \x60multithink\x60', '- \x60mesh/\x60: \x60multithink\x60 weighs views, unlike \x60shower\x60').replace('(3 skills)', '(4 skills)');
+  assert.ok(note !== v100, 'the catalog was not found');
+  const { status, out } = check(note, ['--version', '1.0.0']);
+  assert.equal(status, 1, out);
+  assert.deepEqual(rules(out), ['catalog']);
+  assert.match(out, /counts 4 skills and the bullets list 3/);
+});
+
 test('a usage error exits 2', () => {
   const result = spawnSync(process.execPath, [cli], { encoding: 'utf8', windowsHide: true });
   assert.equal(result.status, 2);

@@ -204,7 +204,9 @@ function checkCatalog(count, index, body, fail) {
       if (line.startsWith('- ')) fail(i, 'catalog', 'a catalog bullet reads - \x60<perspective>/\x60: \x60<skill>\x60, ...');
       continue;
     }
-    names.push(...[...match[1].matchAll(/\x60([^\x60]+)\x60/g)].map((name) => name[1]));
+    // Only the comma-separated list of names after the colon counts; a skill a description mentions does not.
+    const list = /^\x60[^\x60]+\x60(?:, \x60[^\x60]+\x60)*/.exec(match[1])?.[0] ?? '';
+    names.push(...[...list.matchAll(/\x60([^\x60]+)\x60/g)].map((name) => name[1]));
   }
   const dupes = names.filter((name, k) => names.indexOf(name) !== k);
   if (dupes.length) fail(index, 'catalog', 'the catalog lists ' + dupes.join(', ') + ' more than once');
