@@ -39,7 +39,7 @@ const RULES = [
   ['serves', 'a step that serves no requirement'],
   ['self', 're0-workflow or paperthin as a target'],
   ['user-only', 'a user-only target, or a step holding a user-only member, that the session could run or that sits off lane user'],
-  ['missing', 'a skill that is not installed typed as anything but skip, or offered as an invocation'],
+  ['missing', 'a skill that is not installed typed as anything but skip, offered as an invocation, or without where it was searched'],
   ['destructive', 'a destructive or irreversible step the session would run'],
   ['session', 'a session step on a skill lane, or a lane-none target typed invoke-model-skill'],
   ['cost', 'a cost owner other than the one its first type carries'],
@@ -230,6 +230,7 @@ export function checkPlan(plan) {
     if (s.lane === 'user' && runs(s)) add('user-only', where, 'targets a user-only skill but can be run by the session; it is a user-handoff');
     if (Array.isArray(s.user_members) && s.user_members.length && s.lane !== 'user') add('user-only', where, 'holds the user-only member ' + s.user_members.join(', ') + ', so the whole step is user work on lane user');
     if (s.lane === 'missing' && !only(s, 'skip')) add('missing', where, 'targets a skill that is not installed, so it is a skip that stays visible');
+    if (s.lane === 'missing' && !filled(s.searched)) add('missing', where, 'a skill that is not installed records where the roster was searched for its exact name (searched)');
     if (s.lane === 'missing' && (filled(s.handoff) || filled(s.bring_back))) add('missing', where, 'offers an invocation for a skill that is not installed; say it is not installed and leave installing it to the human');
     if (s.fixed === true && s.writes !== true) add('fixed', where, 'fixed marks a write whose content needs no taste, so it writes');
     if (s.destructive === true && runs(s)) add('destructive', where, 'is destructive or irreversible, so the human does it as a user-handoff');
@@ -250,7 +251,8 @@ export function checkPlan(plan) {
     // A missing added check leaves its output untasted but takes nothing from the steps after it.
     if (only(s, 'skip') && s.added === undefined) {
       for (const c of g.children.get(s.id) || []) {
-        if (c.added === 'sip' && live(c)) continue;
+        // A missing skill's reason reaches every dependent, the closing sip included.
+        if (c.added === 'sip' && live(c) && s.lane !== 'missing') continue;
         if (!only(c, 'skip')) add('skip', String(c.id), 'depends on the skipped step ' + where + ', so it is skipped too');
         else if (filled(c.reason) && !names(c.reason, s)) add('skip', String(c.id), 'is skipped after ' + where + ' but its reason does not name it; a dependent inherits the reason');
       }
@@ -431,4 +433,5 @@ export function main(argv, stdin, interactive = false) {
 // An installed skill is often a link to its source folder; Node resolves import.meta.url through the link while argv keeps
 // the link path, so both sides are compared as real paths or a call through the link exits 0 having done nothing.
 if (process.argv[1] && realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url))) process.exitCode = main(process.argv.slice(2), () => readFileSync(0, 'utf8'), process.stdin.isTTY === true);
+
 
