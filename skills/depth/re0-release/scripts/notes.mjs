@@ -1,14 +1,15 @@
 #!/usr/bin/env node
-// Check one release note against the deterministic part of the house style in re0-release's SKILL.md, step 7, which
-// names what this script decides and what stays judgment; it also fails .agents/install-block.md when its release-notes
-// block drifts from the route blocks it restates.
+// Check one release note against the deterministic part of the house style in re0-release's SKILL.md, step 6; step 7
+// names what this script decides and what stays judgment. It also fails .agents/install-block.md when its release-notes
+// block drifts from the route blocks it restates. A repository with no install block, or none for the note's era, has its
+// Install reported as not checked against a block while every other rule still runs.
 // Usage: node notes.mjs <notes-file> [--version X.Y.Z] [--root <repo>]
 //        node notes.mjs --tag vX.Y.Z [--root <repo>]
-// The version picks the Install era: --version, else the tag, else a vX.Y.Z.md file name, else <repo>/package.json.
-// Exit codes: 0 the note passes; 1 named failures; 2 the check could not run (usage, an unreadable notes file, or a
-// repository without .agents/install-block.md or the release-notes block for the note's era).
+// The version picks the Install era when an install block exists: --version, else the tag, else a vX.Y.Z.md file name,
+// else <repo>/package.json.
+// Exit codes: 0 the note passes; 1 named failures; 2 the check could not run (usage, or a file it needs but cannot read).
 import { execFileSync } from 'node:child_process';
-import { readFileSync, realpathSync } from 'node:fs';
+import { existsSync, readFileSync, realpathSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
@@ -45,19 +46,27 @@ function readText(path, what) {
   }
 }
 
+// The blocks of .agents/install-block.md, or null when the repository has none; a file that exists and cannot be read is
+// a read error.
 function canonicalBlocks(root) {
-  const text = readText(join(root, INSTALL_BLOCK), 'the install block');
+  const path = join(root, INSTALL_BLOCK);
+  if (!existsSync(path)) return null;
+  const text = readText(path, 'the install block');
   return new Map([...text.matchAll(/<canonical-block name="([^"]+)">\n([\s\S]*?)<\/canonical-block>/g)].map((match) => [match[1], match[2]]));
 }
 
 const fenced = (body, lang) => new RegExp('\x60\x60\x60' + lang + '\\n([\\s\\S]*?)\\n\x60\x60\x60').exec(body)?.[1] ?? null;
 
-// A note before 1.0 shipped one skills.sh route; every note from 1.0 on carries the plugin routes.
+// A note before 1.0 shipped one skills.sh route; every note from 1.0 on carries the plugin routes. The version is read
+// only here, so a repository without an install block needs none.
 export function installRendering(root, version) {
-  const name = version[0] === 0 ? 'release-notes-0.x' : 'release-notes';
-  const body = canonicalBlocks(root).get(name);
+  const blocks = canonicalBlocks(root);
+  if (blocks === null) return { name: null, reason: 'the repository has no ' + INSTALL_BLOCK };
+  const [major] = version();
+  const name = major === 0 ? 'release-notes-0.x' : 'release-notes';
+  const body = blocks.get(name);
   const rendering = body === undefined ? null : fenced(body, 'markdown');
-  if (rendering === null) throw new Usage(INSTALL_BLOCK + ' has no ' + name + ' block holding a markdown fence');
+  if (rendering === null) return { name: null, reason: INSTALL_BLOCK + ' has no ' + name + ' block holding a markdown fence' };
   return { name, rendering };
 }
 
@@ -65,6 +74,7 @@ export function installRendering(root, version) {
 // which is the first sentence after that route's command with its first letter lowered and its period dropped.
 export function blockDrift(root) {
   const blocks = canonicalBlocks(root);
+  if (blocks === null) return [];
   const routeBlocks = [...blocks].filter(([name]) => !name.startsWith('release-notes')).map(([, body]) => body);
   const routes = routeBlocks.flatMap((body) => (fenced(body, 'bash') ?? '').split('\n').map((line) => line.trim()).filter(Boolean));
   const sentences = routeBlocks.map((body) => {
@@ -86,7 +96,13 @@ export function blockDrift(root) {
   return problems;
 }
 
-export function checkNotes(text, version, root) {
+// The subject a bullet leads with: its bold lead, else its first code span, compared without backticks or end punctuation.
+function leadSubject(line) {
+  const lead = /^- (?:\*\*(.+?)\*\*|(\x60[^\x60]+\x60))/.exec(line);
+  return lead ? (lead[1] ?? lead[2]).replace(/\x60/g, '').replace(/[.:]$/, '').toLowerCase() : null;
+}
+
+export function checkNotes(text, era) {
   const problems = [];
   const fail = (index, rule, message) => problems.push({ line: index + 1, rule, message });
   const lines = lf(text).replace(/\s+$/, '').split('\n');
@@ -117,6 +133,7 @@ export function checkNotes(text, version, root) {
 
   let last = -1;
   const seen = new Set();
+  const newSubjects = new Set();
   sections.forEach((section, k) => {
     const kind = SECTIONS.findIndex((spec) => spec.matches(section.heading));
     if (kind < 0) return fail(section.index, 'section', '### ' + section.heading + ' is not a house-style section (' + SECTIONS.map((spec) => spec.name).join(', ') + ')');
@@ -131,14 +148,17 @@ export function checkNotes(text, version, root) {
     for (const { line, i } of body) {
       if (!line.startsWith('- ')) fail(i, 'bullets', 'write each item under ### ' + section.heading + ' as one single-line - bullet');
       else if (kind === 0 && !line.startsWith('- **')) fail(i, 'bold-lead', 'a ### New bullet opens with a bold lead');
+      const subject = line.startsWith('- ') ? leadSubject(line) : null;
+      if (kind === 0 && subject) newSubjects.add(subject);
+      if (kind === 1 && subject && newSubjects.has(subject)) fail(i, 'repeats-new', 'this ### Also bullet leads with ' + subject + ', which ### New already covers; Also holds only what New does not say');
     }
     if (kind === 2) checkCatalog(Number(CATALOG.exec(section.heading)[1]), section.index, body, fail);
   });
 
   const install = sections.find((section) => section.heading === 'Install');
   if (!install) fail(lines.length - 1, 'install', 'there is no ### Install; it is always the last section');
-  else {
-    const { name, rendering } = installRendering(root, version);
+  else if (era.name !== null) {
+    const { name, rendering } = era;
     const want = rendering.split('\n').map((line) => line.trimEnd());
     const have = lines.slice(install.index).map((line) => line.trimEnd());
     const off = want.findIndex((line, j) => have[j] !== line);
@@ -179,10 +199,15 @@ export function run(argv) {
   const root = values.root ?? process.cwd();
   const label = values.tag ?? positionals[0];
   const text = values.tag ? tagMessage(values.tag) : readText(positionals[0], 'the notes');
-  const named = values.version ?? values.tag ?? /^(v?\d+\.\d+\.\d+)\.md$/.exec(basename(label))?.[1] ?? JSON.parse(readText(join(root, 'package.json'), 'package.json')).version;
-  const version = parseVersion(named);
-  if (!version) throw new Usage('not a version: ' + named);
-  return { label, problems: [...blockDrift(root), ...checkNotes(text, version, root)], era: installRendering(root, version).name };
+  const version = () => {
+    const named = values.version ?? values.tag ?? /^(v?\d+\.\d+\.\d+)\.md$/.exec(basename(label))?.[1] ?? JSON.parse(readText(join(root, 'package.json'), 'package.json')).version;
+    const parsed = parseVersion(named);
+    if (!parsed) throw new Usage('not a version: ' + named + '; pass --version X.Y.Z');
+    return parsed;
+  };
+  if (values.version !== undefined && !parseVersion(values.version)) throw new Usage('not a version: ' + values.version);
+  const era = installRendering(root, version);
+  return { label, problems: [...blockDrift(root), ...checkNotes(text, era)], era };
 }
 
 const invoked = process.argv[1] && realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url));
@@ -191,7 +216,7 @@ if (invoked) {
     const { label, problems, era } = run(process.argv.slice(2));
     for (const { line, rule, message } of problems) console.error(label + ':' + line + ': ' + rule + ': ' + message);
     if (problems.length) process.exit(1);
-    console.log(label + ': ok (' + era + ')');
+    console.log(label + ': ok (' + (era.name ?? 'Install not checked against a block: ' + era.reason + '; it must carry the repository\'s own documented install commands verbatim') + ')');
   } catch (error) {
     if (!(error instanceof Usage) && !(error instanceof TypeError && 'code' in error && String(error.code).startsWith('ERR_PARSE_ARGS'))) throw error;
     console.error(error.message);

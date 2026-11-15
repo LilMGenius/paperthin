@@ -197,11 +197,43 @@ test('a release-notes block whose route sentence drifts from its route block fai
   assert.match(out, /not the note/);
 });
 
-test('a repository without an install block exits 2', () => {
+test('a repository with no install block and no package.json passes the other rules and reports Install as not checked', () => {
   const root = mkdtempSync(join(scratch, 'bare-'));
+  const { status, out } = check(v100, [], { root });
+  assert.equal(status, 0, out);
+  assert.match(out, /Install not checked against a block: the repository has no \.agents\/install-block\.md/);
+});
+
+test('a repository with no install block still fails every rule that needs no block', () => {
+  const root = mkdtempSync(join(scratch, 'bare-'));
+  const { status, out } = check(v101, [], { root });
+  assert.equal(status, 1, out);
+  assert.deepEqual(rules(out), ['install', 'section']);
+});
+
+test('an install block without the block for the note\'s era reports Install as not checked', () => {
+  const root = mkdtempSync(join(scratch, 'routes-only-'));
+  mkdirSync(join(root, '.agents'));
+  writeFileSync(join(root, '.agents', 'install-block.md'), '<canonical-block name="codex">\n\n\x60\x60\x60bash\ncodex plugin add x@x\n\x60\x60\x60\n\nUpdates itself.\n\n</canonical-block>\n');
+  const { status, out } = check(v100, ['--version', '1.0.0'], { root });
+  assert.equal(status, 0, out);
+  assert.match(out, /has no release-notes block/);
+});
+
+test('an install block that exists but cannot be read exits 2', () => {
+  const root = mkdtempSync(join(scratch, 'unreadable-'));
+  mkdirSync(join(root, '.agents', 'install-block.md'), { recursive: true });
   const { status, out } = check(v100, ['--version', '1.0.0'], { root });
   assert.equal(status, 2, out);
   assert.match(out, /cannot read the install block/);
+});
+
+test('an Also bullet that leads with what a New bullet already covers fails', () => {
+  const note = v100.replace('- **Renamed and retired.** \x60readchk\x60 is now \x60readback\x60.', '- **One command.** \x60/paperthin\x60 now runs the right skills in order.');
+  assert.ok(note !== v100, 'the Also bullet was not found');
+  const { status, out } = check(note, ['--version', '1.0.0']);
+  assert.equal(status, 1, out);
+  assert.deepEqual(rules(out), ['repeats-new']);
 });
 
 test('--tag reads an annotated tag message in the current repository', () => {
