@@ -5,7 +5,8 @@
 // and checks each result. The caller moves the branch afterwards, once verify passes.
 // Usage: node rebuild.mjs messages --repo <path> --base <commit> --messages <dir>
 //        node rebuild.mjs place --repo <path> --base <commit> --late <commit> --date "<unix-seconds> <+zone>"
-//        node rebuild.mjs verify --repo <path> --old <tip> --new <tip> [--placed <new-sha>...]
+//        node rebuild.mjs drop --repo <path> --base <commit> --drop <sha>...
+//        node rebuild.mjs verify --repo <path> --old <tip> --new <tip> [--placed <new-sha>...] [--dropped <old-sha>...]
 // Exit codes: 0 done or passed; 1 failed (a git call, a conflict, or a named verify failure); 2 usage or refused input.
 import { execFileSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, realpathSync, statSync } from 'node:fs';
@@ -13,7 +14,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 
-const USAGE = 'usage: node rebuild.mjs messages --repo <path> --base <commit> --messages <dir>\n       node rebuild.mjs place --repo <path> --base <commit> --late <commit> --date "<unix-seconds> <+zone>"\n       node rebuild.mjs verify --repo <path> --old <tip> --new <tip> [--placed <new-sha>...]';
+const USAGE = 'usage: node rebuild.mjs messages --repo <path> --base <commit> --messages <dir>\n       node rebuild.mjs place --repo <path> --base <commit> --late <commit> --date "<unix-seconds> <+zone>"\n       node rebuild.mjs drop --repo <path> --base <commit> --drop <sha>...\n       node rebuild.mjs verify --repo <path> --old <tip> --new <tip> [--placed <new-sha>...] [--dropped <old-sha>...]';
 
 export class Refusal extends Error {}
 export class Failure extends Error {}
@@ -161,9 +162,19 @@ export function place(git, { base, late, date }) {
   return { base: range.base, old: range.tip, new: result.tip, map: result.map, placed: [result.map[lateSha]], signing: result.signing };
 }
 
+// A rejected or duplicate commit leaves history, and every later commit is rebuilt on the tree its own diff makes without it.
+export function drop(git, { base, drop: revs }) {
+  const range = linearRange(git, base);
+  const shas = new Set(revs.map((rev) => resolve(git, rev, '--drop')));
+  const missing = [...shas].filter((sha) => !range.commits.some((commit) => commit.sha === sha));
+  if (missing.length) throw new Refusal('--drop names commits outside ' + base + '..HEAD: ' + missing.join(', '));
+  const result = rebuild(git, range.base, range.commits.filter((commit) => !shas.has(commit.sha)).map((commit) => ({ commit })));
+  return { base: range.base, old: range.tip, new: result.tip, map: result.map, dropped: [...shas], signing: result.signing };
+}
+
 const identity = (commit) => FIELDS.map((field) => commit[field]).join(' ');
 
-export function verify(git, { old, new: next, placed = [] }) {
+export function verify(git, { old, new: next, placed = [], dropped = [] }) {
   const oldSha = resolve(git, old, '--old');
   const newSha = resolve(git, next, '--new');
   const base = git(['merge-base', oldSha, newSha]);
@@ -177,6 +188,13 @@ export function verify(git, { old, new: next, placed = [] }) {
     return commit;
   });
   const placedShas = new Set(placedCommits.map((commit) => commit.sha));
+  const droppedCommits = dropped.map((rev) => {
+    const sha = resolve(git, rev, '--dropped');
+    const commit = before.find((candidate) => candidate.sha === sha);
+    if (!commit) throw new Refusal('--dropped ' + rev + ' is not in the old range');
+    return commit;
+  });
+  const droppedShas = new Set(droppedCommits.map((commit) => commit.sha));
   const failures = [];
   const checks = {};
 
@@ -197,14 +215,15 @@ export function verify(git, { old, new: next, placed = [] }) {
   checks.tree = 'pass';
   try {
     for (const commit of added) expected = git(['merge-tree', '--write-tree', '--merge-base=' + commit.parents[0], expected, commit.sha]).split('\n')[0];
+    for (const commit of [...droppedCommits].reverse()) expected = git(['merge-tree', '--write-tree', '--merge-base=' + commit.sha, expected, commit.parents[0]]).split('\n')[0];
     if (expected !== readCommit(git, newSha).tree) checks.tree = 'fail';
   } catch (error) {
     if (!(error instanceof CommandError)) throw error;
     checks.tree = 'fail';
   }
-  if (checks.tree === 'fail') failures.push('tree: the new tip differs from the old tip by more than the placed commits\' own diffs');
+  if (checks.tree === 'fail') failures.push('tree: the new tip differs from the old tip by more than the placed and dropped commits\' own diffs');
 
-  const oldKept = before.filter((commit) => !twins.has(commit.sha));
+  const oldKept = before.filter((commit) => !twins.has(commit.sha) && !droppedShas.has(commit.sha));
   const newKept = after.filter((commit) => !placedShas.has(commit.sha));
   const first = Array.from({ length: Math.max(oldKept.length, newKept.length) }, (_, i) => i).find((i) => !oldKept[i] || !newKept[i] || identity(oldKept[i]) !== identity(newKept[i]));
   checks.identity = first === undefined ? 'pass' : 'fail';
@@ -235,14 +254,14 @@ export function main(argv) {
   try {
     ({ values, positionals: [command] } = parseArgs({ args: argv, allowPositionals: true, options: {
       repo: { type: 'string' }, base: { type: 'string' }, messages: { type: 'string' }, late: { type: 'string' }, date: { type: 'string' },
-      old: { type: 'string' }, new: { type: 'string' }, placed: { type: 'string', multiple: true }, help: { type: 'boolean' },
+      old: { type: 'string' }, new: { type: 'string' }, placed: { type: 'string', multiple: true }, drop: { type: 'string', multiple: true }, dropped: { type: 'string', multiple: true }, help: { type: 'boolean' },
     } }));
     if (values.help) {
       console.log(USAGE);
       return 0;
     }
-    if (!['messages', 'place', 'verify'].includes(command)) throw new Refusal('name messages, place or verify');
-    const required = { messages: ['repo', 'base', 'messages'], place: ['repo', 'base', 'late', 'date'], verify: ['repo', 'old', 'new'] }[command];
+    if (!['messages', 'place', 'drop', 'verify'].includes(command)) throw new Refusal('name messages, place, drop or verify');
+    const required = { messages: ['repo', 'base', 'messages'], place: ['repo', 'base', 'late', 'date'], drop: ['repo', 'base', 'drop'], verify: ['repo', 'old', 'new'] }[command];
     const missing = required.filter((name) => !values[name]);
     if (missing.length) throw new Refusal('missing ' + missing.map((name) => '--' + name).join(', '));
     if (!existsSync(values.repo)) throw new Refusal('--repo ' + values.repo + ' does not exist');
@@ -255,7 +274,7 @@ export function main(argv) {
   }
   const git = gitIn(values.repo);
   try {
-    const result = command === 'messages' ? messages(git, values) : command === 'place' ? place(git, values) : verify(git, values);
+    const result = command === 'messages' ? messages(git, values) : command === 'place' ? place(git, values) : command === 'drop' ? drop(git, values) : verify(git, values);
     console.log(JSON.stringify(result, null, 2));
     return command === 'verify' && !result.ok ? 1 : 0;
   } catch (error) {

@@ -139,6 +139,26 @@ test('verify exits 1 and names the line when a rebuild restamped a date', () => 
   assert.match(out.json.failures.join('\n'), new RegExp('identity: .* of ' + b + ' changed from .*3100 \\+0100.*99999 \\+0000'));
 });
 
+test('drop takes a duplicate out and later commits keep their own diffs and fields', () => {
+  const { dir, git, base, a, b, c } = threeCommits('drop');
+  const before = lines(git, base + '..' + c).filter((_, i) => i !== 1);
+  const out = run(['drop', '--repo', dir, '--base', base, '--drop', b]);
+  assert.equal(out.status, 0, out.stderr);
+  const { map, new: tip, dropped } = out.json;
+  assert.deepEqual(dropped, [b]);
+  assert.equal(git(['rev-parse', 'HEAD']), c, 'no ref moved');
+  assert.equal(map[a], a, 'a commit before the dropped one keeps its id');
+  assert.deepEqual(git(['rev-list', '--reverse', base + '..' + tip]).split('\n'), [a, map[c]]);
+  assert.equal(diffOf(git, map[c]), diffOf(git, c));
+  assert.deepEqual(lines(git, base + '..' + tip), before);
+  assert.equal(git(['ls-tree', '--name-only', tip]).split('\n').includes('b.txt'), false);
+  const checked = run(['verify', '--repo', dir, '--old', c, '--new', tip, '--dropped', b]);
+  assert.equal(checked.status, 0, checked.stdout + checked.stderr);
+  const unnamed = run(['verify', '--repo', dir, '--old', c, '--new', tip]);
+  assert.equal(unnamed.status, 1, 'a drop verify does not name is a failure');
+  assert.equal(run(['drop', '--repo', dir, '--base', a, '--drop', a]).status, 2, 'a commit outside the range is refused');
+});
+
 test('usage errors exit 2 and help exits 0 through the junction', () => {
   assert.equal(run(['--help']).status, 0);
   assert.equal(run(['frobnicate']).status, 2);
