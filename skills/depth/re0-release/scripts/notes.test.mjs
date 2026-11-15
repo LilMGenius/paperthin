@@ -248,6 +248,63 @@ test('--tag reads an annotated tag message in the current repository', () => {
   assert.deepEqual(rules(result.stderr), ['install', 'section']);
 });
 
+
+// Outside git means no parent folder is a repository either, so the search stops at the scratch folder.
+const outsideGit = { ...process.env, GIT_CEILING_DIRECTORIES: dirname(scratch) };
+
+test('this repository keeps both release-notes blocks in its install block', () => {
+  const text = readFileSync(join(repo, '.agents', 'install-block.md'), 'utf8').replace(/\r\n/g, '\n');
+  for (const name of ['release-notes', 'release-notes-0.x']) {
+    assert.match(text, new RegExp('<canonical-block name="' + name.replace('.', '\\.') + '">\\n\\n\x60\x60\x60markdown\\n### Install\\n'), name + ' block is missing');
+  }
+});
+
+test('run from a subfolder with no --root, the check finds the git top level and its install block', () => {
+  const dir = mkdtempSync(join(scratch, 'toplevel-'));
+  execFileSync('git', ['init', '-q'], { cwd: dir, windowsHide: true });
+  mkdirSync(join(dir, '.agents'));
+  copyFileSync(join(repo, '.agents', 'install-block.md'), join(dir, '.agents', 'install-block.md'));
+  mkdirSync(join(dir, 'deep', 'er'), { recursive: true });
+  const file = join(scratch, 'note-subfolder.md');
+  writeFileSync(file, v100.replace('codex plugin add paperthin@paperthin', 'pip install paperthin'));
+  const result = spawnSync(process.execPath, [cli, file, '--version', '1.0.0'], { encoding: 'utf8', cwd: join(dir, 'deep', 'er'), windowsHide: true });
+  assert.equal(result.status, 1, result.stdout + result.stderr);
+  assert.deepEqual(rules(result.stderr), ['install']);
+});
+
+test('--tag outside a git repository exits 2 with a plain message', () => {
+  const dir = mkdtempSync(join(scratch, 'nogit-'));
+  const result = spawnSync(process.execPath, [cli, '--tag', 'v1.0.0', '--root', repo], { encoding: 'utf8', cwd: dir, env: outsideGit, windowsHide: true });
+  assert.equal(result.status, 2, result.stdout + result.stderr);
+  assert.match(result.stderr, /is not inside a git repository/);
+  assert.doesNotMatch(result.stderr, /at .*notes\.mjs/);
+});
+
+test('a catalog of one skill reads (1 skill), and (1 skills) fails', () => {
+  const one = v100.replace('### The catalog (3 skills)', '### The catalog (1 skill)').replace('- \x60depth/\x60: \x60re0\x60, \x60readback\x60\n', '');
+  assert.ok(one !== v100, 'the catalog was not found');
+  assert.equal(check(one, ['--version', '1.0.0']).status, 0, check(one, ['--version', '1.0.0']).out);
+  const { status, out } = check(one.replace('(1 skill)', '(1 skills)'), ['--version', '1.0.0']);
+  assert.equal(status, 1, out);
+  assert.deepEqual(rules(out), ['catalog']);
+});
+
+test('a # in a link target or URL is not read as a credit', () => {
+  const note = v100.replace('runs the right skills in order.', 'runs the right skills in order ([steps](README.md#10-steps), https://example.com/a#2).');
+  assert.ok(note !== v100);
+  const { status, out } = check(note, ['--version', '1.0.0']);
+  assert.equal(status, 0, out);
+});
+
+test('an empty Install fails even where no block is there to compare', () => {
+  const root = mkdtempSync(join(scratch, 'bare-'));
+  const { status, out } = check(v100.slice(0, v100.indexOf('### Install') + '### Install'.length) + '\n', [], { root });
+  assert.equal(status, 1, out);
+  assert.deepEqual(rules(out), ['install']);
+  assert.match(out, /Install is empty/);
+});
+
+
 test('a usage error exits 2', () => {
   const result = spawnSync(process.execPath, [cli], { encoding: 'utf8', windowsHide: true });
   assert.equal(result.status, 2);

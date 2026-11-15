@@ -1,13 +1,14 @@
 #!/usr/bin/env node
-// Check one release note against the deterministic part of the house style in re0-release's SKILL.md, step 6; step 7
-// names what this script decides and what stays judgment. It also fails .agents/install-block.md when its release-notes
-// block drifts from the route blocks it restates. A repository with no install block, or none for the note's era, has its
-// Install reported as not checked against a block while every other rule still runs.
+// Check one release note against the rules marked (checked) in the house style, step 6 of re0-release's SKILL.md. It also
+// fails .agents/install-block.md when its release-notes block drifts from the route blocks it restates. A repository with
+// no install block, or none for the note's era, has its Install reported as not checked against a block while every other
+// rule still runs.
 // Usage: node notes.mjs <notes-file> [--version X.Y.Z] [--root <repo>]
 //        node notes.mjs --tag vX.Y.Z [--root <repo>]
-// The version picks the Install era when an install block exists: --version, else the tag, else a vX.Y.Z.md file name,
-// else <repo>/package.json.
-// Exit codes: 0 the note passes; 1 named failures; 2 the check could not run (usage, or a file it needs but cannot read).
+// --root defaults to the git top level, or the current folder outside git. The version picks the Install era when an
+// install block exists: --version, else the tag, else a vX.Y.Z.md file name, else <repo>/package.json.
+// Exit codes: 0 the note passes; 1 named failures; 2 the check could not run (usage, --tag outside git, or a file it needs
+// that is missing or unreadable).
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, realpathSync } from 'node:fs';
 import { basename, join } from 'node:path';
@@ -18,7 +19,7 @@ const USAGE = 'usage: node notes.mjs <notes-file> [--version X.Y.Z] [--root <rep
 const INSTALL_BLOCK = '.agents/install-block.md';
 const SIGNATURE = /-----BEGIN PGP SIGNATURE-----[\s\S]*?-----END PGP SIGNATURE-----\n?/;
 const CREDIT = /\(#\d+(?:-#\d+)?(?:, @[A-Za-z0-9][A-Za-z0-9-]*)+\)/g;
-const CATALOG = /^The catalog \((\d+) skills\)$/;
+const CATALOG = /^The catalog \((\d+) (skills?)\)$/;
 const CATALOG_BULLET = /^- (?:\*\*\x60[a-z]+\/\x60\*\* \([^)]+\)|\x60[a-z]+\/\x60): (.+)$/;
 // The sections a note may carry, in the only order it may carry them.
 const SECTIONS = [
@@ -109,7 +110,8 @@ export function checkNotes(text, era) {
 
   lines.forEach((line, i) => {
     if (line.includes('\u2014')) fail(i, 'em-dash', 'an em dash; rewrite the sentence with the punctuation it wants');
-    const bare = line.replace(/\x60[^\x60]*\x60/g, '');
+    // A # inside code, a link target or a URL is an anchor, not a reference to credit.
+    const bare = line.replace(/\x60[^\x60]*\x60/g, '').replace(/\]\([^)]*\)/g, ']').replace(/https?:\/\/\S+/g, '');
     const credited = [...bare.matchAll(CREDIT)].map((match) => [match.index, match.index + match[0].length]);
     for (const ref of bare.matchAll(/#\d+/g)) {
       if (!credited.some(([from, to]) => ref.index >= from && ref.index < to)) fail(i, 'credit', ref[0] + ' is not in the (#123, @handle) credit form');
@@ -152,11 +154,16 @@ export function checkNotes(text, era) {
       if (kind === 0 && subject) newSubjects.add(subject);
       if (kind === 1 && subject && newSubjects.has(subject)) fail(i, 'repeats-new', 'this ### Also bullet leads with ' + subject + ', which ### New already covers; Also holds only what New does not say');
     }
-    if (kind === 2) checkCatalog(Number(CATALOG.exec(section.heading)[1]), section.index, body, fail);
+    if (kind === 2) {
+      const [, count, noun] = CATALOG.exec(section.heading);
+      if ((count === '1') !== (noun === 'skill')) fail(section.index, 'catalog', 'write (1 skill) for one and (N skills) for any other count');
+      checkCatalog(Number(count), section.index, body, fail);
+    }
   });
 
   const install = sections.find((section) => section.heading === 'Install');
   if (!install) fail(lines.length - 1, 'install', 'there is no ### Install; it is always the last section');
+  else if (!lines.slice(install.index + 1).some((line) => line.trim())) fail(install.index, 'install', '### Install is empty; it carries the install commands');
   else if (era.name !== null) {
     const { name, rendering } = era;
     const want = rendering.split('\n').map((line) => line.trimEnd());
@@ -185,7 +192,18 @@ function checkCatalog(count, index, body, fail) {
   if (names.length !== count) fail(index, 'catalog', 'the heading counts ' + count + ' skills and the bullets list ' + names.length);
 }
 
+// The top level of the git repository holding the current folder, or null outside one.
+function gitTop() {
+  try {
+    return execFileSync('git', ['rev-parse', '--show-toplevel'], { encoding: 'utf8', windowsHide: true, stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  } catch (error) {
+    if (error instanceof Error && ('status' in error || 'code' in error)) return null;
+    throw error;
+  }
+}
+
 export function tagMessage(tag) {
+  if (gitTop() === null) throw new Usage('--tag reads a tag message, and ' + process.cwd() + ' is not inside a git repository');
   const out = execFileSync('git', ['for-each-ref', 'refs/tags/' + tag, '--format=%(objecttype)%00%(contents)'], { encoding: 'utf8', windowsHide: true });
   if (!out) throw new Usage('no tag ' + tag);
   const [type, ...rest] = out.split('\0');
@@ -196,7 +214,7 @@ export function tagMessage(tag) {
 export function run(argv) {
   const { values, positionals } = parseArgs({ args: argv, allowPositionals: true, options: { version: { type: 'string' }, root: { type: 'string' }, tag: { type: 'string' } } });
   if (Boolean(values.tag) === (positionals.length === 1) || positionals.length > 1) throw new Usage(USAGE);
-  const root = values.root ?? process.cwd();
+  const root = values.root ?? gitTop() ?? process.cwd();
   const label = values.tag ?? positionals[0];
   const text = values.tag ? tagMessage(values.tag) : readText(positionals[0], 'the notes');
   const version = () => {
