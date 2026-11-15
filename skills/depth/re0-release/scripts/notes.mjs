@@ -1,13 +1,12 @@
 #!/usr/bin/env node
-// Check one release note against the house style re0-release step 7 sets: one ## heading that is not the version, one
-// intro paragraph, only the New, Also, The catalog (N skills) and Install sections in that order with Install last and
-// equal to the install-block.md rendering for the note's era, single-line bullets (each New bullet opening with a bold
-// lead), a catalog that lists exactly N skills, the (#123, @handle) credit form, and no em dash. Whether a heading names
-// the release's durable idea, or a sentence earns its place, stays judgment.
+// Check one release note against the deterministic part of the house style in re0-release's SKILL.md, step 7, which
+// names what this script decides and what stays judgment; it also fails .agents/install-block.md when its release-notes
+// block drifts from the route blocks it restates.
 // Usage: node notes.mjs <notes-file> [--version X.Y.Z] [--root <repo>]
 //        node notes.mjs --tag vX.Y.Z [--root <repo>]
 // The version picks the Install era: --version, else the tag, else a vX.Y.Z.md file name, else <repo>/package.json.
-// Exit codes: 0 the note passes; 1 named failures; 2 usage, an unreadable input, or no rendering for the era.
+// Exit codes: 0 the note passes; 1 named failures; 2 the check could not run (usage, an unreadable notes file, or a
+// repository without .agents/install-block.md or the release-notes block for the note's era).
 import { execFileSync } from 'node:child_process';
 import { readFileSync, realpathSync } from 'node:fs';
 import { basename, join } from 'node:path';
@@ -17,7 +16,7 @@ import { parseArgs } from 'node:util';
 const USAGE = 'usage: node notes.mjs <notes-file> [--version X.Y.Z] [--root <repo>]\n       node notes.mjs --tag vX.Y.Z [--root <repo>]';
 const INSTALL_BLOCK = '.agents/install-block.md';
 const SIGNATURE = /-----BEGIN PGP SIGNATURE-----[\s\S]*?-----END PGP SIGNATURE-----\n?/;
-const CREDIT = /\(#\d+(?:-#\d+)?, @[A-Za-z0-9][A-Za-z0-9-]*\)/g;
+const CREDIT = /\(#\d+(?:-#\d+)?(?:, @[A-Za-z0-9][A-Za-z0-9-]*)+\)/g;
 const CATALOG = /^The catalog \((\d+) skills\)$/;
 const CATALOG_BULLET = /^- (?:\*\*\x60[a-z]+\/\x60\*\* \([^)]+\)|\x60[a-z]+\/\x60): (.+)$/;
 // The sections a note may carry, in the only order it may carry them.
@@ -62,15 +61,29 @@ export function installRendering(root, version) {
   return { name, rendering };
 }
 
-// The release-notes block restates the route blocks in another layout, so its commands must stay theirs.
+// The release-notes block restates the route blocks in another layout: each command, and each route's parenthetical,
+// which is the first sentence after that route's command with its first letter lowered and its period dropped.
 export function blockDrift(root) {
   const blocks = canonicalBlocks(root);
-  const routes = [...blocks].filter(([name]) => !name.startsWith('release-notes')).flatMap(([, body]) => (fenced(body, 'bash') ?? '').split('\n').map((line) => line.trim()).filter(Boolean));
+  const routeBlocks = [...blocks].filter(([name]) => !name.startsWith('release-notes')).map(([, body]) => body);
+  const routes = routeBlocks.flatMap((body) => (fenced(body, 'bash') ?? '').split('\n').map((line) => line.trim()).filter(Boolean));
+  const sentences = routeBlocks.map((body) => {
+    const prose = body.slice(body.lastIndexOf('\x60\x60\x60') + 3).trim();
+    const first = /^[\s\S]*?\.(?=\s|$)/.exec(prose)?.[0] ?? prose;
+    return first.charAt(0).toLowerCase() + first.slice(1, -1);
+  });
   const notes = fenced(blocks.get('release-notes') ?? '', 'markdown');
   if (notes === null) return [];
+  const problems = [];
   const commands = notes.split('\n').filter((line) => line.startsWith('    ')).map((line) => line.trim());
-  if (commands.length === routes.length && commands.every((command, i) => command === routes[i])) return [];
-  return [{ line: 0, rule: 'install-block', message: INSTALL_BLOCK + "'s release-notes block carries the commands " + JSON.stringify(commands) + ' where the route blocks carry ' + JSON.stringify(routes) }];
+  if (commands.length !== routes.length || commands.some((command, i) => command !== routes[i])) {
+    problems.push({ line: 0, rule: 'install-block', message: 'fix ' + INSTALL_BLOCK + ', not the note: its release-notes block carries the commands ' + JSON.stringify(commands) + ' where the route blocks carry ' + JSON.stringify(routes) });
+  }
+  const parentheticals = notes.split('\n').flatMap((line) => /^\S.*? \((.+)\):$/.exec(line)?.slice(1) ?? []);
+  if (parentheticals.length !== sentences.length || parentheticals.some((text, i) => text !== sentences[i])) {
+    problems.push({ line: 0, rule: 'install-block', message: 'fix ' + INSTALL_BLOCK + ', not the note: its release-notes block says ' + JSON.stringify(parentheticals) + ' where the route blocks say ' + JSON.stringify(sentences) });
+  }
+  return problems;
 }
 
 export function checkNotes(text, version, root) {

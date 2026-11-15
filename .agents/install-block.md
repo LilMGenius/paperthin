@@ -79,7 +79,7 @@ An agent asked to "install https://github.com/LilMGenius/paperthin" or to "set t
 
 ## Release notes
 
-A release note is the signed tag's message, which the release workflow copies into the GitHub Release, and its last section is `### Install`. It carries the routes above as one sentence per route, each followed by its indented command. `skills/depth/re0-release/scripts/notes.mjs` fails a note whose Install differs from the block for its version, and fails this block when its commands differ from the route blocks.
+A release note is the signed tag's message, which the release workflow copies into the GitHub Release, and its last section is `### Install`: the contents of the fence below, without the fence lines. It carries the routes above in their order, each as a label, a parenthetical and its indented command. The commands and parentheticals are copied from the route blocks (a parenthetical is the first sentence after the route's command, its first letter lowered and its period dropped); the opening line and the labels are this block's own. `skills/depth/re0-release/scripts/notes.mjs` fails a note whose Install differs from the block for its version, and fails this block when a copied part differs from its route block.
 
 <canonical-block name="release-notes">
 

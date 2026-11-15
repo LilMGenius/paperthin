@@ -159,6 +159,18 @@ test('a credit outside the (#123, @handle) form fails', () => {
   assert.deepEqual(rules(out), ['credit']);
 });
 
+test('a credit for a run of pull requests or several authors passes', () => {
+  const { status, out } = check(v100.replace('(#123, @handle)', '(#12-#14, @handle) (#15, @handle, @other)'), ['--version', '1.0.0']);
+  assert.equal(status, 0, out);
+});
+
+test('a 0.x note checked without a version takes package.json, which names 1.x, and fails its Install', () => {
+  const { status, out } = check(v070);
+  assert.equal(status, 1, out);
+  assert.deepEqual(rules(out), ['install']);
+  assert.match(out, /differs from the release-notes block/);
+});
+
 test('a release-notes block whose commands drift from the route blocks fails every note', () => {
   const root = join(scratch, 'drifted');
   mkdirSync(join(root, '.agents'), { recursive: true });
@@ -170,6 +182,26 @@ test('a release-notes block whose commands drift from the route blocks fails eve
   const { status, out } = check(v100, ['--version', '1.0.0'], { root });
   assert.equal(status, 1, out);
   assert.deepEqual(rules(out), ['install-block']);
+});
+
+test('a release-notes block whose route sentence drifts from its route block fails every note', () => {
+  const root = join(scratch, 'drifted-prose');
+  mkdirSync(join(root, '.agents'), { recursive: true });
+  const text = readFileSync(join(repo, '.agents', 'install-block.md'), 'utf8').replace(/\r\n/g, '\n');
+  const drifted = text.replace('\n\nUpdates itself at startup.\n', '\n\nUpdates itself daily.\n');
+  assert.ok(drifted !== text, 'the codex route sentence was not found');
+  writeFileSync(join(root, '.agents', 'install-block.md'), drifted);
+  const { status, out } = check(v100, ['--version', '1.0.0'], { root });
+  assert.equal(status, 1, out);
+  assert.deepEqual(rules(out), ['install-block']);
+  assert.match(out, /not the note/);
+});
+
+test('a repository without an install block exits 2', () => {
+  const root = mkdtempSync(join(scratch, 'bare-'));
+  const { status, out } = check(v100, ['--version', '1.0.0'], { root });
+  assert.equal(status, 2, out);
+  assert.match(out, /cannot read the install block/);
 });
 
 test('--tag reads an annotated tag message in the current repository', () => {
