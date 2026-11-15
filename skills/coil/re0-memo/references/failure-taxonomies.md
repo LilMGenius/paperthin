@@ -1,6 +1,6 @@
 # Failure taxonomies
 
-Step 7 of `re0-memo` holds the memo's lesson classes up against the failure breakdowns a field already publishes, so a class the memo never named is found from a source rather than from memory, and a class only the memo names is marked as the cycle's own reading. The procedure is distilled from `domain-gaps`, a skill in the same author's LilMSkills collection that checks any remembered list against a field's authorities: its source classes, its one-list-per-source rule, its alias line and its verdicts are kept, and its comparison script is replaced by one hand-written table, since a memo holds a handful of classes and aligning them is judgment.
+Step 7 of `re0-memo` holds the memo's lesson classes up against the failure breakdowns a field already publishes, so a class the memo never named is found from a source rather than from memory, and a class only the memo names is marked as the cycle's own reading. It checks the memo the way any list written from memory is checked against a field's authorities: classes of source, one list per source, an alias line and a verdict per class, aligned in one hand-written table, since a memo holds a handful of classes and aligning them is judgment.
 
 ## Seed
 

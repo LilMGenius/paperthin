@@ -2,11 +2,9 @@
 'use strict';
 /*
  * Produce the audit table described by ssotize Workflow 2 and 9.
- * Prior art: daedal-games/tools/snapshot-paths.mjs (relative path enumeration)
- * and skills/session-surgery/scripts/diagnose-rollout.mjs (stat mtime and size).
- * Mechanisms only, no source copied: the former is proprietary; no license
- * was found for the latter. Use Node APIs with recursive exclusions, SHA-256,
- * cwd-relative sorting, and Markdown/JSON output for candidate-file audits.
+ * Node APIs only: relative path enumeration with recursive exclusions, stat
+ * mtime and size, SHA-256, cwd-relative sorting, and Markdown/JSON output
+ * for candidate-file audits.
  * Usage: node scripts/snapshot-candidates.mjs [--json] <path>...
  */
 import { readdirSync, readFileSync, realpathSync, statSync } from 'node:fs';
