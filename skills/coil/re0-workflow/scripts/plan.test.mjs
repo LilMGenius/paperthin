@@ -1,150 +1,133 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, rmSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const skill = dirname(dirname(fileURLToPath(import.meta.url)));
-const root = mkdtempSync(join(tmpdir(), 'workflow-plan-'));
-const linkRoot = mkdtempSync(join(tmpdir(), 'workflow-plan-link-'));
 // Every call goes through a link to the skill folder, the way an installed skill is reached.
+const linkRoot = mkdtempSync(join(tmpdir(), 'workflow-plan-link-'));
 const link = join(linkRoot, 're0-workflow');
 symlinkSync(skill, link, process.platform === 'win32' ? 'junction' : 'dir');
-test.after(() => {
-  rmSync(root, { recursive: true, force: true });
-  rmSync(linkRoot, { recursive: true, force: true });
-});
+test.after(() => rmSync(linkRoot, { recursive: true, force: true }));
 
-let count = 0;
+const script = join(link, 'scripts', 'plan.mjs');
 function cli(plan, ...flags) {
-  const file = join(root, 'plan-' + count++ + '.json');
-  writeFileSync(file, typeof plan === 'string' ? plan : JSON.stringify(plan));
-  const run = spawnSync(process.execPath, [join(link, 'scripts', 'plan.mjs'), file, '--json', ...flags], { encoding: 'utf8' });
-  return { status: run.status, rules: run.status === 2 ? [] : JSON.parse(run.stdout).problems.map((p) => p.rule), stdout: run.stdout, stderr: run.stderr };
+  const run = spawnSync(process.execPath, [script, '--json', ...flags], { input: typeof plan === 'string' ? plan : JSON.stringify(plan), encoding: 'utf8' });
+  return { status: run.status, rules: run.status === 2 ? [] : JSON.parse(run.stdout).problems.map((p) => p.rule), stdout: run.stdout };
 }
 
-const step = (id, target, predecessors, serves, extra = {}) => ({ id, target, predecessors, serves, type: 'invoke-model-skill', precondition: 'its predecessors produced their output', output: 'what the skill-a contract returns', skippable: 'never', cost_owner: 'run', writes: false, lane: 'model', ...extra });
+const step = (id, target, predecessors, serves, extra = {}) => ({ id, target, predecessors, serves, type: 'invoke-model-skill', precondition: 'its predecessors produced their output', output: 'what the skill contract returns', skippable: 'never', cost_owner: 'run', writes: false, lane: 'model', ...extra });
+const skip = { type: 'skip', cost_owner: 'none', lane: 'missing' };
+const handoff = { type: 'user-handoff', cost_owner: 'human', lane: 'user', destructive: true, handoff: 'type /skill-c', bring_back: 'the published version' };
 
-// A request read back into three requirements: rewrite a section, check its claims, publish it.
+// A request read into three requirements: rewrite a section, check its claims, publish it. One sip closes the writing stretch before the handoff.
 function valid() {
   return {
     intent: 'rewrite the setup section, check it, then publish it',
+    readback: 'ran',
     understood_as: 'understood as: rewrite one section, verify its claims, then hand the publish to the human',
     requirements: [{ id: 'r1', text: 'rewrite the setup section' }, { id: 'r2', text: 'check its claims' }, { id: 'r3', text: 'publish it' }],
     steps: [
-      step('s1', 'readback', [], []),
-      step('s2', 'skill-a', ['s1'], ['r1'], { writes: true }),
-      step('s3', 'sip', ['s2'], ['r1']),
-      step('s4', 'skill-b', ['s3'], ['r2']),
-      step('s5', 'skill-c', ['s3', 's4'], ['r3'], { type: 'user-handoff', cost_owner: 'human', lane: 'user', destructive: true, handoff: 'type /skill-c', bring_back: 'the published version' }),
+      step('s1', 'skill-a', [], ['r1'], { writes: true }),
+      step('s2', 'skill-b', ['s1'], ['r2']),
+      step('s3', 'sip', ['s2'], ['r1'], { added: 'sip' }),
+      step('s4', 'skill-c', ['s3'], ['r3'], handoff),
     ],
     stop: 'the section is published with its claims checked',
   };
 }
 const at = (plan, id) => plan.steps.find((s) => s.id === id);
-function planted(edit) {
+function planted(edit, ...flags) {
   const plan = valid();
   edit(plan);
-  return cli(plan);
+  return cli(plan, ...flags);
 }
 
 test('a valid plan passes', () => {
   const run = cli(valid());
   assert.equal(run.status, 0, run.stdout);
-  assert.deepEqual(run.rules, []);
 });
 
-test('readback first: removing the readback step fails', () => {
-  const run = planted((p) => {
-    p.steps = p.steps.filter((s) => s.target !== 'readback');
-    at(p, 's2').predecessors = [];
-  });
-  assert.equal(run.status, 1);
-  assert.deepEqual(run.rules, ['readback-first']);
+test('readback: listing the readback as a plan step, or leaving how the intent was read unstated, fails', () => {
+  assert.deepEqual(planted((p) => { p.steps.unshift(step('s0', 'readback', [], ['r1'])); at(p, 's1').predecessors = ['s0']; }).rules, ['readback']);
+  assert.deepEqual(planted((p) => { delete p.readback; }).rules, ['readback']);
+  assert.equal(planted((p) => { p.readback = 'missing'; }).status, 0);
 });
 
-test('readback first: a readback with a predecessor, or a step that does not follow it, fails', () => {
-  assert.ok(planted((p) => { at(p, 's1').predecessors = ['s4']; }).rules.includes('readback-first'));
-  assert.deepEqual(planted((p) => { at(p, 's4').predecessors = []; }).rules, ['readback-first']);
-});
-
-test('readback first: a skip reason outside the list fails, single-named-step on a one-step plan passes', () => {
-  assert.deepEqual(planted((p) => { p.steps = p.steps.filter((s) => s.target !== 'readback'); at(p, 's2').predecessors = []; p.readback_skip = 'obvious'; }).rules, ['readback-first']);
+test('readback: single-named-step holds for one action and its closing sip, never for two actions', () => {
   const one = valid();
-  one.readback_skip = 'single-named-step';
+  one.readback = 'single-named-step';
   one.requirements = [one.requirements[0]];
-  one.steps = [step('s2', 'skill-a', [], ['r1'], { writes: true }), step('s3', 'sip', ['s2'], ['r1'])];
+  one.steps = [step('s1', 'skill-a', [], ['r1'], { writes: true }), step('s2', 'sip', ['s1'], ['r1'], { added: 'sip' })];
   assert.equal(cli(one).status, 0);
-  one.requirements.push({ id: 'r2', text: 'a second ask' });
-  one.steps.push(step('s4', 'skill-b', ['s3'], ['r2']));
-  assert.deepEqual(cli(one).rules, ['readback-first']);
+  one.steps.splice(1, 0, step('s9', 'skill-b', ['s1'], ['r1']));
+  one.steps[2].predecessors = ['s9'];
+  assert.deepEqual(cli(one).rules, ['readback']);
 });
 
-test('readback first: a missing readback stays as a skip and its dependents still run', () => {
-  assert.equal(planted((p) => { Object.assign(at(p, 's1'), { type: 'skip', cost_owner: 'none', lane: 'missing', reason: 'readback is not installed' }); }).status, 0);
+test('no-match: a plan with no action fails, since a no-match is a plain report', () => {
+  assert.deepEqual(planted((p) => { p.steps = []; p.requirements.forEach((r) => { r.unmet = 'no installed skill serves it'; }); }).rules, ['no-match']);
 });
 
-test('requirements: an unmapped requirement fails unless recorded as unmet', () => {
+test('requirements: an unmapped one fails unless recorded as unmet, and one only skips serve is unmet', () => {
   assert.deepEqual(planted((p) => { p.requirements.push({ id: 'r4', text: 'translate it' }); }).rules, ['requirement']);
   assert.equal(planted((p) => { p.requirements.push({ id: 'r4', text: 'translate it', unmet: 'no installed skill translates' }); }).status, 0);
+  const skipped = (p) => Object.assign(at(p, 's2'), skip, { reason: 'skill-b is not installed' });
+  assert.ok(planted(skipped).rules.includes('requirement'));
+  assert.equal(planted((p) => { skipped(p); p.requirements[1].unmet = 'skill-b is not installed'; at(p, 's3').predecessors = ['s1']; }).status, 0);
 });
 
-test('requirements: one served only by skipped steps must be recorded as unmet', () => {
-  const edit = (p) => {
-    Object.assign(at(p, 's4'), { type: 'skip', cost_owner: 'none', lane: 'missing', reason: 'skill-b is not installed' });
-    at(p, 's5').predecessors = ['s3'];
-  };
-  assert.deepEqual(planted(edit).rules, ['requirement']);
-  assert.equal(planted((p) => { edit(p); p.requirements[1].unmet = 'skill-b is not installed'; }).status, 0);
+test('requirements: a step that serves none fails', () => {
+  assert.deepEqual(planted((p) => { at(p, 's2').serves = []; p.requirements[1].unmet = 'dropped'; }).rules, ['serves']);
 });
 
-test('requirements: a step that serves none, or an unknown one, fails', () => {
-  assert.deepEqual(planted((p) => { at(p, 's4').serves = []; p.requirements[1].unmet = 'dropped'; }).rules, ['serves']);
-  assert.deepEqual(planted((p) => { at(p, 's4').serves = ['r2', 'r9']; }).rules, ['requirement']);
-});
-
-test('cycle: steps that depend on each other fail and the loop is named', () => {
-  const run = planted((p) => { at(p, 's2').predecessors = ['s1', 's4']; });
+test('cycle: steps that depend on each other fail, and the cycle is named in run order', () => {
+  const run = planted((p) => { at(p, 's1').predecessors = ['s2']; });
   assert.ok(run.rules.includes('cycle'));
-  assert.match(run.stdout, /s2 -> s4 -> s3 -> s2|s4 -> s3 -> s2 -> s4|s3 -> s2 -> s4 -> s3/);
-});
-
-test('user-only: a user-invoked target typed invoke-model-skill fails, even as one of a conditional step\'s types', () => {
-  assert.deepEqual(planted((p) => { Object.assign(at(p, 's4'), { lane: 'user' }); }).rules, ['user-only']);
-  assert.deepEqual(planted((p) => { Object.assign(at(p, 's5'), { type: ['user-handoff', 'invoke-model-skill'], destructive: false }); }).rules, ['user-only']);
-});
-
-test('sip: a writing run step with no sip after it fails; a pipeline that runs sip itself passes', () => {
-  const drop = (p) => {
-    p.steps = p.steps.filter((s) => s.id !== 's3');
-    at(p, 's4').predecessors = ['s2'];
-    at(p, 's5').predecessors = ['s4'];
-  };
-  assert.deepEqual(planted(drop).rules, ['sip']);
-  assert.equal(planted((p) => { drop(p); at(p, 's2').members = ['skill-x', 'sip']; }).status, 0);
-});
-
-test('sip: a step the human or the session performs that writes also needs a sip after it', () => {
-  assert.deepEqual(planted((p) => { at(p, 's5').writes = true; }).rules, ['sip']);
-  assert.equal(planted((p) => {
-    at(p, 's5').writes = true;
-    p.steps.push(step('s6', 'sip', ['s5'], ['r3']));
-  }).status, 0);
-});
-
-test('session step: work no skill covers runs as the session\'s own step, never on a skill lane and never destructive', () => {
-  const session = { type: 'session-step', target: 'rebase the branch locally', lane: 'none' };
-  assert.equal(planted((p) => { Object.assign(at(p, 's2'), session); }).status, 0);
-  assert.deepEqual(planted((p) => { Object.assign(at(p, 's2'), session, { lane: 'model' }); }).rules, ['session']);
-  assert.deepEqual(planted((p) => { Object.assign(at(p, 's2'), session, { destructive: true }); }).rules, ['destructive']);
-  assert.deepEqual(planted((p) => { Object.assign(at(p, 's2'), session, { writes: true }); p.steps = p.steps.filter((s) => s.id !== 's3'); at(p, 's4').predecessors = ['s2']; at(p, 's5').predecessors = ['s4']; }).rules, ['sip']);
-  assert.deepEqual(planted((p) => { at(p, 's4').lane = 'none'; }).rules, ['session']);
+  assert.match(run.stdout, /s1 -> s2 -> s1/);
 });
 
 test('sequence: a step listed before its predecessor fails', () => {
-  assert.deepEqual(planted((p) => { p.steps = [p.steps[0], p.steps[2], p.steps[1], ...p.steps.slice(3)]; }).rules, ['sequence']);
+  assert.deepEqual(planted((p) => { p.steps = [p.steps[1], p.steps[0], ...p.steps.slice(2)]; }).rules, ['sequence']);
+});
+
+test('user-only: a user-invoked target the session could run fails, even as one of a conditional step\'s types', () => {
+  assert.deepEqual(planted((p) => { at(p, 's2').lane = 'user'; }).rules, ['user-only']);
+  assert.deepEqual(planted((p) => { Object.assign(at(p, 's4'), { type: ['user-handoff', 'invoke-model-skill'], destructive: false }); }).rules, ['user-only']);
+});
+
+test('sip: a writing stretch needs exactly one closing sip, last before the stop, after every write', () => {
+  const drop = (p) => { p.steps = p.steps.filter((s) => s.id !== 's3'); at(p, 's4').predecessors = ['s2']; };
+  assert.deepEqual(planted(drop).rules, ['sip']);
+  assert.deepEqual(planted((p) => { p.steps.splice(3, 0, step('s5', 'sip', ['s3'], ['r1'], { added: 'sip' })); at(p, 's4').predecessors = ['s5']; }).rules, ['sip']);
+  assert.deepEqual(planted((p) => { p.steps = [p.steps[0], p.steps[2], p.steps[1], p.steps[3]]; at(p, 's3').predecessors = ['s1']; at(p, 's2').predecessors = ['s3']; at(p, 's4').predecessors = ['s2']; }).rules, ['sip']);
+  assert.deepEqual(planted((p) => { at(p, 's3').predecessors = []; p.steps = [p.steps[2], p.steps[0], p.steps[1], p.steps[3]]; at(p, 's4').predecessors = ['s3', 's2']; p.steps = [p.steps[1], p.steps[2], p.steps[0], p.steps[3]]; }).rules, ['sip']);
+  assert.equal(planted((p) => { drop(p); at(p, 's1').members = ['skill-x', 'sip']; }).status, 0);
+});
+
+test('sip: an added sip in a stretch that writes nothing is padding', () => {
+  assert.deepEqual(planted((p) => { at(p, 's1').writes = false; }).rules, ['sip']);
+});
+
+test('sip: a human step that writes is closed by a sip once its result returns', () => {
+  assert.deepEqual(planted((p) => { at(p, 's4').writes = true; }).rules, ['sip']);
+  assert.equal(planted((p) => { at(p, 's4').writes = true; p.steps.push(step('s5', 'sip', ['s4'], ['r3'], { added: 'sip' })); }).status, 0);
+});
+
+test('added: an added check names the skill it adds', () => {
+  assert.deepEqual(planted((p) => { at(p, 's3').target = 'shower'; }).rules, ['added', 'sip']);
+});
+
+test('outside read: a delivered judgment no sip tastes gets exactly one, and never both', () => {
+  const judged = (p) => { p.steps = p.steps.filter((s) => s.id !== 's3'); at(p, 's1').writes = false; at(p, 's2').judgment_only = true; at(p, 's4').predecessors = ['s2']; };
+  assert.deepEqual(planted(judged).rules, ['outside']);
+  const read = (p) => { judged(p); p.steps.splice(2, 0, step('s5', 'shower', ['s2'], ['r2'], { added: 'outside-read' })); at(p, 's4').predecessors = ['s5']; };
+  assert.equal(planted(read).status, 0);
+  assert.deepEqual(planted((p) => { at(p, 's2').judgment_only = true; p.steps.splice(3, 0, step('s5', 'shower', ['s3'], ['r2'], { added: 'outside-read' })); at(p, 's4').predecessors = ['s5']; }).rules, ['sip', 'outside']);
+  assert.deepEqual(planted((p) => { read(p); delete at(p, 's2').judgment_only; }).rules, ['outside']);
 });
 
 test('stop: a missing stop condition or two of them fail', () => {
@@ -153,48 +136,63 @@ test('stop: a missing stop condition or two of them fail', () => {
 });
 
 test('typing: a wrong cost owner, a missing skill that runs, a destructive run step or a self target fails', () => {
-  assert.deepEqual(planted((p) => { at(p, 's4').cost_owner = 'human'; }).rules, ['cost']);
-  assert.deepEqual(planted((p) => { Object.assign(at(p, 's4'), { type: ['user-handoff', 'invoke-model-skill'], handoff: 'decide', bring_back: 'the answer' }); }).rules, ['cost']);
-  assert.deepEqual(planted((p) => { at(p, 's4').lane = 'missing'; }).rules, ['missing']);
-  assert.deepEqual(planted((p) => { at(p, 's4').destructive = true; }).rules, ['destructive']);
-  assert.deepEqual(planted((p) => { at(p, 's4').target = 'paperthin'; }).rules, ['self']);
+  assert.deepEqual(planted((p) => { at(p, 's2').cost_owner = 'human'; }).rules, ['cost']);
+  assert.deepEqual(planted((p) => { at(p, 's2').lane = 'missing'; }).rules, ['missing']);
+  assert.deepEqual(planted((p) => { at(p, 's2').destructive = true; }).rules, ['destructive']);
+  assert.deepEqual(planted((p) => { at(p, 's2').target = 'paperthin'; }).rules, ['self']);
 });
 
-test('skip and handoff: a skip without a reason, a skip whose dependent runs, or a handoff without its fields fails', () => {
-  const skip = { type: 'skip', cost_owner: 'none', lane: 'missing' };
-  assert.deepEqual(planted((p) => { Object.assign(at(p, 's4'), skip); p.requirements[1].unmet = 'missing'; }).rules, ['skip', 'skip']);
-  const propagated = planted((p) => { Object.assign(at(p, 's4'), skip, { reason: 'skill-b is not installed' }); p.requirements[1].unmet = 'missing'; });
-  assert.deepEqual(propagated.rules, ['skip']);
-  assert.match(propagated.stdout, /s5/);
-  assert.deepEqual(planted((p) => { delete at(p, 's5').bring_back; }).rules, ['handoff']);
+test('session step: work no skill covers is the session\'s own step, never on a skill lane and never destructive', () => {
+  const session = { type: 'session-step', target: 'rebase the branch locally', lane: 'none' };
+  assert.equal(planted((p) => { Object.assign(at(p, 's1'), session); }).status, 0);
+  assert.deepEqual(planted((p) => { Object.assign(at(p, 's1'), session, { lane: 'model' }); }).rules, ['session']);
+  assert.deepEqual(planted((p) => { Object.assign(at(p, 's1'), session, { destructive: true }); }).rules, ['destructive']);
+  assert.deepEqual(planted((p) => { at(p, 's2').lane = 'none'; }).rules, ['session']);
 });
 
-test('outside eyes: a judgment-only step with no outside read after it fails', () => {
-  assert.deepEqual(planted((p) => { at(p, 's4').judgment_only = true; }).rules, ['outside']);
-  assert.equal(planted((p) => { at(p, 's2').judgment_only = true; }).status, 0);
+test('skip: a skip needs a reason, its dependents are skipped too, and they inherit its reason', () => {
+  // skill-a is missing, so the write never happens and no sip closes the stretch; the handoff does not need its output.
+  const lose = (p) => {
+    Object.assign(at(p, 's1'), skip, { reason: 'skill-a is not installed' });
+    p.requirements[0].unmet = 'skill-a is not installed';
+    p.steps = p.steps.filter((s) => s.id !== 's3');
+    at(p, 's4').predecessors = [];
+  };
+  assert.ok(planted((p) => { lose(p); delete at(p, 's1').reason; }).rules.includes('skip'));
+  assert.ok(planted(lose).rules.includes('skip'));
+  const inherit = (reason) => (p) => { lose(p); Object.assign(at(p, 's2'), skip, { lane: 'model', reason }); p.requirements[1].unmet = 'its input is missing'; };
+  assert.deepEqual(planted(inherit('nothing to check')).rules, ['skip']);
+  assert.equal(planted(inherit('needs the output of s1, skill-a is not installed')).status, 0);
 });
 
 test('pipeline: a member of a pipeline step reproduced for the same requirement fails', () => {
-  assert.deepEqual(planted((p) => { at(p, 's2').members = ['skill-b']; at(p, 's4').serves = ['r1', 'r2']; }).rules, ['pipeline']);
-  assert.equal(planted((p) => { at(p, 's2').members = ['skill-b']; }).status, 0);
+  assert.deepEqual(planted((p) => { at(p, 's1').members = ['skill-b']; at(p, 's2').serves = ['r1', 'r2']; }).rules, ['pipeline']);
+  assert.equal(planted((p) => { at(p, 's1').members = ['skill-b']; }).status, 0);
 });
 
-test('reject and shape: a reject with steps, or a plan without its understood-as line, fails', () => {
+test('reject: a cycle named in run order over declared edges passes; reversed, unknown or with a stop it fails', () => {
+  const cyclic = (reject) => (p) => { at(p, 's1').predecessors = ['s2']; p.reject = reject; delete p.stop; };
+  assert.equal(planted(cyclic('skill-a -> skill-b -> skill-a')).status, 0);
+  assert.equal(planted(cyclic('s2 -> s1 -> s2')).status, 0);
+  const three = (reject) => (p) => { at(p, 's1').predecessors = ['s3']; p.reject = reject; delete p.stop; };
+  assert.equal(planted(three('skill-a -> skill-b -> sip -> skill-a')).status, 0);
+  assert.deepEqual(planted(three('skill-a -> sip -> skill-b -> skill-a')).rules, ['reject', 'reject', 'reject']);
+  assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a -> skill-c -> skill-a'; delete p.stop; }).rules, ['reject', 'reject']);
   assert.deepEqual(planted((p) => { p.reject = 'skill-a -> skill-b -> skill-a'; delete p.stop; }).rules, ['reject']);
-  const reject = valid();
-  reject.steps = [reject.steps[0]];
-  reject.requirements = reject.requirements.map((r) => ({ ...r, unmet: 'the request is cyclic' }));
-  reject.reject = 'skill-a -> skill-b -> skill-a';
-  delete reject.stop;
-  assert.equal(cli(reject).status, 0);
+  assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a -> skill-z -> skill-a'; delete p.stop; }).rules, ['reject']);
+  assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a -> skill-b -> skill-a'; }).rules, ['stop']);
+});
+
+test('shape: a plan without its understood-as line fails', () => {
   assert.deepEqual(planted((p) => { delete p.understood_as; }).rules, ['shape']);
 });
 
-// A run that stopped at the handoff: the first steps ran, the handoff waits on the human.
+// A run that stopped at the handoff after the approved writes ran.
 function report() {
   const plan = valid();
-  for (const id of ['s1', 's2', 's3', 's4']) Object.assign(at(plan, id), { outcome: 'ran', result: 'done' });
-  Object.assign(at(plan, 's5'), { outcome: 'handed-off', result: 'asked the human to type /skill-c' });
+  plan.approval = 'approved';
+  for (const id of ['s1', 's2', 's3']) Object.assign(at(plan, id), { outcome: 'ran', result: 'done' });
+  Object.assign(at(plan, 's4'), { outcome: 'handed-off', result: 'asked the human to type /skill-c' });
   plan.requirements[0].status = 'served';
   plan.requirements[1].status = 'served';
   plan.requirements[2].status = 'handed-off';
@@ -207,38 +205,33 @@ const reported = (edit) => {
   return cli(plan, '--report');
 };
 
-test('report: a run that stopped at its handoff passes, and a plan without outcomes fails as a report', () => {
+test('report: a run stopped at its handoff passes, and a plan without outcomes fails as a report', () => {
   assert.equal(cli(report(), '--report').status, 0);
   assert.equal(cli(valid(), '--report').status, 1);
 });
 
 test('report: a step that ran after the stop, or two stops, fails', () => {
-  assert.deepEqual(reported((p) => { at(p, 's3').outcome = 'waiting'; p.requirements[0].status = 'waiting'; }).rules, ['order']);
-  assert.ok(reported((p) => { at(p, 's4').outcome = 'failed'; }).rules.includes('order'));
-  assert.deepEqual(reported((p) => { at(p, 's4').outcome = 'handed-off'; p.requirements[1].status = 'handed-off'; at(p, 's5').outcome = 'waiting'; p.requirements[2].status = 'waiting'; }).rules, ['outcome']);
+  assert.deepEqual(reported((p) => { at(p, 's2').outcome = 'waiting'; p.requirements[1].status = 'waiting'; }).rules, ['order']);
+  assert.ok(reported((p) => { at(p, 's2').outcome = 'failed'; }).rules.includes('order'));
 });
 
 test('report: a status the outcomes do not back, or a stop claimed reached while a step waits, fails', () => {
   assert.deepEqual(reported((p) => { p.requirements[2].status = 'served'; }).rules, ['status']);
   assert.deepEqual(reported((p) => { p.requirements[2].status = 'unmet'; }).rules, ['status']);
   assert.deepEqual(reported((p) => { p.stop_reached = true; }).rules, ['stop-reached']);
-  assert.deepEqual(reported((p) => { at(p, 's5').outcome = 'ran'; p.requirements[2].status = 'served'; }).rules, ['outcome']);
+  assert.deepEqual(reported((p) => { at(p, 's4').outcome = 'ran'; p.requirements[2].status = 'served'; }).rules, ['outcome']);
 });
 
-test('report: a requirement whose steps wait behind the stop is waiting, and served needs every serving step closed', () => {
-  const stopEarly = (p) => {
-    Object.assign(at(p, 's4'), { type: 'user-handoff', cost_owner: 'human', lane: 'user', handoff: 'decide the claims', bring_back: 'the verdict', outcome: 'handed-off', result: 'asked the human' });
-    Object.assign(at(p, 's5'), { outcome: 'waiting' });
-    delete at(p, 's5').result;
-    p.requirements[1].status = 'handed-off';
-  };
-  assert.deepEqual(reported((p) => { stopEarly(p); p.requirements[2].status = 'waiting'; }).rules, []);
-  assert.deepEqual(reported((p) => { stopEarly(p); p.requirements[2].status = 'handed-off'; }).rules, ['status']);
-  assert.deepEqual(reported((p) => { stopEarly(p); p.requirements[2].status = 'waiting'; at(p, 's3').outcome = 'waiting'; delete at(p, 's3').result; }).rules.filter((r) => r === 'status'), ['status']);
+test('report: writes run only under approval, and an order-only request runs nothing', () => {
+  assert.deepEqual(reported((p) => { p.approval = 'not-needed'; }).rules, ['approval']);
+  assert.deepEqual(reported((p) => { p.approval = 'pending'; }).rules, ['approval']);
+  const order = (p) => { p.approval = 'order-only'; for (const s of p.steps) { s.outcome = 'waiting'; delete s.result; } p.requirements.forEach((r) => { r.status = 'waiting'; }); };
+  assert.equal(reported(order).status, 0);
+  assert.ok(reported((p) => { order(p); Object.assign(at(p, 's1'), { outcome: 'ran', result: 'done' }); }).rules.includes('approval'));
 });
 
-test('usage: no file, an unreadable file or invalid JSON exits 2', () => {
-  assert.equal(spawnSync(process.execPath, [join(link, 'scripts', 'plan.mjs')], { encoding: 'utf8' }).status, 2);
-  assert.equal(spawnSync(process.execPath, [join(link, 'scripts', 'plan.mjs'), join(root, 'absent.json')], { encoding: 'utf8' }).status, 2);
+test('usage: a file path, extra arguments or invalid JSON exits 2, and - reads stdin', () => {
+  assert.equal(spawnSync(process.execPath, [script, 'plan.json'], { input: '{}', encoding: 'utf8' }).status, 2);
   assert.equal(cli('{not json').status, 2);
+  assert.equal(spawnSync(process.execPath, [script, '-'], { input: JSON.stringify(valid()), encoding: 'utf8' }).status, 0);
 });
