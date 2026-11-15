@@ -1,4 +1,4 @@
 interface:
   display_name: "re0-workflow"
-  short_description: "Pick, show and run the skill order for one goal"
+  short_description: "Read a goal back, then plan, check and run its skills"
   default_prompt: "Use $re0-workflow to pick, show and run the skills for this goal."
