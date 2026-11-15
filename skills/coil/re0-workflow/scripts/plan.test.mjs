@@ -4,7 +4,7 @@ import { mkdtempSync, rmSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const skill = dirname(dirname(fileURLToPath(import.meta.url)));
 // Every call goes through a link to the skill folder, the way an installed skill is reached.
@@ -99,7 +99,7 @@ test('requirements: one recorded as unmet while a step that runs still serves it
 test('cycle: steps that depend on each other fail, and the cycle is named in run order', () => {
   const run = planted((p) => { at(p, 's1').predecessors = ['s2']; });
   assert.ok(run.rules.includes('cycle'));
-  assert.match(run.stdout, /s1 -> s2 -> s1/);
+  assert.match(run.stdout, /s1 requires s2 requires s1/);
 });
 
 test('sequence: a step listed before its predecessor fails', () => {
@@ -109,6 +109,13 @@ test('sequence: a step listed before its predecessor fails', () => {
 test('user-only: a user-invoked target the session could run fails, even as one of a conditional step\'s types', () => {
   assert.deepEqual(planted((p) => { at(p, 's2').lane = 'user'; }).rules, ['user-only']);
   assert.deepEqual(planted((p) => { Object.assign(at(p, 's4'), { type: ['user-handoff', 'invoke-model-skill'], destructive: false }); }).rules, ['user-only']);
+});
+
+test('user-only: a step holding a user-only member is user work on lane user', () => {
+  const pipeline = { members: ['skill-x', 'skill-y'], user_members: ['skill-y'] };
+  assert.deepEqual(planted((p) => { Object.assign(at(p, 's2'), pipeline); }).rules, ['user-only']);
+  assert.equal(planted((p) => { Object.assign(at(p, 's4'), pipeline); }).status, 0);
+  assert.deepEqual(planted((p) => { Object.assign(at(p, 's4'), pipeline, { user_members: ['skill-q'] }); }).rules, ['shape']);
 });
 
 test('sip: a writing stretch needs exactly one closing sip, last before the stop, after every write', () => {
@@ -203,17 +210,18 @@ test('pipeline: a member of a pipeline step reproduced for the same requirement 
   assert.equal(planted((p) => { at(p, 's1').members = ['skill-b']; }).status, 0);
 });
 
-test('reject: a cycle named in run order over declared edges passes; reversed, unknown or with a stop it fails', () => {
+test('reject: a cycle named along the requires-edges passes; reversed, unknown or with a stop it fails', () => {
   const cyclic = (reject) => (p) => { at(p, 's1').predecessors = ['s2']; p.reject = reject; delete p.stop; };
-  assert.equal(planted(cyclic('skill-a -> skill-b -> skill-a')).status, 0);
-  assert.equal(planted(cyclic('s2 -> s1 -> s2')).status, 0);
+  assert.equal(planted(cyclic('skill-a requires skill-b requires skill-a')).status, 0);
+  assert.equal(planted(cyclic('s2 requires s1 requires s2')).status, 0);
+  assert.deepEqual(planted(cyclic('skill-a -> skill-b -> skill-a')).rules, ['reject']);
   const three = (reject) => (p) => { at(p, 's1').predecessors = ['s3']; p.reject = reject; delete p.stop; };
-  assert.equal(planted(three('skill-a -> skill-b -> sip -> skill-a')).status, 0);
-  assert.deepEqual(planted(three('skill-a -> sip -> skill-b -> skill-a')).rules, ['reject', 'reject', 'reject']);
-  assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a -> skill-c -> skill-a'; delete p.stop; }).rules, ['reject', 'reject']);
-  assert.deepEqual(planted((p) => { p.reject = 'skill-a -> skill-b -> skill-a'; delete p.stop; }).rules, ['reject']);
-  assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a -> skill-z -> skill-a'; delete p.stop; }).rules, ['reject']);
-  assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a -> skill-b -> skill-a'; }).rules, ['stop']);
+  assert.equal(planted(three('skill-a requires sip requires skill-b requires skill-a')).status, 0);
+  assert.deepEqual(planted(three('skill-a requires skill-b requires sip requires skill-a')).rules, ['reject', 'reject', 'reject']);
+  assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a requires skill-c requires skill-a'; delete p.stop; }).rules, ['reject', 'reject']);
+  assert.deepEqual(planted((p) => { p.reject = 'skill-a requires skill-b requires skill-a'; delete p.stop; }).rules, ['reject']);
+  assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a requires skill-z requires skill-a'; delete p.stop; }).rules, ['reject']);
+  assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a requires skill-b requires skill-a'; }).rules, ['stop']);
 });
 
 test('shape: a plan without its understood-as line fails', () => {
@@ -274,4 +282,20 @@ test('usage: a file path, extra arguments or invalid JSON exits 2, and - reads s
   assert.equal(spawnSync(process.execPath, [script, 'plan.json'], { input: '{}', encoding: 'utf8' }).status, 2);
   assert.equal(cli('{not json').status, 2);
   assert.equal(spawnSync(process.execPath, [script, '-'], { input: JSON.stringify(valid()), encoding: 'utf8' }).status, 0);
+});
+
+test('usage: an empty pipe or a terminal on stdin exits 2 at once instead of waiting', async () => {
+  const empty = spawnSync(process.execPath, [script, '-'], { input: '', encoding: 'utf8', timeout: 10000 });
+  assert.equal(empty.status, 2);
+  assert.match(empty.stderr, /no plan on stdin/);
+  const { main } = await import(pathToFileURL(script).href);
+  let read = false;
+  const quiet = console.error;
+  console.error = () => {};
+  try {
+    assert.equal(main(['-'], () => { read = true; return ''; }, true), 2);
+  } finally {
+    console.error = quiet;
+  }
+  assert.equal(read, false);
 });

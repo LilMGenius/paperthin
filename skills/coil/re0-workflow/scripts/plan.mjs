@@ -3,7 +3,7 @@
 // The plan arrives as JSON on stdin and nothing is written anywhere: the coordinator keeps its plan in the conversation.
 // Plan: readback, understood_as, requirements [{id, text, unmet?}], steps [{id, target, predecessors, serves, type, precondition,
 // output, skippable, cost_owner, writes, lane, destructive?, members?, judgment_only?, added?, reason?, handoff?, bring_back?}],
-// stop, or reject naming the cycle. A report adds approval, stop_reached, outcome and result per step, status and reason per requirement.
+// stop, or reject naming the cycle as "a requires b requires a". A report adds approval, stop_reached, outcome and result per step, status and reason per requirement.
 // Usage: <plan json> | node plan.mjs [-] [--report] [--json]
 // Exit codes: 0 every invariant holds; 1 one or more broken, each named; 2 usage error or invalid JSON.
 import { readFileSync, realpathSync } from 'node:fs';
@@ -62,6 +62,7 @@ function shape(plan, add) {
     if (typeof s.writes !== 'boolean') add('shape', where, 'writes must be true or false');
     if (!LANES.includes(s.lane)) add('shape', where, 'lane must be one of ' + LANES.join(', '));
     if (s.members !== undefined && (!Array.isArray(s.members) || !s.members.every(filled))) add('shape', where, 'members must be a list of skill names');
+    if (s.user_members !== undefined && (!Array.isArray(s.user_members) || !s.user_members.every((m) => (s.members || []).includes(m)))) add('shape', where, 'user_members must list members of the step that are user-only');
     if (s.added !== undefined && !(s.added in ADDED)) add('shape', where, 'added must be one of ' + Object.keys(ADDED).join(', '));
   }
   return { requirements, steps };
@@ -98,11 +99,11 @@ function graph(steps, add) {
   };
 }
 
-// A reject names one cycle in run order: "a -> b -> a", each arrow pointing from a step to one that lists it as a predecessor.
+// A reject names one cycle along the requires-edges: "a requires b requires a", each step followed by a predecessor it lists.
 function checkReject(plan, steps, add) {
   if (plan.stop !== undefined && plan.stop !== null) add('stop', 'stop', 'a reject ends at its own report and has no stop condition');
-  if (!filled(plan.reject)) return add('reject', 'reject', 'a reject names the whole cycle, written as "a -> b -> a"');
-  const names = plan.reject.split('->').map((n) => n.trim());
+  if (!filled(plan.reject)) return add('reject', 'reject', 'a reject names the whole cycle, written as "a requires b requires a"');
+  const names = plan.reject.split(/\s+requires\s+/).map((n) => n.trim());
   const resolve = (name) => {
     const byId = steps.filter((s) => s.id === name);
     const byTarget = steps.filter((s) => s.target === name);
@@ -111,10 +112,10 @@ function checkReject(plan, steps, add) {
   const nodes = names.map(resolve);
   const missing = names.filter((_, i) => !nodes[i]);
   if (missing.length) return add('reject', 'reject', 'names ' + missing.map((n) => JSON.stringify(n)).join(', ') + ', which is no single step id or target in the plan');
-  if (nodes.length < 3 || nodes[0] !== nodes[nodes.length - 1] || new Set(nodes.slice(1)).size !== nodes.length - 1) return add('reject', 'reject', 'a cycle returns to its first step and visits every other step once, as "a -> b -> a"');
+  if (nodes.length < 3 || nodes[0] !== nodes[nodes.length - 1] || new Set(nodes.slice(1)).size !== nodes.length - 1) return add('reject', 'reject', 'a cycle returns to its first step and visits every other step once, as "a requires b requires a"');
   for (let i = 0; i + 1 < nodes.length; i++) {
-    const [from, to] = [nodes[i], nodes[i + 1]];
-    if (!(to.predecessors || []).includes(from.id)) add('reject', 'reject', 'the arrow ' + names[i] + ' -> ' + names[i + 1] + ' is not a declared edge: ' + to.id + ' does not list ' + from.id + ' as a predecessor; write the cycle in run order, each step before the one that needs it');
+    const [needs, needed] = [nodes[i], nodes[i + 1]];
+    if (!(needs.predecessors || []).includes(needed.id)) add('reject', 'reject', names[i] + ' requires ' + names[i + 1] + ' is not a declared edge: ' + needs.id + ' does not list ' + needed.id + ' as a predecessor; name each step before the one it requires');
   }
 }
 
@@ -148,7 +149,7 @@ export function checkPlan(plan) {
     state.set(s.id, 'open');
     path.push(s.id);
     for (const p of g.preds(s)) {
-      if (state.get(p) === 'open') add('cycle', String(s.id), 'the steps form a cycle; reject the request naming ' + [...path.slice(path.indexOf(p)), p].reverse().join(' -> '));
+      if (state.get(p) === 'open') add('cycle', String(s.id), 'the steps form a cycle; reject the request naming ' + [...path.slice(path.indexOf(p)), p].join(' requires '));
       else if (!state.has(p)) visit(g.byId.get(p));
     }
     path.pop();
@@ -182,6 +183,7 @@ export function checkPlan(plan) {
     const where = String(s.id);
     if (SELF.has(s.target)) add('self', where, 'targets ' + s.target + ', which would route back into this router');
     if (s.lane === 'user' && runs(s)) add('user-only', where, 'targets a user-only skill but can be run by the session; it is a user-handoff');
+    if (Array.isArray(s.user_members) && s.user_members.length && s.lane !== 'user') add('user-only', where, 'holds the user-only member ' + s.user_members.join(', ') + ', so the whole step is user work on lane user');
     if (s.lane === 'missing' && !only(s, 'skip')) add('missing', where, 'targets a skill that is not installed, so it is a skip that stays visible');
     if (s.destructive === true && runs(s)) add('destructive', where, 'is destructive or irreversible, so the human does it as a user-handoff');
     if (can(s, 'session-step') && s.lane !== 'none') add('session', where, 'a session step is work no skill covers, so its lane is none');
@@ -319,7 +321,7 @@ export function format(problems, plan, report) {
   return [...problems.map((p) => p.rule + ' ' + p.where + ': ' + p.message), 'FAIL: ' + problems.length + ' problem(s)'].join('\n');
 }
 
-export function main(argv, stdin) {
+export function main(argv, stdin, interactive = false) {
   let values;
   let positionals;
   try {
@@ -339,9 +341,16 @@ export function main(argv, stdin) {
     console.error('the plan is read from stdin only; pass - or nothing\n' + USAGE);
     return 2;
   }
+  // A terminal or an empty pipe carries no plan, so the check ends at once rather than wait for input.
+  if (interactive) {
+    console.error('plan: no plan on stdin; pipe the plan JSON in\n' + USAGE);
+    return 2;
+  }
   let plan;
   try {
-    plan = parse(stdin());
+    const raw = stdin();
+    if (!raw.trim()) throw new InputError('no plan on stdin; pipe the plan JSON in');
+    plan = parse(raw);
   } catch (error) {
     if (error instanceof InputError) {
       console.error('plan: ' + error.message + '\n' + USAGE);
@@ -356,4 +365,4 @@ export function main(argv, stdin) {
 
 // An installed skill is often a link to its source folder; Node resolves import.meta.url through the link while argv keeps
 // the link path, so both sides are compared as real paths or a call through the link exits 0 having done nothing.
-if (process.argv[1] && realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url))) process.exitCode = main(process.argv.slice(2), () => readFileSync(0, 'utf8'));
+if (process.argv[1] && realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url))) process.exitCode = main(process.argv.slice(2), () => readFileSync(0, 'utf8'), process.stdin.isTTY === true);
