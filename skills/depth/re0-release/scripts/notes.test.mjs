@@ -341,6 +341,16 @@ test('text after the Install block is reported at the text, not at the blank lin
   assert.match(out, new RegExp(':' + want + ': install: text after the end'));
 });
 
+
+test('an install block with release-notes blocks and no package.json exits 2 asking for --version', () => {
+  const root = mkdtempSync(join(scratch, 'no-manifest-'));
+  mkdirSync(join(root, '.agents'));
+  copyFileSync(join(repo, '.agents', 'install-block.md'), join(root, '.agents', 'install-block.md'));
+  const { status, out } = check(v100, [], { root });
+  assert.equal(status, 2, out);
+  assert.match(out, /pass --version X\.Y\.Z/);
+});
+
 test('a usage error exits 2', () => {
   const result = spawnSync(process.execPath, [cli], { encoding: 'utf8', windowsHide: true });
   assert.equal(result.status, 2);

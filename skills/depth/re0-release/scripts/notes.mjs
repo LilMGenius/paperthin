@@ -238,7 +238,12 @@ export function run(argv) {
   const notesPath = (given) => (isAbsolute(given) || existsSync(given) || !existsSync(join(root, given)) ? given : join(root, given));
   const text = values.tag ? tagMessage(values.tag) : readText(notesPath(positionals[0]), 'the notes');
   const version = () => {
-    const named = values.version ?? values.tag ?? /^(v?\d+\.\d+\.\d+)\.md$/.exec(basename(label))?.[1] ?? JSON.parse(readText(join(root, 'package.json'), 'package.json')).version;
+    const manifest = join(root, 'package.json');
+    const fromManifest = () => {
+      if (!existsSync(manifest)) throw new Usage('the install block needs the note\'s version and ' + root + ' has no package.json to read it from; pass --version X.Y.Z');
+      return JSON.parse(readText(manifest, 'package.json')).version;
+    };
+    const named = values.version ?? values.tag ?? /^(v?\d+\.\d+\.\d+)\.md$/.exec(basename(label))?.[1] ?? fromManifest();
     const parsed = parseVersion(named);
     if (!parsed) throw new Usage('not a version: ' + named + '; pass --version X.Y.Z');
     return parsed;
