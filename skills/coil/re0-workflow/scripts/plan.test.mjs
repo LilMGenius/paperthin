@@ -364,3 +364,11 @@ test('report: a run step that commits needs approval though it is no write for s
   assert.equal(reported(commit).status, 0);
   assert.deepEqual(reported((p) => { commit(p); at(p, 's1').writes = false; p.steps = p.steps.filter((s) => s.id !== 's3'); at(p, 's4').predecessors = ['s5']; p.approval = 'not-needed'; }).rules, ['approval']);
 });
+
+test('report: a plan whose only run step commits passes the plan check and needs approval to run', () => {
+  const commitOnly = (p) => { p.requirements = [p.requirements[0]]; p.steps = [step('s1', 'skill-a', [], ['r1']), step('s2', 'commit the change', ['s1'], ['r1'], { type: 'session-step', lane: 'none', vcs: true })]; };
+  assert.equal(planted(commitOnly).status, 0);
+  const ran = (approval) => (p) => { commitOnly(p); p.approval = approval; p.stop_reached = true; p.requirements[0].status = 'served'; for (const s of p.steps) Object.assign(s, { outcome: 'ran', result: 'done' }); };
+  assert.deepEqual(reported(ran('not-needed')).rules, ['approval']);
+  assert.equal(reported(ran('approved')).status, 0);
+});
