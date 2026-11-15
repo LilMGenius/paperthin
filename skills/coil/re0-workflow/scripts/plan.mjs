@@ -24,7 +24,44 @@ const OUTCOMES = ['ran', 'returned', 'skipped', 'handed-off', 'waiting', 'failed
 const STATUSES = ['served', 'handed-off', 'waiting', 'skipped', 'unmet'];
 const APPROVALS = ['approved', 'not-needed', 'order-only', 'pending'];
 
+// Every rule the check decides, printed by --help so the skill points here rather than restating them.
+const RULES = [
+  ['shape', 'a missing or malformed field; a reject step needs only id, target and predecessors'],
+  ['readback', 'readback listed as a plan step, or no statement of how the intent was read'],
+  ['no-match', 'a plan with no action, or whose actions are all session steps'],
+  ['cycle', 'steps that depend on each other outside a reject'],
+  ['reject', 'a reject that is not one cycle written as "a requires b requires a" over declared predecessors'],
+  ['sequence', 'a step listed before its predecessor'],
+  ['stop', 'no single observable stop condition, or one beside a reject'],
+  ['requirement', 'a requirement no action serves and not recorded unmet, or recorded unmet while a running step serves it'],
+  ['serves', 'a step that serves no requirement'],
+  ['self', 're0-workflow or paperthin as a target'],
+  ['user-only', 'a user-only target, or a step holding a user-only member, that the session could run or that sits off lane user'],
+  ['missing', 'a skill that is not installed typed as anything but skip'],
+  ['destructive', 'a destructive or irreversible step the session would run'],
+  ['session', 'a session step on a skill lane, or a lane-none target typed invoke-model-skill'],
+  ['cost', 'a cost owner other than the one its first type carries'],
+  ['skip', 'a skip without a reason, or a dependent of a skip that runs or whose reason does not name the step it lost'],
+  ['handoff', 'a user-handoff without what the human does and what to bring back'],
+  ['added', 'an added check on the wrong skill, run by the human, or a closing sip that does not write'],
+  ['pipeline', 'a member of a pipeline step reproduced for the same requirement'],
+  ['sip', 'a stretch that writes without exactly one closing sip as its last step after every write, or an added sip where nothing is written'],
+  ['outside', 'a delivered judgment with no later sip and no single outside read, both, or a read with no judgment or serving another requirement'],
+  ['judgment', 'a delivered judgment that writes'],
+  ['outcome', 'an outcome missing, unknown, without a result, or not fitting its type (--report)'],
+  ['order', 'a step that ran after a stop, after a skipped predecessor, or a second stop (--report)'],
+  ['approval', 'a run write without approval, or anything started under order-only or pending (--report)'],
+  ['status', 'a requirement status the outcomes do not back (--report)'],
+  ['stop-reached', 'a stop claimed reached while anything waits, stopped or is unmet (--report)'],
+];
+
 export class InputError extends Error {}
+
+// A dependent's reason names the step it lost by its id or target as a whole word.
+const names = (reason, step) => {
+  const words = new Set(reason.split(/[^A-Za-z0-9_:-]+/));
+  return words.has(step.id) || words.has(step.target) || (/\s/.test(step.target) && reason.includes(step.target));
+};
 
 const filled = (value) => typeof value === 'string' && value.trim() !== '';
 const isObject = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -36,7 +73,7 @@ const runs = (step) => can(step, 'invoke-model-skill') || can(step, 'session-ste
 // A step that writes content and is not itself the closing sip; a pipeline whose members include sip closes its own writes.
 const writer = (step) => step.writes === true && step.target !== 'sip' && !(step.members || []).includes('sip');
 
-function shape(plan, add) {
+function shape(plan, add, reject) {
   if (!READBACKS.includes(plan.readback)) add('readback', 'readback', 'readback must be one of ' + READBACKS.join(', ') + ': how the intent was read before planning');
   if (!filled(plan.understood_as)) add('shape', 'understood_as', 'missing the "understood as" line the readback produced');
   const requirements = Array.isArray(plan.requirements) ? plan.requirements.filter(isObject) : [];
@@ -54,16 +91,20 @@ function shape(plan, add) {
     const where = String(s.id);
     if (!filled(s.id) || ids.has(s.id)) add('shape', 'steps', 'every step needs a unique id; found ' + JSON.stringify(s.id));
     ids.add(s.id);
-    for (const field of ['target', 'precondition', 'output', 'skippable', 'cost_owner']) if (!filled(s[field])) add('shape', where, 'missing ' + field);
+    if (!filled(s.target)) add('shape', where, 'missing target');
+    if (!Array.isArray(s.predecessors) || !s.predecessors.every(filled)) add('shape', where, 'predecessors must be a list of step ids');
+    // A reject keeps only the steps that form its cycle, each with its id, target and predecessors.
+    if (reject) continue;
+    for (const field of ['precondition', 'output', 'skippable', 'cost_owner']) if (!filled(s[field])) add('shape', where, 'missing ' + field);
     const types = typesOf(s);
     if (!types.length || !types.every((t) => TYPES.includes(t)) || new Set(types).size !== types.length || (Array.isArray(s.type) && types.length < 2)) add('shape', where, 'type must be one of ' + TYPES.join(', ') + ', or a list of two or more of them for a conditional step');
-    if (!Array.isArray(s.predecessors) || !s.predecessors.every(filled)) add('shape', where, 'predecessors must be a list of step ids');
     if (!Array.isArray(s.serves) || !s.serves.every(filled)) add('shape', where, 'serves must be a list of requirement ids');
     if (typeof s.writes !== 'boolean') add('shape', where, 'writes must be true or false');
     if (!LANES.includes(s.lane)) add('shape', where, 'lane must be one of ' + LANES.join(', '));
     if (s.members !== undefined && (!Array.isArray(s.members) || !s.members.every(filled))) add('shape', where, 'members must be a list of skill names');
     if (s.user_members !== undefined && (!Array.isArray(s.user_members) || !s.user_members.every((m) => (s.members || []).includes(m)))) add('shape', where, 'user_members must list members of the step that are user-only');
     if (s.added !== undefined && !(s.added in ADDED)) add('shape', where, 'added must be one of ' + Object.keys(ADDED).join(', '));
+    if (s.judgment_only === true && s.writes === true) add('judgment', where, 'a delivered judgment is a verdict or a choice with no file, so it never writes');
   }
   return { requirements, steps };
 }
@@ -126,7 +167,7 @@ export function checkPlan(plan) {
     add('shape', 'plan', 'the plan is not a JSON object');
     return problems;
   }
-  const { requirements, steps } = shape(plan, add);
+  const { requirements, steps } = shape(plan, add, plan.reject !== undefined && plan.reject !== null);
   const g = graph(steps, add);
 
   // The readback is how the intent was read, never a planned action.
@@ -196,10 +237,11 @@ export function checkPlan(plan) {
     if (s.added === 'sip' && s.writes !== true) add('added', where, 'the closing sip writes (its cleanup pass edits the changed docs), so its writes is true and the approval covers it');
     if (s.added !== undefined && !runs(s) && !only(s, 'skip')) add('added', where, 'an added check is run by the session, or skipped when its skill is missing');
     // A skipped step's dependents are skipped too, and their reason names the step they lost.
-    if (only(s, 'skip')) {
+    // A missing added check leaves its output untasted but takes nothing from the steps after it.
+    if (only(s, 'skip') && s.added === undefined) {
       for (const c of g.children.get(s.id) || []) {
         if (!only(c, 'skip')) add('skip', String(c.id), 'depends on the skipped step ' + where + ', so it is skipped too');
-        else if (filled(c.reason) && !c.reason.includes(s.id) && !c.reason.includes(s.target)) add('skip', String(c.id), 'is skipped after ' + where + ' but its reason does not name it; a dependent inherits the reason');
+        else if (filled(c.reason) && !names(c.reason, s)) add('skip', String(c.id), 'is skipped after ' + where + ' but its reason does not name it; a dependent inherits the reason');
       }
     }
     if (Array.isArray(s.members) && Array.isArray(s.serves)) {
@@ -211,11 +253,11 @@ export function checkPlan(plan) {
   // its last step, after every write it covers; a stretch with no write adds none.
   const stretches = [{ steps: [], opened: null }];
   for (const s of steps) {
-    if (can(s, 'user-handoff')) stretches.push({ steps: [], opened: s });
+    if (typesOf(s)[0] === 'user-handoff') stretches.push({ steps: [], opened: s });
     else stretches[stretches.length - 1].steps.push(s);
   }
   for (const stretch of stretches) {
-    const writes = [...(stretch.opened && writer(stretch.opened) ? [stretch.opened] : []), ...stretch.steps.filter((s) => runs(s) && writer(s))];
+    const writes = [...(stretch.opened && writer(stretch.opened) ? [stretch.opened] : []), ...stretch.steps.filter((s) => ['invoke-model-skill', 'session-step'].includes(typesOf(s)[0]) && writer(s))];
     const sips = stretch.steps.filter((s) => s.target === 'sip');
     const end = stretch.steps[stretch.steps.length - 1];
     const where = end ? String(end.id) : String(stretch.opened?.id);
@@ -274,6 +316,7 @@ export function checkReport(plan) {
     if (!can(s, 'user-handoff') && ['returned', 'handed-off'].includes(s.outcome)) add('outcome', where, 'outcome ' + s.outcome + ' belongs to a user-handoff');
     if (['ran', 'returned'].includes(s.outcome)) {
       for (const p of Array.isArray(s.predecessors) ? s.predecessors : []) if (stopped.has(byId.get(p)?.outcome)) add('order', where, 'ran after ' + p + ', where the run had stopped');
+      for (const p of Array.isArray(s.predecessors) ? s.predecessors : []) if (byId.get(p)?.outcome === 'skipped' && byId.get(p).added === undefined) add('order', where, 'ran though its predecessor ' + p + ' was skipped; a dependent of a skip is skipped too');
     }
   }
   const stops = steps.filter((s) => s.outcome === 'handed-off' || s.outcome === 'failed');
@@ -334,7 +377,7 @@ export function main(argv, stdin, interactive = false) {
     throw error;
   }
   if (values.help) {
-    console.log(USAGE);
+    console.log(USAGE + '\n\nRules (rule: what it fails):\n' + RULES.map(([rule, text]) => '  ' + rule + ': ' + text).join('\n'));
     return 0;
   }
   if (positionals.length > 1 || (positionals.length === 1 && positionals[0] !== '-')) {

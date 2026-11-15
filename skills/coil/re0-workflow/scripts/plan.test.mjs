@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, rmSync, symlinkSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -127,6 +127,14 @@ test('sip: a writing stretch needs exactly one closing sip, last before the stop
   assert.equal(planted((p) => { drop(p); at(p, 's1').members = ['skill-x', 'sip']; }).status, 0);
 });
 
+test('sip: stretches split on each step\'s expected type, so only an expected handoff ends one', () => {
+  const conditional = (first) => (p) => Object.assign(at(p, 's2'), { type: first === 'run' ? ['invoke-model-skill', 'user-handoff'] : ['user-handoff', 'invoke-model-skill'], cost_owner: first === 'run' ? 'run' : 'human', writes: true, handoff: 'decide the claims', bring_back: 'the verdict' });
+  assert.equal(planted(conditional('run')).status, 0);
+  const split = planted(conditional('handoff'));
+  assert.ok(split.rules.includes('sip'));
+  assert.match(split.stdout, /the stretch writing s1 needs exactly one closing sip, found 0/);
+});
+
 test('sip: an added sip in a stretch that writes nothing is padding', () => {
   assert.deepEqual(planted((p) => { at(p, 's1').writes = false; }).rules, ['sip']);
 });
@@ -170,6 +178,10 @@ test('outside read: a sip listed before a judgment does not taste it', () => {
   assert.equal(planted((p) => { early(p); p.steps.push(step('s3', 'shower', ['s2'], ['r2'], { added: 'outside-read' })); }).status, 0);
 });
 
+test('judgment: a delivered judgment that writes fails', () => {
+  assert.deepEqual(planted((p) => { Object.assign(at(p, 's1'), { judgment_only: true }); }).rules, ['judgment']);
+});
+
 test('stop: a missing stop condition or two of them fail', () => {
   assert.deepEqual(planted((p) => { delete p.stop; }).rules, ['stop']);
   assert.deepEqual(planted((p) => { p.stop = ['published', 'checked']; }).rules, ['stop']);
@@ -203,6 +215,7 @@ test('skip: a skip needs a reason, its dependents are skipped too, and they inhe
   const inherit = (reason) => (p) => { lose(p); Object.assign(at(p, 's2'), skip, { lane: 'model', reason }); p.requirements[1].unmet = 'its input is missing'; };
   assert.deepEqual(planted(inherit('nothing to check')).rules, ['skip']);
   assert.equal(planted(inherit('needs the output of s1, skill-a is not installed')).status, 0);
+  assert.deepEqual(planted((p) => { inherit('lost s10')(p); }).rules, ['skip']);
 });
 
 test('pipeline: a member of a pipeline step reproduced for the same requirement fails', () => {
@@ -222,6 +235,19 @@ test('reject: a cycle named along the requires-edges passes; reversed, unknown o
   assert.deepEqual(planted((p) => { p.reject = 'skill-a requires skill-b requires skill-a'; delete p.stop; }).rules, ['reject']);
   assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a requires skill-z requires skill-a'; delete p.stop; }).rules, ['reject']);
   assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a requires skill-b requires skill-a'; }).rules, ['stop']);
+});
+
+test('reject: its steps need only id, target and predecessors', () => {
+  const bare = (p) => { p.steps = [{ id: 's1', target: 'skill-a', predecessors: ['s2'] }, { id: 's2', target: 'skill-b', predecessors: ['s1'] }]; p.reject = 'skill-a requires skill-b requires skill-a'; delete p.stop; };
+  assert.equal(planted(bare).status, 0);
+  assert.deepEqual(planted((p) => { bare(p); delete p.steps[1].predecessors; }).rules.filter((r) => r === 'shape'), ['shape']);
+});
+
+test('examples: the plan and the report in SKILL.md pass their checks as written', () => {
+  const blocks = [...readFileSync(join(link, 'SKILL.md'), 'utf8').matchAll(/```json\n([\s\S]*?)```/g)].map((m) => m[1]);
+  assert.equal(blocks.length, 2);
+  assert.equal(cli(blocks[0]).status, 0);
+  assert.equal(cli(blocks[1], '--report').status, 0);
 });
 
 test('shape: a plan without its understood-as line fails', () => {
@@ -260,7 +286,19 @@ test('report: no step after the first stop shows ran, while a skip from a broken
   assert.ok(reported((p) => { at(p, 's2').predecessors = []; Object.assign(at(p, 's1'), { outcome: 'failed', result: 'no output' }); p.requirements[0].status = 'unmet'; p.requirements[0].reason = 's1 failed'; }).rules.includes('order'));
   const after = (p) => { p.steps.push(step('s5', 'skill-d', [], ['r3'], { outcome: 'ran', result: 'done' })); };
   assert.ok(reported(after).rules.includes('order'));
-  assert.equal(reported((p) => { Object.assign(at(p, 's2'), { outcome: 'skipped', result: 'its precondition broke' }); p.requirements[1].status = 'skipped'; p.requirements[1].reason = 's1 left nothing to check'; }).status, 0);
+  assert.equal(reported((p) => { Object.assign(at(p, 's2'), { outcome: 'skipped', result: 'its precondition broke' }); at(p, 's3').predecessors = ['s1']; p.requirements[1].status = 'skipped'; p.requirements[1].reason = 's1 left nothing to check'; }).status, 0);
+});
+
+test('report: a step that depends on a step skipped at run time cannot have run', () => {
+  const broke = (p) => { Object.assign(at(p, 's2'), { outcome: 'skipped', result: 'its precondition broke' }); p.requirements[1].status = 'skipped'; p.requirements[1].reason = 's1 left nothing to check'; };
+  assert.ok(reported(broke).rules.includes('order'));
+  assert.equal(reported((p) => { broke(p); at(p, 's3').predecessors = ['s1']; }).status, 0);
+});
+
+test('report: a missing closing check takes nothing from the steps after it', () => {
+  const missing = (p) => Object.assign(at(p, 's3'), skip, { reason: 'sip is not installed', outcome: 'skipped', result: 'sip is not installed, so the write went untasted' });
+  assert.equal(planted(missing).status, 0);
+  assert.equal(reported((p) => { missing(p); Object.assign(at(p, 's4'), { outcome: 'returned', result: 'published' }); p.requirements[2].status = 'served'; p.stop_reached = true; }).status, 0);
 });
 
 test('report: a status the outcomes do not back, or a stop claimed reached while a step waits, fails', () => {
