@@ -61,8 +61,9 @@ jobs:
           SHA=$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/tags/${GITHUB_REF_NAME}" --jq '.object.sha')
           gh api "repos/${GITHUB_REPOSITORY}/git/tags/${SHA}" --jq '.message' \
             | sed '/-----BEGIN PGP SIGNATURE-----/,/-----END PGP SIGNATURE-----/d' > "$RUNNER_TEMP/notes.md"
+          # A re-cut deletes the tag this Release points at, so the edit also publishes it if it was left a draft.
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
-            gh release edit "$GITHUB_REF_NAME" --title "Paperthin ${GITHUB_REF_NAME#v}" --notes-file "$RUNNER_TEMP/notes.md"
+            gh release edit "$GITHUB_REF_NAME" --title "Paperthin ${GITHUB_REF_NAME#v}" --notes-file "$RUNNER_TEMP/notes.md" --draft=false
           else
             gh release create "$GITHUB_REF_NAME" --title "Paperthin ${GITHUB_REF_NAME#v}" --notes-file "$RUNNER_TEMP/notes.md"
           fi
