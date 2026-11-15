@@ -56,6 +56,7 @@ const RULES = [
   ['approval', 'a run step that writes or commits (vcs) under not-needed, or anything started under pending (--report)'],
   ['fixed', 'a fixed write that is not a write'],
   ['status', 'a requirement status the outcomes do not back (--report)'],
+  ['returned', 'a step that ran after a returned handoff with no recorded check (--report)'],
   ['stop-reached', 'a stop claimed reached while anything waits, stopped or is unmet, or a closing sip skipped while a write it covers ran (--report)'],
 ];
 
@@ -340,6 +341,12 @@ export function checkReport(plan) {
       for (const p of Array.isArray(s.predecessors) ? s.predecessors : []) if (byId.get(p)?.outcome === 'skipped' && byId.get(p).added === undefined && !(s.added === 'sip' && tasted(s))) add('order', where, 'ran though its predecessor ' + p + ' was skipped; a dependent of a skip is skipped too');
     }
   }
+  // A returned handoff's result is checked against its expected output, and the check recorded, before anything after it runs.
+  steps.forEach((h, i) => {
+    if (h.outcome !== 'returned' || filled(h.check)) return;
+    const after = steps.slice(i + 1).filter((s) => ['ran', 'returned'].includes(s.outcome));
+    if (after.length) add('returned', String(h.id), 'came back with no recorded check against its expected output, yet ' + after.map((s) => s.id).join(', ') + ' ran after it');
+  });
   const stops = steps.filter((s) => s.outcome === 'handed-off' || s.outcome === 'failed');
   if (stops.length > 1) add('order', 'steps', 'the run stops at the first handoff or failure, but ' + stops.map((s) => s.id).join(', ') + ' all stopped it');
   // Nothing after the stop runs; a skip from a broken precondition is not a stop.

@@ -425,3 +425,10 @@ test('missing: a missing skill records where it was searched, and every dependen
   assert.deepEqual(planted((p) => { absent(p); delete at(p, 's2').searched; }).rules, ['missing']);
   assert.ok(planted((p) => { absent(p); at(p, 's3').predecessors = ['s1', 's2']; }).rules.includes('skip'));
 });
+
+test('report: a step after a returned handoff runs only once the returned result was checked', () => {
+  const back = (p, check) => { at(p, 's4').writes = true; p.steps.push(step('s5', 'sip', ['s4'], ['r3'], { added: 'sip', outcome: 'ran', result: 'tasted' })); Object.assign(at(p, 's4'), { outcome: 'returned', result: 'published' }, check ? { check } : {}); p.requirements[2].status = 'served'; };
+  assert.equal(reported((p) => back(p, 'match: the published version against the expected output')).status, 0);
+  assert.deepEqual(reported((p) => back(p)).rules, ['returned']);
+});
+
