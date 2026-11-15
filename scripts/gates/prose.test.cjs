@@ -63,3 +63,9 @@ test('a real PR number, handle or SHA in a durable doc fails, and the generic fo
   assert.deepEqual(run(t, line('Credit inline (\x60(#123, @handle)\x60); patterns #3 through #5 apply.')), []);
   assert.deepEqual(run(t, { 'NOTES.md': 'Fixed in (#42, @octocat).\n' }), []);
 });
+
+test('a real instance in any Markdown file a skill ships fails as it does in its SKILL.md', (t) => {
+  const notes = (text) => ({ 'skills/depth/foo/references/notes.md': text + '\n' });
+  assert.match(run(t, notes('Fixed by @octocat.')).join(), /references\/notes\.md:1: @octocat is a real handle/);
+  assert.deepEqual(run(t, notes('Credit inline (\x60(#123, @handle)\x60).')), []);
+});

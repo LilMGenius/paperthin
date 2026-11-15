@@ -19,8 +19,9 @@ const INSTANCES = [
   [/\b(?=[0-9a-f]*\d)(?=[0-9a-f]*[a-f])[0-9a-f]{7,40}\b/, 'a commit SHA'],
 ];
 
+// A skill ships every Markdown file in its folder (its SKILL.md and the references it reads at runtime), so each is as durable as this guide and .agents/.
 function durable(file) {
-  return file === 'AGENTS.md' || file.startsWith('.agents/') || /^skills\/.+\/SKILL\.md$/.test(file);
+  return file === 'AGENTS.md' || file.startsWith('.agents/') || /^skills\/.+\.md$/.test(file);
 }
 
 function check(root) {
