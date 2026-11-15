@@ -154,7 +154,7 @@ These skills bet the other way: **every one of them removes something**, and [th
 | Long work needs no long context: when the conversation fills, write a note and go on in a fresh one | `re0-work` restarts from v0 with only proven lessons, `re0-git` leaves the handoff in the git log for the next session |
 | A good note keeps the task close to its original words | `re0-loop` keeps every open request on the list when the session compacts or starts fresh |
 | A good note keeps what is being done, why, and what comes next | `re0-memo` turns a finished cycle into the next one's gate, `nba` names the one next step |
-| A good note keeps the plan, the done conditions and where things are | `re0-plan` opens the cycle with its design, workflow and evidence files, `re0-workflow` writes the skill order down |
+| A good note keeps the plan, the done conditions and where things are | `re0-plan` opens the cycle with its design, workflow and evidence files, `re0-workflow` keeps the skill order and its done condition in the report it resumes from |
 | One action at a time on a state note keeps the full-history score | `shower` hands the note alone to a reader with no history and asks whether it stands on its own |
 | A smaller window serves up to 7x faster | `elon` drops what is kept only by habit, `debloat` cuts to what carries weight, `re0` rewrites instead of piling on |
 

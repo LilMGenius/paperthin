@@ -159,7 +159,7 @@ Estas skills apostam no contrário: **cada uma tira algo**, e [o índice](#the-i
 | Trabalho longo não precisa de contexto longo: quando a conversa enche, escreve-se uma nota e segue-se numa nova | `re0-work` recomeça do v0 só com as lições comprovadas, `re0-git` deixa a passagem de bastão no histórico do git para a próxima sessão |
 | Uma boa nota mantém a tarefa perto das palavras originais | `re0-loop` mantém na lista cada pedido em aberto quando a sessão é compactada ou recomeça |
 | Uma boa nota guarda o que está sendo feito, por quê e o que vem depois | `re0-memo` transforma um ciclo terminado no portão do próximo, `nba` aponta o próximo passo |
-| Uma boa nota guarda o plano, as condições de conclusão e onde está cada coisa | `re0-plan` abre o ciclo com seus arquivos de design, fluxo e evidência, `re0-workflow` registra a ordem das skills |
+| Uma boa nota guarda o plano, as condições de conclusão e onde está cada coisa | `re0-plan` abre o ciclo com seus arquivos de design, fluxo e evidência, `re0-workflow` deixa a ordem das skills e sua condição de conclusão no relatório de onde retoma |
 | Uma ação por vez sobre uma nota de estado mantém a pontuação inteira | `shower` entrega só a nota a um leitor sem histórico e pergunta se ela se sustenta sozinha |
 | Uma janela menor serve até 7x mais rápido | `elon` tira o que só ficou por hábito, `debloat` corta até o que sustenta peso, `re0` reescreve em vez de empilhar remendos |
 

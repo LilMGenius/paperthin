@@ -159,7 +159,7 @@ Diese Skills setzen aufs Gegenteil: **jeder entfernt etwas**, und [der Index](#t
 | Lange Arbeit braucht keinen langen Kontext: Ist das Gespräch voll, schreibt man eine Notiz und macht in einem neuen weiter | `re0-work` startet bei v0 neu, nur mit bewährten Lektionen, `re0-git` hinterlässt die Übergabe im Git-Verlauf für die nächste Sitzung |
 | Eine gute Notiz hält die Aufgabe nah an ihrem ursprünglichen Wortlaut | `re0-loop` hält jede offene Anfrage auf der Liste, wenn die Sitzung verdichtet wird oder neu beginnt |
 | Eine gute Notiz hält fest, was gerade läuft, warum und was als Nächstes kommt | `re0-memo` macht aus einem abgeschlossenen Zyklus das Tor des nächsten, `nba` nennt den nächsten Schritt |
-| Eine gute Notiz hält Plan, Abschlussbedingungen und Fundorte fest | `re0-plan` eröffnet den Zyklus mit Design-, Ablauf- und Nachweisdateien, `re0-workflow` schreibt die Reihenfolge der Skills auf |
+| Eine gute Notiz hält Plan, Abschlussbedingungen und Fundorte fest | `re0-plan` eröffnet den Zyklus mit Design-, Ablauf- und Nachweisdateien, `re0-workflow` hält die Reihenfolge der Skills und ihre Abschlussbedingung im Bericht fest, an dem es weitermacht |
 | Eine Aktion nach der anderen auf einer Zustandsnotiz hält die volle Punktzahl | `shower` gibt die Notiz allein einem Leser ohne Vorgeschichte und fragt, ob sie für sich steht |
 | Ein kleineres Fenster liefert bis zu 7x schneller | `elon` streicht, was nur aus Gewohnheit bleibt, `debloat` kürzt auf das Tragende, `re0` schreibt neu, statt Flicken zu stapeln |
 
