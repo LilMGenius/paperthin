@@ -20,7 +20,7 @@ function cli(plan, ...flags) {
 }
 
 // The closing sip writes, since its cleanup pass edits the changed docs.
-const step = (id, target, predecessors, serves, extra = {}) => ({ id, target, predecessors, serves, type: 'invoke-model-skill', precondition: 'its predecessors produced their output', output: 'what the skill contract returns', skippable: 'never', cost_owner: 'run', writes: extra.added === 'sip', lane: 'model', ...extra });
+const step = (id, target, predecessors, serves, extra = {}) => ({ id, target, predecessors, serves, type: 'invoke-model-skill', precondition: 'its predecessors produced their output', output: 'what the skill contract returns', skippable: 'never', cost_owner: 'run', writes: extra.added === 'sip', lane: 'model', ...(extra.added === 'sip' ? { members: ['shower', 'factchk', 'ssotize', 're0'] } : {}), ...extra });
 const skip = { type: 'skip', cost_owner: 'none', lane: 'missing' };
 const handoff = { type: 'user-handoff', cost_owner: 'human', lane: 'user', destructive: true, handoff: 'type /skill-c', bring_back: 'the published version' };
 
@@ -28,7 +28,7 @@ const handoff = { type: 'user-handoff', cost_owner: 'human', lane: 'user', destr
 function valid() {
   return {
     intent: 'rewrite the setup section, check it, then publish it',
-    readback: 'ran',
+    readback: 'applied',
     understood_as: 'understood as: rewrite one section, verify its claims, then hand the publish to the human',
     requirements: [{ id: 'r1', text: 'rewrite the setup section' }, { id: 'r2', text: 'check its claims' }, { id: 'r3', text: 'publish it' }],
     steps: [
@@ -56,6 +56,7 @@ test('readback: listing the readback as a plan step, or leaving how the intent w
   assert.deepEqual(planted((p) => { p.steps.unshift(step('s0', 'readback', [], ['r1'])); at(p, 's1').predecessors = ['s0']; }).rules, ['readback']);
   assert.deepEqual(planted((p) => { delete p.readback; }).rules, ['readback']);
   assert.equal(planted((p) => { p.readback = 'missing'; }).status, 0);
+  assert.deepEqual(planted((p) => { p.readback = 'ran'; }).rules, ['readback']);
 });
 
 test('readback: single-named-step holds for one action and its closing sip, never for two actions', () => {
@@ -152,6 +153,11 @@ test('added: the closing sip writes, so a closing sip marked as not writing fail
   assert.deepEqual(planted((p) => { at(p, 's3').writes = false; }).rules, ['added']);
 });
 
+test('added: the closing sip lists the checks it runs, so none of its calls is unshown', () => {
+  assert.deepEqual(planted((p) => { delete at(p, 's3').members; }).rules, ['added']);
+  assert.deepEqual(planted((p) => { at(p, 's3').members = []; }).rules, ['added']);
+});
+
 test('outside read: a delivered judgment no sip tastes gets exactly one, and never both', () => {
   const judged = (p) => { p.steps = p.steps.filter((s) => s.id !== 's3'); at(p, 's1').writes = false; at(p, 's2').judgment_only = true; at(p, 's4').predecessors = ['s2']; };
   assert.deepEqual(planted(judged).rules, ['outside']);
@@ -223,24 +229,8 @@ test('pipeline: a member of a pipeline step reproduced for the same requirement 
   assert.equal(planted((p) => { at(p, 's1').members = ['skill-b']; }).status, 0);
 });
 
-test('reject: a cycle named along the requires-edges passes; reversed, unknown or with a stop it fails', () => {
-  const cyclic = (reject) => (p) => { at(p, 's1').predecessors = ['s2']; p.reject = reject; delete p.stop; };
-  assert.equal(planted(cyclic('skill-a requires skill-b requires skill-a')).status, 0);
-  assert.equal(planted(cyclic('s2 requires s1 requires s2')).status, 0);
-  assert.deepEqual(planted(cyclic('skill-a -> skill-b -> skill-a')).rules, ['reject']);
-  const three = (reject) => (p) => { at(p, 's1').predecessors = ['s3']; p.reject = reject; delete p.stop; };
-  assert.equal(planted(three('skill-a requires sip requires skill-b requires skill-a')).status, 0);
-  assert.deepEqual(planted(three('skill-a requires skill-b requires sip requires skill-a')).rules, ['reject', 'reject', 'reject']);
-  assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a requires skill-c requires skill-a'; delete p.stop; }).rules, ['reject', 'reject']);
-  assert.deepEqual(planted((p) => { p.reject = 'skill-a requires skill-b requires skill-a'; delete p.stop; }).rules, ['reject']);
-  assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a requires skill-z requires skill-a'; delete p.stop; }).rules, ['reject']);
-  assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a requires skill-b requires skill-a'; }).rules, ['stop']);
-});
-
-test('reject: its steps need only id, target and predecessors', () => {
-  const bare = (p) => { p.steps = [{ id: 's1', target: 'skill-a', predecessors: ['s2'] }, { id: 's2', target: 'skill-b', predecessors: ['s1'] }]; p.reject = 'skill-a requires skill-b requires skill-a'; delete p.stop; };
-  assert.equal(planted(bare).status, 0);
-  assert.deepEqual(planted((p) => { bare(p); delete p.steps[1].predecessors; }).rules.filter((r) => r === 'shape'), ['shape']);
+test('reject: a plan carrying a reject fails, since a cycle is reported to the human and never checked', () => {
+  assert.deepEqual(planted((p) => { at(p, 's1').predecessors = ['s2']; p.reject = 'skill-a requires skill-b requires skill-a'; delete p.stop; }).rules, ['reject']);
 });
 
 test('examples: the plan and the report in SKILL.md pass their checks as written', () => {

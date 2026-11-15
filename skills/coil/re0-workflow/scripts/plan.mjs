@@ -3,7 +3,7 @@
 // The plan arrives as JSON on stdin and nothing is written anywhere: the coordinator keeps its plan in the conversation.
 // Plan: readback, understood_as, requirements [{id, text, unmet?}], steps [{id, target, predecessors, serves, type, precondition,
 // output, skippable, cost_owner, writes, lane, destructive?, members?, judgment_only?, added?, reason?, handoff?, bring_back?}],
-// stop, or reject naming the cycle as "a requires b requires a". A report adds approval, stop_reached, outcome and result per step, status and reason per requirement.
+// and stop. A no-match or a cycle is reported to the human and never checked here. A report adds approval, stop_reached, outcome and result per step, status and reason per requirement.
 // Usage: <plan json> | node plan.mjs [-] [--report] [--json]
 // Exit codes: 0 every invariant holds; 1 one or more broken, each named; 2 usage error or invalid JSON.
 import { readFileSync, realpathSync } from 'node:fs';
@@ -16,7 +16,8 @@ const COST = { skip: 'none', 'user-handoff': 'human', 'invoke-model-skill': 'run
 const TYPES = Object.keys(COST);
 // A target is a model-invoked skill, a user-only skill, a skill not installed, or no skill (session work, a human action or decision).
 const LANES = ['model', 'user', 'missing', 'none'];
-const READBACKS = ['ran', 'single-named-step', 'missing'];
+// The router applies readback's method itself, never invoking it: applied, skipped for a single named step, or done unchecked without readback installed.
+const READBACKS = ['applied', 'single-named-step', 'missing'];
 // The checks a router adds on its own: one sip closing each stretch that writes, or an outside read after a judgment no sip tastes.
 const ADDED = { sip: new Set(['sip']), 'outside-read': new Set(['shower', 'factchk', 'mandela']) };
 const SELF = new Set(['re0-workflow', 'paperthin']);
@@ -26,13 +27,13 @@ const APPROVALS = ['approved', 'not-needed', 'order-only', 'pending'];
 
 // Every rule the check decides, printed by --help so the skill points here rather than restating them.
 const RULES = [
-  ['shape', 'a missing or malformed field; a reject step needs only id, target and predecessors'],
+  ['shape', 'a missing or malformed field'],
   ['readback', 'readback listed as a plan step, or no statement of how the intent was read'],
   ['no-match', 'a plan with no action, or whose actions are all session steps'],
-  ['cycle', 'steps that depend on each other outside a reject'],
-  ['reject', 'a reject that is not one cycle written as "a requires b requires a" over declared predecessors'],
+  ['cycle', 'steps that depend on each other; the router reports the cycle instead of checking it'],
+  ['reject', 'a plan carrying a reject: a cycle is reported to the human, never checked'],
   ['sequence', 'a step listed before its predecessor'],
-  ['stop', 'no single observable stop condition, or one beside a reject'],
+  ['stop', 'no single observable stop condition'],
   ['requirement', 'a requirement no action serves and not recorded unmet, or recorded unmet while a running step serves it'],
   ['serves', 'a step that serves no requirement'],
   ['self', 're0-workflow or paperthin as a target'],
@@ -43,7 +44,7 @@ const RULES = [
   ['cost', 'a cost owner other than the one its first type carries'],
   ['skip', 'a skip without a reason, or a dependent of a skip that runs or whose reason does not name the step it lost'],
   ['handoff', 'a user-handoff without what the human does and what to bring back'],
-  ['added', 'an added check on the wrong skill, run by the human, or a closing sip that does not write'],
+  ['added', 'an added check on the wrong skill, run by the human, a closing sip that does not write, or one that does not list the checks it runs'],
   ['pipeline', 'a member of a pipeline step reproduced for the same requirement'],
   ['sip', 'a stretch that writes without exactly one closing sip as its last step after every write, or an added sip where nothing is written'],
   ['outside', 'a delivered judgment with no later sip and no single outside read, both, or a read with no judgment or serving another requirement'],
@@ -73,7 +74,7 @@ const runs = (step) => can(step, 'invoke-model-skill') || can(step, 'session-ste
 // A step that writes content and is not itself the closing sip; a pipeline whose members include sip closes its own writes.
 const writer = (step) => step.writes === true && step.target !== 'sip' && !(step.members || []).includes('sip');
 
-function shape(plan, add, reject) {
+function shape(plan, add) {
   if (!READBACKS.includes(plan.readback)) add('readback', 'readback', 'readback must be one of ' + READBACKS.join(', ') + ': how the intent was read before planning');
   if (!filled(plan.understood_as)) add('shape', 'understood_as', 'missing the "understood as" line the readback produced');
   const requirements = Array.isArray(plan.requirements) ? plan.requirements.filter(isObject) : [];
@@ -93,8 +94,6 @@ function shape(plan, add, reject) {
     ids.add(s.id);
     if (!filled(s.target)) add('shape', where, 'missing target');
     if (!Array.isArray(s.predecessors) || !s.predecessors.every(filled)) add('shape', where, 'predecessors must be a list of step ids');
-    // A reject keeps only the steps that form its cycle, each with its id, target and predecessors.
-    if (reject) continue;
     for (const field of ['precondition', 'output', 'skippable', 'cost_owner']) if (!filled(s[field])) add('shape', where, 'missing ' + field);
     const types = typesOf(s);
     if (!types.length || !types.every((t) => TYPES.includes(t)) || new Set(types).size !== types.length || (Array.isArray(s.type) && types.length < 2)) add('shape', where, 'type must be one of ' + TYPES.join(', ') + ', or a list of two or more of them for a conditional step');
@@ -140,26 +139,6 @@ function graph(steps, add) {
   };
 }
 
-// A reject names one cycle along the requires-edges: "a requires b requires a", each step followed by a predecessor it lists.
-function checkReject(plan, steps, add) {
-  if (plan.stop !== undefined && plan.stop !== null) add('stop', 'stop', 'a reject ends at its own report and has no stop condition');
-  if (!filled(plan.reject)) return add('reject', 'reject', 'a reject names the whole cycle, written as "a requires b requires a"');
-  const names = plan.reject.split(/\s+requires\s+/).map((n) => n.trim());
-  const resolve = (name) => {
-    const byId = steps.filter((s) => s.id === name);
-    const byTarget = steps.filter((s) => s.target === name);
-    return byId.length === 1 ? byId[0] : byTarget.length === 1 ? byTarget[0] : null;
-  };
-  const nodes = names.map(resolve);
-  const missing = names.filter((_, i) => !nodes[i]);
-  if (missing.length) return add('reject', 'reject', 'names ' + missing.map((n) => JSON.stringify(n)).join(', ') + ', which is no single step id or target in the plan');
-  if (nodes.length < 3 || nodes[0] !== nodes[nodes.length - 1] || new Set(nodes.slice(1)).size !== nodes.length - 1) return add('reject', 'reject', 'a cycle returns to its first step and visits every other step once, as "a requires b requires a"');
-  for (let i = 0; i + 1 < nodes.length; i++) {
-    const [needs, needed] = [nodes[i], nodes[i + 1]];
-    if (!(needs.predecessors || []).includes(needed.id)) add('reject', 'reject', names[i] + ' requires ' + names[i + 1] + ' is not a declared edge: ' + needs.id + ' does not list ' + needed.id + ' as a predecessor; name each step before the one it requires');
-  }
-}
-
 export function checkPlan(plan) {
   const problems = [];
   const add = (rule, where, message) => problems.push({ rule, where, message });
@@ -167,16 +146,15 @@ export function checkPlan(plan) {
     add('shape', 'plan', 'the plan is not a JSON object');
     return problems;
   }
-  const { requirements, steps } = shape(plan, add, plan.reject !== undefined && plan.reject !== null);
+  if (plan.reject !== undefined && plan.reject !== null) {
+    add('reject', 'reject', 'a cycle is reported to the human with the read and the cycle, never checked; do not call this script for it');
+    return problems;
+  }
+  const { requirements, steps } = shape(plan, add);
   const g = graph(steps, add);
 
   // The readback is how the intent was read, never a planned action.
-  for (const s of steps) if (s.target === 'readback') add('readback', String(s.id), 'readback is the router\'s intake, shown as the requirements and the understood-as line, never a plan step');
-
-  if (plan.reject !== undefined && plan.reject !== null) {
-    checkReject(plan, steps, add);
-    return problems;
-  }
+  for (const s of steps) if (s.target === 'readback') add('readback', String(s.id), 'readback\'s method is applied by the router in the reply that shows the plan, never invoked or listed as a plan step');
 
   const actions = steps.filter((s) => s.added === undefined);
   if (!actions.length) add('no-match', 'steps', 'a plan with no action is a no-match: report that the goal was not done and why, without a plan');
@@ -190,7 +168,7 @@ export function checkPlan(plan) {
     state.set(s.id, 'open');
     path.push(s.id);
     for (const p of g.preds(s)) {
-      if (state.get(p) === 'open') add('cycle', String(s.id), 'the steps form a cycle; reject the request naming ' + [...path.slice(path.indexOf(p)), p].join(' requires '));
+      if (state.get(p) === 'open') add('cycle', String(s.id), 'the steps form a cycle; report it to the human, without this check, as ' + [...path.slice(path.indexOf(p)), p].join(' requires '));
       else if (!state.has(p)) visit(g.byId.get(p));
     }
     path.pop();
@@ -234,6 +212,7 @@ export function checkPlan(plan) {
     if (can(s, 'user-handoff') && (!filled(s.handoff) || !filled(s.bring_back))) add('handoff', where, 'a user-handoff names what the human does (handoff) and what to bring back (bring_back)');
     if (s.added !== undefined && s.added in ADDED && !ADDED[s.added].has(s.target)) add('added', where, 'an added ' + s.added + ' targets ' + [...ADDED[s.added]].join(' or '));
     // The closing sip edits the changed docs in its cleanup pass, so it writes; the approval covers that write and no sip follows it.
+    if (s.added === 'sip' && (!Array.isArray(s.members) || !s.members.length)) add('added', where, 'the closing sip lists as members the checks its own contract runs, so no call it makes is unshown');
     if (s.added === 'sip' && s.writes !== true) add('added', where, 'the closing sip writes (its cleanup pass edits the changed docs), so its writes is true and the approval covers it');
     if (s.added !== undefined && !runs(s) && !only(s, 'skip')) add('added', where, 'an added check is run by the session, or skipped when its skill is missing');
     // A skipped step's dependents are skipped too, and their reason names the step they lost.
@@ -409,3 +388,4 @@ export function main(argv, stdin, interactive = false) {
 // An installed skill is often a link to its source folder; Node resolves import.meta.url through the link while argv keeps
 // the link path, so both sides are compared as real paths or a call through the link exits 0 having done nothing.
 if (process.argv[1] && realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url))) process.exitCode = main(process.argv.slice(2), () => readFileSync(0, 'utf8'), process.stdin.isTTY === true);
+
