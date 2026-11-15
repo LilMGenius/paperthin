@@ -4,8 +4,9 @@
  * Commit message form check. AGENTS.md's Commit messages section owns the rules; this script
  * checks only what a machine can decide: the subject's type(scope) shape, case, period and
  * length, a body made of single-line bullets, and an optional closing paragraph of
- * Co-authored-by trailers that credit a human contributor on a squashed or carried
- * contribution. Whether a bullet says something worth keeping stays a reviewer's judgment.
+ * Co-authored-by trailers that credit a human contributor on a carried contribution, and,
+ * given --pr and --title, that the range's head commit lands the pull request under its title
+ * and number. Whether a bullet says something worth keeping stays a reviewer's judgment.
  * Run from ci.yml and locally with a revision range.
  */
 
@@ -47,10 +48,37 @@ function checkMessage(message) {
   return problems;
 }
 
+// A pull request lands by a fast-forward push of its head commit, so the subject it lands under is that
+// commit's own: the pull request's title followed by its number.
+function checkLanding(range, number, title) {
+  const head = range.includes('..') ? range.slice(range.lastIndexOf('..') + 2) || 'HEAD' : range;
+  const git = spawnSync('git', ['log', '-1', '--format=%s', head], { encoding: 'utf8' });
+  if (git.status !== 0) {
+    console.error('::error::cannot read the head commit ' + head + ': ' + (git.stderr || '').trim().split('\n')[0]);
+    process.exit(2);
+  }
+  const subject = git.stdout.replace(/\n$/, '');
+  const expected = title + ' (#' + number + ')';
+  if (subject === expected) return true;
+  console.error('::error::the head commit lands as "' + subject + '", but this pull request must land as "' + expected + '"');
+  console.error('  amend the head commit subject to "' + expected + '", or retitle the pull request to the head subject without its (#' + number + ')');
+  return false;
+}
+
 function main() {
-  const range = process.argv[2];
-  if (!range) {
-    console.error('usage: node scripts/gates/check-commit-messages.cjs <revision-range>');
+  const args = process.argv.slice(2);
+  const flag = (name) => {
+    const at = args.indexOf(name);
+    if (at < 0) return undefined;
+    const value = args[at + 1];
+    args.splice(at, 2);
+    return value === undefined ? '' : value;
+  };
+  const number = flag('--pr');
+  const title = flag('--title');
+  const range = args[0];
+  if (!range || (number === undefined) !== (title === undefined) || number === '' || title === '') {
+    console.error('usage: node scripts/gates/check-commit-messages.cjs <revision-range> [--pr <number> --title <title>]');
     process.exit(2);
   }
   const git = spawnSync('git', ['log', '--no-merges', '--format=%h%x00%B%x1e', range], { encoding: 'utf8' });
@@ -73,7 +101,8 @@ function main() {
     for (const problem of problems) console.error('  ' + problem);
   }
   console.log('check-commit-messages: ' + checked + ' checked, ' + failed + ' failed');
-  if (failed) process.exit(1);
+  const landed = number === undefined || checkLanding(range, number, title);
+  if (failed || !landed) process.exit(1);
 }
 
 if (require.main === module) main();

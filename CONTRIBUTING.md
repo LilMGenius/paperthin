@@ -31,7 +31,7 @@ The maintainer reviews it and approves it when it is accepted. Then it lands in 
 - **With the maintainer's follow-up commits** pushed onto your branch, when it needs smaller changes such as an update from `main`, a fix, a test or a rename. Your commits stay yours and the maintainer's stay separate.
 - **Carried into a new pull request** from a maintainer branch, when it needs a rewrite or targets the wrong branch. The new pull request keeps your commits or credits you as co-author, links yours, and your pull request is closed as superseded with a comment that explains what changed and why.
 
-Every pull request is squash-merged, and the release notes credit you with your pull request number and handle. Please keep **Allow edits by maintainers** turned on, so the maintainer can push follow-ups to your branch instead of carrying it.
+Every pull request lands on `main` as its own commits, by a fast-forward once its checks pass. Its title is a commit subject in the [commit form](./AGENTS.md#commit-messages), and its last commit's subject is that title followed by the pull request's number (`fix(scope): what is true now (#123)`), within 72 characters. CI fails until it does, so once the pull request has a number, amend the last commit and push it with `git push --force-with-lease`; a commit you push later carries the number instead. Rebase on `main` rather than merging it in. The release notes credit you with your pull request number and handle. Please keep **Allow edits by maintainers** turned on, so the maintainer can push follow-ups to your branch instead of carrying it.
 
 ## Before you push
 

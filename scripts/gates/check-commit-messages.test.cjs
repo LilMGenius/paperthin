@@ -58,6 +58,31 @@ test('the command fails a range holding a bad message and passes a clean one', (
   }
 });
 
+test('a pull request lands only when its head commit subject is its title and number', () => {
+  const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'commit-landing-'));
+  try {
+    const git = (...args) => execFileSync('git', ['-c', 'user.name=t', '-c', 'user.email=t@t', '-c', 'commit.gpgsign=false', ...args], { cwd: repo, encoding: 'utf8' });
+    const check = (...args) => spawnSync(process.execPath, [script, 'HEAD~2..HEAD', ...args], { cwd: repo, encoding: 'utf8' });
+    git('init', '-q');
+    git('commit', '-q', '--allow-empty', '-m', 'chore(repo): start');
+    git('commit', '-q', '--allow-empty', '-m', 'fix(a): keep the first unit');
+    git('commit', '-q', '--allow-empty', '-m', 'fix(a): land the second unit (#7)');
+    assert.equal(check('--pr', '7', '--title', 'fix(a): land the second unit').status, 0);
+    const otherTitle = check('--pr', '7', '--title', 'fix(a): keep the first unit');
+    assert.equal(otherTitle.status, 1);
+    assert.match(otherTitle.stderr, /fix\(a\): keep the first unit \(#7\)/);
+    assert.match(otherTitle.stderr, /fix\(a\): land the second unit \(#7\)/);
+    assert.equal(check('--pr', '8', '--title', 'fix(a): land the second unit').status, 1);
+    git('commit', '-q', '--allow-empty', '-m', 'fix(a): land without a number');
+    const unnumbered = check('--pr', '9', '--title', 'fix(a): land without a number');
+    assert.equal(unnumbered.status, 1);
+    assert.match(unnumbered.stderr, /amend the head commit/);
+    assert.equal(check('--pr', '9').status, 2);
+  } finally {
+    fs.rmSync(repo, { recursive: true, force: true });
+  }
+});
+
 test('a closing block of human co-author trailers passes', () => {
   const valid = [
     'fix(minimax): move to the released model id\n\n- saved selections of the preview id are renamed at startup\n\nCo-authored-by: Jane Doe <jane@example.com>',

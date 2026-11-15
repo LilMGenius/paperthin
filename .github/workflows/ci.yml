@@ -3,6 +3,8 @@ name: ci
 on:
   push:
   pull_request:
+    # edited reruns the landing check when only the title changes
+    types: [opened, synchronize, reopened, edited]
 
 jobs:
   validate:
@@ -19,9 +21,15 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run check
-      - name: Check commit messages in the pull request
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-        run: node scripts/gates/check-commit-messages.cjs "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+      # A pull request lands its commits unchanged, a fork's included, so each is checked, and its head must carry the title and number it lands under.
+      - name: Check the commits a pull request lands
+        if: github.event_name == 'pull_request'
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: node scripts/gates/check-commit-messages.cjs "$BASE..$HEAD" --pr "$PR_NUMBER" --title "$PR_TITLE"
       - name: Check commit messages in the push
         if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
         env:
