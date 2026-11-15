@@ -51,7 +51,7 @@ const RULES = [
   ['judgment', 'a delivered judgment that writes'],
   ['outcome', 'an outcome missing, unknown, without a result, or not fitting its type (--report)'],
   ['order', 'a step that ran after a stop, after a skipped predecessor, or a second stop (--report)'],
-  ['approval', 'a run write without approval, or anything started under order-only or pending (--report)'],
+  ['approval', 'a run write or commit (vcs) without approval, or anything started under order-only or pending (--report)'],
   ['status', 'a requirement status the outcomes do not back (--report)'],
   ['stop-reached', 'a stop claimed reached while anything waits, stopped or is unmet (--report)'],
 ];
@@ -99,6 +99,7 @@ function shape(plan, add) {
     if (!types.length || !types.every((t) => TYPES.includes(t)) || new Set(types).size !== types.length || (Array.isArray(s.type) && types.length < 2)) add('shape', where, 'type must be one of ' + TYPES.join(', ') + ', or a list of two or more of them for a conditional step');
     if (!Array.isArray(s.serves) || !s.serves.every(filled)) add('shape', where, 'serves must be a list of requirement ids');
     if (typeof s.writes !== 'boolean') add('shape', where, 'writes must be true or false');
+    if (s.vcs !== undefined && typeof s.vcs !== 'boolean') add('shape', where, 'vcs must be true or false');
     if (!LANES.includes(s.lane)) add('shape', where, 'lane must be one of ' + LANES.join(', '));
     if (s.members !== undefined && (!Array.isArray(s.members) || !s.members.every(filled))) add('shape', where, 'members must be a list of skill names');
     if (s.user_members !== undefined && (!Array.isArray(s.user_members) || !s.user_members.every((m) => (s.members || []).includes(m)))) add('shape', where, 'user_members must list members of the step that are user-only');
@@ -320,7 +321,8 @@ export function checkReport(plan) {
   }
 
   // Nothing runs before the shown plan is approved when a step the session runs writes.
-  const writesRun = steps.some((s) => runs(s) && s.writes === true);
+  // A commit or history rewrite (vcs) is no write for sip, but a run step that makes one needs approval like a write.
+  const writesRun = steps.some((s) => runs(s) && (s.writes === true || s.vcs === true));
   if (!APPROVALS.includes(plan.approval)) add('approval', 'approval', 'approval must be one of ' + APPROVALS.join(', '));
   else if (plan.approval === 'not-needed' && writesRun) add('approval', 'approval', 'a step the session runs writes, so the shown plan needs approval');
   else if (['order-only', 'pending'].includes(plan.approval) && started.length) add('approval', 'approval', 'approval is ' + plan.approval + ', so nothing runs, but ' + started.map((s) => s.id).join(', ') + ' started');
@@ -401,5 +403,4 @@ export function main(argv, stdin, interactive = false) {
 // An installed skill is often a link to its source folder; Node resolves import.meta.url through the link while argv keeps
 // the link path, so both sides are compared as real paths or a call through the link exits 0 having done nothing.
 if (process.argv[1] && realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url))) process.exitCode = main(process.argv.slice(2), () => readFileSync(0, 'utf8'), process.stdin.isTTY === true);
-
 

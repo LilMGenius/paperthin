@@ -358,3 +358,9 @@ test('report: in order-only and pending reports a skip step stays skipped', () =
     assert.deepEqual(reported((p) => { hold(p); at(p, 's2').outcome = 'waiting'; delete at(p, 's2').result; }).rules, ['outcome']);
   }
 });
+
+test('report: a run step that commits needs approval though it is no write for sip', () => {
+  const commit = (p) => { p.steps.splice(2, 0, step('s5', 'commit the change', ['s2'], ['r1'], { type: 'session-step', lane: 'none', vcs: true, outcome: 'ran', result: 'committed' })); at(p, 's3').predecessors = ['s5']; };
+  assert.equal(reported(commit).status, 0);
+  assert.deepEqual(reported((p) => { commit(p); at(p, 's1').writes = false; p.steps = p.steps.filter((s) => s.id !== 's3'); at(p, 's4').predecessors = ['s5']; p.approval = 'not-needed'; }).rules, ['approval']);
+});
