@@ -114,7 +114,8 @@ Before committing, confirm:
 3. **[package.json](./package.json)** bumps by **kind, not size**: against the artifact's own prior spec, was the old behavior *wrong* (a fix, so patch, even with much new plumbing) or *correct but narrower* (a new capability a user reaches for, so minor)? A skill removed with no replacement is major. State that answer before naming the bump; keep `keywords` grouped.
 4. A **rename** appends its old → new row to [`re0-upgrade`](./skills/breadth/re0-upgrade/SKILL.md)'s deprecations, in release order, and restarts the body with `re0-work`: a body drafted under one name keeps that name's framing through any substitution, so a writer who never read the old body writes the new one from its behavior contract alone, `shower` cold-reads it, and the rename lands once every obligation in the contract survives.
 5. Every inline rule copy and orchestrator edge stays coherent with the [Conventions](#conventions) map: touch one copy, check the others. When a skill is added, renamed, removed, or changes invocation lane, re-read every skill and doc that names it and update each one; an orchestrator that still calls a skill gone user-invoked, or routes to one that no longer exists, is a map that lies. A Skill tool call is checked; prose routing is read.
-6. Run **`sip`**.
+6. Every edited passage still sits inside its step's bold lead and its skill's Goal; one that outgrows them takes its own step, or moves to the skill whose Goal covers it as `scopechk` places it, and a lesson that would land in two skills keeps one owner while the other only names it. No gate decides this: a diff test for a sentence that kept its wording and gained a clause also flags the edits a v0 rewrite would make.
+7. Run **`sip`**.
 
 Write commit messages to [Commit messages](#commit-messages) from the first draft, not only on cleanup.
 
