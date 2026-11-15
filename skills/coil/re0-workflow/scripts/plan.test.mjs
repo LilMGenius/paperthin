@@ -19,7 +19,8 @@ function cli(plan, ...flags) {
   return { status: run.status, rules: run.status === 2 ? [] : JSON.parse(run.stdout).problems.map((p) => p.rule), stdout: run.stdout };
 }
 
-const step = (id, target, predecessors, serves, extra = {}) => ({ id, target, predecessors, serves, type: 'invoke-model-skill', precondition: 'its predecessors produced their output', output: 'what the skill contract returns', skippable: 'never', cost_owner: 'run', writes: false, lane: 'model', ...extra });
+// The closing sip writes, since its cleanup pass edits the changed docs.
+const step = (id, target, predecessors, serves, extra = {}) => ({ id, target, predecessors, serves, type: 'invoke-model-skill', precondition: 'its predecessors produced their output', output: 'what the skill contract returns', skippable: 'never', cost_owner: 'run', writes: extra.added === 'sip', lane: 'model', ...extra });
 const skip = { type: 'skip', cost_owner: 'none', lane: 'missing' };
 const handoff = { type: 'user-handoff', cost_owner: 'human', lane: 'user', destructive: true, handoff: 'type /skill-c', bring_back: 'the published version' };
 
@@ -72,6 +73,13 @@ test('no-match: a plan with no action fails, since a no-match is a plain report'
   assert.deepEqual(planted((p) => { p.steps = []; p.requirements.forEach((r) => { r.unmet = 'no installed skill serves it'; }); }).rules, ['no-match']);
 });
 
+test('no-match: a plan of session steps alone is a no-match, and one skill step makes the session work connective', () => {
+  const session = () => ({ type: 'session-step', target: 'work no skill covers', lane: 'none' });
+  const alone = (p) => { p.requirements = [p.requirements[0]]; p.steps = [step('s1', 'x', [], ['r1'], { ...session(), writes: false })]; };
+  assert.deepEqual(planted(alone).rules, ['no-match']);
+  assert.equal(planted((p) => { Object.assign(at(p, 's1'), session()); }).status, 0);
+});
+
 test('requirements: an unmapped one fails unless recorded as unmet, and one only skips serve is unmet', () => {
   assert.deepEqual(planted((p) => { p.requirements.push({ id: 'r4', text: 'translate it' }); }).rules, ['requirement']);
   assert.equal(planted((p) => { p.requirements.push({ id: 'r4', text: 'translate it', unmet: 'no installed skill translates' }); }).status, 0);
@@ -82,6 +90,10 @@ test('requirements: an unmapped one fails unless recorded as unmet, and one only
 
 test('requirements: a step that serves none fails', () => {
   assert.deepEqual(planted((p) => { at(p, 's2').serves = []; p.requirements[1].unmet = 'dropped'; }).rules, ['serves']);
+});
+
+test('requirements: one recorded as unmet while a step that runs still serves it fails', () => {
+  assert.deepEqual(planted((p) => { p.requirements[1].unmet = 'nothing serves it'; }).rules, ['requirement']);
 });
 
 test('cycle: steps that depend on each other fail, and the cycle is named in run order', () => {
@@ -121,6 +133,10 @@ test('added: an added check names the skill it adds', () => {
   assert.deepEqual(planted((p) => { at(p, 's3').target = 'shower'; }).rules, ['added', 'sip']);
 });
 
+test('added: the closing sip writes, so a closing sip marked as not writing fails', () => {
+  assert.deepEqual(planted((p) => { at(p, 's3').writes = false; }).rules, ['added']);
+});
+
 test('outside read: a delivered judgment no sip tastes gets exactly one, and never both', () => {
   const judged = (p) => { p.steps = p.steps.filter((s) => s.id !== 's3'); at(p, 's1').writes = false; at(p, 's2').judgment_only = true; at(p, 's4').predecessors = ['s2']; };
   assert.deepEqual(planted(judged).rules, ['outside']);
@@ -128,6 +144,23 @@ test('outside read: a delivered judgment no sip tastes gets exactly one, and nev
   assert.equal(planted(read).status, 0);
   assert.deepEqual(planted((p) => { at(p, 's2').judgment_only = true; p.steps.splice(3, 0, step('s5', 'shower', ['s3'], ['r2'], { added: 'outside-read' })); at(p, 's4').predecessors = ['s5']; }).rules, ['sip', 'outside']);
   assert.deepEqual(planted((p) => { read(p); delete at(p, 's2').judgment_only; }).rules, ['outside']);
+});
+
+test('outside read: a sip tastes a judgment only when it comes after it in the same stretch, and a read serves only the judgment', () => {
+  const late = (p) => { p.steps.push(step('s5', 'skill-d', ['s4'], ['r3'], { judgment_only: true })); };
+  assert.deepEqual(planted(late).rules, ['outside']);
+  const readLate = (serves) => (p) => { late(p); p.steps.push(step('s6', 'factchk', ['s5'], serves, { added: 'outside-read', writes: false })); };
+  assert.equal(planted(readLate(['r3'])).status, 0);
+  assert.deepEqual(planted(readLate(['r1'])).rules, ['outside']);
+});
+
+test('outside read: a sip listed before a judgment does not taste it', () => {
+  const early = (p) => {
+    p.requirements = p.requirements.slice(0, 2);
+    p.steps = [step('s1', 'sip', [], ['r1'], { writes: true }), step('s2', 'skill-b', ['s1'], ['r2'], { judgment_only: true })];
+  };
+  assert.deepEqual(planted(early).rules, ['outside']);
+  assert.equal(planted((p) => { early(p); p.steps.push(step('s3', 'shower', ['s2'], ['r2'], { added: 'outside-read' })); }).status, 0);
 });
 
 test('stop: a missing stop condition or two of them fail', () => {
@@ -213,6 +246,13 @@ test('report: a run stopped at its handoff passes, and a plan without outcomes f
 test('report: a step that ran after the stop, or two stops, fails', () => {
   assert.deepEqual(reported((p) => { at(p, 's2').outcome = 'waiting'; p.requirements[1].status = 'waiting'; }).rules, ['order']);
   assert.ok(reported((p) => { at(p, 's2').outcome = 'failed'; }).rules.includes('order'));
+});
+
+test('report: no step after the first stop shows ran, while a skip from a broken precondition is no stop', () => {
+  assert.ok(reported((p) => { at(p, 's2').predecessors = []; Object.assign(at(p, 's1'), { outcome: 'failed', result: 'no output' }); p.requirements[0].status = 'unmet'; p.requirements[0].reason = 's1 failed'; }).rules.includes('order'));
+  const after = (p) => { p.steps.push(step('s5', 'skill-d', [], ['r3'], { outcome: 'ran', result: 'done' })); };
+  assert.ok(reported(after).rules.includes('order'));
+  assert.equal(reported((p) => { Object.assign(at(p, 's2'), { outcome: 'skipped', result: 'its precondition broke' }); p.requirements[1].status = 'skipped'; p.requirements[1].reason = 's1 left nothing to check'; }).status, 0);
 });
 
 test('report: a status the outcomes do not back, or a stop claimed reached while a step waits, fails', () => {

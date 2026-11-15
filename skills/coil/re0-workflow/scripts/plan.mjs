@@ -138,6 +138,7 @@ export function checkPlan(plan) {
 
   const actions = steps.filter((s) => s.added === undefined);
   if (!actions.length) add('no-match', 'steps', 'a plan with no action is a no-match: report that the goal was not done and why, without a plan');
+  else if (!actions.some((s) => s.lane === 'model' || s.lane === 'user')) add('no-match', 'steps', 'no installed skill serves any requirement, so this is a no-match even though the session could do the work; session steps only connect skill steps');
   if (plan.readback === 'single-named-step' && (requirements.length !== 1 || actions.length !== 1)) add('readback', 'readback', 'single-named-step holds only for one requirement served by one action');
 
   // No cycle: a depth-first walk over predecessors names the first loop it closes.
@@ -174,6 +175,7 @@ export function checkPlan(plan) {
     const serving = actions.filter((s) => Array.isArray(s.serves) && s.serves.includes(r.id));
     if (!serving.length && !filled(r.unmet)) add('requirement', String(r.id), 'no action serves it and it is not recorded as unmet');
     else if (serving.length && serving.every((s) => only(s, 'skip')) && !filled(r.unmet)) add('requirement', String(r.id), 'every action serving it is a skip, so it is recorded as unmet with the reason');
+    else if (filled(r.unmet) && serving.some((s) => !only(s, 'skip'))) add('requirement', String(r.id), 'is recorded as unmet while ' + serving.filter((s) => !only(s, 'skip')).map((s) => s.id).join(', ') + ' can still serve it');
   }
 
   for (const s of steps) {
@@ -188,6 +190,8 @@ export function checkPlan(plan) {
     if (can(s, 'skip') && !filled(s.reason)) add('skip', where, 'can be a skip but records no reason');
     if (can(s, 'user-handoff') && (!filled(s.handoff) || !filled(s.bring_back))) add('handoff', where, 'a user-handoff names what the human does (handoff) and what to bring back (bring_back)');
     if (s.added !== undefined && s.added in ADDED && !ADDED[s.added].has(s.target)) add('added', where, 'an added ' + s.added + ' targets ' + [...ADDED[s.added]].join(' or '));
+    // The closing sip edits the changed docs in its cleanup pass, so it writes; the approval covers that write and no sip follows it.
+    if (s.added === 'sip' && s.writes !== true) add('added', where, 'the closing sip writes (its cleanup pass edits the changed docs), so its writes is true and the approval covers it');
     if (s.added !== undefined && !runs(s) && !only(s, 'skip')) add('added', where, 'an added check is run by the session, or skipped when its skill is missing');
     // A skipped step's dependents are skipped too, and their reason names the step they lost.
     if (only(s, 'skip')) {
@@ -234,10 +238,17 @@ export function checkPlan(plan) {
   const stretchOf = new Map();
   stretches.forEach((stretch, i) => stretch.steps.forEach((s) => stretchOf.set(s.id, i)));
   for (const s of steps) {
-    if (s.added === 'outside-read' && ![...g.ancestors(s)].some((id) => g.byId.get(id).judgment_only === true)) add('outside', String(s.id), 'is an added outside read with no judgment-only step before it; cut it');
+    if (s.added === 'outside-read') {
+      const judged = [...g.ancestors(s)].map((id) => g.byId.get(id)).filter((a) => a.judgment_only === true);
+      const served = new Set(judged.flatMap((a) => (Array.isArray(a.serves) ? a.serves : [])));
+      if (!judged.length) add('outside', String(s.id), 'is an added outside read with no judgment-only step before it; cut it');
+      else if (Array.isArray(s.serves) && s.serves.some((r) => !served.has(r))) add('outside', String(s.id), 'an added outside read serves only the requirements of the judgment it reads');
+    }
     if (s.judgment_only !== true) continue;
     const reads = g.descendants(s).filter((d) => d.added === 'outside-read');
-    const sipped = stretches[stretchOf.get(s.id)]?.steps.some((d) => d.target === 'sip');
+    // A sip tastes a judgment only when it comes after it in the same stretch.
+    const stretchSteps = stretches[stretchOf.get(s.id)]?.steps || [];
+    const sipped = stretchSteps.slice(stretchSteps.indexOf(s) + 1).some((d) => d.target === 'sip');
     if (sipped && reads.length) add('outside', String(s.id), 'is tasted by its stretch\'s sip and also given an outside read; keep one');
     else if (!sipped && reads.length !== 1) add('outside', String(s.id), 'is a judgment the run delivers with no sip to taste it, so exactly one outside read (shower, factchk or mandela) follows it');
   }
@@ -265,6 +276,11 @@ export function checkReport(plan) {
   }
   const stops = steps.filter((s) => s.outcome === 'handed-off' || s.outcome === 'failed');
   if (stops.length > 1) add('order', 'steps', 'the run stops at the first handoff or failure, but ' + stops.map((s) => s.id).join(', ') + ' all stopped it');
+  // Nothing after the stop runs; a skip from a broken precondition is not a stop.
+  if (stops.length) {
+    const after = steps.slice(steps.indexOf(stops[0]) + 1).filter((s) => ['ran', 'returned'].includes(s.outcome));
+    if (after.length) add('order', after.map((s) => s.id).join(', '), 'ran after the run stopped at ' + stops[0].id + '; every step after a stop waits');
+  }
 
   // Nothing runs before the shown plan is approved when a step the session runs writes.
   const writesRun = steps.some((s) => runs(s) && s.writes === true);
