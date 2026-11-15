@@ -11,7 +11,7 @@ The author's judgment of what is plausible, absurd, or novel is the least reliab
 
 ## Workflow
 
-1. Scan for **reality-grounded assertions** that call something plausible, realistic, absurd, novel, or impossible because of a factual premise. Include claims you are *about to write*. A verdict on a person's or a thing's worth (overrated, underrated, legendary, trivial) is such an assertion: check it the same way, and when no source settles it, rewrite it as which named criterion the subject meets and report the rewrite.
+1. Scan for **reality-grounded assertions** that call something plausible, realistic, absurd, novel, or impossible because of a factual premise. Include claims you are *about to write*. Collect worth judgments too (overrated, legendary) for the rule below.
 2. Verify each against **external sources** (web search, open references) in **both directions**: could the "absurd" be real? Could the "obvious" or "novel" be false or long-established? If you cannot reach a source, **flag it; never assert from intuition**.
 3. **Fix or flag:** correct mechanically clear errors, such as wrong dates, misattributed sources, or falsified numbers, with a cited source. Surface contested or interpretive claims as judgment calls; do not silently rewrite them.
 4. Report each claim, its verdict, the source, and which direction a failed claim failed.
@@ -21,6 +21,7 @@ The author's judgment of what is plausible, absurd, or novel is the least reliab
 - Target claims asserted **as reality-grounded**, never deliberate fiction ("in our world, boxes float" is a declared choice). If it is unclear whether a claim is an in-world choice or a real-world assertion, **flag, don't fix**.
 - Flagging only the unrealistic catches half the errors.
 - A claim about a person (a title, a past role, a school, an age) is read from that person's own profile or record, and where the source allows two values the artifact states the one that cannot overstate, such as the younger age when a birthday is unknown.
+- A worth judgment (overrated, legendary) states no fact. Check the factual premise it rests on, if any (an "overrated" inventor whose credited work was mostly a team's), and report the judgment itself as a judgment call. When it decides whether a person or thing belongs in a list or set, report that fit question for `paperthin:scopechk` without judging it here.
 - **Metacognitive doubt** triggers the check. You cannot know every domain; when you are about to assert a checkable fact from a feeling, verify it.
 - A pass that finds nothing changes nothing.
 
