@@ -45,9 +45,10 @@ const RULES = [
   ['cost', 'a cost owner other than the one its first type carries'],
   ['skip', 'a skip without a reason, or a dependent of a skip that runs or whose reason does not name the step it lost'],
   ['handoff', 'a user-handoff without what the human does and what to bring back'],
-  ['added', 'an added check on the wrong skill or run by the human; an installed closing sip that does not write or list the checks it runs; a missing one with members or writes'],
+  ['added', 'an added check on the wrong skill or run by the human; an installed closing sip that does not write, list the checks it runs, or run while a covered write can; a missing one with members or writes'],
   ['pipeline', 'a member of a selected pipeline step reproduced for the same requirement (the closing sip is exempt)'],
   ['sip', 'a stretch that writes without exactly one closing sip after every write, or an added sip where nothing is written'],
+  ['runs-last', 'a sip or another write after a pass whose contract runs it last in a rewriting sequence'],
   ['outside', 'a delivered judgment with no later running sip and no single outside read, both, a read after a judgment that is itself one, or a read with no judgment or serving another requirement'],
   ['judgment', 'a delivered judgment that writes'],
   ['outcome', 'an outcome missing, unknown, without a result, or not fitting its type (--report)'],
@@ -75,7 +76,21 @@ const can = (step, type) => typesOf(step).includes(type);
 const runs = (step) => can(step, 'invoke-model-skill') || can(step, 'session-step');
 // A step that writes content and is not itself the closing sip; a pipeline whose members include sip closes its own writes.
 // A fixed write (verbatim human text, or an edit a skill fully decides) needs approval but no taste check.
-const writer = (step) => step.writes === true && step.fixed !== true && step.target !== 'sip' && !(step.members || []).includes('sip');
+// A pass whose contract runs it last in a rewriting sequence (runs_last) is tasted by the sip before it, never by one after.
+const writer = (step) => step.writes === true && step.fixed !== true && step.runs_last !== true && step.target !== 'sip' && !(step.members || []).includes('sip');
+
+// Stops split the run at each step whose expected type is a handoff; the handoff's own write opens the next stretch.
+function stretchesOf(steps) {
+  const out = [{ steps: [], opened: null }];
+  for (const s of steps) {
+    if (typesOf(s)[0] === 'user-handoff') out.push({ steps: [], opened: s });
+    else out[out.length - 1].steps.push(s);
+  }
+  return out;
+}
+
+// The content writes a stretch's closing sip covers: the opening handoff's write and the writes of the steps the session runs.
+const stretchWrites = (stretch) => [...(stretch.opened && writer(stretch.opened) ? [stretch.opened] : []), ...stretch.steps.filter((s) => ['invoke-model-skill', 'session-step'].includes(typesOf(s)[0]) && writer(s))];
 
 function shape(plan, add) {
   if (!READBACKS.includes(plan.readback)) add('readback', 'readback', 'readback must be one of ' + READBACKS.join(', ') + ': how the intent was read before planning');
@@ -103,6 +118,7 @@ function shape(plan, add) {
     if (!Array.isArray(s.serves) || !s.serves.every(filled)) add('shape', where, 'serves must be a list of requirement ids');
     if (typeof s.writes !== 'boolean') add('shape', where, 'writes must be true or false');
     if (s.vcs !== undefined && typeof s.vcs !== 'boolean') add('shape', where, 'vcs must be true or false');
+    if (s.runs_last !== undefined && typeof s.runs_last !== 'boolean') add('shape', where, 'runs_last must be true or false');
     if (!LANES.includes(s.lane)) add('shape', where, 'lane must be one of ' + LANES.join(', '));
     if (s.members !== undefined && (!Array.isArray(s.members) || !s.members.every(filled))) add('shape', where, 'members must be a list of skill names');
     if (s.user_members !== undefined && (!Array.isArray(s.user_members) || !s.user_members.every((m) => (s.members || []).includes(m)))) add('shape', where, 'user_members must list members of the step that are user-only');
@@ -162,6 +178,7 @@ export function checkPlan(plan) {
 
   const actions = steps.filter((s) => s.added === undefined);
   if (!actions.length) add('no-match', 'steps', 'a plan with no action is a no-match: report that the goal was not done and why, without a plan');
+  else if (actions.every((s) => s.lane === 'missing')) add('no-match', 'steps', 'every requested skill is not installed: report each as not installed, without a plan');
   else if (!actions.some((s) => s.lane === 'model' || s.lane === 'user')) add('no-match', 'steps', 'no installed skill serves any requirement, so this is a no-match even though the session could do the work; session steps only connect skill steps');
   if (plan.readback === 'single-named-step' && (requirements.length !== 1 || actions.length !== 1)) add('readback', 'readback', 'single-named-step holds only for one requirement served by one action');
 
@@ -202,6 +219,11 @@ export function checkPlan(plan) {
     else if (filled(r.unmet) && serving.some((s) => !only(s, 'skip'))) add('requirement', String(r.id), 'is recorded as unmet while ' + serving.filter((s) => !only(s, 'skip')).map((s) => s.id).join(', ') + ' can still serve it');
   }
 
+  const stretches = stretchesOf(steps);
+  const stretchOf = new Map();
+  stretches.forEach((stretch, i) => stretch.steps.forEach((s) => stretchOf.set(s.id, i)));
+  // A closing sip still runs while any write it covers can run.
+  const live = (sip) => stretchWrites(stretches[stretchOf.get(sip.id)]).length > 0;
   for (const s of steps) {
     const where = String(s.id);
     if (SELF.has(s.target)) add('self', where, 'targets ' + s.target + ', which would route back into this router');
@@ -222,11 +244,13 @@ export function checkPlan(plan) {
     if (s.added === 'sip' && !only(s, 'skip') && (!Array.isArray(s.members) || !s.members.length)) add('added', where, 'the closing sip lists as members the checks its own contract runs, so no call it makes is unshown');
     if (s.added === 'sip' && !only(s, 'skip') && s.writes !== true) add('added', where, 'the closing sip writes (its cleanup pass edits the changed docs), so its writes is true and the approval covers it');
     if (s.added === 'sip' && only(s, 'skip') && (s.writes !== false || (s.members || []).length)) add('added', where, 'a closing sip that is not installed is a plain skip: no members and writes false');
+    if (s.added === 'sip' && only(s, 'skip') && s.lane !== 'missing' && live(s)) add('added', where, 'an installed closing sip runs while a write it covers can run, so it is no skip');
     if (s.added !== undefined && !runs(s) && !only(s, 'skip')) add('added', where, 'an added check is run by the session, or skipped when its skill is missing');
     // A skipped step's dependents are skipped too, and their reason names the step they lost.
     // A missing added check leaves its output untasted but takes nothing from the steps after it.
     if (only(s, 'skip') && s.added === undefined) {
       for (const c of g.children.get(s.id) || []) {
+        if (c.added === 'sip' && live(c)) continue;
         if (!only(c, 'skip')) add('skip', String(c.id), 'depends on the skipped step ' + where + ', so it is skipped too');
         else if (filled(c.reason) && !names(c.reason, s)) add('skip', String(c.id), 'is skipped after ' + where + ' but its reason does not name it; a dependent inherits the reason');
       }
@@ -236,15 +260,9 @@ export function checkPlan(plan) {
     }
   }
 
-  // Stops split the run: a handoff ends a stretch, and its own writes open the next one. A stretch that writes closes with exactly one sip,
-  // its last step, after every write it covers; a stretch with no write adds none.
-  const stretches = [{ steps: [], opened: null }];
-  for (const s of steps) {
-    if (typesOf(s)[0] === 'user-handoff') stretches.push({ steps: [], opened: s });
-    else stretches[stretches.length - 1].steps.push(s);
-  }
+  // A stretch that writes closes with exactly one sip after every write it covers; a stretch with no write adds none.
   for (const stretch of stretches) {
-    const writes = [...(stretch.opened && writer(stretch.opened) ? [stretch.opened] : []), ...stretch.steps.filter((s) => ['invoke-model-skill', 'session-step'].includes(typesOf(s)[0]) && writer(s))];
+    const writes = stretchWrites(stretch);
     const sips = stretch.steps.filter((s) => s.target === 'sip');
     const end = stretch.steps[stretch.steps.length - 1];
     const where = end ? String(end.id) : String(stretch.opened?.id);
@@ -264,9 +282,14 @@ export function checkPlan(plan) {
     if (sip.added === 'sip' && Array.isArray(sip.serves) && sip.serves.some((r) => !served.has(r))) add('sip', String(sip.id), 'an added sip serves only the requirements of the writes it covers');
   }
 
+  // Nothing rewrites after a pass that runs last: no sip and no other write follows it in its stretch.
+  for (const s of steps) {
+    if (s.runs_last !== true) continue;
+    const after = typesOf(s)[0] === 'user-handoff' ? stretches.find((x) => x.opened === s).steps : stretches[stretchOf.get(s.id)].steps.slice(stretches[stretchOf.get(s.id)].steps.indexOf(s) + 1);
+    for (const a of after) if (a.target === 'sip' || a.writes === true) add('runs-last', String(a.id), 'follows ' + s.id + ', which its contract runs last in a rewriting sequence, so its sip goes before it');
+  }
+
   // A judgment the run delivers gets one outside read, unless the stretch's sip already tastes it; never both.
-  const stretchOf = new Map();
-  stretches.forEach((stretch, i) => stretch.steps.forEach((s) => stretchOf.set(s.id, i)));
   for (const s of steps) {
     if (s.added === 'outside-read') {
       const judged = [...g.ancestors(s)].map((id) => g.byId.get(id)).filter((a) => a.judgment_only === true);
@@ -298,19 +321,10 @@ export function checkReport(plan) {
   const byId = new Map(steps.map((s) => [s.id, s]));
   const stopped = new Set(['waiting', 'handed-off', 'failed']);
   // A closing sip covers the writes before it; it runs when any of them ran.
-  const covered = (sip) => {
-    const seen = new Set();
-    const stack = [...(sip.predecessors || [])];
-    while (stack.length) {
-      const id = stack.pop();
-      const s = byId.get(id);
-      if (!s || seen.has(id)) continue;
-      seen.add(id);
-      stack.push(...(s.predecessors || []));
-    }
-    return [...seen].map((id) => byId.get(id)).filter((s) => runs(s) && writer(s));
-  };
-  const tasted = (sip) => covered(sip).some((s) => s.outcome === 'ran');
+  // A closing sip covers its own stretch's writes, a returned handoff's included; it runs when any of them ran or returned.
+  const stretches = stretchesOf(steps);
+  const covered = (sip) => stretchWrites(stretches.find((x) => x.steps.includes(sip)) || { steps: [], opened: null });
+  const tasted = (sip) => covered(sip).some((s) => ['ran', 'returned'].includes(s.outcome));
   const started = steps.filter((s) => ['ran', 'returned', 'failed', 'handed-off'].includes(s.outcome));
   for (const s of steps) {
     const where = String(s.id);

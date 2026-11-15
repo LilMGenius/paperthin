@@ -389,3 +389,32 @@ test('missing: a skill that is not installed is never offered as an invocation',
   assert.equal(planted(absent).status, 0);
   assert.deepEqual(planted((p) => { absent(p); at(p, 's2').handoff = 'type /skill-b'; }).rules, ['missing']);
 });
+
+test('runs-last: a pass its contract runs last takes the sip before it and nothing rewrites after it', () => {
+  const last = (p) => Object.assign(at(p, 's4'), { writes: true, runs_last: true });
+  assert.equal(planted(last).status, 0);
+  assert.ok(planted((p) => { last(p); p.steps.push(step('s5', 'sip', ['s4'], ['r3'], { added: 'sip' })); }).rules.includes('runs-last'));
+  const inline = (p) => { Object.assign(at(p, 's2'), { writes: true, runs_last: true }); at(p, 's3').predecessors = ['s2']; };
+  assert.ok(planted(inline).rules.includes('runs-last'));
+  assert.equal(planted((p) => { Object.assign(at(p, 's1'), { runs_last: true }); p.steps = [p.steps[1], p.steps[2], p.steps[0], p.steps[3]]; at(p, 's1').predecessors = ['s3']; at(p, 's2').predecessors = []; at(p, 's3').predecessors = ['s2']; at(p, 's3').serves = ['r2']; at(p, 's2').writes = true; at(p, 's4').predecessors = ['s1']; }).status, 0);
+});
+
+test('sip: the closing sip still runs while a write it covers can, and is never typed skip then', () => {
+  const lost = (p) => { p.steps.splice(1, 0, step('s5', 'skill-e', [], ['r2'], { ...skip, reason: 'skill-e is not installed' })); at(p, 's3').predecessors = ['s2', 's5']; };
+  assert.equal(planted(lost).status, 0);
+  assert.deepEqual(planted((p) => { lost(p); Object.assign(at(p, 's3'), { type: 'skip', cost_owner: 'none', reason: 'follows s5', writes: false }); delete at(p, 's3').members; }).rules, ['added']);
+});
+
+test('report: the closing sip covers only its own stretch, a returned handoff write included', () => {
+  const two = (p) => { at(p, 's4').writes = true; p.steps.push(step('s5', 'sip', ['s4'], ['r3'], { added: 'sip' })); };
+  const back = (p) => { two(p); Object.assign(at(p, 's4'), { outcome: 'returned', result: 'published' }); p.requirements[2].status = 'served'; };
+  assert.equal(reported((p) => { back(p); Object.assign(at(p, 's5'), { outcome: 'ran', result: 'tasted' }); p.stop_reached = true; }).status, 0);
+  assert.deepEqual(reported((p) => { back(p); Object.assign(at(p, 's5'), { outcome: 'skipped', result: 'not run' }); p.stop_reached = true; }).rules, ['stop-reached']);
+  assert.ok(reported((p) => { two(p); Object.assign(at(p, 's4'), { outcome: 'skipped', result: 'not needed' }); Object.assign(at(p, 's5'), { outcome: 'ran', result: 'tasted' }); p.requirements[2].status = 'skipped'; p.requirements[2].reason = 'not needed'; }).rules.includes('order'));
+});
+
+test('no-match: a request whose only skill is not installed is reported as not installed', () => {
+  const run = planted((p) => { p.requirements = [{ id: 'r1', text: 'run it', unmet: 'skill-a is not installed' }]; p.steps = [step('s1', 'skill-a', [], ['r1'], { ...skip, reason: 'skill-a is not installed' })]; });
+  assert.deepEqual(run.rules, ['no-match']);
+  assert.match(run.stdout, /not installed/);
+});
