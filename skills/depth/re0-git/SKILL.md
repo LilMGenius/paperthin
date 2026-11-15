@@ -1,14 +1,14 @@
 ---
 name: re0-git
 disable-model-invocation: true
-description: "Rewrite a finished commit's message into a clean, handoff-ready form in your own log style, and place a late commit in time order on a linear history, so `git log` alone tells the story. User-invoked: run it once you've decided to commit."
+description: "Rewrite a finished commit's message into a clean, handoff-ready form in your own log style, place a late commit in time order on a linear history, and take a rejected or duplicate commit out of a range, so `git log` alone tells the story. User-invoked: run it once you've decided to commit."
 ---
 
-Rewrite a finished commit message so the log supports handoff in the author's voice, and place a late commit where its time falls.
+Rewrite a finished commit message so the log supports handoff in the author's voice, place a late commit where its time falls, and drop a commit that should not stay.
 
 ## Goal
 
-Repeated amends and momentum commits leave messages bloated, stale, or padded with trivia, and a change committed late lands out of time order. `re0-git` refines the author's message so a fresh session can continue from `git log` alone, without the diff. It changes only messages and where a late commit sits; content and every date already written stay put.
+Repeated amends and momentum commits leave messages bloated, stale, or padded with trivia, a change committed late lands out of time order, and a commit the human rejected or a bot duplicated stays in the log as noise. `re0-git` refines the author's message so a fresh session can continue from `git log` alone, without the diff. It changes only messages, where a late commit sits, and whether a rejected or duplicate commit stays; every other commit's own change and every date already written stay put.
 
 It is **user-invoked**: run it once you've decided to commit. Giving an agent autonomous access to commit cleanup would bias it toward committing when it shouldn't.
 
@@ -25,7 +25,7 @@ It is **user-invoked**: run it once you've decided to commit. Giving an agent au
 ## Rules
 
 - **Never create or suggest a commit.** `re0-git` works only on commits the human already decided: rewriting a message or placing a late commit. Using it is never a reason to commit.
-- **Content stays put:** a message rewrite keeps the tree byte-identical (`git diff <old> <new>` empty); a placed late commit carries exactly its own diff, and every later commit keeps its own. Never edit content in a `re0-git` pass.
+- **Content stays put:** a message rewrite keeps the tree byte-identical (`git diff <old> <new>` empty); a placed late commit carries exactly its own diff, a drop removes exactly the dropped commits' diffs, and every later commit keeps its own. Never edit content in a `re0-git` pass.
 - **commit-economy:** use one bullet per real, durable change, folding in supporting edits. Omit what the diff or version already proves and every co-author tag except a closing `Co-authored-by` trailer that credits a human contributor on a squashed or carried contribution. Match the local log's sampled shape. If none is settled, use a subject line, a blank line, then one `-` bullet per change on a single unwrapped line, never prose paragraphs. A required checklist step, such as registering a new skill or syncing translations after a source edit, proves the process ran. Fold it into the bullet it serves as a trailing clause, or omit it if that bullet already implies it. Give it a separate bullet only when *how* it was done is itself non-obvious. This standard also governs first drafts; `re0-git` enforces it on existing messages that have drifted.
 - **Original dates and people; signed.** A rewritten commit keeps its author, its committer and both of their dates, `HEAD` included: a message edit changes neither when the work was done nor when it landed, so never restamp the past. A gap between the two dates records a rebase, a cherry-pick or a later push and is not a defect; no check reads it, and no commit is rewritten or moved to close one. A late commit takes the time its work was done as both dates. Sign every commit you are the committer of; one someone else committed stays theirs and unsigned, since your signature would claim it.
 - **Linear.** Never create a merge commit. A late commit goes where its time falls, and every other commit keeps its place.
