@@ -21,13 +21,17 @@ It is **user-invoked**: shipping is a deliberate human action, so only the human
 5. **Draft the commit message** to commit-economy from the first draft: one bullet per real, durable change, supporting edits folded in; nothing the diff or version already proves; no co-author tag except a closing `Co-authored-by` trailer that credits a human contributor on a squashed or carried contribution. Match the local log's shape, or, absent one, a subject plus one `-` bullet per change on a single unwrapped line. Rewrite the message as edits develop instead of appending to it. If an existing commit needs cleanup, tell the human to run `/re0-git`; it is user-invoked, so never call it.
 6. **First confirmation.** Show the human the bump with its case and the drafted message, and ask for explicit confirmation. Commit only after it; the commit stays local.
 7. **Write the release notes** to `.re0/release/RELEASE_NOTES.local.md`, gitignored local scratch that becomes the signed tag's message and never ships as a file. House style:
-   - one `##` heading naming the release's durable idea, not the version;
-   - one short present-tense paragraph of what is true now;
-   - only the sections the release earns: `### New`, `### Also`, `### The catalog (N skills)` only when the roster needs re-mapping, and `### Install` always last, as an indented block carrying every route's commands from `.agents/install-block.md` verbatim;
+   - one `##` heading naming the release's durable idea, never the version;
+   - one short present-tense paragraph, on one line, of what is true now;
+   - only the sections the release earns, in this order: `### New` (optionally `### New: <label>`), `### Also`, `### The catalog (N skills)` only when the roster needs re-mapping, and `### Install` always;
+   - every item under New, Also and the catalog is one single-line `-` bullet;
+   - each New bullet opens with a bold lead: the skill's name (`` **`name`** ``) or a short label (`**One command.**`);
+   - each catalog bullet names a perspective and its skills (`` - `depth/`: `re0`, `shower` ``), and together they list exactly the N skills the heading counts;
+   - `### Install` is the last section, copied whole from the `release-notes` block of `.agents/install-block.md`; a note for a 0.x tag takes its `release-notes-0.x` block;
    - each externally contributed change credited inline with its PR number and author handle, `(#123, @handle)`;
-   - skill names and paths in backticks;
+   - skill names and paths in backticks, and no em dash;
    - nothing the tag or version already proves.
-8. **Second confirmation.** Ask the human again, separately, before tagging and pushing, because this step goes public. After it, sign the tag with `git tag -s vX.Y.Z -F .re0/release/RELEASE_NOTES.local.md --cleanup=verbatim`, confirm `git tag -v vX.Y.Z` reports a good signature, push `main`, then push the tag.
+8. **Second confirmation.** From the repository root, run `node skills/depth/re0-release/scripts/notes.mjs .re0/release/RELEASE_NOTES.local.md`. It reads the version from `package.json` to pick the Install block, exits 0 when the notes meet the deterministic part of step 7, and names each failure by line otherwise; fix the notes until it exits 0. Then ask the human again, separately, before tagging and pushing, because this step goes public. After it, sign the tag with `git tag -s vX.Y.Z -F .re0/release/RELEASE_NOTES.local.md --cleanup=verbatim`, confirm `git tag -v vX.Y.Z` reports a good signature, push `main`, then push the tag. The release workflow runs the same check on the tag's message before it publishes.
 9. **Watch the workflow.** Follow the release workflow the tag triggered to completion and report success or the actual failure; never assume it landed. `gh run list --workflow release.yml --branch vX.Y.Z` finds the run, `gh run watch <run-id> --exit-status` follows it, and `gh release view vX.Y.Z` shows whether the notes landed. If it fails, fix the cause and rerun the failed jobs (`gh run rerun <run-id> --failed`); a cause inside the tagged commit means the tag was cut at the wrong target. A tag the author cut wrong (message, signature or target) is deleted and re-cut at the same version, not rolled forward; the version moves on only when a published artifact is wrong. Never finish the workflow's work by hand.
 10. **Close out contributions.** After confirmed success, close each external contribution the release landed: whoever reviewed it approves the PR, then closes it with a comment carrying the release notes' credit. A contribution squashed or rebuilt into the release is closed, not merged, so the approval records acceptance rather than rejection. Any collaborator or maintainer with review access may do this.
 11. **Retire the cycle**, only after the release workflow succeeded. Move `.re0/iteration/active/<version>-<workname>/` into `.re0/iteration/completed/<version>-<workname>/`, unrenamed. `.re0/` is gitignored and untracked, so use `mv` (filesystem move), never `git mv`, which fails on an untracked path. Skip this only when the cycle was never planned with `re0-plan` and has no matching iteration folder.
@@ -38,6 +42,8 @@ It is **user-invoked**: shipping is a deliberate human action, so only the human
 - The push is the whole manual step. Never perform by hand any step the release workflow owns, publishing or titling the release page included, even to rescue a failed run. Re-cutting the author's own defective tag (step 9) is the one exception, and it is pushed again so the workflow still does the rest. A manual run can look successful while omitting the workflow's signed provenance attestation, title convention, or distribution tag; only comparing with the previous release reveals the loss.
 - If the pending diff mixes unrelated concerns, say so and propose a split before drafting a message; a commit message cannot separate the diff.
 - Never push before the local version match holds: `package.json` equals the tag about to be created. The CI check is a backstop, not the first defense.
+- Earlier tags are history, not precedent. A note follows step 7 and passes `notes.mjs` whatever the nearest tag did, and a reading of an earlier note is compared with step 7 before it changes a new one.
+- The signed tag's message is the note's source and the GitHub Release body is a copy the workflow writes from it. A note fixed after tagging is fixed by re-cutting the tag (step 9), since a Release body edited alone is overwritten by the next workflow run.
 - **negatives-as-corpus**: retirement moves the iteration folder, never deletes it; if the release fails or is rolled back, the folder stays live.
 - The human decides at every stop: a checklist gap stops the run (step 1), the commit waits for the first confirmation (step 6), tagging and pushing wait for the second, separate one (step 8), and `ssotize` consolidates only after approval (step 3).
 
@@ -47,7 +53,7 @@ Before finishing, confirm and report:
 
 1. `package.json`'s version matches the tag.
 2. The commit message reads as a clean handoff without the diff.
-3. The release notes follow house style and mention only what the release earns.
+3. `notes.mjs` exited 0 on the release notes, and they mention only what the release earns.
 4. The workflow the pushed tag triggered completed successfully, confirmed.
 5. No workflow-owned step ran by hand, including to rescue a failed run.
 6. Each landed external contribution had its PR approved before closing, with the credit comment.

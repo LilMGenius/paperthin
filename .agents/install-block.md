@@ -1,6 +1,6 @@
 # The canonical install block
 
-One install story, one wording. `README.md`, every translation under `assets/i18n/`, and the `### Install` section of every release note must say **this** and nothing else. Change it here first, then propagate.
+One install story, one wording. `README.md` and every translation under `assets/i18n/` must say **this** and nothing else, and the `### Install` section of every release note says it in the [release-notes rendering](#release-notes). Change it here first, then propagate.
 
 ## Managed installs first
 
@@ -76,3 +76,41 @@ An agent asked to "install https://github.com/LilMGenius/paperthin" or to "set t
    - No wiring, but a paperthin skill under `~/.agents/skills`: a current skills.sh install. On Codex, which already reads that folder, and on skills.sh hosts, leave it and stop. On Claude Code, ask whether to keep Claude Code on it or run `/re0-upgrade` to move it; never add a second copy.
 3. Run that host's commands above in the user's shell. On skills.sh, `node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" status` must then report the job registered.
 4. Tell the user what is left: on every host, a fresh session (or `/reload-plugins` in Claude Code) to load the skills; on Claude Code, also turning on auto-update in `/plugin` as above, which only they can do. Then they type `/paperthin` and their dream.
+
+## Release notes
+
+A release note is the signed tag's message, which the release workflow copies into the GitHub Release, and its last section is `### Install`. It carries the routes above as one sentence per route, each followed by its indented command. `skills/depth/re0-release/scripts/notes.mjs` fails a note whose Install differs from the block for its version, and fails this block when its commands differ from the route blocks.
+
+<canonical-block name="release-notes">
+
+```markdown
+### Install
+
+Pick one route per agent; installing two loads every skill twice. Coming from an older install, run `/re0-upgrade` once in a fresh session.
+
+Codex (updates itself at startup):
+
+    codex plugin marketplace add LilMGenius/paperthin && codex plugin add paperthin@paperthin
+
+Claude Code (then, once, in Claude Code, run `/plugin`, open **Marketplaces**, select `paperthin` and choose **Enable auto-update**):
+
+    claude plugin marketplace add LilMGenius/paperthin && claude plugin install paperthin@paperthin
+
+Every other agent (`schedule.mjs install` registers a per-user job, unelevated and windowless, that updates every skill and adds new ones at local 00:00):
+
+    npx skills@latest add LilMGenius/paperthin --global --agent '*' && node "$HOME/.agents/skills/re0-upgrade/scripts/schedule/schedule.mjs" install
+```
+
+</canonical-block>
+
+Before 1.0 Paperthin shipped on skills.sh alone, so a note for a 0.x tag carries that one route:
+
+<canonical-block name="release-notes-0.x">
+
+```markdown
+### Install
+
+    npx skills@latest add LilMGenius/paperthin --global --agent '*'
+```
+
+</canonical-block>

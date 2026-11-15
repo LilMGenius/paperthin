@@ -29,6 +29,17 @@ jobs:
           TAG=${GITHUB_REF_NAME#v}
           test "$PKG" = "$TAG" || { echo "tag $TAG != package.json $PKG"; exit 1; }
 
+      # The tag's message becomes the Release body, so a note outside the house style stops the release before npm sees it.
+      # The API holds the message: a CI checkout does not carry the tag object.
+      - name: Check the release notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          SHA=$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/tags/${GITHUB_REF_NAME}" --jq '.object.sha')
+          gh api "repos/${GITHUB_REPOSITORY}/git/tags/${SHA}" --jq '.message' \
+            | sed '/-----BEGIN PGP SIGNATURE-----/,/-----END PGP SIGNATURE-----/d' > "$RUNNER_TEMP/notes-check.md"
+          node skills/depth/re0-release/scripts/notes.mjs "$RUNNER_TEMP/notes-check.md" --version "${GITHUB_REF_NAME#v}"
+
       # Trusted publishing: npm trades this job's OIDC token for a one-time publish
       # credential, so the repository holds no npm token. Provenance is attached
       # automatically. The trust is set on npmjs.com for release.yml in this repository.
