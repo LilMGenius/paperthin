@@ -305,6 +305,42 @@ test('an empty Install fails even where no block is there to compare', () => {
 });
 
 
+
+test('a fenced bash block in Install is code: its # comment and #34 are neither a heading nor a credit', () => {
+  const root = mkdtempSync(join(scratch, 'fenced-'));
+  const note = v100.slice(0, v100.indexOf('### Install')) + '### Install\n\n\x60\x60\x60bash\n# install the CLI\nnpm i -g foo  # see #34\n\x60\x60\x60\n';
+  const { status, out } = check(note, [], { root });
+  assert.equal(status, 0, out);
+});
+
+test('a relative notes path run from a subfolder is read from the repository root', () => {
+  const dir = mkdtempSync(join(scratch, 'relative-'));
+  execFileSync('git', ['init', '-q'], { cwd: dir, windowsHide: true });
+  mkdirSync(join(dir, '.re0', 'release'), { recursive: true });
+  writeFileSync(join(dir, '.re0', 'release', 'RELEASE_NOTES.local.md'), v101);
+  mkdirSync(join(dir, 'sub'));
+  const result = spawnSync(process.execPath, [cli, '.re0/release/RELEASE_NOTES.local.md'], { encoding: 'utf8', cwd: join(dir, 'sub'), windowsHide: true });
+  assert.equal(result.status, 1, result.stdout + result.stderr);
+  assert.deepEqual(rules(result.stderr), ['install', 'section']);
+});
+
+test('an install block with no release-notes block needs no version and no package.json', () => {
+  const root = mkdtempSync(join(scratch, 'other-shape-'));
+  mkdirSync(join(root, '.agents'));
+  writeFileSync(join(root, '.agents', 'install-block.md'), '# Install\n\nRun the installer.\n');
+  const { status, out } = check(v100, [], { root });
+  assert.equal(status, 0, out);
+  assert.match(out, /has no release-notes block/);
+});
+
+test('text after the Install block is reported at the text, not at the blank line before it', () => {
+  const note = v100 + '\nThanks to everyone.\n';
+  const { status, out } = check(note, ['--version', '1.0.0']);
+  assert.equal(status, 1, out);
+  const want = note.replace(/\s+$/, '').split('\n').length;
+  assert.match(out, new RegExp(':' + want + ': install: text after the end'));
+});
+
 test('a usage error exits 2', () => {
   const result = spawnSync(process.execPath, [cli], { encoding: 'utf8', windowsHide: true });
   assert.equal(result.status, 2);

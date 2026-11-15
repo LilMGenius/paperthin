@@ -5,13 +5,15 @@
 // rule still runs.
 // Usage: node notes.mjs <notes-file> [--version X.Y.Z] [--root <repo>]
 //        node notes.mjs --tag vX.Y.Z [--root <repo>]
-// --root defaults to the git top level, or the current folder outside git. The version picks the Install era when an
-// install block exists: --version, else the tag, else a vX.Y.Z.md file name, else <repo>/package.json.
+// --root defaults to the git top level, or the current folder outside git. A relative notes path the current folder does
+// not hold is read from the root. The version picks the Install era when the install block holds a release-notes block:
+// --version, else the tag, else a vX.Y.Z.md file name, else <repo>/package.json. Fenced code is not read for headings,
+// sections or credits.
 // Exit codes: 0 the note passes; 1 named failures; 2 the check could not run (usage, --tag outside git, or a file it needs
 // that is missing or unreadable).
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, realpathSync } from 'node:fs';
-import { basename, join } from 'node:path';
+import { basename, isAbsolute, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 
@@ -63,6 +65,7 @@ const fenced = (body, lang) => new RegExp('\x60\x60\x60' + lang + '\\n([\\s\\S]*
 export function installRendering(root, version) {
   const blocks = canonicalBlocks(root);
   if (blocks === null) return { name: null, reason: 'the repository has no ' + INSTALL_BLOCK };
+  if (!blocks.has('release-notes') && !blocks.has('release-notes-0.x')) return { name: null, reason: INSTALL_BLOCK + ' has no release-notes block' };
   const [major] = version();
   const name = major === 0 ? 'release-notes-0.x' : 'release-notes';
   const body = blocks.get(name);
@@ -106,10 +109,24 @@ function leadSubject(line) {
 export function checkNotes(text, era) {
   const problems = [];
   const fail = (index, rule, message) => problems.push({ line: index + 1, rule, message });
-  const lines = lf(text).replace(/\s+$/, '').split('\n');
+  const raw = lf(text).replace(/\s+$/, '').split('\n');
+  // A fenced block's lines, its fence lines included, read as one code span: no heading, section or credit inside them.
+  let fence = null;
+  const lines = raw.map((line) => {
+    const marker = /^ {0,3}(\x60{3,}|~{3,})/.exec(line)?.[1];
+    if (fence === null && marker) {
+      fence = marker;
+      return '\x60code\x60';
+    }
+    if (fence !== null) {
+      if (marker && marker[0] === fence[0] && marker.length >= fence.length && line.trim() === marker) fence = null;
+      return '\x60code\x60';
+    }
+    return line;
+  });
 
   lines.forEach((line, i) => {
-    if (line.includes('\u2014')) fail(i, 'em-dash', 'an em dash; rewrite the sentence with the punctuation it wants');
+    if (raw[i].includes('\u2014')) fail(i, 'em-dash', 'an em dash; rewrite the sentence with the punctuation it wants');
     // A # inside code, a link target or a URL is an anchor, not a reference to credit.
     const bare = line.replace(/\x60[^\x60]*\x60/g, '').replace(/\]\([^)]*\)/g, ']').replace(/https?:\/\/\S+/g, '');
     const credited = [...bare.matchAll(CREDIT)].map((match) => [match.index, match.index + match[0].length]);
@@ -167,11 +184,13 @@ export function checkNotes(text, era) {
   else if (era.name !== null) {
     const { name, rendering } = era;
     const want = rendering.split('\n').map((line) => line.trimEnd());
-    const have = lines.slice(install.index).map((line) => line.trimEnd());
+    const have = raw.slice(install.index).map((line) => line.trimEnd());
     const off = want.findIndex((line, j) => have[j] !== line);
-    if (off >= 0 || have.length !== want.length) {
-      const j = off >= 0 ? off : Math.min(have.length, want.length);
-      fail(install.index + j, 'install', '### Install differs from the ' + name + ' block of ' + INSTALL_BLOCK + ' at its line ' + (j + 1) + ': expected ' + JSON.stringify(want[j] ?? '(end of note)') + ', found ' + JSON.stringify(have[j] ?? '(end of note)'));
+    if (off >= 0) {
+      fail(install.index + off, 'install', '### Install differs from the ' + name + ' block of ' + INSTALL_BLOCK + ' at its line ' + (off + 1) + ': expected ' + JSON.stringify(want[off]) + ', found ' + JSON.stringify(have[off] ?? '(end of note)'));
+    } else if (have.length > want.length) {
+      const extra = have.findIndex((line, j) => j >= want.length && line.trim());
+      fail(install.index + extra, 'install', 'text after the end of the ' + name + ' block of ' + INSTALL_BLOCK + ': ' + JSON.stringify(have[extra]) + '; Install is the last section and ends the note');
     }
   }
   return problems.sort((a, b) => a.line - b.line);
@@ -216,7 +235,8 @@ export function run(argv) {
   if (Boolean(values.tag) === (positionals.length === 1) || positionals.length > 1) throw new Usage(USAGE);
   const root = values.root ?? gitTop() ?? process.cwd();
   const label = values.tag ?? positionals[0];
-  const text = values.tag ? tagMessage(values.tag) : readText(positionals[0], 'the notes');
+  const notesPath = (given) => (isAbsolute(given) || existsSync(given) || !existsSync(join(root, given)) ? given : join(root, given));
+  const text = values.tag ? tagMessage(values.tag) : readText(notesPath(positionals[0]), 'the notes');
   const version = () => {
     const named = values.version ?? values.tag ?? /^(v?\d+\.\d+\.\d+)\.md$/.exec(basename(label))?.[1] ?? JSON.parse(readText(join(root, 'package.json'), 'package.json')).version;
     const parsed = parseVersion(named);
