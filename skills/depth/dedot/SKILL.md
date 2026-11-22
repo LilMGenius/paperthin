@@ -48,6 +48,7 @@ In a review, one proposal per open list, covering all of its dots. Give the loca
 
 - In prose, the comma: A·B·C 등 becomes A, B, C 등. Only the separators change; every item, the marker and all other wording and punctuation stay.
 - A connective is a second option only when it keeps the items' relation and reads naturally: 및 or 와/과 when the items go together (all of them apply), 이나 or 또는 when they are alternatives (one is chosen). When the items are alternatives, say in the reason that an and-word would change the meaning. 및 right before 등 often reads heavy; the comma alone is then the better offer.
+- A slash is a third option, offered beside the comma and never instead of it, for two or three short nouns in running prose (수영·러닝 can also be 수영/러닝, written without spaces) when the sentence does not need to say whether the items go together or are alternatives. Four or more items, an item longer than a short noun phrase and any item carrying a clause take the comma or the connective only.
 - In a label row whose layout already separates the items (tags or chips the writer describes as separate, menu or nav items, one item per cell), drop the dots and leave plain spacing with no new mark. A closed or paired label row stays as it is.
 
 ### The report
@@ -66,7 +67,7 @@ Give each dot one verdict; an answer that offers both a change and a keep for on
 
 ### Evidence
 
-Name both rulings, 온라인가나다 324634 and 327303, as the basis for keeping the three roles and for the comma or 및 in prose. Where you use them, say that spacing in a label row is this skill's own rule, not one of the rulings, and that 와/과, 이나 and 또는 are chosen from the sentence's meaning and are not what the rulings test; 및 itself is in the rulings. Cite no statistics or detector studies, and claim no benefit beyond matching the rulings.
+Name both rulings, 온라인가나다 324634 and 327303, as the basis for keeping the three roles and for the comma or 및 in prose. Where you use them, say that spacing in a label row and the slash option are this skill's own rules, not part of the rulings, and that 와/과, 이나 and 또는 are chosen from the sentence's meaning and are not what the rulings test; 및 itself is in the rulings. Cite no statistics or detector studies, and claim no benefit beyond matching the rulings.
 
 ## Verification
 
