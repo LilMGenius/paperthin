@@ -14,12 +14,12 @@ The **Mandela Effect** names a population confidently remembering something that
 1. Identify the validation: eval, metric, experiment, holdout, or "how we'll know". Name its **components**: model, scorer, designer, and dataset.
 2. Ask the **core question**: does external ground-truth enter *independently*?
 3. Test all **8 patterns** below. Some apply only to particular components, such as a human subject or a scorer. Report only patterns that fire, each by name.
-   1. **Recall, not reason**: a memorized answer recited instead of one actually derived; the system already knows the result it is supposedly computing.
-   2. **Wrong null hypothesis**: an ablation that removes a surface label but not the underlying signal the system actually exploits, so the "control" still leaks.
-   3. **Shared hallucination**: two components verifying each other; circularity reported as a number.
+   1. **Recall, not reason**: a memorized answer recited instead of one actually derived; the system already knows the result it is supposedly computing. Ask which candidates rehearsed against the exact judging criteria or examples and which first met them at evaluation. Test on fresh held-out cases when exposure differed.
+   2. **Wrong null hypothesis**: an ablation that removes a surface label but not the underlying signal the system actually exploits, so the "control" still leaks. In a comparison, list what varied together before attributing the result to one change. With one production run per candidate, report the observed ordering and repeat production independently before treating the ordering as stable.
+   3. **Shared hallucination**: two components verifying each other; circularity reported as a number. For a factual objection, identify the source the judge could inspect and check the objection against it before counting an error. Record an inaccessible source as unverified.
    4. **Tautology**: a scorer grading buckets it drew itself.
    5. **Verifier = designer**: a private, unreproducible recipe in a holdout's clothes.
-   6. **Shared-pool bias**: train and holdout drawn from one labeler pool, so one bias enters both sides.
+   6. **Shared-pool bias**: train and holdout drawn from one labeler pool, so one bias enters both sides. When several judges agree, check their provenance before counting them as independent confirmations.
    7. **Frame injection**: a question that hands the subject the hypothesis.
    8. **Demand characteristics**: measured subjects who know they're being measured.
 4. Give the independent-ground-truth fix for each hit.
@@ -27,6 +27,7 @@ The **Mandela Effect** names a population confidently remembering something that
 ## Rules
 
 - Blinding the **output value** can still leak the **collection recipe**.
+- A ranking answers the comparison that produced it. Choosing passages from a lower-ranked candidate for the finished artifact belongs to the person making the editorial decision.
 - Read-only: name the leak and the independence fix; don't rewrite the experiment.
 - For a high-stakes validation, you may add one independent auditor with fresh context (`N=1`). Give it only the validation design, without this session's reasoning, to rerun the eight patterns blind. The default remains same-session and read-only.
 
