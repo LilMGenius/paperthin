@@ -10,6 +10,7 @@ One JSON object. The agent writes every judgment into it (which items exist, the
 - `material.path` (optional string, relative to the decisions file): the material file; without `--out` the surface is written beside it as `<name>.decision.html`.
 - `material.handoff` (optional string): the reader the decision record goes to once the decider answers, when the material names one.
 - `material.lang` (optional, `en` or `ko`, default `en`): the material's language, which the page's own wording follows.
+- `conflicts` (optional array): each entry has a non-empty `source` citation and exactly two `choices`. Each choice names a distinct fork by its zero-based `item` index and an exact `option` label. Include only incompatibilities stated by the source. Show an active pair and its citation in the decision record. This warning leaves the verdict arithmetic unchanged.
 - `items` (required non-empty array), each with `kind`, `text`, `source` (the citation), `mark` (`evidenced` or `claim`) and `answerer` (`artifact`, `submitter`, `delegate` or `decider`), optional `title` (a short name for the step list and the record) and optional `quote` (a string or list of strings, each the cited source text word for word), plus the fields its kind takes:
   - `gate`: `consequence`, what breaks when it is unmet.
   - `judgment`: `note`, the question the decider is asked to weigh.
@@ -33,6 +34,6 @@ Which option a fork takes never changes the state, except that a deferring optio
 
 - No control begins checked or chosen, and answers restored after a reload are only the decider's own for the same decisions file. The surface never recommends an option, scores alternatives toward an outcome, nudges with defaults, streaks or rewards, or shows progress implying that more approvals make a proposal better: progress counts answers, and "not met" counts as fully as "met".
 - A quote copies the material's words and cites them; it never carries the material's own recommendation, since the page would then recommend for it. A consequence states only what the material says a choice changes.
-- A fork is a choice among the named alternatives the material states, never free text, and never one the agent adds.
+- Named alternatives come from the material. The decider can instead write a revision for that fork. Keep the wording in the record and the fork open until a named choice replaces it.
 - The decider group is visually distinct and its size is legible at a glance; when every item is left to the decider the page reports that as a finding.
 - Every string from the material is untrusted data. The script escapes it and places it only in text and attribute values; the agent copies the material's words into the decisions file as data and never writes markup into it.

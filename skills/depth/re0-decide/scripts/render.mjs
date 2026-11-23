@@ -27,7 +27,7 @@ export const STRINGS = {
     mark: { evidenced: 'evidenced', claim: 'claim' },
     binary: { gate: ['Met', 'Not met'], judgment: ['Accepted', 'Not accepted'] },
     state: { blocked: 'blocked', conditional: 'conditional', clear: 'clear' },
-    heading: 'Decision', material: 'Material: ', verdict: 'Verdict: ', stepOf: '{n} of {total}', options: 'Options',
+    revision: 'Propose a revision', conflict: 'Conflicting choices', heading: 'Decision', material: 'Material: ', verdict: 'Verdict: ', stepOf: '{n} of {total}', options: 'Options',
     blocks: 'If not met, this blocks: ', weigh: 'To weigh: ', leadsTo: 'Leads to: ', defers: 'Defers the decision: the verdict stays open',
     enlarge: 'Enlarge', close: 'Close', fallback: 'Fallback the material gives: ', handling: 'Stated handling: ', says: 'What the material says',
     back: 'Back', next: 'Next', keys: 'Keys: 1 to 9 answer and move on, arrows step, Enter next', open: 'open',
@@ -51,7 +51,7 @@ export const STRINGS = {
     mark: { evidenced: '근거 있음', claim: '주장' },
     binary: { gate: ['충족', '미충족'], judgment: ['받아들임', '받아들이지 않음'] },
     state: { blocked: '막힘', conditional: '조건부', clear: '통과' },
-    heading: '결정', material: '자료: ', verdict: '판정: ', stepOf: '{total}개 중 {n}', options: '선택지',
+    revision: '수정안 적기', conflict: '서로 충돌하는 선택', heading: '결정', material: '자료: ', verdict: '판정: ', stepOf: '{total}개 중 {n}', options: '선택지',
     blocks: '충족하지 않으면 막는 것: ', weigh: '따져 볼 것: ', leadsTo: '고르면: ', defers: '결정을 미룬다: 판정이 열린 채 남는다',
     enlarge: '크게 보기', close: '닫기', fallback: '자료가 정한 대안: ', handling: '자료가 적은 대응: ', says: '자료 원문',
     back: '이전', next: '다음', keys: '키: 1~9 답하고 다음으로, 화살표로 이동, Enter 다음', open: '미정',
@@ -132,7 +132,7 @@ function validateOption(option, field) {
 // Boundary parser: returns the document unchanged when it is well formed, otherwise throws InputError naming the first bad field.
 export function validate(doc) {
   if (!isObject(doc)) reject('(root)', 'must be an object');
-  onlyKeys(doc, ['material', 'items'], '(root)');
+  onlyKeys(doc, ['material', 'items', 'conflicts'], '(root)');
   if (!isObject(doc.material)) reject('material', 'required object');
   onlyKeys(doc.material, ['identity', 'path', 'handoff', 'lang'], 'material');
   if (doc.material.lang !== undefined && !LANGS.includes(doc.material.lang)) reject('material.lang', 'must be one of ' + LANGS.join(', '));
@@ -166,6 +166,25 @@ export function validate(doc) {
       if (new Set(labels).size !== labels.length) reject(at + '.options', 'alternatives must be distinct');
     }
   });
+  if (doc.conflicts !== undefined) {
+    if (!Array.isArray(doc.conflicts)) reject('conflicts', 'must be an array');
+    doc.conflicts.forEach((conflict, i) => {
+      const at = 'conflicts[' + i + ']';
+      if (!isObject(conflict)) reject(at, 'must be an object');
+      onlyKeys(conflict, ['choices', 'source'], at);
+      requireText(conflict, 'source', at);
+      if (!Array.isArray(conflict.choices) || conflict.choices.length !== 2) reject(at + '.choices', 'must name two choices');
+      const seen = new Set();
+      for (const choice of conflict.choices) {
+        if (!isObject(choice)) reject(at + '.choices', 'expected an item index and option label');
+        onlyKeys(choice, ['item', 'option'], at + '.choices');
+        const fork = doc.items[choice.item];
+        if (!Number.isInteger(choice.item) || fork?.kind !== 'fork' || seen.has(choice.item)) reject(at + '.choices', 'must name two distinct forks');
+        if (!fork.options.some(option => optionOf(option).label === choice.option)) reject(at + '.choices', 'unknown option label');
+        seen.add(choice.item);
+      }
+    });
+  }
   return doc;
 }
 
@@ -297,9 +316,22 @@ const STYLE = [
   '@media (prefers-reduced-motion:no-preference){.opt label{transition:border-color .12s,background-color .12s}}',
 ].join('\n');
 
+export function describeConflicts(conflicts, forks) {
+  return conflicts.filter(function (conflict) {
+    return conflict.choices.every(function (choice) {
+      return forks.some(function (fork) { return fork.item === choice.item && fork.answered && fork.answer === choice.option; });
+    });
+  }).map(function (conflict) {
+    return conflict.choices.map(function (choice) {
+      var fork = forks.find(function (entry) { return entry.item === choice.item; });
+      return fork.label + ': ' + fork.answer;
+    }).join(' / ') + ' (' + conflict.source + ')';
+  });
+}
+
 // Static page behaviour, embedded through its own source text and never interpolated with submitted text. It reads labels from the
 // DOM with textContent, recomputes the verdict on every change, and saves only the decider's own answers.
-function pageScript() {
+function pageScript(describeConflicts) {
   document.documentElement.classList.add('js');
   // The wording table is read from the page, where the renderer wrote it from its own fixed strings, never from submitted text.
   var words = JSON.parse(document.body.getAttribute('data-words'));
@@ -310,6 +342,7 @@ function pageScript() {
   var $ = function (sel, root) { return (root || document).querySelector(sel); };
   var all = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
   var textOf = function (box, sel) { var el = $(sel, box); return el ? el.textContent : ''; };
+  var conflicts = JSON.parse(document.body.getAttribute('data-conflicts'));
   var steps = all('.step');
   // A sticky header would cover a step scrolled to the top, so its height becomes the offset steps and the rail keep from it.
   function offset() {
@@ -330,6 +363,9 @@ function pageScript() {
     var entry = { box: box, kind: kind, path: box.hasAttribute('data-step'), label: textOf(box, '.label'), answer: '', open: true, detail: '' };
     if (kind === 'fork') {
       entry.answer = picked ? textOf(picked.closest('.opt'), '.olabel') : '';
+      var revision = $('textarea', box);
+      entry.revision = revision.value.trim() ? revision.value : '';
+      entry.item = Number(revision.getAttribute('data-item'));
       entry.deferred = Boolean(picked && picked.getAttribute('data-defer') === 'true');
       entry.open = !picked || entry.deferred;
     } else {
@@ -350,13 +386,15 @@ function pageScript() {
     var openJudgments = judgments.filter(function (e) { return e.open; });
     var openForks = forks.filter(function (e) { return e.open; });
     var path = entries.filter(function (e) { return e.path; });
+    var warnings = describeConflicts(conflicts, forks);
     return {
-      entries: entries, path: path, unmetGates: unmetGates, openJudgments: openJudgments, openForks: openForks,
+      warnings: warnings, entries: entries, path: path, unmetGates: unmetGates, openJudgments: openJudgments, openForks: openForks,
       answered: path.filter(function (e) { return e.answered; }).length,
       state: verdictOf(unmetGates.length, openJudgments.length, openForks.length),
     };
   }
   function shown(e) {
+    if (e.revision) return words.revision + ': ' + e.revision;
     if (!e.answered) return T.notAnswered;
     if (e.kind === 'fork') return e.answer + (e.deferred ? T.deferred : '');
     return e.answer;
@@ -364,6 +402,7 @@ function pageScript() {
   function summary(r) {
     var lines = [T.recordTitle, T.material + $('#identity').textContent, T.verdict + S[r.state], fmt(T.answeredLine, { a: r.answered, t: r.path.length }), '', T.decisions];
     r.path.forEach(function (e, i) { lines.push((i + 1) + '. ' + e.label + ': ' + shown(e)); });
+    if (r.warnings.length) lines.push('', words.conflict, ...r.warnings);
     if (r.unmetGates.length) {
       lines.push('', T.gatesNotMet);
       r.unmetGates.forEach(function (e) { lines.push('- ' + e.label + ' [' + (e.answered ? T.notMetMark : T.notAnsweredMark) + '] (' + T.blocks + e.detail + ')'); });
@@ -379,7 +418,7 @@ function pageScript() {
     var others = r.entries.filter(function (e) { return !e.path; });
     if (others.length) {
       lines.push('', T.byOthers);
-      others.forEach(function (e) { lines.push('- ' + K[e.kind] + ' [' + (e.answered ? e.answer : T.notAnsweredMark) + '] ' + e.label); });
+      others.forEach(function (e) { lines.push('- ' + K[e.kind] + ' [' + (e.revision || e.answered ? shown(e) : T.notAnsweredMark) + '] ' + e.label); });
     }
     return lines.join('\n');
   }
@@ -388,7 +427,9 @@ function pageScript() {
   function save() {
     var answers = {};
     all('input:checked').forEach(function (input) { answers[input.name] = input.value; });
-    try { localStorage.setItem(key, JSON.stringify({ answers: answers, step: current })); return kept(true); } catch (e) { return kept(false); }
+    var revisions = {};
+    all('textarea[data-item]').forEach(function (field) { if (field.value) revisions[field.name] = field.value; });
+    try { localStorage.setItem(key, JSON.stringify({ answers: answers, revisions: revisions, step: current })); return kept(true); } catch (e) { return kept(false); }
   }
   function restore() {
     var saved = null;
@@ -397,11 +438,16 @@ function pageScript() {
     Object.keys(saved.answers || {}).forEach(function (name) {
       all('input[type=radio]').forEach(function (input) { if (input.name === name && input.value === saved.answers[name]) input.checked = true; });
     });
+    all('textarea[data-item]').forEach(function (field) {
+      var value = saved.revisions && saved.revisions[field.name];
+      if (typeof value === 'string') field.value = value;
+    });
     return typeof saved.step === 'number' && saved.step >= 0 && saved.step < steps.length ? saved.step : 0;
   }
   function update() {
     var r = compute();
     var chip = $('#verdict');
+    $('#conflicts').textContent = r.warnings.length ? words.conflict + ': ' + r.warnings.join('; ') : '';
     chip.setAttribute('data-state', r.state);
     $('#verdict-state').textContent = S[r.state];
     var byOthers = r.unmetGates.filter(function (e) { return !e.path; }).length;
@@ -439,7 +485,18 @@ function pageScript() {
     try { document.execCommand('copy'); done(); } catch (e) { failed(); }
     document.body.removeChild(area);
   }
-  all('input[type=radio]').forEach(function (input) { input.addEventListener('change', function () { update(); save(); }); });
+  all('input[type=radio]').forEach(function (input) { input.addEventListener('change', function () {
+    var revision = $('textarea', input.closest('[data-control]'));
+    if (revision) revision.value = '';
+    update(); save();
+  }); });
+  all('textarea[data-item]').forEach(function (field) {
+    field.addEventListener('focus', function () { clearTimeout(advance); });
+    field.addEventListener('input', function () {
+      if (field.value.trim()) all('input:checked', field.closest('[data-control]')).forEach(function (input) { input.checked = false; });
+      update(); save();
+    });
+  });
   all('[data-goto]').forEach(function (go) { go.addEventListener('click', function () { show(Number(go.getAttribute('data-goto')), true); }); });
   all('.prev').forEach(function (b) { b.addEventListener('click', function () { show(current - 1, true); }); });
   all('.next').forEach(function (b) { b.addEventListener('click', function () { show(current + 1, true); }); });
@@ -456,11 +513,13 @@ function pageScript() {
   $('#reset').addEventListener('click', function () {
     if (!window.confirm(T.confirmReset)) return;
     all('input[type=radio]').forEach(function (input) { input.checked = false; });
+    all('textarea[data-item]').forEach(function (field) { field.value = ''; });
     update(); show(0, true);
   });
   document.addEventListener('keydown', function (ev) {
     if (ev.altKey || ev.ctrlKey || ev.metaKey || $('#viewer').open) return;
     var tag = ev.target && ev.target.tagName;
+    if (tag === 'TEXTAREA') return;
     if (/^[1-9]$/.test(ev.key)) {
       var input = all('.options > .opt input', steps[current])[Number(ev.key) - 1];
       if (!input) return;
@@ -511,7 +570,7 @@ function choices(item, i, images, t) {
       (option.consequence ? '<span class="oconseq">' + t.leadsTo + '<span>' + esc(option.consequence) + '</span></span>' : '') +
       (option.defer ? '<span class="defer">' + t.defers + '</span>' : '') +
       '</label>' + (src ? '<button type="button" class="zoom">' + t.enlarge + '</button>' : '') + '</div>';
-  }).join('') + '</fieldset>';
+  }).join('') + '</fieldset><label>' + t.revision + '<textarea name="revision-' + i + '" data-item="' + i + '"></textarea></label>';
 }
 
 // What the decider is asked, between the context and the cards: a gate's cost when unmet, a judgment's question.
@@ -580,21 +639,21 @@ export function render(doc, images = new Map()) {
         g.list.map((e) => entry(e.item, e.i, images, t)).join('') + '</section>').join('') + '</details>'
     : '';
   const finding = info.everyItemToDecider ? '<p class="finding" data-finding="all-decider">' + t.finding + '</p>' : '';
-  const words = { page: t.page, state: t.state, kind: t.kind };
+  const words = { page: t.page, state: t.state, kind: t.kind, revision: t.revision, conflict: t.conflict };
   return [
     '<!doctype html>',
     '<html lang="' + lang + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">',
     '<title>' + t.heading + ': ' + esc(doc.material.identity) + '</title>',
-    '<style>' + STYLE + '</style></head><body data-store="' + storeKey(doc) + '" data-words="' + esc(JSON.stringify(words)) + '">',
+    '<style>' + STYLE + '</style></head><body data-conflicts="' + esc(JSON.stringify(doc.conflicts || [])) + '" data-store="' + storeKey(doc) + '" data-words="' + esc(JSON.stringify(words)) + '">',
     '<header class="top"><div><h1>' + t.heading + '</h1><p class="identity">' + t.material + '<span id="identity">' + esc(doc.material.identity) + '</span></p></div>',
-    '<div class="status"><p class="verdict" id="verdict" aria-live="polite">' + t.verdict + '<span class="state" id="verdict-state"></span> <span class="why" id="verdict-why"></span></p>',
+    '<div class="status"><div id="conflicts" role="status"></div><p class="verdict" id="verdict" aria-live="polite">' + t.verdict + '<span class="state" id="verdict-state"></span> <span class="why" id="verdict-why"></span></p>',
     '<p class="progress"><span id="progress-text"></span><span class="bar"><span id="progress-bar"></span></span></p></div></header>',
     finding,
     '<div class="layout"><nav class="rail" aria-label="' + t.heading + '"><ol>' + rail + '</ol></nav>',
     '<main id="stage">' + path.map((e, n) => step(e.item, e.i, n, total, images, t)).join('\n') + record + folded + '</main></div>',
     '<dialog id="viewer"><button type="button" id="viewer-close">' + t.close + '</button></dialog>',
     '<noscript><p>' + t.noscript + '</p></noscript>',
-    '<script>(' + pageScript.toString() + ')();</script>',
+    '<script>(' + pageScript.toString() + ')(' + describeConflicts.toString() + ');</script>',
     '</body></html>',
     '',
   ].join('\n');

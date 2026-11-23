@@ -1,3 +1,4 @@
+import { describeConflicts } from './render.mjs';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
@@ -105,13 +106,43 @@ test('a valid file renders one self-contained surface with the controls each kin
   // A fork is one card per named option, never a dropdown.
   assert.equal(radios('fork').length, 2);
   assert.equal(opens(page, 'select').length, 0);
-  assert.equal(opens(page, 'textarea').length, 0);
+  assert.deepEqual(opens(page, 'textarea').map(field => field.attrs.name), ['revision-5']);
   assert.equal(opens(page, 'input', (a) => a.type === 'text').length, 0);
   // Intervention, exclusion, risk and missing items render as tagged text with no control.
   assert.equal(opens(page, 'input').length, 12);
   for (const kind of ['intervention', 'exclusion', 'risk', 'missing']) assert.equal(opens(page, 'div', (a) => a['data-kind'] === kind).length, 1);
   assert.ok(opens(page, 'button', (a) => a.id === 'copy').length === 1);
   assert.ok(opens(page, 'span', (a) => a.id === 'verdict-state').length === 1);
+});
+
+test('only a currently selected pair produces its cited warning', () => {
+  const choices = [{ item: 1, option: 'open' }, { item: 0, option: 'closed' }];
+  const conflicts = [{ choices, source: 'policy:2' }];
+  const forks = [
+    { item: 0, label: 'Access', answer: 'closed', answered: true },
+    { item: 1, label: 'Release', answer: 'open', answered: true },
+  ];
+  assert.deepEqual(describeConflicts(conflicts, forks), ['Release: open / Access: closed (policy:2)']);
+  forks[0].answer = 'open';
+  assert.deepEqual(describeConflicts(conflicts, forks), []);
+  forks[0].answer = 'closed';
+  forks[0].answered = false;
+  assert.deepEqual(describeConflicts(conflicts, forks), []);
+});
+
+test('a cited conflict names two choices on distinct forks', () => {
+  const doc = base(many());
+  const choices = [{ item: 2, option: 'alpha' }, { item: 3, option: 'beta' }];
+  doc.conflicts = [{ source: 'scope clause', choices }];
+  const rendered = render(doc);
+  assert.equal(rendered.run.status, 0, rendered.run.stderr);
+  assert.match(opens(rendered.page(), 'body')[0].attrs['data-conflicts'], /scope clause/);
+  for (const other of [{ item: 2, option: 'beta' }, { item: 0, option: 'alpha' }, { item: 3, option: 'absent' }]) {
+    doc.conflicts[0].choices = [choices[0], other];
+    const result = render(doc).run;
+    assert.equal(result.status, 2);
+    assert.match(result.stderr, /conflicts/);
+  }
 });
 
 test('no control begins checked or preselected', () => {
