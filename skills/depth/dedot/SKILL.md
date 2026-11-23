@@ -1,12 +1,12 @@
 ---
 name: dedot
 disable-model-invocation: true
-description: "Review the middle dots (U+00B7) in a Korean passage, field, section, file or folder the writer names, and propose a per-dot replacement only where a dot strings together an open list, keeping every legitimate or protected dot and leaving the text unedited."
+description: "Review the middle dots (U+00B7) in a Korean passage, field, section, file or folder the writer names, and propose a per-dot replacement for an open list or a name joined to a qualifier, keeping every legitimate or protected dot and leaving the text unedited."
 ---
 
 ## Goal
 
-Find every middle dot (U+00B7) in the text the writer named, give each one a single verdict, and propose a replacement only for dots that join an open list. The review never edits the writer's text.
+Find every middle dot (U+00B7) in the text the writer named, give each one a single verdict, and propose a replacement for dots in open lists and dots that join a name to a qualifier. The review never edits the writer's text.
 
 ## Workflow
 
@@ -32,6 +32,10 @@ Two answers from the National Institute of Korean Language's online Q&A, 온라�
 
 Closure is judged by meaning, never by how many dots there are: a two-item list can be open and a five-item list closed.
 
+### Names and qualifiers
+
+When both expressions name the same subject, put the alias, abbreviation, original-language name or former name in parentheses after the primary name (새 이름 · 옛 이름 becomes 새 이름(옛 이름)). A year, role or product that describes the subject belongs in a separate description field or in the surrounding sentence. Keep dots and hyphens that belong to the name itself. Use neither a spaced middle dot nor a spaced dash to attach a qualifier. The slash option below joins separate short nouns in a list and never introduces another name for the same subject.
+
 ### Open lists: change
 
 A list is open when its items are examples of a larger class. Markers usually say so (등, 같은, 처럼, 따위, 을 비롯한, 예를 들면), or the writer says the items are a selection. A dot between separately named things (brands, products, tools) is a list like any other; the name protection covers only a dot inside one name.
@@ -44,7 +48,9 @@ Quoted text (inside quotation marks, even when it looks like a list), a proper n
 
 ### Proposing a replacement
 
-In a review, one proposal per open list, covering all of its dots. Give the location (file and line), the original span copied exactly, character for character, including the marker (등, 같은) so the writer can find it, the proposed span, and a short reason saying why the items are an open list. Then re-read the proposal in its sentence for particles and spacing.
+In a review, one proposal per qualified name or open list, covering all of its separator dots. Give the location (file and line), the original span copied exactly, character for character, including any list marker (등, 같은) so the writer can find it, the proposed span, and a short reason identifying the qualifier or explaining why the list is open. Then re-read the proposal in its sentence for particles and spacing.
+
+For an open list, choose a replacement that fits its context.
 
 - In prose, the comma: A·B·C 등 becomes A, B, C 등. Only the separators change; every item, the marker and all other wording and punctuation stay.
 - A connective is a second option only when it keeps the items' relation and reads naturally: 및 or 와/과 when the items go together (all of them apply), 이나 or 또는 when they are alternatives (one is chosen). When the items are alternatives, say in the reason that an and-word would change the meaning. 및 right before 등 often reads heavy; the comma alone is then the better offer.
@@ -66,6 +72,8 @@ Give each dot one verdict; an answer that offers both a change and a keep for on
 ## Rules
 
 ### Evidence
+
+For a name proposal, [Wikidata label guidance](https://www.wikidata.org/wiki/Help:Label) places disambiguating details in the description, and [the Microsoft Style Guide](https://learn.microsoft.com/en-us/style-guide/acronyms) puts an acronym in parentheses after the spelled-out term. This skill extends the parentheses convention to other names for the same subject.
 
 Name both rulings, 온라인가나다 324634 and 327303, as the basis for keeping the three roles and for the comma or 및 in prose. Where you use them, say that spacing in a label row and the slash option are this skill's own rules, not part of the rulings, and that 와/과, 이나 and 또는 are chosen from the sentence's meaning and are not what the rulings test; 및 itself is in the rulings. Cite no statistics or detector studies, and claim no benefit beyond matching the rulings.
 
