@@ -142,6 +142,7 @@ An external contribution lands through [`re0-merge`](./skills/depth/re0-merge/SK
 4. Sign the tag on the commit that landed (`git tag -s`), confirm `git tag -v` reports a good signature, and push it, **the entire manual step**. It triggers [`release.yml`](./.github/workflows/release.yml): run `npm run check`, verify `package.json` matches the tag, check the tag's notes with `notes.mjs`, publish to npm by trusted publishing, which attaches provenance and skips a version already published, then title and publish the GitHub Release from the tag. Never run one of those by hand, even to rescue a failed run: a hand-run step drops the provenance attestation and the title convention while still looking like a good release. A failed run and a re-cut tag follow its step 10.
 5. Credit comments, and the closing of a carried pull request still open, follow its step 11.
 6. Move the shipped cycle's folder from `.re0/iteration/active/` into `.re0/iteration/completed/` by its step 12.
+7. Delete the release branch and every pull request head it landed, remote and local, by its step 13; a branch that did not land stays.
 
 No build step: the package ships the repo as-is via `.gitignore` from the clean CI checkout, which is why publishing is CI's alone (step 4). Never add an `.npmignore`; it would publish the `*.local` docs. *(checked: catalog)*
 
